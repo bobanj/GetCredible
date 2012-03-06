@@ -1,4 +1,12 @@
 GetCredible::Application.routes.draw do
+  get "home/index"
+  get "home/activity"
+  get "home/search"
+  get "home/show_profile"
+  get "home/edit_profile"
+  get "home/invite_email"
+  get "home/invite_twitter"
+
   devise_for :users
 
   # The priority is based upon order of creation:
@@ -50,7 +58,7 @@ GetCredible::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'home#index'
 
   # See how all your routes lay out with "rake routes"
 

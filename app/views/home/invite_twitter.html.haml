@@ -1,0 +1,107 @@
+- content_for :styles do
+  = stylesheet_link_tag 'invite', :media => 'all'
+
+#content
+  %section#invite
+    %header#page-header
+      %h1 Invite your friends
+      
+      %ul.unstyled.services
+        %li.facebook
+          %a{:href => '', :class => ""}
+            %span
+            From Facebook                         
+          
+        %li.twitter
+          %a{:href => '', :class => ""}
+            %span
+            From Twitter
+                   
+        %li.email
+          %a{:href => '', :class => ""}
+            %span
+            Using email
+
+          
+    %section#twitter-friends
+      %h2 Twitter friends (3)
+      
+      .feed
+        %ul.list-view.unstyled
+          
+          %li
+            .content
+              .photo
+                %a{:href => '', :class => ""}
+                  %img{:src => 'https://api.twitter.com/1/users/profile_image/MarkoRosic?size=normal'}           
+              %h3
+                Zoran Jambor
+                %small @ZoranJambor
+              .details   
+                Front-end developer. In love with mobile web (if you're foolish enough to believe that there are two kinds of web). CSS3, HTML5 and JavaScript junkie.
+              .action.invited
+                .icon
+                Friend invited        
+                                                      
+          %li
+            .content
+              .photo
+                %a{:href => '', :class => ""}
+                  %img{:src => 'https://api.twitter.com/1/users/profile_image/MarkoRosic?size=normal'}           
+              %h3 
+                Rian van der Merwe
+                %small @RianVDM
+              .details                  
+                Head of User Experience at @kalaharicom. Contributor to @smashingmag. Tweets about UX, design, software development, technology, and creativity.                                        
+              %form                                   
+                %label{:for => 'f-tag'} Why don’t you tag your friend:
+                %input{:type => 'text', :id => 'f-tag', :name => 'f-tag', :placeholder => 'Separate tags by comma: e.g. web design, leadership, project management'}                              
+                %button.btn.primary.large INVITE
+                %a{:href => '', :class => "cancel"} Cancel
+                
+          %li
+            .content
+              .photo
+                %a{:href => '', :class => ""}
+                  %img{:src => 'https://api.twitter.com/1/users/profile_image/MarkoRosic?size=normal'}           
+              %h3 
+                Zoran Jambor
+                %small @ZoranJambor
+              .details   
+                Front-end developer. In love with mobile web (if you're foolish enough to believe that there are two kinds of web). CSS3, HTML5 and JavaScript junkie.
+              .action
+                %a{:href => '#', :class => 'btn large' } + 
+%aside
+    
+  %nav#profile-nav
+    .photo
+      %a{:href => '', :class => ""}
+        %img{:src => 'https://api.twitter.com/1/users/profile_image/MarkoRosic?size=bigger'}
+    
+    .my-actions 
+      Welcome Adriana 
+      %br
+      %a{:href => '', :class => "xxl"} Edit profile
+      &bull;
+      %a{:href => '', :class => "xxl"} Logout
+  #latest-activity
+    %h2 Latest incoming activity
+    
+    %ul.unstyled
+      %li.tag
+        %span.icon 
+        Janko Jovanovic tagged you as enterpreneur
+      %li.vouch
+        %span.icon
+        Boban Jovanoski vouched for enterprenur, manager,  leader
+      %li.tag
+        %span.icon
+        John Smith tagged you as thinker
+      %li.tag
+        %span.icon
+        Marting Berg tagged you as thinker
+      %li.vouch
+        %span.icon
+        Jessica Hess vouched for enterprenur
+    
+    = link_to 'View all incoming activity ►', ''

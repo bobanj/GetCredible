@@ -1,0 +1,256 @@
+- content_for :styles do
+  = stylesheet_link_tag 'profile', :media => 'all'
+
+
+-#  Another way is to load cloud as partial view:
+-#  :javascript
+-#    $(document).ready(function() { 
+-#      //$('#tag-cloud').load('pages/page3.html');
+-#      //Try this example in mozilla because chrome doesn't support the jQuery load() method.
+-#      //page3 is used to simulate rendering of partial view which you'll we get after calling controller action which will render page.
+-#    });
+  
+
+-#  In the another example, where we used static words_list which you can get from server as json result.
+ 
+
+
+- content_for :scripts do
+  :javascript
+    $(function() {  
+      //read these data from server and render list
+      //<![CDATA[ 
+      var word_list3 = [
+      {text: "lorem", customClass: "remove", weight: 13, title: "<span id='tag-cloud_tip_0'>15</span>" },
+      {text: "ipsum", customClass: "remove", weight: 10.5, title: "<span id='tag-cloud_tip_1'>15</span>" },
+      {text: "dolor", customClass: "remove", weight: 9.4, title: "<span id='tag-cloud_tip_2'>15</span>" },
+      {text: "sit", customClass: "remove", weight: 8, title: "<span id='tag-cloud_tip_3'>15</span>" },
+      {text: "amet", customClass: "remove", weight: 6.2, title: "<span id='tag-cloud_tip_4'>15</span>" },
+      {text: "consectetur", customClass: "remove", weight: 5, title: "<span id='tag-cloud_tip_5'>15</span>" },
+      {text: "adipiscing", customClass: "remove", weight: 5, title: "<span id='tag-cloud_tip_6'>15</span>" },
+      {text: "elit", customClass: "remove", weight: 5, title: "<span id='tag-cloud_tip_7'>15</span>" },
+      {text: "remove tag example", customClass: "remove", weight: 5, title: "<span id='tag-cloud_tip_15'>10</span>" },    
+      {text: "nam et", customClass: "remove", weight: 5, title: "<span id='tag-cloud_tip_8'>15</span>" },
+      {text: "leo", customClass: "remove", weight: 4, title: "<span id='tag-cloud_tip_9'>15</span>" },
+      {text: "sapien", customClass: "remove", weight: 4, title: "<span id='tag-cloud_tip_10'>15</span>" },
+      {text: "pellentesque", customClass: "remove", weight: 3, title: "<span id='tag-cloud_tip_11'>15</span>" },
+      {text: "habitant", customClass: "remove", weight: 3, title: "<span id='tag-cloud_tip_12'>15</span>" },
+      {text: "morbi", customClass: "remove", weight: 3, title: "<span id='tag-cloud_tip_13'>15</span>" },
+      {text: "tristisque", customClass: "remove", weight: 3, title: "<span id='tag-cloud_tip_14'>15</span>" }   
+      ];
+      //]]>                   
+        LoadTagsCloud(word_list3); 
+        InitializeRemoveTagFromMyProfile();
+      });     
+      function LoadTagsCloud(list)
+      {
+         $("#tag-cloud").html("");
+       $("#tag-cloud").jQCloud(list, {
+         callback: function () {  
+                  //w5         
+          $("#tag-cloud .w10, #tag-cloud .w9").tipsy({
+            gravity: 'e',
+            fade: true,
+            html: true,  
+            delayOut: 50,
+            title: function() 
+            { 
+              var original = this.getAttribute("original-title");
+              var originalSpan = $(original).addClass("w5");
+              var html = $('<div>').append($(originalSpan).clone()).remove().html();            
+              return html;
+            }         
+            }).append('<span class="icon"></span>');
+                  //w4
+          $("#tag-cloud .w8, #tag-cloud .w7").tipsy({
+            gravity: 'e',
+            fade: true,
+            html: true,  
+            delayOut: 50,
+            title: function() 
+            { 
+              var original = this.getAttribute("original-title");
+              var originalSpan = $(original).addClass("w4");
+              var html = $('<div>').append($(originalSpan).clone()).remove().html();            
+              return html;
+            }         
+            }).append('<span class="icon"></span>');
+          //w3  
+          $("#tag-cloud .w6, #tag-cloud .w5").tipsy({
+            gravity: 'e',
+            fade: true,
+            html: true,  
+            delayOut: 50,
+            title: function() 
+            { 
+              var original = this.getAttribute("original-title");
+              var originalSpan = $(original).addClass("w3");
+              var html = $('<div>').append($(originalSpan).clone()).remove().html();            
+              return html;
+            }         
+            }).append('<span class="icon"></span>');  
+          //w2  
+          $("#tag-cloud .w4, #tag-cloud .w3").tipsy({
+            gravity: 'e',
+            fade: true,
+            html: true,  
+            delayOut: 50,
+            title: function() 
+            { 
+              var original = this.getAttribute("original-title");
+              var originalSpan = $(original).addClass("w2");
+              var html = $('<div>').append($(originalSpan).clone()).remove().html();            
+              return html;
+            }         
+            }).append('<span class="icon"></span>');  
+          //w1  
+          $("#tag-cloud .w2, #tag-cloud .w1").tipsy({
+            gravity: 'e',
+            fade: true,
+            html: true,  
+            delayOut: 50,
+            title: function() 
+            { 
+              var original = this.getAttribute("original-title");
+              var originalSpan = $(original).addClass("w1");
+              var html = $('<div>').append($(originalSpan).clone()).remove().html();            
+              return html;
+            }         
+            }).append('<span class="icon"></span>');              
+        }
+        });  
+      }
+
+      function InitializeRemoveTagFromMyProfile()
+      {
+        $(".remove .icon").live("click", function() {     
+         var wordId = $(this).closest(".remove").attr("id");
+         $("#" + wordId).tipsy("hide");              
+         var word = $("#" + wordId).text();
+         $("#tag-cloud").html("loading...");
+         //This page is used just as a demo. 
+         //Instead of this you can use ajax which returns new html with refreshed data from database (demo page4)
+         //After this action cloud will be shown without selected word
+         //The call can be something like this:
+         /*
+         var userId = "getUserWhoTagId";
+         var removeTag = "toRemoveWord";
+         $.ajax({
+          url: 'urlToPerformRemoveActionAndReturnsRefreshedHtml', (in this demo that is page4)
+          type: "GET",
+          data: { user1 : userId, removeTag : toRemoveWord }, //send to server word or wordId
+          success: function(data) {             
+             //replace existing tag-cloud html with the refreshed one
+             $("#tag-cloud").html(data);  
+          });
+         */
+         //If you want to use this approah uncomment the raw below(+use ff for demo) and comment LoadTagsCloud() below:
+         //$('#tag-cloud').load('pages/page4.html');
+         
+        //Another way is to return refreshed words_list from server with json.   
+        //words_list4 is result of ajax call to controller which retreive json result. Demo use satatic list: 
+              var word_list4 = [
+              {text: "lorem", customClass: "remove", weight: 13, title: "<span id='tag-cloud_tip_0'>15</span>" },
+              {text: "ipsum", customClass: "remove", weight: 10.5, title: "<span id='tag-cloud_tip_1'>15</span>" },
+              {text: "dolor", customClass: "remove", weight: 9.4, title: "<span id='tag-cloud_tip_2'>15</span>" },
+              {text: "sit", customClass: "remove", weight: 8, title: "<span id='tag-cloud_tip_3'>15</span>" },
+              {text: "amet", customClass: "remove", weight: 6.2, title: "<span id='tag-cloud_tip_4'>15</span>" },
+              {text: "consectetur", customClass: "remove", weight: 5, title: "<span id='tag-cloud_tip_5'>15</span>" },
+              {text: "adipiscing", customClass: "remove", weight: 5, title: "<span id='tag-cloud_tip_6'>15</span>" },
+              {text: "elit", customClass: "remove", weight: 5, title: "<span id='tag-cloud_tip_7'>15</span>" },
+              {text: "nam et", customClass: "remove", weight: 5, title: "<span id='tag-cloud_tip_8'>15</span>" },
+              {text: "leo", customClass: "remove", weight: 4, title: "<span id='tag-cloud_tip_9'>15</span>" },
+              {text: "sapien", customClass: "remove", weight: 4, title: "<span id='tag-cloud_tip_10'>15</span>" },
+              {text: "pellentesque", customClass: "remove", weight: 3, title: "<span id='tag-cloud_tip_11'>15</span>" },
+              {text: "habitant", customClass: "remove", weight: 3, title: "<span id='tag-cloud_tip_12'>15</span>" },
+              {text: "morbi", customClass: "remove", weight: 3, title: "<span id='tag-cloud_tip_13'>15</span>" },
+              {text: "tristisque", customClass: "remove", weight: 3, title: "<span id='tag-cloud_tip_14'>15</span>"}
+        ];         
+         LoadTagsCloud(word_list4); 
+         return false;
+        });       
+      }
+
+
+#content
+
+  %section#profile.edit
+    .details
+      .photo
+        %a{:href => '', :class => ""}
+          %img{:src => 'https://api.twitter.com/1/users/profile_image/MarkoRosic?size=bigger'}      
+      %ul
+        %li.name          
+          %label{:for => 'p-name'} Full name
+          %input{:type => 'text', :id => 'p-name', :name => 'p-name'}  
+            
+        %li.title          
+          %label{:for => 'p-title'} Job title
+          %input{:type => 'text', :id => 'p-title', :name => 'p-title'}  
+            
+        
+        %li.location          
+          %label{:for => 'p-location'} Where do you live
+          %input{:type => 'text', :id => 'p-location', :name => 'p-location'}  
+            
+            
+        %li.site          
+          %label{:for => 'p-site'} Your site
+          %input{:type => 'text', :id => 'p-site', :name => 'p-site'}  
+            
+        
+        %li.twitter          
+          %label{:for => 'p-twitter'} Twitter handle
+          %input{:type => 'text', :id => 'p-twitter', :name => 'p-twitter'}                      
+          %button.btn.primary.large Save                                          
+  
+  %section#tags                   
+    
+    #tag-cloud
+    
+    #tag-msg
+      %span.icon
+      %a{:href => '#'}
+        John Smith
+      ,
+      %a{:href => '#'}
+        Marting Berg
+      and 11 other people tagged or vouched you so far.
+                  
+
+
+%aside
+  
+  %nav#profile-nav
+    .photo
+      %a{:href => '', :class => ""}
+        %img{:src => 'https://api.twitter.com/1/users/profile_image/MarkoRosic?size=bigger'}
+    
+    .my-actions 
+      Welcome Adriana 
+      %br
+      %a{:href => '', :class => "xxl"} Edit profile
+      &bull;
+      %a{:href => '', :class => "xxl"} Logout
+  
+  #latest-activity
+    %h2 Latest incoming activity
+    
+    %ul.unstyled
+      %li.tag
+        %span.icon 
+        Janko Jovanovic tagged you as enterpreneur
+      %li.vouch
+        %span.icon
+        Boban Jovanoski vouched for enterprenur, manager,  leader
+      %li.tag
+        %span.icon
+        John Smith tagged you as thinker
+      %li.tag
+        %span.icon
+        Marting Berg tagged you as thinker
+      %li.vouch
+        %span.icon
+        Jessica Hess vouched for enterprenur
+    
+    = link_to 'View all incoming activity ►', ''

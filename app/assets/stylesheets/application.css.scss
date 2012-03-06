@@ -1,0 +1,574 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require tipsy
+ * require_tree .
+ * 
+*/
+
+@import "compass/reset";
+
+// Framework imports and common settings
+@import "base";
+@import "bootstrap";
+
+// Lato font
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+
+
+
+
+
+/* COMPONENTS
+-----------------------------------------------------------------------*/
+
+// Form elements
+
+// Inputs, Textareas, Selects
+input, textarea, select, .uneditable-input {
+  display: inline-block;
+  width: 210px;
+  padding: 8px;
+  color: $gray;
+  border: 1px solid #d7d7d7;
+  @include border-radius(1px);
+}
+
+input, textarea {
+  @include box-shadow(inset 0 5px 5px rgba(0,0,0,.1));
+  font-size: 12px;
+}
+
+
+// Button Base
+.btn {
+  @include border-radius(2px);
+  border: 1px solid lighten($black, 59%);
+  @include background-image(linear-gradient(lighten($black, 88%), lighten($black, 69%)));
+  @include box-shadow(rgba($white, 0.85) 0px 0px 1px 0px inset, rgba($black, 0.38) 0px 2px 5px );
+  font-weight: bold;
+  @include text-shadow(#fff 0px 1px 0px);
+  @include transition(all 0.1s ease);
+
+  &:hover {
+    @include background-image(linear-gradient(lighten($black, 93%), lighten($black, 74%)));
+    background-position: 0 0;
+  }
+
+
+
+// Primary Button Type
+&.primary {
+    border: 1px solid #8bc7fd;
+    color: #165288;
+    @include background-image(linear-gradient(#c1e2ff, #95ccff));
+    filter: none;
+    @include text-shadow(#fff 0px 1px 0px);
+
+    &:hover {
+      @include background-image(linear-gradient(#d3ebff, #b5dbff));
+      background-position: 0 0;
+    }
+
+  // Active state
+  &:active {
+        @include background-image(linear-gradient(#d3ebff, #b5dbff));
+        @include box-shadow(rgba($black, 0.15) 0px 5px 5px 0px inset, rgba($black, 0.24) 0px 0px 6px inset );
+        border: 1px solid #5b7994;
+      }
+
+  }
+
+// Button Sizes
+&.large {
+    @include border-radius(2px);
+    font-size: 14px;
+    padding: 11px 14px;
+  }
+
+}
+
+// Tabs
+.tabs {
+  border-color: lighten($black, 76%);
+  border-style: solid;
+  border-width: 1px;
+  @include border-radius(4px);
+  @include background-image(linear-gradient(lighten($black, 93%), lighten($black, 82%)));
+
+  > li {
+    position: relative; // For the dropdowns mostly
+    margin-bottom: 0;
+    > a {
+      color: $grayDark;
+      padding: 0 15px;
+      margin-right: 0;
+      line-height: 28px;
+      border-bottom: 0 none;
+      border-left: 1px solid lighten($black, 96%);
+      border-right: 1px solid $borderColor;
+      border-top: 0 none;
+      @include border-radius(0);
+      @include text-shadow(#fff 0px 1px 0px);
+      &:hover {
+        text-decoration: none;
+        background-color: #eee;
+        border-color: #eee #eee #ddd;
+      }
+    }
+  }
+
+  .active > a {
+    @include box-shadow(rgba($black, 0.26) 0px 3px 5px 0px inset);
+    @include background-image( linear-gradient(lighten($black, 82%),lighten($black, 93%)));
+  }
+
+  .active + li a {
+    border-left: 0 none;
+  }
+
+  .active > a, .active > a:hover {
+    color: $gray;
+    background-color: $white;
+    border: 0px none;
+    border-bottom-color: transparent;
+    cursor: default;
+  }
+}
+
+
+// Pagination
+.pagination {
+
+  text-align: center;
+
+  ul {
+    width: 640px;
+    border: 0 none;
+  }
+
+  a {
+    border: 0 none;
+    color: $grayDark;
+    float: none;
+    display: inline-block;
+    line-height: 18px;
+    padding: 0 6px;
+    @include border-radius(2px);
+
+    &:hover {
+      background: $linkColor;
+      color: $white;
+    }
+
+  }
+
+  .active a {
+    background: #d4d4d4;
+
+    &:hover {
+      background: $linkColor;
+      color: $white;
+    }
+
+  }
+
+}
+
+// General style for profile photo
+.photo a {
+  float: left;
+  @include box-shadow(rgba($black, 0.2) 0px 2px 4px);
+
+  img { display: block; }
+
+}
+
+// Icons
+.icon {
+  @include replace-text("icons-sprite.png", 0, 0);
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+}
+
+
+.tag .icon {
+  background-position: 0 -32px;
+}
+
+.vouche .icon {
+  background-position: 0 0;
+}
+
+
+// List of items activity feed/search
+.list-view {
+
+  li {
+    padding: 16px 0;
+    border-bottom: 1px solid $borderColor;
+    @include clearfix;
+  }
+
+  .photo {
+
+    position: relative;
+    float: left;
+    height: 41px;
+    width: 41px;
+    margin-left: -50px;
+
+    a {
+      @include box-shadow(0);
+    }
+
+    img {
+      width: 41px;
+    }
+
+  }
+
+  .you {
+
+    img {
+      width: 28px;
+
+      &.over {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 24px;
+      }
+
+    }
+
+  }
+
+  .content {
+    margin-left: 50px;
+
+    > .icon {
+      float: left;
+      margin-bottom: 15px;
+      margin-right: 10px;
+      margin-top: 14px;
+    }
+
+  }
+
+  h2 {
+    color: $grayDark;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 16px;
+  }
+
+  time, .details {
+    font-size: 12px;
+  }
+
+}
+
+
+
+/* BASIC PAGE SETTINGS
+-----------------------------------------------------------------------*/
+html, body {
+  background: image-url("bg.jpg");
+  margin: 0;
+}
+
+
+body {
+  font-family: 'Lato', Arial, helvetica, sans-serif;
+}
+
+
+/* GRIDS
+-----------------------------------------------------------------------*/
+#page {
+  @include grid-container;
+}
+
+#global-header {
+  @include grid(12);
+}
+
+
+#global-nav {
+  @include grid(9);
+  @include alpha;
+}
+
+#content {
+  @include grid(9);
+  @include alpha;
+  @include omega;
+}
+
+#global-search, aside {
+  @include grid(3);
+  @include alpha;
+  @include omega;
+}
+
+aside {
+  width: 239px;
+}
+
+footer, #main {
+  @include grid(12);
+}
+
+footer {
+  @include grid(9);
+  @include grid-suffix(3);
+}
+
+
+
+#profile,
+#activity,
+#search,
+#invite,
+#invite form,
+#profile-nav,
+#latest-activity,
+#invite-side,
+#import  {
+  @include clearfix;
+}
+
+#profile {
+  padding: 28px 30px 40px 30px;
+}
+
+#activity,
+#search {
+  padding: 20px 30px 20px 30px;
+}
+
+#invite {
+
+  #page-header { padding: 20px 30px 14px 30px; }
+
+  form, #twitter-friends { padding: 20px 30px 30px 30px; }
+}
+
+
+#profile-nav, #latest-activity, #invite-side, #import  {
+  padding: 20px;
+}
+
+#invite-side, #import, #latest-activity  {
+  border-top: 1px solid $borderColor;
+}
+
+
+/* STYLE
+-----------------------------------------------------------------------*/
+
+// Header
+#global-header{
+
+  @include background-image(linear-gradient(lighten($black, 99%), lighten($black, 96%)));
+  border-bottom: 1px solid $borderColor;
+  border-left: 1px solid $borderColor;
+  border-right: 1px solid $borderColor;
+  @include border-bottom-radius(3px);
+  margin-bottom: 24px;
+
+  label {
+    display: none;
+  }
+}
+
+// Global navigation
+#global-nav {
+
+  border-right: 1px solid $borderColor;
+  margin: 0;
+
+  li {
+    display: block;
+    float: left;
+    list-style: none;
+
+    &.active a {
+      @include background-image(linear-gradient(lighten($black, 95%), lighten($black, 92%)));
+      @include box-shadow( inset 0px 0px 5px 1px rgba(0, 0, 0, 0.1));
+      border-left: 0 none;
+    }
+  }
+
+
+  a {
+    color: $gray;
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 13px 18px 12px 18px;
+    border-left: 1px solid $white;
+    border-right: 1px solid $borderColor;
+    @include text-shadow($white 0px 1px 0px);
+
+    &:hover {
+      text-decoration: none;
+      background: lighten($black, 96%);
+    }
+  }
+
+// Logo style
+#gn-logo a {
+    border-left: 0 none;
+    color: $linkColor;
+    font-size: 18px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+}
+
+// Global search in header
+#global-search {
+  border-left: 1px solid $white;
+  padding-left: 10px;
+
+  form {
+    margin: 10px 0 0 0;
+    background: lighten($black, 96%);
+    @include box-shadow(rgba($black, 0.32) 0px 2px 5px inset, $white 0px 1px 0px );
+    @include border-radius(3px);
+    width: 192px;
+    @include clearfix;
+  }
+
+  input {
+    @include box-shadow(none);
+    background: none;
+    width: 145px;
+    border: 0 none;
+    float: left;
+    font-size: 12px;
+    padding: 3px 11px 2px 11px;
+
+  }
+
+  button {
+    background-color: transparent;
+    border: 0 none;
+    float: left;
+    @include replace-text("icon-search.png");
+    height: 25px;
+    width: 25px;
+
+  }
+
+}
+
+
+// Main section
+#main {
+  background: #fff;
+  border: 1px solid $borderColor;
+  @include border-radius(3px);
+}
+
+#content {
+  border-right: 1px solid $borderColor;
+}
+
+
+#page-header {
+
+  border-bottom: 1px solid $borderColor;
+
+  h1 {
+    font-size: 24px;
+    font-weight: normal;
+  }
+
+}
+
+// Sidebar
+aside {
+  background: darken($white, 2%);
+
+  #profile-nav {
+
+    .photo a {
+      padding: 4px;
+
+      img { width: 60px; }
+
+    }
+
+    .my-actions {
+      margin-top: 15px;
+      margin-left: 80px;
+      width: 118px;
+    }
+
+  }
+
+  h2 {
+    font-size: 13px;
+    line-height: 20px;
+    margin-bottom: 10px;
+  }
+
+}
+
+#latest-activity li {
+  line-height: 18px;
+  margin-bottom: 8px;
+}
+
+#invite-side, #import {
+
+  li {
+    line-height: 16px;
+    margin-bottom: 20px;
+  }
+
+  .icon {
+    height: 16px;
+    width: 16px;
+    margin-right: 5px;
+  }
+
+  a { color: $grayDark; }
+
+  .facebook .icon { background-position: 0 -144px; }
+  .twitter .icon { background-position: 0 -160px; height: 14px; }
+  .email .icon { background-position: 0 -176px; height: 12px; }
+
+}
+
+#import .icon { background-position: 0 -192px; float: left; margin: 10px 8px 10px 0; }
+
+// Footer
+footer {
+  border-top: 0 none;
+  color: #ababab;
+  font-size: 11px;
+  margin-top: 0;
+  padding-bottom: 20px;
+  padding-top: 15px;
+  text-align: center;
+
+  a {
+    color: #ababab;
+    text-decoration: underline;
+  }
+
+}

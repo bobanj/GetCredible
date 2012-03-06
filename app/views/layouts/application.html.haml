@@ -1,0 +1,45 @@
+!!!
+%html
+  %head
+    %title GetCredible
+    = stylesheet_link_tag    "application", :media => "all"
+    = yield :styles
+
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+
+    /[if lt IE 9]
+      %script(src="http://html5shiv.googlecode.com/svn/trunk/html5.js")
+      = stylesheet_link_tag    "ie", :media => "all"
+
+  %body
+    #page
+      %header#global-header
+        %nav
+          %ul#global-nav
+            %li#gn-logo
+              = link_to 'GetCredible', '#'
+            %li#gn-activity
+              = link_to 'Activity feed', '#'
+            %li#gn-profile
+              = link_to 'Profile', '#'
+            %li#gn-invite
+              = link_to 'Invite', '#'
+            %li#gn-login
+              = link_to 'Login', new_user_session_path
+          #global-search
+            %form{:action => '', :method => 'get', :id => 'g-search'}
+              %label{:for => 'g-searchtext'} Search
+              %input{:type => 'text', :name => 'q', :id => 'g-searchtext', :placeholder => 'Search people'}
+              %button go
+
+      #main
+        = yield
+
+      %footer
+        Copyright &copy; GetCredible 2012.
+        = link_to 'Privacy policy', '#'
+        &bull;
+        = link_to 'Terms of use', '#'
+
+      = yield :scripts
