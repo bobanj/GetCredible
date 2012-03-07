@@ -1,8 +1,15 @@
-%h2 Forgot your password?
-= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
-  = f.error_notification
-  .inputs
-    = f.input :email, :required => true
-  .actions
-    = f.button :submit, "Send me reset password instructions"
-= render "links"
+- content_for :styles do
+  = stylesheet_link_tag 'devise', :media => 'all'
+
+#content
+  %section#devise
+    %header#page-header
+      %h1 Forgot your password?
+
+    = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+      = f.error_notification
+      %ul.inputs
+        %li= f.input :email, :required => true
+        %li= f.button :submit, "Send me reset password instructions", class: 'btn large primary'
+%aside
+  = render "links"

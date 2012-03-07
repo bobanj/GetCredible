@@ -1,10 +1,18 @@
-%h2 Sign up
-= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-  = f.error_notification
-  .inputs
-    = f.input :email, :required => true, :autofocus => true
-    = f.input :password, :required => true
-    = f.input :password_confirmation, :required => true
-  .actions
-    = f.button :submit, "Sign up"
-= render "links"
+- content_for :styles do
+  = stylesheet_link_tag 'devise', :media => 'all'
+
+#content
+  %section#devise
+    %header#page-header
+      %h1 Sign Up
+
+    = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+      = f.error_notification
+      %ul.inputs
+        %li= f.input :email, :required => true, :autofocus => true
+        %li= f.input :password, :required => true
+        %li= f.input :password_confirmation, :required => true
+        %li= f.button :submit, "Sign up", class: 'btn large primary'
+
+%aside
+  = render "links"

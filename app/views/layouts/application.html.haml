@@ -25,8 +25,12 @@
               = link_to 'Profile', '#'
             %li#gn-invite
               = link_to 'Invite', '#'
-            %li#gn-login
-              = link_to 'Login', new_user_session_path
+            - if user_signed_in?
+              %li#gn-logout
+                = link_to "Logout", destroy_user_session_path
+            - else
+              %li#gn-login
+                = link_to 'Login', new_user_session_path
           #global-search
             %form{:action => '', :method => 'get', :id => 'g-search'}
               %label{:for => 'g-searchtext'} Search
@@ -34,6 +38,7 @@
               %button go
 
       #main
+        = flash_messages
         = yield
 
       %footer
