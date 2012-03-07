@@ -47,3 +47,13 @@ gem "haml", ">= 3.0.0"
 gem "haml-rails"
 gem "jquery-rails"
 gem "rspec-rails", ">= 2.8.1", :group => [:development, :test]
+gem 'simple_form'
+
+group :development do
+  gem 'awesome_print'
+  gem 'capistrano'
+  gem 'capistrano-ext'
+  gem 'hirb'
+  gem 'rails3-generators'
+  gem 'wirble'
+end
