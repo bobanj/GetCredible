@@ -28,6 +28,7 @@ rerun.txt
 data/asset*
 locale/**/LC_MESSAGES
 capybara-*
+Sporkfile.rb
 *.gems
 public/sitemap*
 config/settings.local.yml

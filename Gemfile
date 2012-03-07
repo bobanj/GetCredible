@@ -24,6 +24,26 @@ group :assets do
   gem 'compass-960-plugin'
 end
 
+group :development do
+  gem 'guard'
+  # gem 'guard-cucumber'
+  # gem 'guard-rspec'
+  gem 'guard-spork'
+  gem 'rb-fsevent', :require => RUBY_PLATFORM.include?('darwin')  && 'rb-fsevent'
+  gem 'growl',      :require => RUBY_PLATFORM.include?('darwin')  && 'growl'
+  gem 'rb-inotify', :require => RUBY_PLATFORM.include?('linux')   && 'rb-inotify'
+  gem 'libnotify',  :require => RUBY_PLATFORM.include?('linux')   && 'rb-inotify'
+  gem 'rb-readline'
+end
+
+group :test do
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'shoulda-matchers'
+  gem 'spork', '~> 0.9.0.rc'
+end
+
+
 
 
 # To use ActiveModel has_secure_password
