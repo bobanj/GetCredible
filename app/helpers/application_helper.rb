@@ -10,4 +10,11 @@ module ApplicationHelper
     msg.html_safe
   end
 
+  # Creates unique id for HTML document body
+  def controller_action_id
+    parts = controller.controller_path.split('/')
+    parts << controller.action_name
+    parts.join('_')
+  end
+
 end

@@ -4,6 +4,6 @@ class Tag < ActiveRecord::Base
   attr_accessible :name
 
   # Validations
-  validates :name, :presence => true
+  validates :name, :presence => true, :uniqueness => true
 
 end

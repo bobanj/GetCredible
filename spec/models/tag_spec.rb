@@ -7,7 +7,9 @@ describe Tag do
   end
 
   describe 'Validations' do
+    subject { Factory(:tag) }
     it { should validate_presence_of(:name) }
+    it { should validate_uniqueness_of(:name) }
   end
 
 end

@@ -1,0 +1,94 @@
+- content_for :styles do
+  = stylesheet_link_tag 'profile', :media => 'all'
+
+:javascript
+  var _user_id = "#{@user.id}";
+
+#content
+
+  %section#profile
+    .details
+      .photo
+        %a{:href => '', :class => ""}
+          %img{:src => 'https://api.twitter.com/1/users/profile_image/MarkoRosic?size=bigger'}
+      %h1 Robert Cunningham, Jr.
+      %h2 WEb and user interface designer
+      %ul
+        %li.location
+          %span.icon
+          %a{:href => '#'}
+            New York
+        %li.web
+          %span.icon
+          %a{:href => '#'}
+            www.robertcunningham.com
+        %li.twitter
+          %span.icon
+          %a{:href => '#'}
+            @robertc
+    .actions
+      Like
+      Tweet
+
+      %a{:href => '#', :class => 'btn primary large'} Edit profile
+
+
+  %section#tags
+
+    #add-tag
+      .inner
+        %form
+          %label Tag Robert
+          %input{:type => 'text', :name => 'tags', :placeholder => 'e.g. web design, leadership, project management', :class => 'large', :id => 'tag_names'}
+          %button.btn.primary.large ADD TAG
+        .vouche Or <strong>vouche for existing tag</strong><br/> by clicking on it
+      .arrow
+
+    #tag-cloud
+
+    #tag-msg
+      %span.icon
+      %a{:href => '#'}
+        John Smith
+      ,
+      %a{:href => '#'}
+        Marting Berg
+      and 11 other people tagged or vouched you so far.
+
+
+
+%aside
+
+  %nav#profile-nav
+    .photo
+      %a{:href => '', :class => ""}
+        %img{:src => 'https://api.twitter.com/1/users/profile_image/MarkoRosic?size=bigger'}
+
+    .my-actions
+      Welcome Adriana
+      %br
+      %a{:href => '', :class => "xxl"} Edit profile
+      &bull;
+      %a{:href => '', :class => "xxl"} Logout
+
+  #latest-activity
+    %h2 Latest incoming activity
+
+    %ul.unstyled
+      %li.tag
+        %span.icon
+        Janko Jovanovic tagged you as enterpreneur
+      %li.vouch
+        %span.icon
+        Boban Jovanoski vouched for enterprenur, manager,  leader
+      %li.tag
+        %span.icon
+        John Smith tagged you as thinker
+      %li.tag
+        %span.icon
+        Marting Berg tagged you as thinker
+      %li.vouch
+        %span.icon
+        Jessica Hess vouched for enterprenur
+
+    = link_to 'View all incoming activity ►', ''
