@@ -2,6 +2,8 @@
 %html
   %head
     %title GetCredible
+    = render 'shared/meta_information'
+
     = stylesheet_link_tag    "application", :media => "all"
     = yield :styles
 
@@ -15,29 +17,10 @@
   %body{:id => controller_action_id}
     #page
       %header#global-header
-        %nav
-          %ul#global-nav
-            %li#gn-logo
-              = link_to 'GetCredible', '#'
-            %li#gn-activity
-              = link_to 'Activity feed', '#'
-            %li#gn-profile
-              = link_to 'Profile', '#'
-            %li#gn-invite
-              = link_to 'Invite', '#'
-            - if user_signed_in?
-              %li#gn-logout
-                = link_to "Logout", destroy_user_session_path
-            - else
-              %li#gn-login
-                = link_to 'Login', new_user_session_path
-          #global-search
-            %form{:action => '', :method => 'get', :id => 'g-search'}
-              %label{:for => 'g-searchtext'} Search
-              %input{:type => 'text', :name => 'q', :id => 'g-searchtext', :placeholder => 'Search people'}
-              %button go
+        = render :partial => 'shared/menu'
 
       #main
+        - #TODO Style flash messages
         = flash_messages
         = yield
 

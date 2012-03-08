@@ -54,5 +54,24 @@ describe User do
       user.tags.length.should == 1
       user.tags[0].name.should == 'web design'
     end
+
+    it "tags another user" do
+    end
+
+    it "tags another user with multiple tags" do
+    end
+
+    it "tags another user with multiple repeating tags" do
+    end
+
+    it "counts votes per tag" do
+    end
+
+    it "can delete only own tags (not the tag itself just the user_tag)" do
+    end
+
+   # TODO still waiting for feedback if voting should happen right after user tags another user,
+   # we will use state machine in this case
+
   end
 end

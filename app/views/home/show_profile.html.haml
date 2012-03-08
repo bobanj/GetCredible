@@ -254,9 +254,9 @@
     .actions
       Like
       Tweet
-      
-      %a{:href => '#', :class => 'btn primary large'} Edit profile
-      
+      -# TODO change path after refactor
+      =link_to 'Edit profile', home_edit_profile_path, :class => 'btn primary large'
+
   
   %section#tags
     
