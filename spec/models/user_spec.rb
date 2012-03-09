@@ -70,8 +70,8 @@ describe User do
     it "can delete only own tags (not the tag itself just the user_tag)" do
     end
 
-   # TODO still waiting for feedback if voting should happen right after user tags another user,
-   # we will use state machine in this case
+   # TODO Voting(thumbs up) does not happen right after a user adds a tag
+   # Mashnata znachi deka veke si glasal za toj Tag
 
   end
 end
