@@ -81,11 +81,27 @@ describe User do
 
     it "sumarizes name and votes" do
       user.add_tags('web design')
-      tags = user.tags_summary
+      tags = user.tags_summary(nil)
       tags.length.should == 1
       tags[0][:id].should == user.user_tags[0].id
       tags[0][:name].should == "web design"
       tags[0][:votes].should == 0
+      tags[0][:voted].should be_false
+    end
+
+    it "sumarizes name and votes for a user" do
+      user.add_tags('web design')
+      user_tag = user.user_tags[0]
+
+      other_user = Factory(:user)
+      other_user.vote_exclusively_for(user_tag)
+
+      tags = user.tags_summary(other_user)
+      tags.length.should == 1
+      tags[0][:id].should == user.user_tags[0].id
+      tags[0][:name].should == "web design"
+      tags[0][:votes].should == 1
+      tags[0][:voted].should be_true
     end
   end
 end
