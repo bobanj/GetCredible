@@ -12,19 +12,14 @@
 
       = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:multipart => true}) do |f|
         %ul.inputs
-          %li= f.input :email, :required => true, :autofocus => true
-          %li= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false
-          %li= f.input :password_confirmation, :required => false
+          -#%li= f.input :email, :required => true, :autofocus => true
+          -#%li= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false
+          -#%li= f.input :password_confirmation, :required => false
           %li= f.input :first_name
           %li= f.input :last_name
           %li= f.input :job_title
-          %li= f.input :street
-          %li= f.input :zip
-          %li= f.input :city
-          %li= f.input :company_name
-          %li= f.input :company_url
           %li= f.input :country
-          %li= f.input :phone_number
+          %li= f.input :city
           %li= f.input :twitter_handle
           %li= f.input :personal_url
           %li= f.input :avatar, :as => :file
