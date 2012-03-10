@@ -22,4 +22,17 @@ class User < ActiveRecord::Base
       self.tags << tag unless tags.include?(tag)
     end
   end
+
+  def tags_summary
+    tags = []
+
+    user_tags.includes(:tag).each do |user_tag|
+      tags << {
+        name: user_tag.tag.name,
+        votes: 0 # FIXME: calculate votes dinamicaly
+      }
+    end
+
+    tags
+  end
 end

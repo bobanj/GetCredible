@@ -10,7 +10,7 @@ GetCredible::Application.routes.draw do
   devise_for :users
 
   resources :users, :only => [:show] do
-    resources :tags, :only => [:index, :create]
+    resources :user_tags, :only => [:index, :create], :path => :tags
   end
 
   # The priority is based upon order of creation:

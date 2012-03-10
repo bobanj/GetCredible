@@ -55,4 +55,20 @@ describe User do
       user.tags[0].name.should == 'web design'
     end
   end
+
+  describe "#tags_summary" do
+    let(:user) { Factory(:user) }
+
+    it "is empty when no user tags" do
+      user.tags_summary.should be_empty
+    end
+
+    it "sumarizes name and votes" do
+      user.add_tags('web design')
+      tags = user.tags_summary
+      tags.length.should == 1
+      tags[0][:name].should == "web design"
+      tags[0][:votes].should == 0
+    end
+  end
 end

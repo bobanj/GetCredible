@@ -83,16 +83,14 @@ function LoadTagsCloud(list)
   });
 }
 
-function InitializeOnClickVoucheUpOrDown(wordId)
-{
-  console.log(wordId)
+function InitializeOnClickVoucheUpOrDown(wordId) {
   var tipId = wordId.replace("word", "tip");
   var voucheUp = $("#" + wordId).hasClass("unvouche");
   var voucheDown = $("#" + wordId).hasClass("vouche");
   var taged = $("#" + wordId).hasClass("tag");
   var word = $("#" + wordId).text();
-  if(voucheUp)
-  {
+
+  if (voucheUp) {
     var numOfVouches = $("#" + tipId).text();
     var numOfVouchesNew = parseInt(numOfVouches) + 1;
     var valNew = "<span id='" + tipId + "'>" + numOfVouchesNew + "</span>";
@@ -102,8 +100,8 @@ function InitializeOnClickVoucheUpOrDown(wordId)
     $("#" + wordId).tipsy({trigger: 'hover'});
     $("#" + wordId).removeClass("unvouche").addClass("vouche");
   }
-  if(voucheDown)
-  {
+
+  if (voucheDown) {
     var numOfVouches = $("#" + tipId).text();
     var numOfVouchesNew = parseInt(numOfVouches) - 1;
     var valNew = "<span id='" + tipId + "'>" + numOfVouchesNew + "</span>";
@@ -161,6 +159,8 @@ var drawTags = function (tags, min, max, divisor) {
     word_list.push({
       text: tag.name,
       customClass: "unvouche",
+      // customClass: "tag",
+      // customClass: "vouche",
       weight: weight,
       title: "<span id='tag-cloud_tip_" + i + "'>" + tag.votes + "</span>",
       handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }}
@@ -173,9 +173,9 @@ var drawTags = function (tags, min, max, divisor) {
 
 var users_show = {
   run: function () {
-    var tagsUrl = "/users/" + _user_id + "/tags";
+    var userTagsUrl = "/users/" + _user_id + "/tags";
 
-    $.get(tagsUrl, function (data) {
+    $.get(userTagsUrl, function (data) {
       drawTags(data);
     });
 
@@ -188,30 +188,11 @@ var users_show = {
       if (tag_names.length) {
         input.val('');
         $("#tag-cloud").html("loading...");
-        $.post(tagsUrl, {tag_names: tag_names}, function (data) {
+        $.post(userTagsUrl, {tag_names: tag_names}, function (data) {
           drawTags(data);
         });
       }
-    })
-
-     // var word_list = [
-     //       {text: "ddddd", customClass: "unvouche", weight: 13, title: "<span id='tag-cloud_tip_0'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-     //       {text: "ipsum", customClass: "unvouche", weight: 10.5, title: "<span id='tag-cloud_tip_1'>15</span>",handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-     //       {text: "dolor", customClass: "tag", weight: 9.4, title: "<span id='tag-cloud_tip_2'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-     //       {text: "sit", customClass: "unvouche", weight: 8, title: "<span id='tag-cloud_tip_3'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-     //       {text: "amet", customClass: "unvouche", weight: 6.2, title: "<span id='tag-cloud_tip_4'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-     //       {text: "consectetur", customClass: "tag", weight: 5, title: "<span id='tag-cloud_tip_5'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-     //       {text: "adipiscing", customClass: "unvouche", weight: 5, title: "<span id='tag-cloud_tip_6'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-     //       {text: "elit", customClass: "unvouche", weight: 5, title: "<span id='tag-cloud_tip_7'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-     //       {text: "nam et", customClass: "unvouche", weight: 5, title: "<span id='tag-cloud_tip_8'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-     //       {text: "leo", customClass: "unvouche", weight: 4, title: "<span id='tag-cloud_tip_9'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-     //       {text: "sapien", customClass: "unvouche", weight: 4, title: "<span id='tag-cloud_tip_10'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-     //       {text: "pellentesque", customClass: "unvouche", weight: 3, title: "<span id='tag-cloud_tip_11'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-     //       {text: "habitant", customClass: "unvouche", weight: 3, title: "<span id='tag-cloud_tip_12'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-     //       {text: "morbi", customClass: "vouche", weight: 3, title: "<span id='tag-cloud_tip_13'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-     //       {text: "tristisque", customClass: "vouche", weight: 3, title: "<span id='tag-cloud_tip_14'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }}}
-    // ];
-    // LoadTagsCloud(word_list);
+    });
   }
 }
 

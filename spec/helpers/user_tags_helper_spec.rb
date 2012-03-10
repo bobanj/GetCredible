@@ -1,4 +1,4 @@
 require 'spec_helper'
 
-describe TagsHelper do
+describe UserTagsHelper do
 end
