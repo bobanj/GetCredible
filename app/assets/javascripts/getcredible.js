@@ -1,5 +1,4 @@
-function LoadTagsCloud(list)
-{
+function LoadTagsCloud(list) {
   $("#tag-cloud").html("");
   $("#tag-cloud").jQCloud(list, {
 
@@ -83,7 +82,12 @@ function LoadTagsCloud(list)
   });
 }
 
-function InitializeOnClickVoucheUpOrDown(wordId) {
+function tagClickCallback(that) {
+  var object = $(that);
+  var wordId = object.attr("id");
+  var userTagId = object.data('id')
+  var numOfVouches = object.data('votes')
+
   var tipId = wordId.replace("word", "tip");
   var voucheUp = $("#" + wordId).hasClass("unvouche");
   var voucheDown = $("#" + wordId).hasClass("vouche");
@@ -91,25 +95,33 @@ function InitializeOnClickVoucheUpOrDown(wordId) {
   var word = $("#" + wordId).text();
 
   if (voucheUp) {
-    var numOfVouches = $("#" + tipId).text();
-    var numOfVouchesNew = parseInt(numOfVouches) + 1;
-    var valNew = "<span id='" + tipId + "'>" + numOfVouchesNew + "</span>";
-    $("#" + wordId).attr('original-title', valNew);
-    $("#" + wordId).tipsy("hide");
-    $("#" + wordId).tipsy("show");
-    $("#" + wordId).tipsy({trigger: 'hover'});
-    $("#" + wordId).removeClass("unvouche").addClass("vouche");
+    $.post('/users/' + _user_id + '/tags/' + userTagId + '/vote.json', function (data) {
+      if (data.status == 'ok') {
+        var numOfVouchesNew = parseInt(numOfVouches) + 1;
+        object.data('votes', numOfVouchesNew)
+        var valNew = "<span id='" + tipId + "'>" + numOfVouchesNew + "</span>";
+        $("#" + wordId).attr('original-title', valNew);
+        $("#" + wordId).tipsy("hide");
+        $("#" + wordId).tipsy("show");
+        $("#" + wordId).tipsy({trigger: 'hover'});
+        $("#" + wordId).removeClass("unvouche").addClass("vouche");
+      }
+    })
   }
 
   if (voucheDown) {
-    var numOfVouches = $("#" + tipId).text();
-    var numOfVouchesNew = parseInt(numOfVouches) - 1;
-    var valNew = "<span id='" + tipId + "'>" + numOfVouchesNew + "</span>";
-    $("#" + wordId).attr('original-title', valNew);
-    $("#" + wordId).tipsy("hide");
-    $("#" + wordId).tipsy("show");
-    $("#" + wordId).tipsy({trigger: 'hover'});
-    $("#" + wordId).removeClass("vouche").addClass("unvouche");
+    $.post('/users/' + _user_id + '/tags/' + userTagId + '/unvote.json', function (data) {
+      if (data.status == 'ok') {
+        var numOfVouchesNew = parseInt(numOfVouches) - 1;
+        object.data('votes', numOfVouchesNew)
+        var valNew = "<span id='" + tipId + "'>" + numOfVouchesNew + "</span>";
+        $("#" + wordId).attr('original-title', valNew);
+        $("#" + wordId).tipsy("hide");
+        $("#" + wordId).tipsy("show");
+        $("#" + wordId).tipsy({trigger: 'hover'});
+        $("#" + wordId).removeClass("vouche").addClass("unvouche");
+      }
+    })
   }
 };
 
@@ -143,27 +155,28 @@ var findMax = function (votes) {
   return max;
 };
 
-var drawTags = function (tags, min, max, divisor) {
+var drawUserTags = function (userTags, min, max, divisor) {
   var parts     = 10;
-  var votes     = extractVotes(tags);
+  var votes     = extractVotes(userTags);
   var min       = findMin(votes);
   var max       = findMax(votes);
   var divisor   = (max - min) / parts;
 
   var word_list = [];
 
-  for (var i = 0; i < tags.length; i++) {
-    var tag = tags[i];
-    var weight = parseInt((tag.votes - min) / divisor)
+
+  for (var i = 0; i < userTags.length; i++) {
+    var userTag = userTags[i];
+    var weight = parseInt((userTag.votes - min) / divisor)
+    var customClass = userTag.voted ? "vouche" : "unvouche" // customClass: "userTag"
 
     word_list.push({
-      text: tag.name,
-      customClass: "unvouche",
-      // customClass: "tag",
-      // customClass: "vouche",
+      text: userTag.name,
+      customClass: customClass,
       weight: weight,
-      title: "<span id='tag-cloud_tip_" + i + "'>" + tag.votes + "</span>",
-      handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }}
+      dataAttributes: {votes: userTag.votes, id: userTag.id},
+      title: "<span id='tag-cloud_tip_" + i + "'>" + userTag.votes + "</span>",
+      handlers: {click: function() { tagClickCallback(this); }}
     })
   }
 
@@ -176,7 +189,7 @@ var users_show = {
     var userTagsUrl = "/users/" + _user_id + "/tags";
 
     $.get(userTagsUrl, function (data) {
-      drawTags(data);
+      drawUserTags(data);
     });
 
     $("#add-tag form").live("submit", function (e) {
@@ -189,7 +202,7 @@ var users_show = {
         input.val('');
         $("#tag-cloud").html("loading...");
         $.post(userTagsUrl, {tag_names: tag_names}, function (data) {
-          drawTags(data);
+          drawUserTags(data);
         });
       }
     });
