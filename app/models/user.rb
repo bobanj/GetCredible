@@ -6,9 +6,11 @@ class User < ActiveRecord::Base
 
   # Additions
   acts_as_voter
+  mount_uploader :avatar, AvatarUploader
 
   # Attributes
   attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :first_name, :last_name, :job_title, :street, :zip, :city, :company_name, :company_url, :country, :phone_number, :twitter_handle, :personal_url, :avatar, :avatar_cache
 
   # Associations
   has_many :user_tags, dependent: :destroy

@@ -6,14 +6,33 @@
     %header#page-header
       %h1 Edit #{resource_name.to_s.humanize}
 
-    = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-      %ul.inputs
-        %li= f.input :email, :required => true, :autofocus => true
-        %li= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false
-        %li= f.input :password_confirmation, :required => false
-        %li= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true
-        %li= f.button :submit, "Update", class: 'btn large primary'
-    %h3 Cancel my account
-    %p
-      Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete}.
-    = link_to "Back", :back
+    .details
+      .photo
+        = image_tag current_user.avatar_url(:thumb), :width => '126', :height => 126
+
+      = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:multipart => true}) do |f|
+        %ul.inputs
+          %li= f.input :email, :required => true, :autofocus => true
+          %li= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false
+          %li= f.input :password_confirmation, :required => false
+          %li= f.input :first_name
+          %li= f.input :last_name
+          %li= f.input :job_title
+          %li= f.input :street
+          %li= f.input :zip
+          %li= f.input :city
+          %li= f.input :company_name
+          %li= f.input :company_url
+          %li= f.input :country
+          %li= f.input :phone_number
+          %li= f.input :twitter_handle
+          %li= f.input :personal_url
+          %li= f.input :avatar, :as => :file
+          %li= f.hidden_field :avatar_cache
+          %li= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true
+          %li= f.button :submit, "Update", class: 'btn large primary'
+%aside
+  %h3 Cancel my account
+  %p
+    Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete}.
+  = link_to "Back", :back

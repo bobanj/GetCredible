@@ -34,14 +34,14 @@
 // Form elements
 
 // Inputs, Textareas, Selects
-input, textarea, select, .uneditable-input {
-  display: inline-block;
-  width: 210px;
-  padding: 8px;
-  color: $gray;
-  border: 1px solid #d7d7d7;
-  @include border-radius(1px);
-}
+//input, textarea, select, .uneditable-input {
+//  display: inline-block;
+//  width: 210px;
+//  padding: 8px;
+//  color: $gray;
+//  border: 1px solid #d7d7d7;
+//  @include border-radius(1px);
+//}
 
 input, textarea {
   @include box-shadow(inset 0 5px 5px rgba(0,0,0,.1));

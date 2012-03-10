@@ -39,7 +39,7 @@ label, input, select, textarea {
 label {
   padding-top: 6px;
   font-size: $basefont;
-  line-height: $baseline;
+  //line-height: $baseline;
   float: left;
   width: 130px;
   text-align: right;
@@ -48,7 +48,7 @@ label {
 
 // Shift over the inside div to align all label's relevant content
 form .input {
-  margin-left: 150px;
+  margin-left: 10px;
 }
 
 // Checkboxs and radio buttons
@@ -435,10 +435,22 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
     color: $gray;
   }
   label{
+    float: left;
     width: 111px;
     margin-right: 12px;
-    padding-top: 8px;
+    padding-top: 0px;
+    text-align: right;
   }
 }
+
+.hint {
+  clear: left;
+  margin-left: 120px;
+  font-size:    12px;
+  color: #555;
+  display: block;
+  font-style: italic;
+}
+
 
 

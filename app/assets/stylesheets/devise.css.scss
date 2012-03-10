@@ -2,6 +2,14 @@
 
 #devise {
   padding: 20px 30px 20px 30px;
+  .details {
+    margin-left: 170px;
+  }
+  .photo {
+    position: absolute;
+    margin-left: -170px;
+  }
+
 }
 
 #page-header {

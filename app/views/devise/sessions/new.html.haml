@@ -11,6 +11,7 @@
         %li= f.input :email, :required => false, :autofocus => true
         %li= f.input :password, :required => false
         %li= f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
-        %li= f.button :submit, "Sign in", class: 'btn large primary'
+      .actions
+        = f.button :submit, "Sign in", class: 'btn large primary'
 %aside
   = render "links"

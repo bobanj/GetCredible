@@ -7,7 +7,22 @@ gem 'unicorn', '4.2.0'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
+gem "capybara", :group => [:development, :test]
+gem "devise"
+gem "haml", ">= 3.0.0"
+gem "haml-rails"
+gem "jquery-rails"
+gem "rspec-rails", ">= 2.8.1", :group => [:development, :test]
+gem 'simple_form'
+gem 'country_select'
 gem 'thumbs_up'
+gem 'rmagick'
+gem 'carrierwave'
+gem 'capistrano'
+gem 'capistrano-ext'
+
+
+
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -34,6 +49,11 @@ group :development do
   gem 'rb-inotify', :require => RUBY_PLATFORM.include?('linux')   && 'rb-inotify'
   gem 'libnotify',  :require => RUBY_PLATFORM.include?('linux')   && 'rb-inotify'
   gem 'rb-readline'
+  gem 'awesome_print'
+  gem 'hirb'
+  gem 'rails3-generators'
+  gem 'wirble'
+
 end
 
 group :test do
@@ -61,19 +81,4 @@ end
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
-gem "capybara", :group => [:development, :test]
-gem "devise"
-gem "haml", ">= 3.0.0"
-gem "haml-rails"
-gem "jquery-rails"
-gem "rspec-rails", ">= 2.8.1", :group => [:development, :test]
-gem 'simple_form'
 
-group :development do
-  gem 'awesome_print'
-  gem 'capistrano'
-  gem 'capistrano-ext'
-  gem 'hirb'
-  gem 'rails3-generators'
-  gem 'wirble'
-end
