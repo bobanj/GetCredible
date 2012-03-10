@@ -15,7 +15,7 @@ gem "jquery-rails"
 gem "rspec-rails", ">= 2.8.1", :group => [:development, :test]
 gem 'simple_form'
 gem 'country_select'
-gem 'thumbs_up'
+gem 'thumbs_up', "=0.4.6"
 gem 'rmagick'
 gem 'carrierwave'
 gem 'capistrano'
