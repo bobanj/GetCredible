@@ -22,22 +22,21 @@ gem 'carrierwave'
 gem 'capistrano'
 gem 'capistrano-ext'
 
-
+gem 'sass-rails',   '~> 3.2.4'
+gem 'bootstrap-sass', '~> 1.4.3'
+gem 'compass-rails','~> 1.0.0.rc.3'
+gem 'compass-960-plugin'
 
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.4'
   gem 'coffee-rails', '~> 3.2.2'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer'
 
   gem 'uglifier', '>= 1.2.3'
-  gem 'bootstrap-sass', '~> 1.4.3'
-  gem 'compass-rails','~> 1.0.0.rc.3'
-  gem 'compass-960-plugin'
 end
 
 group :development do
