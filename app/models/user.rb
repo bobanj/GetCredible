@@ -29,14 +29,14 @@ class User < ActiveRecord::Base
     end
   end
 
-  def tags_summary(user)
+  def tags_summary(user=nil)
     tags = []
 
     user_tags.includes([:tag, :votes]).each do |user_tag|
       tags << {
         id: user_tag.id,
         name: user_tag.tag.name,
-        voted: user_tag.votes.any?{|vote| vote.voter_id == user.id},
+        voted: user && user_tag.votes.any?{|vote| vote.voter_id == user.id},
         votes: user_tag.votes.length
       }
     end
