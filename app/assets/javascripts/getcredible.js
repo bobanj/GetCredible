@@ -10,14 +10,13 @@ function LoadTagsCloud(list) {
       fade: true,
       html: true,
       delayOut: 50,
-      title: function()
-      {
+      title: function() {
         var original = this.getAttribute("original-title");
         var originalSpan = $(original).addClass("w5");
         var html = $('<div>').append($(originalSpan).clone()).remove().html();
         return html;
       }
-      }).append('<span class="icon"></span>');
+    }).append('<span class="icon"></span>');
 
     //w4
     $("#tag-cloud .w8, #tag-cloud .w7").tipsy({
@@ -25,14 +24,13 @@ function LoadTagsCloud(list) {
       fade: true,
       html: true,
       delayOut: 50,
-      title: function()
-      {
+      title: function() {
         var original = this.getAttribute("original-title");
         var originalSpan = $(original).addClass("w4");
         var html = $('<div>').append($(originalSpan).clone()).remove().html();
         return html;
       }
-      }).append('<span class="icon"></span>');
+    }).append('<span class="icon"></span>');
 
     //w3
     $("#tag-cloud .w6, #tag-cloud .w5").tipsy({
@@ -40,14 +38,13 @@ function LoadTagsCloud(list) {
       fade: true,
       html: true,
       delayOut: 50,
-      title: function()
-      {
+      title: function() {
         var original = this.getAttribute("original-title");
         var originalSpan = $(original).addClass("w3");
         var html = $('<div>').append($(originalSpan).clone()).remove().html();
         return html;
       }
-      }).append('<span class="icon"></span>');
+    }).append('<span class="icon"></span>');
 
     //w2
     $("#tag-cloud .w4, #tag-cloud .w3").tipsy({
@@ -55,14 +52,13 @@ function LoadTagsCloud(list) {
       fade: true,
       html: true,
       delayOut: 50,
-      title: function()
-      {
+      title: function() {
         var original = this.getAttribute("original-title");
         var originalSpan = $(original).addClass("w2");
         var html = $('<div>').append($(originalSpan).clone()).remove().html();
         return html;
       }
-      }).append('<span class="icon"></span>');
+    }).append('<span class="icon"></span>');
 
     //w1
     $("#tag-cloud .w2, #tag-cloud .w1").tipsy({
@@ -70,23 +66,22 @@ function LoadTagsCloud(list) {
       fade: true,
       html: true,
       delayOut: 50,
-      title: function()
-      {
+      title: function() {
         var original = this.getAttribute("original-title");
         var originalSpan = $(original).addClass("w1");
         var html = $('<div>').append($(originalSpan).clone()).remove().html();
         return html;
       }
-      }).append('<span class="icon"></span>');
+    }).append('<span class="icon"></span>');
   }
   });
-}
+};
 
 function tagClickCallback(that) {
   var object = $(that);
   var wordId = object.attr("id");
-  var userTagId = object.data('id')
-  var numOfVouches = object.data('votes')
+  var userTagId = object.data('id');
+  var numOfVouches = object.data('votes');
 
   var tipId = wordId.replace("word", "tip");
   var voucheUp = $("#" + wordId).hasClass("unvouche");
@@ -98,7 +93,7 @@ function tagClickCallback(that) {
     $.post('/users/' + _user_id + '/tags/' + userTagId + '/vote.json', function (data) {
       if (data.status == 'ok') {
         var numOfVouchesNew = parseInt(numOfVouches) + 1;
-        object.data('votes', numOfVouchesNew)
+        object.data('votes', numOfVouchesNew);
         var valNew = "<span id='" + tipId + "'>" + numOfVouchesNew + "</span>";
         $("#" + wordId).attr('original-title', valNew);
         $("#" + wordId).tipsy("hide");
@@ -106,14 +101,14 @@ function tagClickCallback(that) {
         $("#" + wordId).tipsy({trigger: 'hover'});
         $("#" + wordId).removeClass("unvouche").addClass("vouche");
       }
-    })
+    });
   }
 
   if (voucheDown) {
     $.post('/users/' + _user_id + '/tags/' + userTagId + '/unvote.json', function (data) {
       if (data.status == 'ok') {
         var numOfVouchesNew = parseInt(numOfVouches) - 1;
-        object.data('votes', numOfVouchesNew)
+        object.data('votes', numOfVouchesNew);
         var valNew = "<span id='" + tipId + "'>" + numOfVouchesNew + "</span>";
         $("#" + wordId).attr('original-title', valNew);
         $("#" + wordId).tipsy("hide");
@@ -121,7 +116,7 @@ function tagClickCallback(that) {
         $("#" + wordId).tipsy({trigger: 'hover'});
         $("#" + wordId).removeClass("vouche").addClass("unvouche");
       }
-    })
+    });
   }
 };
 
@@ -167,8 +162,8 @@ var drawUserTags = function (userTags, min, max, divisor) {
 
   for (var i = 0; i < userTags.length; i++) {
     var userTag = userTags[i];
-    var weight = parseInt((userTag.votes - min) / divisor)
-    var customClass = userTag.voted ? "vouche" : "unvouche" // customClass: "userTag"
+    var weight = parseInt((userTag.votes - min) / divisor);
+    var customClass = userTag.voted ? "vouche" : "unvouche"; // customClass: "userTag"
 
     word_list.push({
       text: userTag.name,
@@ -177,7 +172,7 @@ var drawUserTags = function (userTags, min, max, divisor) {
       dataAttributes: {votes: userTag.votes, id: userTag.id},
       title: "<span id='tag-cloud_tip_" + i + "'>" + userTag.votes + "</span>",
       handlers: {click: function() { tagClickCallback(this); }}
-    })
+    });
   }
 
   LoadTagsCloud(word_list);
@@ -207,14 +202,15 @@ var users_show = {
       }
     });
   }
-}
+};
 
 
 $(function () {
   var id = $('body').attr("id");
   if (id) {
     controller_action = id;
-    if (typeof(window[controller_action]) !== 'undefined' && typeof(window[controller_action]['run']) === 'function') {
+    if (typeof(window[controller_action]) !== 'undefined' &&
+        typeof(window[controller_action]['run']) === 'function') {
       window[controller_action]['run']();
     }
   }
