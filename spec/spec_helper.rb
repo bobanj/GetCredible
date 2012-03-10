@@ -60,3 +60,12 @@ Spork.each_run do
 
   load "Sporkfile.rb" if File.exists?("Sporkfile.rb")
 end
+
+def it_should_require_current_user_for(*actions)
+  actions.each do |action|
+    it "#{action} action should require current user" do
+      get action, :id => 1 # so routes work for those requiring id
+      controller.should_not_receive(action)
+    end
+  end
+end
