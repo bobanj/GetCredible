@@ -6,7 +6,8 @@ gem 'unicorn', '4.2.0'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
+#gem 'mysql2'
+gem 'pg', :require => 'pg'
 gem "capybara", :group => [:development, :test]
 gem "devise"
 gem "haml", ">= 3.0.0"
