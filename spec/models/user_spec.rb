@@ -9,6 +9,26 @@ describe User do
     it { should allow_mass_assignment_of(:remember_me) }
   end
 
+  describe "Database Columns" do
+    it { should have_db_column(:email) }
+    it { should have_db_column(:encrypted_password) }
+    it { should have_db_column(:reset_password_token) }
+    #it { should have_db_column(:confirmation_token) }
+    it { should have_db_column(:company_name).of_type(:string) }
+    it { should have_db_column(:company_url).of_type(:string) }
+    it { should have_db_column(:first_name).of_type(:string) }
+    it { should have_db_column(:last_name).of_type(:string) }
+    it { should have_db_column(:job_title).of_type(:string) }
+    it { should have_db_column(:street).of_type(:string) }
+    it { should have_db_column(:zip).of_type(:string) }
+    it { should have_db_column(:city).of_type(:string) }
+    it { should have_db_column(:country).of_type(:string) }
+    it { should have_db_column(:phone_number).of_type(:string) }
+    it { should have_db_column(:twitter_handle).of_type(:string) }
+    it { should have_db_column(:personal_url).of_type(:string) }
+    it { should have_db_column(:avatar).of_type(:string) }
+  end
+
   describe "Associations" do
     it { should have_many(:user_tags).dependent(:destroy) }
     it { should have_many(:tags).through(:user_tags) }
