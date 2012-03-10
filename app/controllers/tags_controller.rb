@@ -9,7 +9,7 @@ class TagsController < ApplicationController
   end
 
   def create
-    @user.add_tags(params[:tag_names])
+    @user.add_tags(params[:tag_names]) if current_user != @user
 
     render json: prepare_user_tags(@user.user_tags)
   end
