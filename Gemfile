@@ -6,8 +6,9 @@ gem 'unicorn', '4.2.0'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-#gem 'mysql2'
-gem 'pg', :require => 'pg'
+# gem 'mysql2'
+gem 'pg'
+
 gem "capybara", :group => [:development, :test]
 gem "devise"
 gem "haml", ">= 3.0.0"
@@ -16,28 +17,27 @@ gem "jquery-rails"
 gem "rspec-rails", ">= 2.8.1", :group => [:development, :test]
 gem 'simple_form'
 gem 'country_select'
-gem 'thumbs_up'
+gem 'thumbs_up', "=0.4.6"
 gem 'rmagick'
 gem 'carrierwave'
 gem 'capistrano'
 gem 'capistrano-ext'
 
-
+gem 'sass-rails',   '~> 3.2.4'
+gem 'bootstrap-sass', '~> 1.4.3'
+gem 'compass-rails','~> 1.0.0.rc.3'
+gem 'compass-960-plugin'
 
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.4'
   gem 'coffee-rails', '~> 3.2.2'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer'
 
   gem 'uglifier', '>= 1.2.3'
-  gem 'bootstrap-sass', '~> 1.4.3'
-  gem 'compass-rails','~> 1.0.0.rc.3'
-  gem 'compass-960-plugin'
 end
 
 group :development do
