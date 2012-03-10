@@ -44,7 +44,7 @@
         .vouche Or <strong>vouche for existing tag</strong><br/> by clicking on it
       .arrow
 
-    #tag-cloud
+    #tag-cloud{:"data-tag-cloud-path" => user_user_tags_path(@user), :"data-logged-in" => user_signed_in?.to_s}
 
     #tag-msg
       %span.icon

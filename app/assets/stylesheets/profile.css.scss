@@ -7,26 +7,26 @@
 
 
 #profile {
-  border-bottom: 1px solid $borderColor; 
-    
+  border-bottom: 1px solid $borderColor;
+
   .photo {
-    
-    float: left; 
-    margin-left: -170px;     
-         
+
+    float: left;
+    margin-left: -170px;
+
     a { padding: 8px; }
-    
+
     img { width: 126px; }
   }
-  
-  
+
+
   .details, .actions { float: left;  }
-  
+
   .details {
     margin-left: 170px;
     width: 365px;
   }
-  
+
   .actions {
     background: none;
     border-top: 0 none;
@@ -34,117 +34,117 @@
     padding: 0;
     width: 105px;
   }
-  
+
   h1 {
-    margin-bottom: 7px;      
+    margin-bottom: 7px;
   }
-  
+
   h2 {
     font-size: 18px;
-    font-weight: normal;    
+    font-weight: normal;
     line-height: $baseline / 2;
-    margin-bottom: $baseline;  
-  }       
-  
+    margin-bottom: $baseline;
+  }
+
   ul {
     list-style: none;
-    margin: 0;           
-    
+    margin: 0;
+
     .location .icon {
       background-position: 0 -64px;
     }
-    
+
     .web .icon {
       background-position: 0 -80px;
     }
-    
+
     .twitter .icon {
       background-position: 0 -96px;
     }
-    
+
     a {
       color: $gray;
-    }                             
-    
+    }
+
   }
-  
+
   &.edit {
-            
+
     .details {
       margin-left: 157px;
       width: auto;
     }
-    
+
     .photo {
       margin-left: -156px;
     }
-       
-    
+
+
     li {
       margin-bottom: 4px;
     }
-      
+
     label {
       width: 111px;
       margin-right: 12px;
       padding-top: 8px;
     }
-    
+
     input {
       color: $grayDark;
       font-size: 14px;
       padding: 6px 8px;
-      width: 216px;        
+      width: 216px;
     }
-          
+
     .name, .title {
       input {width: 342px;}
     }
-    
+
     .twitter input {
       margin-right: 22px;
     }
-    
+
     .btn.primary.large {
       padding: 8px 30px;
       width: auto;
     }
-    
-    
+
+
   }
-      
-  
+
+
 }
-  
+
 
 // Tags section
 
-#add-tag {        
-  
+#add-tag {
+
   .inner {
     @include background-image(linear-gradient($white, lighten($black, 94%)));
     @include clearfix;
     border-bottom: 1px solid $borderColor;
   }
-  
+
   form {
     margin: 0;
     float: left;
     border-right: 1px solid $white;
     padding: 18px 17px 16px 0;
   }
-  
-  label {    
+
+  label {
     font-size: 14px;
     margin-right: 15px;
     padding-top: 11px;
     width: 103px;
   }
-  
+
   input {
     margin-right: 3px;
-    width: 247px;    
-    
+    width: 247px;
+
     &::-webkit-input-placeholder {
       font-style: italic;
     }
@@ -152,29 +152,29 @@
     &:-moz-placeholder {
       font-style: italic;
     }
-    
+
   }
-  
+
   .vouche {
     float: left;
     border-left: 1px solid $borderColor;
     line-height: 17px;
     padding: 22px 15px;
     text-align: center;
-    width: 163px;    
+    width: 163px;
   }
-  
+
   .arrow {
-    background: image-url('arrow-tag.png');    
+    background: image-url('arrow-tag.png');
     clear: both;
     height: 19px;
     margin: -1px auto 0 auto;
     width: 22px;
   }
-  
+
 }
 
-      
+
 // Tipsy
 
 
@@ -185,32 +185,32 @@
 
 .tipsy-inner {
   background: none;
-  color: #165288;                    
+  color: #165288;
   cursor: pointer;
   padding: 0;
   @include text-shadow(#fff 0px 1px 0px);
-    
+
   span {
     display: block;
   }
-    
+
   .w1 {
     background: image-url('baloon-15.png') no-repeat;
     line-height: 15px;
     height: 15px;
     padding-right: 3px;
     width: 15px;
-    
+
   }
-  
+
   .w2 {
     background: image-url('baloon-20.png') no-repeat;
     line-height: 20px;
     height: 20px;
     padding-right: 4px;
-    width: 20px;           
+    width: 20px;
   }
-  
+
   .w3 {
     background: image-url('baloon-25.png') no-repeat;
     line-height: 25px;
@@ -218,7 +218,7 @@
     padding-right: 5px;
     width: 25px;
   }
-  
+
   .w4 {
     background: image-url('baloon-30.png') no-repeat;
     line-height: 30px;
@@ -226,49 +226,49 @@
     padding-right: 6px;
     width: 30px;
   }
-  
+
   .w5 {
     background: image-url('baloon-35.png') no-repeat;
     line-height: 35px;
     height: 35px;
     padding-right: 7px;
-    width: 35px;      
+    width: 35px;
   }
-    
+
 }
 
-.tipsy-arrow {    
+.tipsy-arrow {
     display: none;
 }
 
 
 // jqcloud
-#tag-cloud {  
-  
+#tag-cloud {
+
   height: 310px;
-  line-height: normal;   
+  line-height: normal;
   overflow: hidden;
   position: relative;
   width: 700px;
-  
+
   a {
     color: inherit;
     display: inline-block;
     font-size: inherit;
     text-decoration: none;
-  
+
     &:hover {
       color: #0df;
       color: #0cf; } }
-  
+
   > span {
-    
+
     cursor: pointer;
     display: inline-block;
-    padding: 0 20px 0 0;   
-    
-    
-    
+    padding: 0 20px 0 0;
+
+
+
     &.w10 {
       font-size: 48px;
       color: #1b1c1d; }
@@ -298,45 +298,45 @@
       color: #b8bcbf; }
     &.w1 {
       font-size: 14px;
-      color: #b8bcbf; } 
+      color: #b8bcbf; }
 }
-  
-  
-  
-  
+
+
+
+
   .icon {
     display: inline-block;
     margin-left: 5px;
     margin-right: 10px;
   }
-  
+
   .vouche .icon { background-position: 0 -16px; }
-  
+
   .unvouche {
-    
+
     &:hover .icon {
       background-position: 0 0;
     }
-    
+
     .icon { background-position: 24px 0; }
   }
-   
+
   .tag .icon { background-position: 0 -48px; }
-  
+
   .remove .icon { background-position: 0 -128px; }
-  
+
 }
 
 #tag-msg {
   border-top: 1px solid $borderColor;
   padding: 18px;
   text-align: center;
-  
-  .icon {    
+
+  .icon {
     background-position: 0 -112px;
     height: 12px;
-    width: 16px;    
-    margin-left: 10px; 
+    width: 16px;
+    margin-left: 10px;
   }
-  
+
 }
