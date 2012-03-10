@@ -83,6 +83,7 @@ describe User do
       user.add_tags('web design')
       tags = user.tags_summary
       tags.length.should == 1
+      tags[0][:id].should == user.user_tags[0].id
       tags[0][:name].should == "web design"
       tags[0][:votes].should == 0
     end
