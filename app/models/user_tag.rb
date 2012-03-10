@@ -1,5 +1,8 @@
 class UserTag < ActiveRecord::Base
 
+  # Additions
+  acts_as_voteable
+
   # Associations
   belongs_to :user
   belongs_to :tag

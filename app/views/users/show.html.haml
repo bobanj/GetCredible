@@ -39,7 +39,7 @@
       .inner
         %form
           %label Tag Robert
-          %input{:type => 'text', :name => 'tags', :placeholder => 'e.g. web design, leadership, project management', :class => 'large', :id => 'tag_names'}
+          %input{:type => 'text', :name => 'tags', :placeholder => 'e.g. web design, leadership, project management', :class => 'large', :id => 'tag_names', :disabled => disable_tagging(@user)}
           %button.btn.primary.large ADD TAG
         .vouche Or <strong>vouche for existing tag</strong><br/> by clicking on it
       .arrow

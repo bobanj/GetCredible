@@ -1,58 +1,3 @@
- function InitializeAddNewTagFormSubmit()
- {
-   $("#add-tag form").live("submit", function(){
-   $("#tag-cloud").html("loading...");
-
- // This page is used just as a demo if you want to refresh cloud data html by rendering partial view.
- // In this demo load() method is used to simulate that.
- // If you want to see how it works use mozilla because chrome doesn't allow load() method for local files which we need for demo,
- // uncomment a raw below to reload tag and comment LoadTagsCloud() method below.
- // $('#tag-cloud').load('pages/page2.html');
- // Instead of load() use ajax which returns new html with refreshed data from database.
-
- // Ajax example:
-
- /* Example1
-   var userId = "getUserWhoTagId";
-   var userTagged = "getUserWhoIsTaggedId";
-   var taggedWord = "newWord";
-   $.ajax({
-    url: 'urlWhichReturnsPartialViewHtmlForTagsCloud', (in this demo that is page2)
-    type: "GET",
-    data: { user1 : userId, user2 : userTagged, tag : taggedWord },
-    success: function(data) {
-       // replace existing tag-cloud html with the refreshed one
-       $("#tag-cloud").html(data);
-    });
-   */
- /* Another way is to get new words_list from server with json.
- Example2
- Return json result as words_list with refreshed data from database to reload tags cloud
- Example for refreshed list:
- */
-
- var word_list1 = [
-        {text: "lorem", customClass: "unvouche", weight: 13, title: "<span id='tag-cloud_tip_0'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-        {text: "ipsum", customClass: "unvouche", weight: 10.5, title: "<span id='tag-cloud_tip_1'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-        {text: "dolor", customClass: "tag", weight: 9.4, title: "<span id='tag-cloud_tip_2'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-        {text: "sit", customClass: "unvouche", weight: 8, title: "<span id='tag-cloud_tip_3'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-        {text: "amet", customClass: "unvouche", weight: 6.2, title: "<span id='tag-cloud_tip_4'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-        {text: "consectetur", customClass: "tag", weight: 5, title: "<span id='tag-cloud_tip_5'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-        {text: "adipiscing", customClass: "unvouche", weight: 5, title: "<span id='tag-cloud_tip_6'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-        {text: "elit", customClass: "unvouche", weight: 5, title: "<span id='tag-cloud_tip_7'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-        {text: "nam et", customClass: "unvouche", weight: 5, title: "<span id='tag-cloud_tip_8'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-        {text: "leo", customClass: "unvouche", weight: 4, title: "<span id='tag-cloud_tip_9'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-        {text: "sapien", customClass: "unvouche", weight: 4, title: "<span id='tag-cloud_tip_10'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-        {text: "pellentesque", customClass: "unvouche", weight: 3, title: "<span id='tag-cloud_tip_11'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-        {text: "habitant", customClass: "unvouche", weight: 3, title: "<span id='tag-cloud_tip_12'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-        {text: "morbi", customClass: "vouche", weight: 3, title: "<span id='tag-cloud_tip_13'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-        {text: "tristisque", customClass: "vouche", weight: 3, title: "<span id='tag-cloud_tip_14'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }}},           {text: "NEW TAG", customClass: "tag", weight: 3, title: "<span id='tag-cloud_tip_16'>13</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }}}
-        ];
-   LoadTagsCloud(word_list1);
-   return false;
-  });
-}
-
 function LoadTagsCloud(list)
 {
   $("#tag-cloud").html("");
@@ -138,15 +83,14 @@ function LoadTagsCloud(list)
   });
 }
 
-function InitializeOnClickVoucheUpOrDown(wordId)
-{
+function InitializeOnClickVoucheUpOrDown(wordId) {
   var tipId = wordId.replace("word", "tip");
   var voucheUp = $("#" + wordId).hasClass("unvouche");
   var voucheDown = $("#" + wordId).hasClass("vouche");
   var taged = $("#" + wordId).hasClass("tag");
   var word = $("#" + wordId).text();
-  if(voucheUp)
-  {
+
+  if (voucheUp) {
     var numOfVouches = $("#" + tipId).text();
     var numOfVouchesNew = parseInt(numOfVouches) + 1;
     var valNew = "<span id='" + tipId + "'>" + numOfVouchesNew + "</span>";
@@ -156,8 +100,8 @@ function InitializeOnClickVoucheUpOrDown(wordId)
     $("#" + wordId).tipsy({trigger: 'hover'});
     $("#" + wordId).removeClass("unvouche").addClass("vouche");
   }
-  if(voucheDown)
-  {
+
+  if (voucheDown) {
     var numOfVouches = $("#" + tipId).text();
     var numOfVouchesNew = parseInt(numOfVouches) - 1;
     var valNew = "<span id='" + tipId + "'>" + numOfVouchesNew + "</span>";
@@ -167,82 +111,88 @@ function InitializeOnClickVoucheUpOrDown(wordId)
     $("#" + wordId).tipsy({trigger: 'hover'});
     $("#" + wordId).removeClass("vouche").addClass("unvouche");
   }
-}
+};
+
+var extractVotes = function (tags) {
+  var votes = [];
+  for (var i = 0; i < tags.length; i++) {
+    votes.push(tags[i].votes);
+  }
+  return votes;
+};
+
+var findMin = function (votes) {
+  min = 0;
+  for (var i = 0; i < votes.length; i++) {
+    vote = votes[i];
+    if (vote < min) {
+      min = vote;
+    }
+  }
+  return min;
+};
+
+var findMax = function (votes) {
+  max = 0;
+  for (var i = 0; i < votes.length; i++) {
+    vote = votes[i];
+    if (vote > max) {
+      max = vote;
+    }
+  }
+  return max;
+};
+
+var drawTags = function (tags, min, max, divisor) {
+  var parts     = 10;
+  var votes     = extractVotes(tags);
+  var min       = findMin(votes);
+  var max       = findMax(votes);
+  var divisor   = (max - min) / parts;
+
+  var word_list = [];
+
+  for (var i = 0; i < tags.length; i++) {
+    var tag = tags[i];
+    var weight = parseInt((tag.votes - min) / divisor)
+
+    word_list.push({
+      text: tag.name,
+      customClass: "unvouche",
+      // customClass: "tag",
+      // customClass: "vouche",
+      weight: weight,
+      title: "<span id='tag-cloud_tip_" + i + "'>" + tag.votes + "</span>",
+      handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }}
+    })
+  }
+
+  LoadTagsCloud(word_list);
+};
 
 
 var users_show = {
   run: function () {
-    // This page is used just as a demo if you want to load cloud html by rendering partial view.
-    // In this demo load() method is used to simulate ajax call which you use to call controller.
-    // If you want to see how it works use mozilla because chrome doesn't allow load() method for local files which we need for this demo,
-    // And uncomment a raw below to reload tag.
-    // $('#tag-cloud').load('pages/page1.html');
+    var userTagsUrl = "/users/" + _user_id + "/tags";
 
-      // Ajax example:
+    $.get(userTagsUrl, function (data) {
+      drawTags(data);
+    });
 
-      /* Example1
-      var userTagged = "getUserWhoIsTaggedId";
-      $.ajax({
-       url: 'urlWhichReturnsPartialViewForTagsCloud', (in this demo that is page1)
-       type: "GET",
-       data: { user1 : userId },
-       success: function(data) {
-          //fill tag-cloud html
-          $("#tag-cloud").html(data);
-       });
-      */
-
-    /* Another way is to get a words_list from server with json.
-
-    Example2
-    Return json result as words_list with refreshed data from database to reload tags cloud
-    Example for refreshed list:
-
-    */
-
-    var tags_url = "/users/" + _user_id + "/tags";
-
-    $("#add-tag form").submit(function (e) {
+    $("#add-tag form").live("submit", function (e) {
       e.preventDefault();
+
       var input = $('#tag_names');
       var tag_names  = input.val();
 
       if (tag_names.length) {
         input.val('');
-        $.post(tags_url, {tag_names: tag_names}, function (data) {
-          // TODO: display new tags received in data
+        $("#tag-cloud").html("loading...");
+        $.post(userTagsUrl, {tag_names: tag_names}, function (data) {
+          drawTags(data);
         });
       }
-    })
-
-    // TODO: load tags on page load
-    // $.get(tags_url, function () {
-    //   alert(1)
-    // });
-
-
-     var word_list = [
-           {text: "ddddd", customClass: "unvouche", weight: 13, title: "<span id='tag-cloud_tip_0'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-           {text: "ipsum", customClass: "unvouche", weight: 10.5, title: "<span id='tag-cloud_tip_1'>15</span>",handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-           {text: "dolor", customClass: "tag", weight: 9.4, title: "<span id='tag-cloud_tip_2'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-           {text: "sit", customClass: "unvouche", weight: 8, title: "<span id='tag-cloud_tip_3'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-           {text: "amet", customClass: "unvouche", weight: 6.2, title: "<span id='tag-cloud_tip_4'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-           {text: "consectetur", customClass: "tag", weight: 5, title: "<span id='tag-cloud_tip_5'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-           {text: "adipiscing", customClass: "unvouche", weight: 5, title: "<span id='tag-cloud_tip_6'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-           {text: "elit", customClass: "unvouche", weight: 5, title: "<span id='tag-cloud_tip_7'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-           {text: "nam et", customClass: "unvouche", weight: 5, title: "<span id='tag-cloud_tip_8'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-           {text: "leo", customClass: "unvouche", weight: 4, title: "<span id='tag-cloud_tip_9'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-           {text: "sapien", customClass: "unvouche", weight: 4, title: "<span id='tag-cloud_tip_10'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-           {text: "pellentesque", customClass: "unvouche", weight: 3, title: "<span id='tag-cloud_tip_11'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-           {text: "habitant", customClass: "unvouche", weight: 3, title: "<span id='tag-cloud_tip_12'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-           {text: "morbi", customClass: "vouche", weight: 3, title: "<span id='tag-cloud_tip_13'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }} },
-           {text: "tristisque", customClass: "vouche", weight: 3, title: "<span id='tag-cloud_tip_14'>15</span>", handlers: {click: function() { InitializeOnClickVoucheUpOrDown($(this).attr("id")); }}}
-    ];
-    LoadTagsCloud(word_list);
-
-    //initialize event for adding tag on form submit
-
-    InitializeAddNewTagFormSubmit();
+    });
   }
 }
 
@@ -256,4 +206,3 @@ $(function () {
     }
   }
 });
-
