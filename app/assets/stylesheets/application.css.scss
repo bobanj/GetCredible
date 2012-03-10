@@ -350,7 +350,7 @@ footer {
 }
 
 #profile {
-  padding: 28px 30px 40px 30px;
+  padding: 28px 30px 0px 30px;
 }
 
 #activity,
@@ -573,3 +573,5 @@ footer {
   }
 
 }
+@import "tipsy";
+@import "tag_cloud";
