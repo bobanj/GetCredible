@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def tags_summary(user)
+  def tags_summary(user=nil)
     tags = []
 
     user_tags.includes([:tag, :votes]).each do |user_tag|
