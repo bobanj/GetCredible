@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
       tags << {
         id: user_tag.id,
         name: user_tag.tag.name,
-        voted: user_tag.votes.any?{|vote| vote.voter_id == user.id},
+        voted: user && user_tag.votes.any?{|vote| vote.voter_id == user.id},
         votes: user_tag.votes.length
       }
     end
