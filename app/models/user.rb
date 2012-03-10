@@ -15,12 +15,16 @@ class User < ActiveRecord::Base
   # Associations
   has_many :user_tags, dependent: :destroy
   has_many :tags, through: :user_tags
-
+  has_many :activity_items, dependent: :destroy
 
 
   def add_tags(tag_names)
     tag_names.to_s.split(',').each do |tag_name|
-      tag = Tag.find_or_create_by_name(tag_name.strip)
+      tag = Tag.find_or_initialize_by_name(tag_name.strip)
+      if tag.new_record? && tag.valid?
+        tag.save
+        self.activity_items.create(:item_id => tag.id, :item_type => tag.class.name)
+      end
       self.tags << tag unless tags.include?(tag)
     end
   end
