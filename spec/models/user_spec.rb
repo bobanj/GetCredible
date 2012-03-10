@@ -14,64 +14,45 @@ describe User do
     it { should have_many(:tags).through(:user_tags) }
   end
 
-  describe "#tag" do
+  describe "#add_tags" do
     let(:user) { Factory(:user) }
 
-    it "can handle nil tag_names" do
-      user.tag(nil)
+    it "does not create a tag when tag_names is nil" do
+      user.add_tags(nil)
       user.tags.should be_empty
     end
 
-    it "can handle empty string tag_names" do
-      user.tag('')
+    it "does not create a tag when tag_names is empty" do
+      user.add_tags('')
       user.tags.should be_empty
     end
 
-    it "can handle sigle tag" do
-      user.tag('development')
+    it "creates a tag when tag_names are single tag" do
+      user.add_tags('development')
       user.tags.length.should == 1
       user.tags[0].name.should == 'development'
     end
 
-    it "can handle multiple tags" do
-      user.tag('development, design, management')
+    it "creates a tag when tag_names are multiple tags" do
+      user.add_tags('development, design, management')
       user.tags.length.should == 3
       user.tags[0].name.should == 'development'
       user.tags[1].name.should == 'design'
       user.tags[2].name.should == 'management'
     end
 
-    it "can handle tags with words" do
-      user.tag('web design, project management')
+    it "creates a tag when tag_names are multiple tags with multiple words" do
+      user.add_tags('web design, project management')
       user.tags.length.should == 2
       user.tags[0].name.should == 'web design'
       user.tags[1].name.should == 'project management'
     end
 
-    it "does not create multiple tags for a user" do
-      user.tag('web design, web design, web design')
+    it "does not create duplicate tags for a user" do
+      user.add_tags('web design, web design, web design')
       Tag.count.should == 1
       user.tags.length.should == 1
       user.tags[0].name.should == 'web design'
     end
-
-    it "tags another user" do
-    end
-
-    it "tags another user with multiple tags" do
-    end
-
-    it "tags another user with multiple repeating tags" do
-    end
-
-    it "counts votes per tag" do
-    end
-
-    it "can delete only own tags (not the tag itself just the user_tag)" do
-    end
-
-   # TODO Voting(thumbs up) does not happen right after a user adds a tag
-   # Mashnata znachi deka veke si glasal za toj Tag
-
   end
 end

@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
 
 
 
-  def tag(tag_names)
+  def add_tags(tag_names)
     tag_names.to_s.split(',').each do |tag_name|
       tag = Tag.find_or_create_by_name(tag_name.strip)
       self.tags << tag unless tags.include?(tag)

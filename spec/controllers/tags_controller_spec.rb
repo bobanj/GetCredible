@@ -11,13 +11,13 @@ describe TagsController do
 
     it "requires signed in user" do
       controller.should_not_receive(:create)
-      user.should_not_receive(:tag)
+      user.should_not_receive(:add_tags)
       post :create, tag_names: 'something'
     end
 
     it "can tag user when signed in" do
       sign_in(user)
-      user.should_receive(:tag).with('something')
+      user.should_receive(:add_tags).with('something')
       post :create, tag_names: 'something', user_id: 1, format: 'json'
     end
   end
