@@ -4,7 +4,7 @@ module ApplicationHelper
     msg = ''
     flash.each do |key, value|
       msg << <<-EOF
-        <div id="flash-#{key}" class="flash-message #{key}">#{value}</div>
+        <div id="flash-message" style="display:none" data-type="#{key}">#{value}</div>
       EOF
     end
     msg.html_safe

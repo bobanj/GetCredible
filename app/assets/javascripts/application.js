@@ -194,5 +194,16 @@ $(function () {
         return false;
     });
 
+    var flashMessage = $("#flash-message");
+    if(flashMessage.length > 0){
+        var messageType = flashMessage.data('type');
+        if(messageType == 'error'){
+            noty({text: flashMessage.text(), type:'error', timeout:3000});
+        } else {
+            noty({text: flashMessage.text(), type:'success', timeout:3000});
+        }
+
+    }
+
     $.getCredible.updateTagCloud();
 })
