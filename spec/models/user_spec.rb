@@ -30,6 +30,12 @@ describe User do
     it { should have_many(:activity_items).dependent(:destroy) }
   end
 
+  describe "Validations" do
+    it { should validate_presence_of(:first_name) }
+    it { should validate_presence_of(:last_name) }
+    it { should validate_presence_of(:job_title) }
+  end
+
   describe "#add_tags" do
     let(:user) { Factory(:user) }
 

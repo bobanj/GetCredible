@@ -18,6 +18,9 @@ class User < ActiveRecord::Base
   has_many :tags, through: :user_tags
   has_many :activity_items, dependent: :destroy
 
+  # Validations
+  validates :first_name, :last_name, :job_title, :presence => true, :format => {:with => /^[\w\s-]*$/}
+
   def full_name
     "#{first_name} #{last_name}"
   end

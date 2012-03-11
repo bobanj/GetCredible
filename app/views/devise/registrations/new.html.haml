@@ -10,6 +10,9 @@
       = f.error_notification
       %ul.inputs
         %li= f.input :email, :required => true, :autofocus => true
+        %li= f.input :first_name, :required => true
+        %li= f.input :last_name, :required => true
+        %li= f.input :job_title, :required => true
         %li= f.input :password, :required => true
         %li= f.input :password_confirmation, :required => true
         %li= f.button :submit, "Sign up", class: 'btn large primary'
