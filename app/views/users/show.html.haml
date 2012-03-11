@@ -42,7 +42,7 @@
         .inner{:style => "padding-left: 20px;"}
           %h3 You can remove the tags you don't like
 
-    #tag-cloud{:"data-tag-cloud-path" => user_user_tags_path(@user), :"data-logged-in" => user_signed_in?.to_s, :"data-can-vote" => (!(@user == current_user)).to_s}
+    = tag_cloud(@user)
 
     #tag-msg
       %span.icon
