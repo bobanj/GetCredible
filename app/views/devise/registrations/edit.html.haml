@@ -20,6 +20,13 @@
           %li= f.button :submit, "Save", class: 'btn primary large'
 
   %section#tags
+    #add-tag
+      .inner{:style => "padding-left: 20px;"}
+        %h3 You can remove the tags you don't like
+
+    = image_tag "ajax_loader.gif", :id => 'tag-could-loader', :style => "display:none;"
+    = tag_cloud(@user)
+
     #tag-msg
       %span.icon
       %a{:href => '#'}
@@ -47,9 +54,8 @@
   #latest-activity
     %h2 Latest incoming activity
     %ul.unstyled
-      - current_user.activities.each do |activity|
-        %li{:class => class_for_activity(activity)}
-          %span.icon
-          Janko Jovanovic tagged you as enterpreneur
+      %li
+        %span.icon
+        Janko Jovanovic tagged you as enterpreneur
 
     = link_to 'View all incoming activity ►', ''

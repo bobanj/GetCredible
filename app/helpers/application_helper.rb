@@ -23,6 +23,7 @@ module ApplicationHelper
                 "data-tag-cloud-path" => user_user_tags_path(@user),
                 :"data-logged-in" => user_signed_in?.to_s,
                 :"data-can-vote" => (!(user == current_user)).to_s,
+                :"data-can-delete" => (@user == current_user).to_s,
                 :"data-user" => {:first_name => @user.first_name,
                                  :last_name => @user.last_name,
                                  :full_name => @user.full_name}.to_json)

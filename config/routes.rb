@@ -10,7 +10,7 @@ GetCredible::Application.routes.draw do
   devise_for :users
 
   resources :users, :only => [:index, :show] do
-    resources :user_tags, :only => [:index, :create], :path => :tags do
+    resources :user_tags, :only => [:index, :create, :destroy], :path => :tags do
       member do
         post :vote
         post :unvote

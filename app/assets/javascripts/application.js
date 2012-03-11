@@ -21,17 +21,19 @@
 $(function () {
     $.getCredible = {};
     $.getCredible.tagCloudPath = null;
+    $.getCredible.tagCloudLoader = $("#tag-cloud-loader");
     $.getCredible.tagCloud = $("#tag-cloud");
     $.getCredible.vote = function (word) {
         var word = $(word);
         var voteToggle;
 
         if (typeof(this.tagCloudPath) == 'string') {
-            voteToggle = word.hasClass('vouche') ? '/vote.json' : '/unvote.json';
+            voteToggle = word.hasClass('vouche') ? '/unvote.json' : '/vote.json';
             if (this.tagCloud.data('logged-in') == false) {
                 noty({text:'Please login so you can vouche', type:'error', timeout:2500});
                 return false;
             }
+
             if (this.tagCloud.data('can-vote')) {
                 $.post(this.tagCloudPath + '/' + word.data('user-tag-id') + voteToggle, function (data) {
                     if (data.status == 'ok') {
@@ -39,22 +41,24 @@ $(function () {
                         var user = $.getCredible.tagCloud.data('user');
                         if (word.hasClass('vouche')) {
                             word.tipsy("hide");
-                            word.data('votes', numVotes + 1);
+                            word.data('votes', numVotes - 1);
                             word.removeClass("vouche").addClass("unvouche");
-                            noty({text:'You have vouched for ' + user.first_name + ' on ' + word.text(), type:'success', timeout:800});
+                            noty({text:'You have unvouched for ' + user.first_name + ' on ' + word.text(), type:'success', timeout:800});
                             word.tipsy("show");
                         } else {
                             word.tipsy("hide");
-                            word.data('votes', numVotes - 1);
+                            word.data('votes', numVotes + 1);
                             word.removeClass("unvouche").addClass("vouche");
-                            noty({text:'You have unvouched for ' + user.first_name + ' on ' + word.text(), type:'success', timeout:800});
+                            noty({text:'You have vouched for ' + user.first_name + ' on ' + word.text(), type:'success', timeout:800});
                             word.tipsy("show");
                         }
 
                     }
                 });
             } else {
-                noty({text:'You can not vouche for yourself', type:'alert', timeout:2500});
+                if (!this.tagCloud.data('can-delete')) {
+                    noty({text:'You can not vouche for yourself', type:'alert', timeout:2500});
+                }
             }
         } else {
             noty({text:'You are not authorized for this action', type:'error', timeout:2500});
@@ -62,10 +66,18 @@ $(function () {
     };
     $.getCredible.createWordList = function (data) {
         var wordList = [];
+        var customClass = "word ";
+        customClass += this.tagCloud.data('can-delete') ? 'remove ' : '';
         $.each(data, function (i, userTag) {
             wordList.push({
                 text:userTag.name,
-                customClass:userTag.voted ? "unvouche word" : "vouche word",
+                customClass:function () {
+                    var pom = customClass + '';
+                    if ($.getCredible.tagCloud.data('can-vote')) {
+                        pom += userTag.voted ? "vouche " : "unvouche ";
+                    }
+                    return pom;
+                },
                 weight:userTag.votes,
                 title:userTag.name,
                 dataAttributes:{votes:userTag.votes, 'user-tag-id':userTag.id},
@@ -77,11 +89,13 @@ $(function () {
         return wordList;
     }
     $.getCredible.renderTagCloud = function (wordList) {
+        $.getCredible.tagCloudLoader.show('fast');
         $.getCredible.tagCloud.html('');
         $.getCredible.tagCloud.jQCloud(wordList, {
             nofollow:true,
             delayedMode:true,
             callback:function () {
+                $.getCredible.tagCloudLoader.hide('fast');
                 $("#tag-cloud .word").each(function () {
                     var word = $(this);
                     var baloonSizeClass = word.attr('class').split(' ')[0];
@@ -118,7 +132,7 @@ $(function () {
                         title:function () {
                             return '<span id="" class="' + baloonSizeClass + '">' + word.data('votes') + '</span>';
                         }
-                    })
+                    }).append('<span class="icon"></span>');
                 });
             }})
     }
@@ -132,13 +146,36 @@ $(function () {
         }
     }
 
+    $("#tag-cloud").delegate(".remove .icon", "click", function () {
+        var word = $(this).parent();
+        noty({
+            text:'Are you sure you want to delete this tag?',
+            layout:'center',
+            type:'alert',
+            buttons:[
+                {type:'button green', text:'Ok', click:function () {
+                    if ($.getCredible.tagCloud.data('can-delete')) {
+                        $.post($.getCredible.tagCloudPath + '/' + word.data('user-tag-id'), { _method:'delete' }, function (data) {
+                            $.getCredible.renderTagCloud($.getCredible.createWordList(data));
+                        });
+                    }
+                } },
+                {type:'button pink', text:'Cancel', click:function () {
+
+                } }
+            ],
+            closable:false,
+            timeout:false
+        });
+
+    });
+
     $("#add-tag form").submit(function (e) {
         e.preventDefault();
         var input = $('#tag_names');
         var tagNames = input.val();
         if (tagNames.length && $.getCredible.tagCloud.length > 0) {
             input.val('');
-            $.getCredible.tagCloud.html("loading...");
             $.post($.getCredible.tagCloud.data('tag-cloud-path'), {tag_names:tagNames}, function (data) {
                 $.getCredible.renderTagCloud($.getCredible.createWordList(data));
             });

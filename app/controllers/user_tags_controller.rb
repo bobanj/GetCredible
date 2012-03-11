@@ -35,6 +35,12 @@ class UserTagsController < ApplicationController
     end
   end
 
+  def destroy
+    user_tag = current_user.user_tags.find_by_id(params[:id])
+    user_tag.destroy
+    render json: @user.tags_summary(current_user)
+  end
+
   private
     def load_user
       @user = User.find(params[:user_id])

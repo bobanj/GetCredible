@@ -42,6 +42,7 @@
         .inner{:style => "padding-left: 20px;"}
           %h3 You can remove the tags you don't like
 
+    = image_tag "ajax_loader.gif", :id => 'tag-cloud-loader', :style => "display:none;"
     = tag_cloud(@user)
 
     #tag-msg
