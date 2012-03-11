@@ -68,7 +68,9 @@ $(function () {
         var wordList = [];
         var customClass = "word ";
         customClass += this.tagCloud.data('can-delete') ? 'remove ' : '';
-
+        if(data.length == 0){
+            return wordList;
+        }
         var min = data[0].votes;
         var max = data[0].votes;
         var parts = 10;

@@ -18,7 +18,8 @@
             .content
               .photo
                 = link_to activity_item.user do
-                  = image_tag activity_item.user.avatar.url(:avatar)
+                  = image_tag activity_item.user.avatar.url(:small)
+                  = image_tag activity_item.target.avatar.url(:tiny), :class => 'over'
               .icon
               %h2
                 = activity_description(activity_item)
