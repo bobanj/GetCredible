@@ -27,25 +27,4 @@
 
 %aside
   = render :partial => 'shared/sidebar_nav', :locals => { :user => current_user }
-
-  #latest-activity
-    %h2 Latest incoming activity
-
-    %ul.unstyled
-      %li.tag
-        %span.icon
-        Janko Jovanovic tagged you as enterpreneur
-      %li.vouch
-        %span.icon
-        Boban Jovanoski vouched for enterprenur, manager,  leader
-      %li.tag
-        %span.icon
-        John Smith tagged you as thinker
-      %li.tag
-        %span.icon
-        Marting Berg tagged you as thinker
-      %li.vouch
-        %span.icon
-        Jessica Hess vouched for enterprenur
-
-    = link_to 'View all incoming activity ►', ''
+  = render :partial => 'shared/sidebar_activity'

@@ -22,11 +22,4 @@
 
 %aside
   = render :partial => 'shared/sidebar_nav', :locals => { :user => current_user }
-  #latest-activity
-    %h2 Latest incoming activity
-    %ul.unstyled
-      %li
-        %span.icon
-        Janko Jovanovic tagged you as enterpreneur
-
-    = link_to 'View all incoming activity ►', ''
+  = render :partial => 'shared/sidebar_activity'
