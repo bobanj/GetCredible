@@ -17,13 +17,13 @@ class UserTag < ActiveRecord::Base
       tag = Tag.find_or_initialize_by_name(tag_name.strip)
       if tag.new_record? && tag.valid?
         tag.save
-        user.activity_items.create(:item => tag)
       end
-      unless user.tags.include?(tag)
+      if tag.valid? && !user.tags.where(:name => tag.name).any?
         user_tag = user.user_tags.new
         user_tag.tag = tag
         user_tag.tagger = tagger
         user_tag.save
+        tagger.activity_items.create(:item => user_tag)
       end
     end
   end

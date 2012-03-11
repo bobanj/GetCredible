@@ -20,16 +20,25 @@ describe ActivityItem do
 
     it "is created after user adds a non existing tag" do
       UserTag.add_tags(user, tagger, 'development')
-      user.activity_items.count.should == 1
+      tagger.activity_items.count.should == 1
       UserTag.add_tags(user, tagger, 'development')
-      user.activity_items.count.should == 1
+      tagger.activity_items.count.should == 1
       UserTag.add_tags(user, tagger, 'production')
-      user.activity_items.count.should == 2
+      tagger.activity_items.count.should == 2
+    end
+
+    it "is created after user votes for another users tag" do
+      UserTag.add_tags(user, tagger, 'development')
+      tagger.activity_items.count.should == 1
+      UserTag.add_tags(user, tagger, 'development')
+      tagger.activity_items.count.should == 1
+      UserTag.add_tags(user, tagger, 'production')
+      tagger.activity_items.count.should == 2
     end
 
     it "item is polymorphic" do
       UserTag.add_tags(user, tagger, 'development')
-      user.activity_items.last.item.should == Tag.find_by_name('development')
+      tagger.outgoing_activities.first.item.should == user.incoming_activities.first.item
       user_tag = user.user_tags.last
       ai = user.activity_items.create(:item => user_tag)
       ai.item_id.should == user_tag.id

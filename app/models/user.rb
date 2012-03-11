@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
            UPPER(tags.name) LIKE UPPER(:q)", {:q => "%#{q}%"})
   end
 
-  def activities
+  def outgoing_activities
     activity_items.order('created_at desc')
   end
 
