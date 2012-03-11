@@ -6,9 +6,9 @@
 
       = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:multipart => true, :method => :put }) do |f|
         %ul
-          %li.name= f.input :first_name, :wrapper => false
-          %li.name= f.input :last_name, :wrapper => false
-          %li.name= f.input :job_title, :wrapper => false
+          %li= f.input :first_name, :wrapper => false
+          %li= f.input :last_name, :wrapper => false
+          %li= f.input :job_title, :wrapper => false
           %li= f.input :country, :wrapper => false
           %li= f.input :city, :wrapper => false
           %li= f.input :personal_url, :wrapper => false
