@@ -6,7 +6,6 @@ class Tag < ActiveRecord::Base
   # Validations
   validates :name, :presence => true, :uniqueness => true
 
-  # TODO: dependent destroy user_tags
   # Associations
-
+  has_many :user_tags, :dependent => :destroy
 end

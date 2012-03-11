@@ -89,13 +89,13 @@ class User < ActiveRecord::Base
   end
 
   def all_activities
-    ActivityItem.find_by_sql("SELECT t.* FROM
+    ActivityItem.paginate_by_sql("SELECT t.* FROM
                                 (SELECT activity_items.* FROM activity_items
                                   WHERE activity_items.user_id = #{id}
                                   UNION
                                   SELECT activity_items.*
                                   FROM activity_items
                                   WHERE activity_items.target_id = #{id}) AS t
-                                ORDER BY created_at DESC")
+                                ORDER BY created_at DESC", :page => @page, :per_page => @per_page)
   end
 end
