@@ -13,6 +13,7 @@ describe UserTag do
     it { should belong_to(:user) }
     it { should belong_to(:tag) }
     it { should belong_to(:tagger) }
+    it { should have_many(:activity_items).dependent(:destroy) }
   end
 
   describe 'Validations' do

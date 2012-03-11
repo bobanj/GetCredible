@@ -7,7 +7,7 @@ class UserTag < ActiveRecord::Base
   belongs_to :user
   belongs_to :tag
   belongs_to :tagger, :class_name => 'User'
-  has_many :activity_items, :as => :item
+  has_many :activity_items, :as => :item, :dependent => :destroy
 
   # Validations
   validates :user_id, :presence => true

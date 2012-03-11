@@ -9,6 +9,7 @@ class Vote < ActiveRecord::Base
   # Activities
   belongs_to :voteable, :polymorphic => true
   belongs_to :voter, :polymorphic => true
+  has_many :activity_items, :as => :item, :dependent => :destroy
 
   attr_accessible :vote, :voter, :voteable
 
