@@ -198,9 +198,9 @@ $(function () {
     if(flashMessage.length > 0){
         var messageType = flashMessage.data('type');
         if(messageType == 'error'){
-            noty({text: flashMessage.text(), type:'error', timeout:3000});
+            noty({text: flashMessage.text(), type:'error', timeout:2000});
         } else {
-            noty({text: flashMessage.text(), type:'success', timeout:3000});
+            noty({text: flashMessage.text(), type:'success', timeout:2000});
         }
 
     }
