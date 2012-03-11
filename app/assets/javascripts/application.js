@@ -25,7 +25,7 @@ $(function () {
         var word = $(word);
         var voteToggle;
 
-        if (typeof(this.tagCloudPath) == 'string' && this.tagCloud.data('logged-in') == true) {
+        if (typeof(this.tagCloudPath) == 'string' && this.tagCloud.data('logged-in') == true && this.tagCloud.data('can-vote') == true) {
             voteToggle = word.hasClass('vouche') ? '/vote.json' : '/unvote.json';
             $.post(this.tagCloudPath + '/' + word.data('user-tag-id') + voteToggle, function (data) {
                 if (data.status == 'ok') {
