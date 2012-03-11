@@ -24,8 +24,8 @@ gem 'capistrano'
 gem 'capistrano-ext'
 gem 'will_paginate'
 
-gem 'sass-rails',   '~> 3.2.4'
-gem 'bootstrap-sass', '~> 1.4.3'
+gem 'sass-rails'
+gem 'bootstrap-sass'
 gem 'compass-rails','~> 1.0.0.rc.3'
 gem 'compass-960-plugin'
 

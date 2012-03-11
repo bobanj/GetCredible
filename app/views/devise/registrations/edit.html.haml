@@ -35,34 +35,21 @@
 
   %nav#profile-nav
     .photo
-      %a{:href => '', :class => ""}
-        %img{:src => 'https://api.twitter.com/1/users/profile_image/MarkoRosic?size=bigger'}
+      %a= image_tag current_user.avatar_url(:avatar)
 
     .my-actions
-      Welcome Adriana
+      ="Welcome #{current_user.first_name}"
       %br
-      %a{:href => '', :class => "xxl"} Edit profile
+      = link_to 'Edit profile', edit_user_registration_path, :class => 'xxl'
       &bull;
-      %a{:href => '', :class => "xxl"} Logout
+      = link_to "Logout", destroy_user_session_path, :class => 'xxl'
 
   #latest-activity
     %h2 Latest incoming activity
-
     %ul.unstyled
-      %li.tag
-        %span.icon
-        Janko Jovanovic tagged you as enterpreneur
-      %li.vouch
-        %span.icon
-        Boban Jovanoski vouched for enterprenur, manager,  leader
-      %li.tag
-        %span.icon
-        John Smith tagged you as thinker
-      %li.tag
-        %span.icon
-        Marting Berg tagged you as thinker
-      %li.vouch
-        %span.icon
-        Jessica Hess vouched for enterprenur
+      - current_user.activities.each do |activity|
+        %li{:class => class_for_activity(activity)}
+          %span.icon
+          Janko Jovanovic tagged you as enterpreneur
 
     = link_to 'View all incoming activity ►', ''

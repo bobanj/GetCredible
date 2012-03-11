@@ -221,7 +221,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
-  bootstrap-sass (~> 1.4.3)
+  bootstrap-sass
   capistrano
   capistrano-ext
   capybara
@@ -249,7 +249,7 @@ DEPENDENCIES
   rb-readline
   rmagick
   rspec-rails (>= 2.8.1)
-  sass-rails (~> 3.2.4)
+  sass-rails
   shoulda-matchers
   simple_form
   spork (~> 0.9.0.rc)

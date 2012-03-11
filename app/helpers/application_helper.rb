@@ -29,4 +29,12 @@ module ApplicationHelper
 
 
   end
+
+  def class_for_activity(activity)
+    case activity.item
+      when Tag then "tag"
+      when UserTag then "tag"
+      when Vote then "vouch"
+    end
+  end
 end

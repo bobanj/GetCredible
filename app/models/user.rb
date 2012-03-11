@@ -77,4 +77,12 @@ class User < ActiveRecord::Base
     where("UPPER(users.first_name || ' ' || users.last_name) LIKE UPPER(:q) OR
            UPPER(tags.name) LIKE UPPER(:q)", {:q => "%#{q}%"}).uniq
   end
+
+  def activities
+    activity_items.order('created_at desc')
+  end
+
+  def incoming_activities
+    activity_items
+  end
 end

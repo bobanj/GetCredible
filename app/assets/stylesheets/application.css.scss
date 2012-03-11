@@ -8,26 +8,22 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
  *= require tipsy
- *= require_directory .
+ *= require_self
+ *require_directory .
  *
 */
 
 @import "compass/reset";
-
 // Framework imports and common settings
+
 @import "base";
 @import "bootstrap";
 @import "forms";
 @import "noty";
-
 // Lato font
+
 @import url(http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
-
-
-
-
 
 /* COMPONENTS
 -----------------------------------------------------------------------*/
@@ -45,17 +41,17 @@
 //}
 
 input, textarea {
-  @include box-shadow(inset 0 5px 5px rgba(0,0,0,.1));
+  @include box-shadow(inset 0 5px 5px rgba(0, 0, 0, .1));
   font-size: 12px;
 }
 
-
 // Button Base
+
 .btn {
   @include border-radius(2px);
   border: 1px solid lighten($black, 59%);
   @include background-image(linear-gradient(lighten($black, 88%), lighten($black, 69%)));
-  @include box-shadow(rgba($white, 0.85) 0px 0px 1px 0px inset, rgba($black, 0.38) 0px 2px 5px );
+  @include box-shadow(rgba($white, 0.85) 0px 0px 1px 0px inset, rgba($black, 0.38) 0px 2px 5px);
   font-weight: bold;
   @include text-shadow(#fff 0px 1px 0px);
   @include transition(all 0.1s ease);
@@ -65,10 +61,10 @@ input, textarea {
     background-position: 0 0;
   }
 
-
-
 // Primary Button Type
-&.primary {
+
+  &.primary {
+    font-size: 14px;
     border: 1px solid #8bc7fd;
     color: #165288;
     @include background-image(linear-gradient(#c1e2ff, #95ccff));
@@ -81,16 +77,18 @@ input, textarea {
     }
 
   // Active state
-  &:active {
-        @include background-image(linear-gradient(#d3ebff, #b5dbff));
-        @include box-shadow(rgba($black, 0.15) 0px 5px 5px 0px inset, rgba($black, 0.24) 0px 0px 6px inset );
-        border: 1px solid #5b7994;
-      }
+
+    &:active {
+      @include background-image(linear-gradient(#d3ebff, #b5dbff));
+      @include box-shadow(rgba($black, 0.15) 0px 5px 5px 0px inset, rgba($black, 0.24) 0px 0px 6px inset);
+      border: 1px solid #5b7994;
+    }
 
   }
 
 // Button Sizes
-&.large {
+
+  &.large {
     @include border-radius(2px);
     font-size: 14px;
     padding: 11px 14px;
@@ -99,6 +97,7 @@ input, textarea {
 }
 
 // Tabs
+
 .tabs {
   border-color: lighten($black, 76%);
   border-style: solid;
@@ -107,8 +106,9 @@ input, textarea {
   @include background-image(linear-gradient(lighten($black, 93%), lighten($black, 82%)));
 
   > li {
-    position: relative; // For the dropdowns mostly
-    margin-bottom: 0;
+    position: relative;
+  // For the dropdowns mostly
+   margin-bottom: 0;
     > a {
       color: $grayDark;
       padding: 0 15px;
@@ -130,7 +130,7 @@ input, textarea {
 
   .active > a {
     @include box-shadow(rgba($black, 0.26) 0px 3px 5px 0px inset);
-    @include background-image( linear-gradient(lighten($black, 82%),lighten($black, 93%)));
+    @include background-image(linear-gradient(lighten($black, 82%), lighten($black, 93%)));
   }
 
   .active + li a {
@@ -146,8 +146,8 @@ input, textarea {
   }
 }
 
-
 // Pagination
+
 .pagination {
 
   text-align: center;
@@ -186,22 +186,25 @@ input, textarea {
 }
 
 // General style for profile photo
+
 .photo a {
   float: left;
   @include box-shadow(rgba($black, 0.2) 0px 2px 4px);
 
-  img { display: block; }
+  img {
+    display: block;
+  }
 
 }
 
 // Icons
+
 .icon {
   @include replace-text("icons-sprite.png", 0, 0);
   display: inline-block;
   height: 12px;
   width: 12px;
 }
-
 
 .tag .icon {
   background-position: 0 -32px;
@@ -211,8 +214,8 @@ input, textarea {
   background-position: 0 0;
 }
 
-
 // List of items activity feed/search
+
 .list-view {
 
   li {
@@ -280,8 +283,6 @@ input, textarea {
 
 }
 
-
-
 /* BASIC PAGE SETTINGS
 -----------------------------------------------------------------------*/
 html, body {
@@ -289,11 +290,9 @@ html, body {
   margin: 0;
 }
 
-
 body {
   font-family: 'Lato', Arial, helvetica, sans-serif;
 }
-
 
 /* GRIDS
 -----------------------------------------------------------------------*/
@@ -304,7 +303,6 @@ body {
 #global-header {
   @include grid(12);
 }
-
 
 #global-nav {
   @include grid(9);
@@ -336,8 +334,6 @@ footer {
   @include grid-suffix(3);
 }
 
-
-
 #profile,
 #activity,
 #search,
@@ -346,12 +342,12 @@ footer {
 #profile-nav,
 #latest-activity,
 #invite-side,
-#import  {
+#import {
   @include clearfix;
 }
 
 #profile {
-  padding: 28px 30px 0px 30px;
+  padding: 28px 30px 30px 30px;
 }
 
 #activity,
@@ -361,26 +357,29 @@ footer {
 
 #invite {
 
-  #page-header { padding: 20px 30px 14px 30px; }
+  #page-header {
+    padding: 20px 30px 14px 30px;
+  }
 
-  form, #twitter-friends { padding: 20px 30px 30px 30px; }
+  form, #twitter-friends {
+    padding: 20px 30px 30px 30px;
+  }
 }
 
-
-#profile-nav, #latest-activity, #invite-side, #import  {
+#profile-nav, #latest-activity, #invite-side, #import {
   padding: 20px;
 }
 
-#invite-side, #import, #latest-activity  {
+#invite-side, #import, #latest-activity {
   border-top: 1px solid $borderColor;
 }
-
 
 /* STYLE
 -----------------------------------------------------------------------*/
 
 // Header
-#global-header{
+
+#global-header {
 
   @include background-image(linear-gradient(lighten($black, 99%), lighten($black, 96%)));
   border-bottom: 1px solid $borderColor;
@@ -395,6 +394,7 @@ footer {
 }
 
 // Global navigation
+
 #global-nav {
 
   border-right: 1px solid $borderColor;
@@ -407,11 +407,10 @@ footer {
 
     &.active a {
       @include background-image(linear-gradient(lighten($black, 95%), lighten($black, 92%)));
-      @include box-shadow( inset 0px 0px 5px 1px rgba(0, 0, 0, 0.1));
+      @include box-shadow(inset 0px 0px 5px 1px rgba(0, 0, 0, 0.1));
       border-left: 0 none;
     }
   }
-
 
   a {
     color: $gray;
@@ -430,7 +429,8 @@ footer {
   }
 
 // Logo style
-#gn-logo a {
+
+  #gn-logo a {
     border-left: 0 none;
     color: $linkColor;
     font-size: 18px;
@@ -441,6 +441,7 @@ footer {
 }
 
 // Global search in header
+
 #global-search {
   border-left: 1px solid $white;
   padding-left: 10px;
@@ -448,7 +449,7 @@ footer {
   form {
     margin: 10px 0 0 0;
     background: lighten($black, 96%);
-    @include box-shadow(rgba($black, 0.32) 0px 2px 5px inset, $white 0px 1px 0px );
+    @include box-shadow(rgba($black, 0.32) 0px 2px 5px inset, $white 0px 1px 0px);
     @include border-radius(3px);
     width: 192px;
     @include clearfix;
@@ -477,8 +478,8 @@ footer {
 
 }
 
-
 // Main section
+
 #main {
   background: #fff;
   border: 1px solid $borderColor;
@@ -488,7 +489,6 @@ footer {
 #content {
   border-right: 1px solid $borderColor;
 }
-
 
 #page-header {
 
@@ -502,6 +502,7 @@ footer {
 }
 
 // Sidebar
+
 aside {
   background: darken($white, 2%);
 
@@ -510,7 +511,9 @@ aside {
     .photo a {
       padding: 4px;
 
-      img { width: 60px; }
+      img {
+        width: 60px;
+      }
 
     }
 
@@ -548,17 +551,32 @@ aside {
     margin-right: 5px;
   }
 
-  a { color: $grayDark; }
+  a {
+    color: $grayDark;
+  }
 
-  .facebook .icon { background-position: 0 -144px; }
-  .twitter .icon { background-position: 0 -160px; height: 14px; }
-  .email .icon { background-position: 0 -176px; height: 12px; }
+  .facebook .icon {
+    background-position: 0 -144px;
+  }
+  .twitter .icon {
+    background-position: 0 -160px;
+    height: 14px;
+  }
+  .email .icon {
+    background-position: 0 -176px;
+    height: 12px;
+  }
 
 }
 
-#import .icon { background-position: 0 -192px; float: left; margin: 10px 8px 10px 0; }
+#import .icon {
+  background-position: 0 -192px;
+  float: left;
+  margin: 10px 8px 10px 0;
+}
 
 // Footer
+
 footer {
   border-top: 0 none;
   color: #ababab;
@@ -575,3 +593,6 @@ footer {
 
 }
 
+@import "profile";
+@import "tag_cloud";
+@import "tipsy_custom";
