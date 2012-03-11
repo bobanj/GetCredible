@@ -21,17 +21,7 @@
   = render :partial => 'shared/tag_cloud'
 
 %aside
-  %nav#profile-nav
-    .photo
-      %a= image_tag current_user.avatar_url(:avatar)
-
-    .my-actions
-      ="Welcome #{current_user.first_name}"
-      %br
-      = link_to 'Edit profile', edit_user_registration_path, :class => 'xxl'
-      &bull;
-      = link_to "Logout", destroy_user_session_path, :class => 'xxl'
-
+  = render :partial => 'shared/sidebar_nav', :locals => { :user => current_user }
   #latest-activity
     %h2 Latest incoming activity
     %ul.unstyled

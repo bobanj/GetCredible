@@ -24,6 +24,7 @@ gem 'capistrano'
 gem 'capistrano-ext'
 gem 'will_paginate'
 gem 'fog'
+gem "friendly_id", "~> 4.0.1"
 
 gem 'sass-rails'
 gem 'bootstrap-sass'

@@ -14,32 +14,19 @@
           %li.web
             %span.icon
             - #TODO create url for given addr ex google.com
-            = link_to @user.personal_url, '#'
+            = link_to @user.personal_url, @user.personal_url, :target => '_blank'
         - unless @user.twitter_handle.blank?
           %li.twitter
             %span.icon
-            =link_to @user.twitter_handle, "http://twitter.com/#{@user.twitter_handle}"
-    .actions
-      Like
-      Tweet
-
-      = link_to 'Edit profile', edit_user_registration_path, :class => 'btn large primary'
+            =link_to @user.twitter_handle, "http://twitter.com/#{@user.twitter_handle}", :target => '_blank'
+    - if current_user && current_user == @user
+      .actions
+        = link_to 'Edit profile', edit_user_registration_path, :class => 'btn large primary'
 
   = render :partial => 'shared/tag_cloud'
 
 %aside
-
-  %nav#profile-nav
-    .photo
-      %a{:href => '', :class => ""}
-        %img{:src => 'https://api.twitter.com/1/users/profile_image/MarkoRosic?size=bigger'}
-
-    .my-actions
-      Welcome Adriana
-      %br
-      %a{:href => '', :class => "xxl"} Edit profile
-      &bull;
-      %a{:href => '', :class => "xxl"} Logout
+  = render :partial => 'shared/sidebar_nav', :locals => { :user => current_user }
 
   #latest-activity
     %h2 Latest incoming activity

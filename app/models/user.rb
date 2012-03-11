@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   # Additions
   acts_as_voter
   mount_uploader :avatar, AvatarUploader
+  extend FriendlyId
+  friendly_id :full_name, use: :slugged
 
   # Attributes
   attr_accessible :email, :password, :password_confirmation, :remember_me,

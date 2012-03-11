@@ -20,7 +20,9 @@
                 = link_to user do
                   = image_tag user.avatar.url(:avatar)
               %h2
-                = raw [link_to(user.full_name, user), user.job_title].join(', ')
+                = link_to(user.full_name, user_path(user))
+                ,
+                = user.job_title
               .details
 
                 - if user.interacted_by(current_user)
@@ -36,18 +38,7 @@
       = will_paginate @users
 
 %aside
-
-  %nav#profile-nav
-    .photo
-      %a{:href => '', :class => ""}
-        %img{:src => 'https://api.twitter.com/1/users/profile_image/MarkoRosic?size=bigger'}
-
-    .my-actions
-      Welcome Adriana
-      %br
-      %a{:href => '', :class => "xxl"} Edit profile
-      &bull;
-      %a{:href => '', :class => "xxl"} Logout
+  = render :partial => 'shared/sidebar_nav', :locals => { :user => current_user }
 
   %section#latest-activity
     %h2 Latest incoming activity

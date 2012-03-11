@@ -98,6 +98,7 @@ GEM
       nokogiri (>= 1.4.4)
       ruby-hmac
     formatador (0.2.1)
+    friendly_id (4.0.1)
     fssm (0.2.8.1)
     growl (1.0.3)
     guard (1.0.1)
@@ -247,6 +248,7 @@ DEPENDENCIES
   devise
   factory_girl_rails
   fog
+  friendly_id (~> 4.0.1)
   growl
   guard
   guard-spork
