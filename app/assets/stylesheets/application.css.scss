@@ -238,7 +238,14 @@ input, textarea {
     }
 
     img {
-      width: 41px;
+      width: 28px;
+
+      &.over {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 24px;
+      }
     }
 
   }

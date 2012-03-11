@@ -4,7 +4,7 @@ module ActivitiesHelper
   end
 
   def activity_class(activity_item)
-    classes = ['you']
+    classes = []
 
     if activity_vote?(activity_item)
       classes << 'vouche'
@@ -12,7 +12,7 @@ module ActivitiesHelper
       classes << 'tag'
     end
 
-    #classes << 'you' if outgoing_activity?(activity_item)
+    classes << 'you' if outgoing_activity?(activity_item)
 
     classes.join(' ')
   end
