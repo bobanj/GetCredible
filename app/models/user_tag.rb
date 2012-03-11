@@ -14,11 +14,8 @@ class UserTag < ActiveRecord::Base
 
   def self.add_tags(user, tagger, tag_names)
     tag_names.to_s.split(',').each do |tag_name|
-      tag = Tag.find_or_initialize_by_name(tag_name.strip)
-      if tag.new_record? && tag.valid?
-        tag.save
-      end
-      if tag.valid? && !user.tags.where(:name => tag.name).any?
+      tag = Tag.find_or_create_by_name(tag_name.strip)
+      unless user.tags.where(:name => tag.name).any?
         user_tag = user.user_tags.new
         user_tag.tag = tag
         user_tag.tagger = tagger
