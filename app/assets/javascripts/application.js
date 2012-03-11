@@ -46,69 +46,91 @@ $(function () {
             })
         }
     };
-    $.getCredible.renderTagCloud = function () {
+    $.getCredible.createWordList = function (data) {
+        var wordList = [];
+        $.each(data, function (i, userTag) {
+            wordList.push({
+                text:userTag.name,
+                customClass:userTag.voted ? "unvouche word" : "vouche word",
+                weight:userTag.votes,
+                title:userTag.name,
+                dataAttributes:{votes:userTag.votes, 'user-tag-id':userTag.id},
+                handlers:{click:function () {
+                    $.getCredible.vote(this);
+                }}
+            });
+        });
+        return wordList;
+    }
+    $.getCredible.renderTagCloud = function (wordList) {
+        $.getCredible.tagCloud.html('');
+        $.getCredible.tagCloud.jQCloud(wordList, {
+            nofollow:true,
+            delayedMode:true,
+            callback:function () {
+                $("#tag-cloud .word").each(function () {
+                    var word = $(this);
+                    var baloonSizeClass = word.attr('class').split(' ')[0];
+                    switch (baloonSizeClass) {
+                        case 'w10':
+                        case 'w9':
+                            baloonSizeClass = 'w5';
+                            break;
+                        case 'w8':
+                        case 'w7':
+                            baloonSizeClass = 'w4';
+                            break;
+                        case 'w6':
+                        case 'w5':
+                            baloonSizeClass = 'w3';
+                            break;
+                        case 'w4':
+                        case 'w3':
+                            baloonSizeClass = 'w2';
+                            break;
+                        case 'w2':
+                        case 'w1':
+                            baloonSizeClass = 'w1';
+                            break;
+                        default:
+                            baloonSizeClass = 'w1';
+                    }
+
+                    $(this).tipsy({
+                        gravity:'e',
+                        fade:true,
+                        html:true,
+                        delayOut:50,
+                        title:function () {
+                            return '<span id="" class="' + baloonSizeClass + '">' + word.data('votes') + '</span>';
+                        }
+                    })
+                });
+            }})
+    }
+
+    $.getCredible.updateTagCloud = function () {
         if (this.tagCloud.length > 0) {
             this.tagCloudPath = this.tagCloud.data('tag-cloud-path');
             $.getJSON(this.tagCloud.data('tag-cloud-path'), function (data) {
-                var word_list = [];
-                $.each(data, function (i, userTag) {
-                    word_list.push({
-                        text:userTag.name,
-                        customClass:userTag.voted ? "unvouche word" : "vouche word",
-                        weight:userTag.votes,
-                        title:userTag.name,
-                        dataAttributes:{votes:userTag.votes, 'user-tag-id':userTag.id},
-                        handlers:{click:function () {
-                            $.getCredible.vote(this);
-                        }}
-                    });
-                });
-                $.getCredible.tagCloud.jQCloud(word_list, {
-                    nofollow:true,
-                    delayedMode:true,
-                    callback:function () {
-                        console.log("words are rendered, handle tipsies");
-                        $("#tag-cloud .word").each(function () {
-                            var word = $(this);
-                            var baloonSizeClass = word.attr('class').split(' ')[0];
-                            switch (baloonSizeClass) {
-                                case 'w10':
-                                case 'w9':
-                                    baloonSizeClass = 'w5';
-                                    break;
-                                case 'w8':
-                                case 'w7':
-                                    baloonSizeClass = 'w4';
-                                    break;
-                                case 'w6':
-                                case 'w5':
-                                    baloonSizeClass = 'w3';
-                                    break;
-                                case 'w4':
-                                case 'w3':
-                                    baloonSizeClass = 'w2';
-                                    break;
-                                case 'w2':
-                                case 'w1':
-                                    baloonSizeClass = 'w1';
-                                    break;
-                                default:
-                                    baloonSizeClass = 'w1';
-                            }
-
-                            $(this).tipsy({
-                                gravity:'e',
-                                fade:true,
-                                html:true,
-                                delayOut:50,
-                                title:function () {
-                                    return '<span id="" class="' + baloonSizeClass + '">' + word.data('votes') + '</span>';
-                                }
-                            })
-                        });
-                    }})
+                $.getCredible.renderTagCloud($.getCredible.createWordList(data));
             });
         }
     }
-    $.getCredible.renderTagCloud();
+
+    $("#add-tag form").submit(function(e){
+        e.preventDefault();
+        var input = $('#tag_names');
+        var tagNames  = input.val();
+        if (tagNames.length && $.getCredible.tagCloud.length > 0) {
+            input.val('');
+            $.getCredible.tagCloud.html("loading...");
+            $.post($.getCredible.tagCloud.data('tag-cloud-path'), {tag_names: tagNames}, function (data) {
+                $.getCredible.renderTagCloud($.getCredible.createWordList(data));
+            });
+        }
+        return false;
+    });
+
+    $.getCredible.updateTagCloud();
 });

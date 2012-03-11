@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
   has_many :tags, through: :user_tags
   has_many :activity_items, dependent: :destroy
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
   def add_tags(tag_names)
     tag_names.to_s.split(',').each do |tag_name|
       tag = Tag.find_or_initialize_by_name(tag_name.strip)

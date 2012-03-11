@@ -7,7 +7,7 @@
       %li#gn-activity
         = link_to 'Activity feed', home_activity_path
       %li#gn-profile
-        = link_to 'Profile', home_show_profile_path
+        = link_to 'Profile', user_path(current_user)
       %li
         = link_to 'DProfile', edit_user_registration_path
       %li

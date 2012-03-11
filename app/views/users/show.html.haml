@@ -1,48 +1,49 @@
 - content_for :styles do
   = stylesheet_link_tag 'profile', :media => 'all'
 
-:javascript
-  var _user_id = "#{@user.id}";
-
 #content
 
   %section#profile
     .details
       .photo
-        %a{:href => '', :class => ""}
-          %img{:src => 'https://api.twitter.com/1/users/profile_image/MarkoRosic?size=bigger'}
-      %h1 Robert Cunningham, Jr.
-      %h2 WEb and user interface designer
+        = image_tag @user.avatar_url(:thumb), :width => '126', :height => 126
+      %h1= @user.full_name
+      %h2= @user.job_title
       %ul
-        %li.location
-          %span.icon
-          %a{:href => '#'}
-            New York
-        %li.web
-          %span.icon
-          %a{:href => '#'}
-            www.robertcunningham.com
-        %li.twitter
-          %span.icon
-          %a{:href => '#'}
-            @robertc
+        - unless @user.city.blank?
+          %li.location
+            %span.icon
+            = @user.city
+        - unless @user.personal_url.blank?
+          %li.web
+            %span.icon
+            - #TODO create url for given addr ex google.com
+            = link_to @user.personal_url, '#'
+        - if @user.twitter_handle
+          %li.twitter
+            %span.icon
+            =link_to @user.twitter_handle, "http://twitter.com/#{@user.twitter_handle}"
     .actions
       Like
       Tweet
-
-      %a{:href => '#', :class => 'btn primary large'} Edit profile
-
+      = link_to 'Edit profile', edit_user_registration_path, :class => 'btn primary large'
 
   %section#tags
 
-    #add-tag
-      .inner
-        %form
-          %label Tag Robert
-          %input{:type => 'text', :name => 'tags', :placeholder => 'e.g. web design, leadership, project management', :class => 'large', :id => 'tag_names', :disabled => disable_tagging(@user)}
-          %button.btn.primary.large ADD TAG
-        .vouche Or <strong>vouche for existing tag</strong><br/> by clicking on it
-      .arrow
+    - unless @user == current_user
+      #add-tag
+        .inner
+          =form_tag user_user_tags_path(@user) do
+            %label="Tag #{@user.first_name}"
+            %input{:type => 'text', :name => 'tags', :placeholder => 'e.g. web design, leadership, project management', :class => 'large', :id => 'tag_names'}
+            %button.btn.primary.large ADD TAG
+          .vouche Or <strong>vouche for existing tag</strong><br/> by clicking on it
+        .arrow
+    - else
+      #add-tag
+        - #TODO styleme
+        .inner{:style => "padding-left: 20px;"}
+          %h3 You can remove the tags you don't like
 
     #tag-cloud{:"data-tag-cloud-path" => user_user_tags_path(@user), :"data-logged-in" => user_signed_in?.to_s}
 
@@ -54,8 +55,6 @@
       %a{:href => '#'}
         Marting Berg
       and 11 other people tagged or vouched you so far.
-
-
 
 %aside
 
