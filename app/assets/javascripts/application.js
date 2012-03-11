@@ -68,6 +68,15 @@ $(function () {
         var wordList = [];
         var customClass = "word ";
         customClass += this.tagCloud.data('can-delete') ? 'remove ' : '';
+
+        var min = data[0].votes;
+        var max = data[0].votes;
+        var parts = 10;
+        $.each(data, function (i, userTag) {
+           if(userTag.votes > max){max = userTag.votes;}
+           if(userTag.votes < min){min = userTag.votes;}
+        });
+        var divisor = (max - min) / parts;
         $.each(data, function (i, userTag) {
             wordList.push({
                 text:userTag.name,
@@ -78,7 +87,7 @@ $(function () {
                     }
                     return pom;
                 },
-                weight:userTag.votes,
+                weight: parseInt((userTag.votes - min) / divisor),
                 title:userTag.name,
                 dataAttributes:{votes:userTag.votes, 'user-tag-id':userTag.id},
                 handlers:{click:function () {
