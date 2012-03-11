@@ -23,6 +23,7 @@ gem 'carrierwave'
 gem 'capistrano'
 gem 'capistrano-ext'
 gem 'will_paginate'
+gem 'fog'
 
 gem 'sass-rails'
 gem 'bootstrap-sass'
