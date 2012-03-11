@@ -10,8 +10,8 @@
  *
  *= require_self
  *= require tipsy
- * require_tree .
- * 
+ *= require_directory .
+ *
 */
 
 @import "compass/reset";

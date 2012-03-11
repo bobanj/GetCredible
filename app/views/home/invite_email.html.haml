@@ -1,64 +1,61 @@
-- content_for :styles do
-  = stylesheet_link_tag 'invite', :media => 'all'
-
 #content
   %section#invite
     %header#page-header
       %h1 Invite your friends
-      
+
       %ul.unstyled.services
         %li.facebook
           %a{:href => '', :class => ""}
             %span
-            From Facebook                         
-          
+            From Facebook
+
         %li.twitter
           %a{:href => '', :class => ""}
             %span
             From Twitter
-                   
+
         %li.email
           %a{:href => '', :class => ""}
             %span
             Using email
-          
-                      
-          
-      
-    %form      
-      %ul.unstyled        
-        %li.name          
+
+
+
+
+    %form
+      %ul.unstyled
+        %li.name
           %label{:for => 'f-name'} Friend’s name:
           %input{:type => 'text', :id => 'f-name', :name => 'f-name'}
-        %li.email          
+        %li.email
           %label{:for => 'f-email'} Friend’s email address:
-          %input{:type => 'text', :id => 'f-email', :name => 'f-email'}  
-        %li.tag          
+          %input{:type => 'text', :id => 'f-email', :name => 'f-email'}
+        %li.tag
           %label{:for => 'f-tag'} Why don’t you tag your friend:
-          %input{:type => 'text', :id => 'f-tag', :name => 'f-tag', :placeholder => 'Separate tags by comma: e.g. web design, leadership, project management'}       
-        %li.button                    
-          %button.btn.primary.large INVITE         
-                                                                       
-      
+          %input{:type => 'text', :id => 'f-tag', :name => 'f-tag', :placeholder => 'Separate tags by comma: e.g. web design, leadership, project management'}
+        %li.button
+          %button.btn.primary.large INVITE
+
+
 %aside
-    
+
   %nav#profile-nav
     .photo
       %a{:href => '', :class => ""}
         %img{:src => 'https://api.twitter.com/1/users/profile_image/MarkoRosic?size=bigger'}
-    
-    .my-actions 
-      Welcome Adriana 
+
+    .my-actions
+      Welcome Adriana
       %br
       %a{:href => '', :class => "xxl"} Edit profile
       &bull;
       %a{:href => '', :class => "xxl"} Logout
   #latest-activity
     %h2 Latest incoming activity
-    
+
     %ul.unstyled
       %li.tag
-        %span.icon 
+        %span.icon
         Janko Jovanovic tagged you as enterpreneur
       %li.vouch
         %span.icon
@@ -72,5 +69,5 @@
       %li.vouch
         %span.icon
         Jessica Hess vouched for enterprenur
-    
+
     = link_to 'View all incoming activity ►', ''
