@@ -160,7 +160,7 @@ input, textarea {
   a {
     border: 0 none;
     color: $grayDark;
-    float: none;
+    float: none !important;
     display: inline-block;
     line-height: 18px;
     padding: 0 6px;

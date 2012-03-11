@@ -21,7 +21,7 @@
         = link_to 'Login', new_user_session_path
 - #TODO search users form
 #global-search
-  %form{:action => '', :method => 'get', :id => 'g-search'}
-    %label{:for => 'g-searchtext'} Search
-    %input{:type => 'text', :name => 'q', :id => 'g-searchtext', :placeholder => 'Search people'}
+  = form_tag users_path, :id => 'g-search', :method => :get do
+    = label_tag :q, "Search"
+    = text_field_tag :q, '', :id => 'g-searchtext', :placeholder => 'Search people'
     %button go

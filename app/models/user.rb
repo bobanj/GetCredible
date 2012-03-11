@@ -46,4 +46,35 @@ class User < ActiveRecord::Base
       }
     end
   end
+
+  def top_tags(limit)
+    tags = user_tags.joins(:votes).
+      select('user_tags.id, user_tags.tag_id, COUNT(*) AS total_votes').
+      group("votes.voteable_id, user_tags.id, user_tags.tag_id").
+      limit(limit).order('total_votes DESC').
+      includes(:tag).map do |user_tag|
+        {
+          name: user_tag.tag.name,
+          votes: user_tag.total_votes
+        }
+      end
+  end
+
+  def interacted_by(other_user)
+    user_tags.joins(:votes).where('votes.voter_id = ?', other_user.id).exists?
+  end
+
+  def self.search(params)
+    scope = scoped
+    scope = scope.search_by_name_or_tag(params[:q]) if params[:q].present?
+    scope = scope.paginate(:per_page => 10, :page => params[:page])
+
+    scope
+  end
+
+  def self.search_by_name_or_tag(q)
+    joins(user_tags: :tag).
+    where("UPPER(users.first_name || ' ' || users.last_name) LIKE UPPER(:q) OR
+           UPPER(tags.name) LIKE UPPER(:q)", {:q => "%#{q}%"}).uniq
+  end
 end

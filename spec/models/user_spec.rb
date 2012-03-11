@@ -110,4 +110,55 @@ describe User do
       tags[0][:voted].should be_true
     end
   end
+
+  describe "#top_tags" do
+    it "can find top tags" do
+      user  = Factory(:user)
+      user2 = Factory(:user)
+      user3 = Factory(:user)
+
+      user.add_tags('design, development, management, leadership')
+
+      design      = user.user_tags[0]
+      development = user.user_tags[1]
+      management  = user.user_tags[2]
+      leadership  = user.user_tags[3]
+
+      user2.vote_exclusively_for(design)
+      user2.vote_exclusively_for(development)
+      user2.vote_exclusively_for(management)
+
+      user3.vote_exclusively_for(development)
+      user3.vote_exclusively_for(management)
+      user3.vote_exclusively_for(leadership)
+
+      top_tags = user.top_tags(4)
+
+      tag_names = top_tags.map{|t| t[:name] }
+      tag_names.should include('development')
+      tag_names.should include('management')
+
+      top_tags[0][:votes].should == '2'
+      top_tags[1][:votes].should == '2'
+    end
+  end
+
+  describe "#interacted_by" do
+    it "returns false when no interaction" do
+      user = Factory(:user)
+      other_user = Factory(:user)
+      other_user.interacted_by(user).should be_false
+    end
+
+    it "returns true when other user has voted for a tag interaction" do
+      user = Factory(:user)
+      user.add_tags('web design')
+      user_tag = user.user_tags[0]
+
+      other_user = Factory(:user)
+      other_user.vote_exclusively_for(user_tag)
+
+      user.interacted_by(other_user).should be_true
+    end
+  end
 end

@@ -22,6 +22,7 @@ gem 'rmagick'
 gem 'carrierwave'
 gem 'capistrano'
 gem 'capistrano-ext'
+gem 'will_paginate'
 
 gem 'sass-rails',   '~> 3.2.4'
 gem 'bootstrap-sass', '~> 1.4.3'
