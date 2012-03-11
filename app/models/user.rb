@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
       tag = Tag.find_or_initialize_by_name(tag_name.strip)
       if tag.new_record? && tag.valid?
         tag.save
-        self.activity_items.create(:item_id => tag.id, :item_type => tag.class.name)
+        self.activity_items.create(:item => tag)
       end
       self.tags << tag unless tags.include?(tag)
     end
