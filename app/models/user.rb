@@ -55,8 +55,8 @@ class User < ActiveRecord::Base
 
   def add_vote(user_tag)
     if self != user_tag.user
-      vote_exclusively_for(user_tag)
-      activity_items.create(:item => user_tag)
+      vote = vote_exclusively_for(user_tag)
+      activity_items.create(:item => vote)
     else
       false
     end
