@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe User do
   let(:user) { Factory(:user) }
+  let(:other_user) { Factory(:user) }
   let(:voter) { Factory(:user) }
   let(:tag) { Factory(:tag) }
   let(:user_tag) { Factory(:user_tag, tag: tag, user: user) }
@@ -131,16 +132,52 @@ describe User do
     end
   end
 
+  describe "#outgoing_activities" do
+    it "returns outgoing activities" do
+      UserTag.add_tags(user, other_user, 'development')
+      user_tag = user.user_tags[0]
+      other_user.add_vote(user_tag)
+      vote = user_tag.votes.first
 
-  describe "#ongoing_activities" do
-    it "item is polymorphic" do
-      pending
-      UserTag.add_tags(user, tagger, 'development')
-      tagger.outgoing_activities.first.item.should == user.incoming_activities.first.item
-      user_tag = user.user_tags.last
-      ai = user.activity_items.create(:item => user_tag)
-      ai.item_id.should == user_tag.id
-      ai.item_type.should == user_tag.class.name
+      other_user.activity_items.length.should == 2
+
+      outgoing_activities = other_user.outgoing_activities
+      outgoing_activities.length.should == 2
+      outgoing_activities[0].item.should == vote
+      outgoing_activities[1].item.should == user_tag
+    end
+  end
+
+  describe "#incoming_activities" do
+    it "returns incoming activities" do
+      UserTag.add_tags(user, other_user, 'development')
+      user_tag = user.user_tags[0]
+      other_user.add_vote(user_tag)
+      vote = user_tag.votes.first
+
+      incoming_activities = user.incoming_activities
+      incoming_activities.length.should == 2
+      incoming_activities[0].item.should == vote
+      incoming_activities[1].item.should == user_tag
+    end
+  end
+
+  describe "#all_activities" do
+    it "returns all activities" do
+      UserTag.add_tags(user, other_user, 'development')
+      user_tag1 = user.user_tags[0]
+
+      UserTag.add_tags(other_user, user, 'development')
+      user_tag2 = other_user.user_tags[0]
+
+      other_user.add_vote(user_tag)
+      vote = user_tag.votes.first
+
+      all_activities = user.all_activities
+      all_activities.length.should == 3
+      all_activities[0].item.should == vote
+      all_activities[1].item.should == user_tag2
+      all_activities[2].item.should == user_tag1
     end
   end
 end

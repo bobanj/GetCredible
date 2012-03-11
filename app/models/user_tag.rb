@@ -7,6 +7,7 @@ class UserTag < ActiveRecord::Base
   belongs_to :user
   belongs_to :tag
   belongs_to :tagger, :class_name => 'User'
+  has_many :activity_items, :as => :item
 
   # Validations
   validates :user_id, :presence => true
@@ -20,7 +21,7 @@ class UserTag < ActiveRecord::Base
         user_tag.tag = tag
         user_tag.tagger = tagger
         user_tag.save
-        tagger.activity_items.create(:item => user_tag)
+        tagger.activity_items.create(:item => user_tag, :target => user)
       end
     end
   end

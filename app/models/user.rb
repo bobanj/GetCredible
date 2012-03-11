@@ -17,6 +17,9 @@ class User < ActiveRecord::Base
   has_many :user_tags, dependent: :destroy
   has_many :tags, through: :user_tags
   has_many :activity_items, dependent: :destroy
+  has_many :incoming_activities, :foreign_key => :target_id,
+                                 :class_name => 'ActivityItem',
+                                 :order => 'created_at DESC'
 
   # Validations
   validates :first_name, :last_name, :job_title, :presence => true, :format => {:with => /^[\w\s-]*$/}
@@ -56,7 +59,7 @@ class User < ActiveRecord::Base
   def add_vote(user_tag)
     if self != user_tag.user
       vote = vote_exclusively_for(user_tag)
-      activity_items.create(:item => vote)
+      activity_items.create(item: vote, target: user_tag.user)
     else
       false
     end
@@ -82,10 +85,17 @@ class User < ActiveRecord::Base
   end
 
   def outgoing_activities
-    activity_items.order('created_at desc')
+    activity_items.order('created_at DESC')
   end
 
-  def incoming_activities
-    activity_items
+  def all_activities
+    ActivityItem.find_by_sql("SELECT t.* FROM
+                                (SELECT activity_items.* FROM activity_items
+                                  WHERE activity_items.user_id = #{id}
+                                  UNION
+                                  SELECT activity_items.*
+                                  FROM activity_items
+                                  WHERE activity_items.target_id = #{id}) AS t
+                                ORDER BY created_at DESC")
   end
 end
