@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe User do
+  let(:user) { Factory(:user) }
+  let(:voter) { Factory(:user) }
+  let(:tag) { Factory(:tag) }
+  let(:user_tag) { Factory(:user_tag, tag: tag, user: user) }
 
   describe "Attributes" do
     it { should allow_mass_assignment_of(:email) }
@@ -34,6 +38,45 @@ describe User do
     it { should validate_presence_of(:first_name) }
     it { should validate_presence_of(:last_name) }
     it { should validate_presence_of(:job_title) }
+  end
+
+  describe "#add_vote" do
+    it "can add a vote for user tag" do
+      voter.add_vote(user_tag)
+      user_tag.votes.length.should == 1
+    end
+
+    it "returns true when vote is added" do
+      voter.add_vote(user_tag).should be_true
+    end
+
+    it "cannot add a vote the same user" do
+      user.add_vote(user_tag).should be_false
+    end
+
+    it "creates activity item for voter after user tag is voted for" do
+      voter.add_vote(user_tag)
+      voter.activity_items.count.should == 1
+    end
+  end
+
+  describe "#remove_vote" do
+    it "can remove a vote from a user tag" do
+      voter.add_vote(user_tag)
+      user_tag.votes.length.should == 1
+      voter.remove_vote(user_tag)
+      user_tag.reload.votes.length.should == 0
+    end
+
+    it "returns true when vote is remove" do
+      voter.add_vote(user_tag)
+      user_tag.votes.length.should == 1
+      voter.remove_vote(user_tag).should be_true
+    end
+
+    it "returns false when vote is not remove" do
+      voter.remove_vote(user_tag).should be_false
+    end
   end
 
   describe "#top_tags" do
@@ -85,6 +128,19 @@ describe User do
       other_user.vote_exclusively_for(user_tag)
 
       user.interacted_by(other_user).should be_true
+    end
+  end
+
+
+  describe "#ongoing_activities" do
+    it "item is polymorphic" do
+      pending
+      UserTag.add_tags(user, tagger, 'development')
+      tagger.outgoing_activities.first.item.should == user.incoming_activities.first.item
+      user_tag = user.user_tags.last
+      ai = user.activity_items.create(:item => user_tag)
+      ai.item_id.should == user_tag.id
+      ai.item_type.should == user_tag.class.name
     end
   end
 end

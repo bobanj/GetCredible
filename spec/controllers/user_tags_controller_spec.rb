@@ -56,7 +56,7 @@ describe UserTagsController do
       user_tag   = Factory.build(:user_tag, :user => other_user)
       UserTag.stub(:find).with("1").and_return(user_tag)
 
-      user.should_receive(:vote_exclusively_for).with(user_tag)
+      user.should_receive(:add_vote).with(user_tag).and_return(true)
 
       post :vote, :user_id => user.id, :id => "1"
       JSON.parse(response.body)['status'].should == 'ok'
@@ -66,7 +66,7 @@ describe UserTagsController do
       user_tag = Factory.build(:user_tag, :user => user)
       UserTag.stub(:find).with("1").and_return(user_tag)
 
-      user.should_not_receive(:vote_exclusively_for).with(user_tag)
+      user.should_receive(:add_vote).with(user_tag).and_return(false)
 
       post :vote, :user_id => user.id, :id => "1"
       JSON.parse(response.body)['status'].should == 'error'
@@ -74,7 +74,6 @@ describe UserTagsController do
   end
 
   describe "#unvote" do
-
     let(:user) { Factory(:user) }
 
     before :each do
@@ -82,16 +81,24 @@ describe UserTagsController do
       controller.stub(:current_user).and_return(user)
     end
 
-    it "can vote for a user tag" do
+    it "can remove vote from a user tag" do
       vote     = Factory.build(:vote)
       user_tag = Factory.build(:user_tag, user: user)
       UserTag.stub(:find).with("1").and_return(user_tag)
-      user_tag.stub_chain(:votes, :for_voter, :first).and_return(vote)
-
-      vote.should_receive(:destroy)
+      user.should_receive(:remove_vote).and_return(true)
 
       post :unvote, :user_id => user.id, :id => "1"
       JSON.parse(response.body)['status'].should == 'ok'
+    end
+
+    it "cannot remove vote from a user tag is it does not exists" do
+      vote     = Factory.build(:vote)
+      user_tag = Factory.build(:user_tag, user: user)
+      UserTag.stub(:find).with("1").and_return(user_tag)
+      user.should_receive(:remove_vote).and_return(false)
+
+      post :unvote, :user_id => user.id, :id => "1"
+      JSON.parse(response.body)['status'].should == 'error'
     end
   end
 end

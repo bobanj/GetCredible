@@ -53,6 +53,20 @@ class User < ActiveRecord::Base
     user_tags.joins(:votes).where('votes.voter_id = ?', other_user.id).exists?
   end
 
+  def add_vote(user_tag)
+    if self != user_tag.user
+      vote_exclusively_for(user_tag)
+      activity_items.create(:item => user_tag)
+    else
+      false
+    end
+  end
+
+  def remove_vote(user_tag)
+    vote = user_tag.votes.for_voter(self).first
+    vote ? vote.destroy : false
+  end
+
   def self.search(params)
     scope = scoped
     scope = scope.search_by_name_or_tag(params[:q]) if params[:q].present?

@@ -60,6 +60,15 @@ describe UserTag do
       user.tags.length.should == 1
       user.tags[0].name.should == 'web design'
     end
+
+    it "creates activity item for tagger after user is tagged" do
+      UserTag.add_tags(user, tagger, 'development')
+      tagger.activity_items.count.should == 1
+      UserTag.add_tags(user, tagger, 'development')
+      tagger.activity_items.count.should == 1
+      UserTag.add_tags(user, tagger, 'production')
+      tagger.activity_items.count.should == 2
+    end
   end
 
   describe "#tags_summary" do

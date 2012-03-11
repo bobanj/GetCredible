@@ -18,8 +18,7 @@ class UserTagsController < ApplicationController
   def vote
     user_tag = UserTag.find(params[:id])
 
-    if current_user != user_tag.user
-      current_user.vote_exclusively_for(user_tag)
+    if current_user.add_vote(user_tag)
       render json: {status: 'ok'}.to_json
     else
       render json: {status: 'error'}.to_json
@@ -28,10 +27,8 @@ class UserTagsController < ApplicationController
 
   def unvote
     user_tag = UserTag.find(params[:id])
-    vote = user_tag.votes.for_voter(current_user).first
 
-    if vote
-      vote.destroy
+    if current_user.remove_vote(user_tag)
       render json: {status: 'ok'}.to_json
     else
       render json: {status: 'error'}.to_json
