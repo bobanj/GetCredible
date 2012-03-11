@@ -25,17 +25,6 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def add_tags(tag_names)
-    tag_names.to_s.split(',').each do |tag_name|
-      tag = Tag.find_or_initialize_by_name(tag_name.strip)
-      if tag.new_record? && tag.valid?
-        tag.save
-        self.activity_items.create(:item => tag)
-      end
-      self.tags << tag unless tags.include?(tag)
-    end
-  end
-
   def tags_summary(user=nil)
     user_tags.includes([:tag, :votes]).map do |user_tag|
       {
@@ -73,9 +62,9 @@ class User < ActiveRecord::Base
   end
 
   def self.search_by_name_or_tag(q)
-    joins(user_tags: :tag).
+    includes(user_tags: :tag).
     where("UPPER(users.first_name || ' ' || users.last_name) LIKE UPPER(:q) OR
-           UPPER(tags.name) LIKE UPPER(:q)", {:q => "%#{q}%"}).uniq
+           UPPER(tags.name) LIKE UPPER(:q)", {:q => "%#{q}%"})
   end
 
   def activities

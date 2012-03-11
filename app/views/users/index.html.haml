@@ -18,7 +18,7 @@
             .content
               .photo
                 = link_to user do
-                  %img{:src => 'https://api.twitter.com/1/users/profile_image/MarkoRosic?size=normal'}
+                  = image_tag user.avatar.url(:avatar)
               %h2
                 = raw [link_to(user.full_name, user), user.job_title].join(', ')
               .details
