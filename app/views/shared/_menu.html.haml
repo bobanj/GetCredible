@@ -5,7 +5,7 @@
       = link_to 'GetCredible', root_path
     - if user_signed_in?
       %li#gn-activity
-        = link_to 'Activity feed', home_activity_path
+        = link_to 'Activity feed', activity_path('all')
       %li#gn-profile
         = link_to 'Profile', user_path(current_user)
       %li#gn-logout

@@ -90,14 +90,15 @@ class User < ActiveRecord::Base
     activity_items.order('created_at DESC')
   end
 
-  def all_activities
+  def all_activities(params = {})
     ActivityItem.paginate_by_sql("SELECT t.* FROM
-                                (SELECT activity_items.* FROM activity_items
-                                  WHERE activity_items.user_id = #{id}
-                                  UNION
-                                  SELECT activity_items.*
-                                  FROM activity_items
-                                  WHERE activity_items.target_id = #{id}) AS t
-                                ORDER BY created_at DESC", :page => @page, :per_page => @per_page)
+                        (SELECT activity_items.* FROM activity_items
+                          WHERE activity_items.user_id = #{id}
+                          UNION
+                          SELECT activity_items.*
+                          FROM activity_items
+                          WHERE activity_items.target_id = #{id}) AS t
+                        ORDER BY created_at DESC",
+                        :page => params[:page], :per_page => params[:per_page])
   end
 end

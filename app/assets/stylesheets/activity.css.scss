@@ -4,7 +4,7 @@
 
 // Import common settings
 
-#activity {  
+#activity {
   padding: 20px 30px 20px 30px;
   #page-header {
     @include clearfix;
@@ -15,7 +15,7 @@
     }
 
     h1 {
-      width: 367px;
+      width: 365px;
     }
   }
 }
