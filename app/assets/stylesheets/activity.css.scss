@@ -3,24 +3,22 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 // Import common settings
-@import "base";
-
 
 #activity {  
-  padding: 20px 30px 20px 30px;        
+  padding: 20px 30px 20px 30px;
+  #page-header {
+    @include clearfix;
+
+    h1, .tabs {
+      float: left;
+      margin-bottom: $baseline / 2;
+    }
+
+    h1 {
+      width: 367px;
+    }
+  }
 }
 
 
-#page-header {
-  @include clearfix;
-  
-  h1, .tabs {
-    float: left;
-    margin-bottom: $baseline / 2;
-  }
-  
-  h1 {
-    width: 367px;
-  }
-  
-}
+

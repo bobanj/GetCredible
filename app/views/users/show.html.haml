@@ -1,5 +1,4 @@
 #content
-
   %section#profile
     .details
       .photo
@@ -16,43 +15,17 @@
             %span.icon
             - #TODO create url for given addr ex google.com
             = link_to @user.personal_url, '#'
-        - if @user.twitter_handle
+        - unless @user.twitter_handle.blank?
           %li.twitter
             %span.icon
             =link_to @user.twitter_handle, "http://twitter.com/#{@user.twitter_handle}"
     .actions
       Like
       Tweet
+
       = link_to 'Edit profile', edit_user_registration_path, :class => 'btn large primary'
 
-  %section#tags
-
-    - unless @user == current_user
-      #add-tag
-        .inner
-          =form_tag user_user_tags_path(@user) do
-            %label="Tag #{@user.first_name}"
-            %input{:type => 'text', :name => 'tags', :placeholder => 'e.g. web design, leadership, project management', :class => 'large', :id => 'tag_names'}
-            %button.btn.primary.large ADD TAG
-          .vouche Or <strong>vouch for existing tag</strong><br/> by clicking on it
-        .arrow
-    - else
-      #add-tag
-        - #TODO styleme
-        .inner{:style => "padding-left: 20px;"}
-          %h3 You can remove the tags you don't like
-
-    = image_tag "ajax_loader.gif", :id => 'tag-cloud-loader', :style => "display:none;"
-    = tag_cloud(@user)
-
-    #tag-msg
-      %span.icon
-      %a{:href => '#'}
-        John Smith
-      ,
-      %a{:href => '#'}
-        Marting Berg
-      and 11 other people tagged or vouched you so far.
+  = render :partial => 'shared/tag_cloud'
 
 %aside
 

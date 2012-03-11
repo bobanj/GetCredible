@@ -1,0 +1,23 @@
+%section#tags
+  #add-tag
+    - if current_user && current_user != @user
+      .inner
+        =form_tag user_user_tags_path(@user) do
+          %label="Tag #{@user.first_name}"
+          %input{:type => 'text', :name => 'tags', :placeholder => 'e.g. web design, leadership, project management', :class => 'large', :id => 'tag_names'}
+          %button.btn.primary.large ADD TAG
+        .vouche Or <strong>vouch for existing tag</strong><br/> by clicking on it
+      .arrow
+    - else
+      .inner
+        %h3 &nbsp;
+  = image_tag "ajax_loader.gif", :id => 'tag-could-loader', :style => "display:none;"
+  = tag_cloud(@user)
+  #tag-msg
+    %span.icon
+    %a{:href => '#'}
+      John Smith
+    ,
+    %a{:href => '#'}
+      Marting Berg
+    and 11 other people tagged or vouched you so far.

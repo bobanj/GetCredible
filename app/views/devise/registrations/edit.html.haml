@@ -18,28 +18,9 @@
           %li.twitter
             = f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true
           %li= f.button :submit, "Save", class: 'btn primary large'
-
-  %section#tags
-    #add-tag
-      .inner{:style => "padding-left: 20px;"}
-        %h3 You can remove the tags you don't like
-
-    = image_tag "ajax_loader.gif", :id => 'tag-could-loader', :style => "display:none;"
-    = tag_cloud(@user)
-
-    #tag-msg
-      %span.icon
-      %a{:href => '#'}
-        John Smith
-      ,
-      %a{:href => '#'}
-        Marting Berg
-      and 11 other people tagged or vouched you so far.
-
-
+  = render :partial => 'shared/tag_cloud'
 
 %aside
-
   %nav#profile-nav
     .photo
       %a= image_tag current_user.avatar_url(:avatar)
