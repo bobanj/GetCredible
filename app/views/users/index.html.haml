@@ -25,7 +25,7 @@
                 = user.job_title
               .details
 
-                - if user.interacted_by(current_user)
+                - if current_user && user.interacted_by(current_user)
                   .icon
                   = "You interacted with #{user.full_name}’s profile."
 
