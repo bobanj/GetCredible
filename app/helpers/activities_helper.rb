@@ -33,7 +33,7 @@ module ActivitiesHelper
     if activity_vote?(activity_item)
       "#{link_to(user.full_name, user)} vouched for <strong>#{item.voteable.tag.name}</strong>".html_safe
     else
-      "#{link_to(user.full_name, user)} tagged #{current_user ? "you" : link_to(target.full_name, target) } as <strong>#{item.tag.name}</strong>".html_safe
+      "#{link_to(user.full_name, user)} tagged #{current_user && current_user == target ? "you" : link_to(target.full_name, target) } as <strong>#{item.tag.name}</strong>".html_safe
     end
   end
 
@@ -43,9 +43,9 @@ module ActivitiesHelper
     user = activity_item.user
 
     if activity_vote?(activity_item)
-      "#{current_user ? "You" : link_to(user.full_name, user) } vouched on #{link_to(target.full_name, target)} 's profile for<strong>#{item.voteable.tag.name}</strong>".html_safe
+      "#{current_user && current_user == user ? "You" : link_to(user.full_name, user) } vouched on #{link_to(target.full_name, target)} 's profile for<strong>#{item.voteable.tag.name}</strong>".html_safe
     else
-      "#{current_user ? "You" : link_to(user.full_name, user) } tagged #{link_to(target.full_name, target)} as <strong>#{item.tag.name}</strong>".html_safe
+      "#{current_user && current_user == user ? "You" : link_to(user.full_name, user) } tagged #{link_to(target.full_name, target)} as <strong>#{item.tag.name}</strong>".html_safe
     end
   end
 
