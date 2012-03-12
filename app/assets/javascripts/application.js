@@ -199,10 +199,13 @@ $(function () {
         var messageType = flashMessage.data('type');
         if(messageType == 'error'){
             noty({text: flashMessage.text(), type:'error', timeout:2000});
-        } else {
+        }
+        if(messageType == 'alert'){
+            noty({text: flashMessage.text(), type:'alert', timeout:2000});
+        }
+        if(messageType == 'notice'){
             noty({text: flashMessage.text(), type:'success', timeout:2000});
         }
-
     }
 
     $.getCredible.updateTagCloud();
