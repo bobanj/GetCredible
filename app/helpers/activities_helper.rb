@@ -63,18 +63,22 @@ module ActivitiesHelper
     if users.length == 0
       "Nobody tagged or vouched you so far."
     elsif users.length == 1
-      user = users.pop
-      "#{link_to(user.full_name, user)} tagged or vouched you so far.".html_safe
+      tagger = users.pop
+      "#{link_to(tagger.full_name, tagger)} tagged or vouched for #{who?(user)} so far.".html_safe
     elsif users.length == 2
-      "#{users.map{|user| link_to(user.full_name, user)}.join(' and ')} tagged or vouched you so far.".html_safe
+      "#{users.map{|user| link_to(user.full_name, user)}.join(' and ')} tagged or vouched for #{who?(user)} so far.".html_safe
     else
       output = []
       user = users.pop
       output << link_to(user.full_name, user)
       user = users.pop
       output << link_to(user.full_name, user)
-      output.join(', ').concat(" and #{users.length} other people tagged or vouched you so far.").html_safe
+      output.join(', ').concat(" and #{users.length} other people tagged or vouched for #{who?(user)} so far.").html_safe
     end
 
+  end
+
+  def who?(user)
+    ((current_user && current_user == user) ? "you" : link_to(user.full_name, user)).html_safe
   end
 end
