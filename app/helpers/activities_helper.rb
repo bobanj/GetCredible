@@ -54,4 +54,25 @@ module ActivitiesHelper
   def outgoing_activity?(activity_item)
     activity_item.target != current_user
   end
+
+  def tag_cloud_summary(user)
+    users = user.incoming_activities.includes(:user).map{|a| a.user}.uniq
+
+    if users.length == 0
+      "Nobody tagged or vouched you so far."
+    elsif users.length == 1
+      user = users.pop
+      "#{link_to(user.full_name, user)} tagged or vouched you so far.".html_safe
+    elsif users.length == 2
+      "#{users.map{|user| link_to(user.full_name, user)}.join(' and ')} tagged or vouched you so far.".html_safe
+    else
+      output = []
+      user = users.pop
+      output << link_to(user.full_name, user)
+      user = users.pop
+      output << link_to(user.full_name, user)
+      output.join(', ').concat(" and #{users.length} other people tagged or vouched you so far.").html_safe
+    end
+
+  end
 end

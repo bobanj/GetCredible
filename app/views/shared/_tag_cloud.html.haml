@@ -15,9 +15,4 @@
   = tag_cloud(@user)
   #tag-msg
     %span.icon
-    %a{:href => '#'}
-      John Smith
-    ,
-    %a{:href => '#'}
-      Marting Berg
-    and 11 other people tagged or vouched you so far.
+    = tag_cloud_summary(@user)
