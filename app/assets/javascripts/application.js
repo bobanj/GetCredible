@@ -30,7 +30,7 @@ $(function () {
         if (typeof(this.tagCloudPath) == 'string') {
             voteToggle = word.hasClass('vouche') ? '/unvote.json' : '/vote.json';
             if (this.tagCloud.data('logged-in') == false) {
-                noty({text:'Please login so you can vouche', type:'error', timeout:2500});
+                noty({text:'Please login so you can vouche', type:'alert', timeout:2500});
                 return false;
             }
 
