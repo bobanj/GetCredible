@@ -34,7 +34,10 @@ form .clearfix {
 
 // Set font for forms
 label, input, select, textarea {
-  @include sans-serif-font(normal,13px,normal);
+  font-family: 'Lato', Arial, helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  //@include sans-serif-font(normal,13px,normal);
 }
 
 // Float labels left
