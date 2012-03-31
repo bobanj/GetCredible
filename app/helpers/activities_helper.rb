@@ -35,9 +35,9 @@ module ActivitiesHelper
     target = activity_item.target
 
     if activity_vote?(activity_item)
-      "#{link_to(user.full_name, user)} vouched for <strong>#{tag_link(item.voteable.tag.name)}</strong>".html_safe
+      "#{link_to(user.full_name, me_user_path(user))} vouched for <strong>#{tag_link(item.voteable.tag.name)}</strong>".html_safe
     else
-      "#{link_to(user.full_name, user)} tagged #{current_user && current_user == target ? "you" : link_to(target.full_name, target) } as <strong>#{tag_link(item.tag.name)}</strong>".html_safe
+      "#{link_to(user.full_name, me_user_path(user))} tagged #{current_user && current_user == target ? "you" : link_to(target.full_name, me_user_path(target)) } as <strong>#{tag_link(item.tag.name)}</strong>".html_safe
     end
   end
 
@@ -47,9 +47,9 @@ module ActivitiesHelper
     user = activity_item.user
 
     if activity_vote?(activity_item)
-      "#{current_user && current_user == user ? "You" : link_to(user.full_name, user) } vouched on #{link_to(target.full_name, target)} 's profile for <strong>#{tag_link(item.voteable.tag.name)}</strong>".html_safe
+      "#{current_user && current_user == user ? "You" : link_to(user.full_name, me_user_path(user)) } vouched on #{link_to(target.full_name, me_user_path(target))} 's profile for <strong>#{tag_link(item.voteable.tag.name)}</strong>".html_safe
     else
-      "#{current_user && current_user == user ? "You" : link_to(user.full_name, user) } tagged #{link_to(target.full_name, target)} as <strong>#{tag_link(item.tag.name)}</strong>".html_safe
+      "#{current_user && current_user == user ? "You" : link_to(user.full_name, me_user_path(user)) } tagged #{link_to(target.full_name, me_user_path(target))} as <strong>#{tag_link(item.tag.name)}</strong>".html_safe
     end
   end
 
@@ -68,21 +68,21 @@ module ActivitiesHelper
       "Nobody tagged or vouched you so far."
     elsif users.length == 1
       tagger = users.pop
-      "#{link_to(tagger.full_name, tagger)} tagged or vouched for #{who?(user)} so far.".html_safe
+      "#{link_to(tagger.full_name, me_user_path(tagger))} tagged or vouched for #{who?(user)} so far.".html_safe
     elsif users.length == 2
-      "#{users.map{|user| link_to(user.full_name, user)}.join(' and ')} tagged or vouched for #{who?(user)} so far.".html_safe
+      "#{users.map{|user| link_to(user.full_name, me_user_path(user))}.join(' and ')} tagged or vouched for #{who?(user)} so far.".html_safe
     else
       output = []
       user = users.pop
-      output << link_to(user.full_name, user)
+      output << link_to(user.full_name, me_user_path(user))
       user = users.pop
-      output << link_to(user.full_name, user)
+      output << link_to(user.full_name, me_user_path(user))
       output.join(', ').concat(" and #{users.length} other people tagged or vouched for #{who?(user)} so far.").html_safe
     end
 
   end
 
   def who?(user)
-    ((current_user && current_user == user) ? "you" : link_to(user.full_name, user)).html_safe
+    ((current_user && current_user == user) ? "you" : link_to(user.full_name, me_user_path(user))).html_safe
   end
 end

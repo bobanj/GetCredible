@@ -1,4 +1,5 @@
 GetCredible::Application.routes.draw do
+  match '/:id' => 'users#show', :as => 'me_user'
   get "home/index"
   get "home/activity"
   get "home/search"
