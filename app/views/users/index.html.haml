@@ -6,6 +6,11 @@
           Search results for
           %em
             = "'#{params[:q]}'"
+      - elsif params[:tag].present?
+        %h1
+          Search results for tag
+          %em
+            = "'#{params[:tag]}'"
       - else
         %h1 Latest profiles
 
@@ -29,9 +34,10 @@
                   .icon
                   = "You interacted with #{user.full_name}’s profile."
 
-                - top_tags = top_tags(user)
+                - top_tags = user.top_tags(3)
                 - if top_tags.present?
-                  = "Top tags: #{top_tags.join(', ')}"
+                  Top Tags:
+                  =raw top_tags.collect { |top_tag| tag_link(top_tag.name) }.join(", ")
 
 
     .pagination
@@ -39,4 +45,4 @@
 
 %aside
   = render :partial => 'shared/sidebar_nav', :locals => { :user => current_user }
-  = render :partial => 'shared/sidebar_activity'
+  = render :partial => 'shared/sidebar_activity', :locals => { :user => current_user }

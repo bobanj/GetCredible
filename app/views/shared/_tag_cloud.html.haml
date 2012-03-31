@@ -3,8 +3,8 @@
     - if current_user && current_user != @user
       .inner
         =form_tag user_user_tags_path(@user) do
-          %label="Tag #{@user.first_name}"
-          %input{:type => 'text', :name => 'tags', :placeholder => 'e.g. web design, leadership, project management', :class => 'large', :id => 'tag_names'}
+          %label="Add Tags"
+          %input{:type => 'text', :name => 'tags', :placeholder => 'e.g. web design, leadership (comma separated)', :class => 'large', :id => 'tag_names'}
           %button.btn.primary.large ADD TAG
         .vouche Or <strong>vouch for existing tag</strong><br/> by clicking on it
       .arrow

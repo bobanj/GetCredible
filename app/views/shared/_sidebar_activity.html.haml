@@ -1,10 +1,24 @@
-- if current_user
-  #latest-activity
+#latest-activity
+  - if current_user && current_user == user
+    %h2 Your incoming activity
+  - else
     %h2 Latest incoming activity
-    %ul.unstyled
-      - current_user.incoming_activities.paginate(:page => 1, :per_page => 10).each do |activity_item|
-        %li{:class => activity_class(activity_item)}
-          %span.icon
-          = activity_description(activity_item)
+  %ul.unstyled
+    - user.incoming_activities.paginate(:page => 1, :per_page => 5).each do |activity_item|
+      %li{:class => activity_class(activity_item)}
+        %span.icon
+        = activity_description(activity_item)
+  = link_to 'View all incoming activity ►', incoming_user_path(user)
+  %p
+    &nbsp;
+  - if current_user && current_user == user
+    %h2 Your Outgoing activity
+  - else
+    %h2 Latest Outgoing activity
 
-    = link_to 'View all incoming activity ►', activity_path('incoming')
+  %ul.unstyled
+    - user.outgoing_activities.paginate(:page => 1, :per_page => 5).each do |activity_item|
+      %li{:class => activity_class(activity_item)}
+        %span.icon
+        = activity_description(activity_item)
+  = link_to 'View all outgoing activity ►', outgoing_user_path(user)

@@ -15,11 +15,9 @@
           %li= f.input :twitter_handle, :wrapper => false
           %li= f.input :avatar, :as => :file, :wrapper => false
           %li= f.hidden_field :avatar_cache
-          %li.twitter
-            = f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true
           %li= f.button :submit, "Save", class: 'btn primary large'
   = render :partial => 'shared/tag_cloud'
 
 %aside
   = render :partial => 'shared/sidebar_nav', :locals => { :user => current_user }
-  = render :partial => 'shared/sidebar_activity'
+  = render :partial => 'shared/sidebar_activity', :locals => { :user => current_user }

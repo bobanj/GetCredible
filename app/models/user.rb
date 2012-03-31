@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable #, :omniauthable
 
   # Additions
   acts_as_voter
@@ -16,9 +16,10 @@ class User < ActiveRecord::Base
     :personal_url, :avatar, :avatar_cache
 
   # Associations
+  has_many :authentications
   has_many :user_tags, dependent: :destroy
   has_many :tags, through: :user_tags
-  has_many :activity_items, dependent: :destroy
+  has_many :activity_items, order: 'created_at desc', dependent: :destroy
   has_many :incoming_activities, :foreign_key => :target_id,
                                  :class_name => 'ActivityItem',
                                  :order => 'created_at DESC'
@@ -42,16 +43,18 @@ class User < ActiveRecord::Base
   end
 
   def top_tags(limit)
-    tags = user_tags.joins(:votes).
+    user_tags.joins(:votes).
       select('user_tags.id, user_tags.tag_id, COUNT(*) AS total_votes').
       group("votes.voteable_id, user_tags.id, user_tags.tag_id").
       limit(limit).order('total_votes DESC').
-      includes(:tag).map do |user_tag|
-        {
-          name: user_tag.tag.name,
-          votes: user_tag.total_votes
-        }
-      end
+      includes(:tag)
+    .map do |user_tag|
+      user_tag.tag
+        #{
+        #  name: user_tag.tag.name,
+        #  votes: user_tag.total_votes
+        #}
+    end
   end
 
   def interacted_by(other_user)
@@ -72,9 +75,14 @@ class User < ActiveRecord::Base
     vote ? vote.destroy : false
   end
 
+  def password_required?
+    (authentications.empty? || !password.blank?) && super
+  end
+
   def self.search(params)
     scope = scoped
     scope = scope.search_by_name_or_tag(params[:q]) if params[:q].present?
+    scope = scope.search_by_tag(params[:tag]) if params[:tag].present?
     scope = scope.paginate(:per_page => 10, :page => params[:page])
 
     scope
@@ -84,6 +92,21 @@ class User < ActiveRecord::Base
     includes(user_tags: :tag).
     where("UPPER(users.first_name || ' ' || users.last_name) LIKE UPPER(:q) OR
            UPPER(tags.name) LIKE UPPER(:q)", {:q => "%#{q}%"})
+  end
+
+  def self.search_by_tag(tag)
+    includes(user_tags: :tag).
+        where("UPPER(tags.name) LIKE UPPER(:tag)", {:tag => tag})
+  end
+
+  def apply_omniauth(omniauth)
+    unless omniauth['credentials'].blank?
+      authentications.build(:provider => omniauth['provider'],
+                            :uuid => omniauth['uid'],
+                            :token => omniauth['credentials']['token'],
+                            :secret => omniauth['credentials']['secret'])
+
+    end
   end
 
   def outgoing_activities
@@ -100,5 +123,10 @@ class User < ActiveRecord::Base
                           WHERE activity_items.target_id = #{id}) AS t
                         ORDER BY created_at DESC",
                         :page => params[:page], :per_page => params[:per_page])
+  end
+
+  private
+  def email_required?
+    authentications.blank?
   end
 end

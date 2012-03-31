@@ -7,9 +7,14 @@ GetCredible::Application.routes.draw do
   get "home/invite_email"
   get "home/invite_twitter"
 
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   resources :users, :only => [:index, :show] do
+    member do
+      get :incoming
+      get :outgoing
+      get :all
+    end
     resources :user_tags, :only => [:index, :create, :destroy], :path => :tags do
       member do
         post :vote
@@ -18,7 +23,6 @@ GetCredible::Application.routes.draw do
     end
   end
 
-  resources :activities, :only => [:show]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

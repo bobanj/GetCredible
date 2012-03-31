@@ -1,12 +1,11 @@
-- if current_user
-  %nav#profile-nav
-    .photo
-      =link_to image_tag(user.avatar_url(:avatar)), user_path(user)
+%nav#profile-nav
+  .photo
+    =link_to image_tag(user.avatar_url(:avatar)), user_path(user)
 
-    - if current_user && current_user == user
-      .my-actions
-        ="Welcome #{user.first_name}"
-        %br
-        = link_to 'Edit profile', edit_user_registration_path, :class => 'xxl'
-        &bull;
-        = link_to "Logout", destroy_user_session_path, :class => 'xxl'
+  - if current_user && current_user == user
+    .my-actions
+      ="Welcome #{user.first_name}"
+      %br
+      = link_to 'Edit profile', edit_user_registration_path, :class => 'xxl'
+      &bull;
+      = link_to "Logout", destroy_user_session_path, :class => 'xxl'

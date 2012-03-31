@@ -1,6 +1,6 @@
 module ActivitiesHelper
   def activity_active_class(name)
-    params[:id] == name ? 'active' : nil
+    params[:action] == name ? 'active' : nil
   end
 
   def activity_class(activity_item)
@@ -25,15 +25,19 @@ module ActivitiesHelper
     end
   end
 
+  def tag_link(tag_name)
+    "#{link_to(tag_name, users_path(:tag => tag_name))}".html_safe
+  end
+
   def incoming_activity_description(activity_item)
     user = activity_item.user
     item = activity_item.item
     target = activity_item.target
 
     if activity_vote?(activity_item)
-      "#{link_to(user.full_name, user)} vouched for <strong>#{item.voteable.tag.name}</strong>".html_safe
+      "#{link_to(user.full_name, user)} vouched for <strong>#{tag_link(item.voteable.tag.name)}</strong>".html_safe
     else
-      "#{link_to(user.full_name, user)} tagged #{current_user && current_user == target ? "you" : link_to(target.full_name, target) } as <strong>#{item.tag.name}</strong>".html_safe
+      "#{link_to(user.full_name, user)} tagged #{current_user && current_user == target ? "you" : link_to(target.full_name, target) } as <strong>#{tag_link(item.tag.name)}</strong>".html_safe
     end
   end
 
@@ -43,9 +47,9 @@ module ActivitiesHelper
     user = activity_item.user
 
     if activity_vote?(activity_item)
-      "#{current_user && current_user == user ? "You" : link_to(user.full_name, user) } vouched on #{link_to(target.full_name, target)} 's profile for<strong>#{item.voteable.tag.name}</strong>".html_safe
+      "#{current_user && current_user == user ? "You" : link_to(user.full_name, user) } vouched on #{link_to(target.full_name, target)} 's profile for <strong>#{tag_link(item.voteable.tag.name)}</strong>".html_safe
     else
-      "#{current_user && current_user == user ? "You" : link_to(user.full_name, user) } tagged #{link_to(target.full_name, target)} as <strong>#{item.tag.name}</strong>".html_safe
+      "#{current_user && current_user == user ? "You" : link_to(user.full_name, user) } tagged #{link_to(target.full_name, target)} as <strong>#{tag_link(item.tag.name)}</strong>".html_safe
     end
   end
 

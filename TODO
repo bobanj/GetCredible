@@ -6,3 +6,5 @@ class AddFieldsToUser < ActiveRecord::Migration
     # TODO add avatar carrierwave https://github.com/jnicklas/carrierwave
   end
 end
+
+#BOBI Add Inherited Resources

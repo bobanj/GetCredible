@@ -136,12 +136,12 @@
     font-size: 14px;
     margin-right: 15px;
     padding-top: 11px;
-    width: 103px;
+    width: 83px;
   }
 
   input {
     margin-right: 3px;
-    width: 247px;
+    width: 267px;
 
     &::-webkit-input-placeholder {
       font-style: italic;
@@ -172,4 +172,16 @@
 
 }
 
+ul.social_fixed {
+  display: block;
+  position: fixed;
+  top: 70px;
+  margin: 0 0 0 -70px;
+  padding: 0;
 
+  li {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 5px;
+  }
+}
