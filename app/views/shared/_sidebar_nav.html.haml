@@ -5,7 +5,7 @@
 
     - if current_user && current_user == user
       .my-actions
-        ="Welcome #{user.first_name}"
+        ="Welcome #{user.full_name}"
         %br
         = link_to 'Edit profile', edit_user_registration_path, :class => 'xxl'
         &bull;
