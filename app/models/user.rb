@@ -71,10 +71,6 @@ class User < ActiveRecord::Base
     vote ? vote.destroy : false
   end
 
-  def password_required?
-    (authentications.empty? || !password.blank?) && super
-  end
-
   def self.search(params)
     scope = scoped
     scope = scope.search_by_name_or_tag(params[:q]) if params[:q].present?
