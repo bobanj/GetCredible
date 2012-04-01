@@ -147,45 +147,6 @@ input, textarea {
   }
 }
 
-// Pagination
-
-.pagination {
-
-  text-align: center;
-
-  ul {
-    width: 640px;
-    border: 0 none;
-  }
-
-  a {
-    border: 0 none;
-    color: $grayDark;
-    float: none !important;
-    display: inline-block;
-    line-height: 18px;
-    padding: 0 6px;
-    @include border-radius(2px);
-
-    &:hover {
-      background: $linkColor;
-      color: $white;
-    }
-
-  }
-
-  .active a {
-    background: #d4d4d4;
-
-    &:hover {
-      background: $linkColor;
-      color: $white;
-    }
-
-  }
-
-}
-
 // General style for profile photo
 
 .photo a {
@@ -419,8 +380,17 @@ footer {
       border-left: 0 none;
     }
   }
-
-  a {
+  span{
+    color: $gray;
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 13px 18px 12px 18px;
+    border-left: 1px solid $white;
+    border-right: 1px solid $borderColor;
+    @include text-shadow($white 0px 1px 0px);
+  }
+  a{
     color: $gray;
     display: block;
     font-size: 14px;
@@ -438,7 +408,7 @@ footer {
 
 // Logo style
 
-  #gn-logo a {
+  #gn-logo a, span {
     border-left: 0 none;
     color: $linkColor;
     font-size: 18px;
@@ -512,7 +482,7 @@ footer {
 // Sidebar
 
 aside {
-  background: darken($white, 2%);
+  //background: darken($white, 2%);
 
   #profile-nav {
 
@@ -606,3 +576,4 @@ footer {
 @import "devise";
 @import "tag_cloud";
 @import "tipsy_custom";
+@import "pagination";

@@ -16,5 +16,4 @@
                 = activity_description(activity_item)
               %time= activity_item.created_at.strftime("%d. %b %Y")
 
-    -#.pagination
-    -#  = will_paginate @activity_items
+    -#= will_paginate @activity_items

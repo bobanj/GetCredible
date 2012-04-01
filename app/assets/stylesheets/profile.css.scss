@@ -47,7 +47,13 @@
   ul {
     list-style: none;
     margin: 0;
-
+    .error{
+      margin-left: 125px;
+    }
+    .actions{
+      float: right;
+      text-align: right;
+    }
     .location .icon {
       background-position: 0 -64px;
     }

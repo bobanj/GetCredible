@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 
   # Attributes
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-    :first_name, :last_name, :job_title, :city, :country, :twitter_handle,
+    :full_name,:job_title, :city, :country, :twitter_handle,
     :personal_url, :avatar, :avatar_cache
 
   # Associations
@@ -25,11 +25,7 @@ class User < ActiveRecord::Base
                                  :order => 'created_at DESC'
 
   # Validations
-  validates :first_name, :last_name, :job_title, :presence => true, :format => {:with => /^[\w\s-]*$/}
-
-  def full_name
-    "#{first_name} #{last_name}"
-  end
+  validates :full_name, :presence => true, :format => {:with => /^[\w\s-]*$/}
 
   def tags_summary(user=nil)
     user_tags.includes([:tag, :votes]).map do |user_tag|
@@ -90,7 +86,7 @@ class User < ActiveRecord::Base
 
   def self.search_by_name_or_tag(q)
     includes(user_tags: :tag).
-    where("UPPER(users.first_name || ' ' || users.last_name) LIKE UPPER(:q) OR
+    where("UPPER(users.full_name) LIKE UPPER(:q) OR
            UPPER(tags.name) LIKE UPPER(:q)", {:q => "%#{q}%"})
   end
 

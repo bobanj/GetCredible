@@ -6,23 +6,25 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    render :layout => false if request.xhr?
   end
 
   def incoming
     @user = User.find(params[:id])
     @activity_items = @user.incoming_activities.paginate(:page => params[:page], :per_page => 10)
-    render 'activities'
+    render 'activities', layout: (request.xhr? ? false : true)
   end
 
   def outgoing
     @user = User.find(params[:id])
     @activity_items = @user.outgoing_activities.paginate(:page => params[:page], :per_page => 10)
-    render 'activities'
+    render 'activities', layout: (request.xhr? ? false : true)
   end
 
   def all
     @user = User.find(params[:id])
-    @activity_items = @user.all_activities(:page => params[:page], :per_page => 10)
-    render 'activities'
+    #@activity_items = @user.all_activities(:page => params[:page], :per_page => 10)
+    @activity_items = ActivityItem.paginate(:page => params[:page], :per_page => 2)
+    render 'activities', layout: (request.xhr? ? false : true)
   end
 end

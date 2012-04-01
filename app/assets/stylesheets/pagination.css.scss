@@ -1,0 +1,28 @@
+// Pagination
+.pagination {
+
+  text-align: center;
+
+  a, span, em {
+    border: 0 none;
+    color: $grayDark;
+    float: none !important;
+    display: inline-block;
+    line-height: 18px;
+    padding: 0 6px;
+    @include border-radius(2px);
+
+    &:hover {
+      background: $linkColor;
+      color: $white;
+    }
+
+  }
+  .current {
+    font-style: normal;
+    font-weight: bold;
+    background-color: $linkColor;
+    color: white;
+  }
+
+}

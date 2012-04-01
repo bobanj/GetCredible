@@ -4,9 +4,9 @@
       %h1 Forgot your password?
 
     = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
-      = f.error_notification
       %ul.inputs
         %li= f.input :email, :required => true
-        %li= f.button :submit, "Send me reset password instructions", class: 'btn large primary'
+        %li.buttons= f.button :submit, "Send me reset password instructions", class: 'btn large primary'
+      %br
 %aside
   = render "links"

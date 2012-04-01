@@ -1,3 +1,4 @@
+- can_delete ||= false
 %section#tags
   #add-tag
     - if current_user && current_user != @user
@@ -12,7 +13,12 @@
       .inner
         %h3 &nbsp;
   = image_tag "ajax_loader.gif", :id => 'tag-could-loader', :style => "display:none;"
-  = tag_cloud(@user)
+  %div{:id => 'tag-cloud',
+       "data-tag-cloud-path" => user_user_tags_path(@user),
+                  :"data-logged-in" => user_signed_in?.to_s,
+                  :"data-can-vote" => (!(@user == current_user)).to_s,
+                  :"data-can-delete" => can_delete.to_s,
+                  :"data-user" => {:full_name => @user.full_name}.to_json}
   #tag-msg
     %span.icon
     = tag_cloud_summary(@user)

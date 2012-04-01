@@ -29,15 +29,19 @@ module ActivitiesHelper
     "#{link_to(tag_name, users_path(:tag => tag_name))}".html_safe
   end
 
+  def user_link(user)
+    "#{link_to(user.full_name, me_user_path(user))}".html_safe
+  end
+
   def incoming_activity_description(activity_item)
     user = activity_item.user
     item = activity_item.item
     target = activity_item.target
 
     if activity_vote?(activity_item)
-      "#{link_to(user.full_name, me_user_path(user))} vouched for <strong>#{tag_link(item.voteable.tag.name)}</strong>".html_safe
+      "#{user_link(user)} vouched for #{tag_link(item.voteable.tag.name)}".html_safe
     else
-      "#{link_to(user.full_name, me_user_path(user))} tagged #{current_user && current_user == target ? "you" : link_to(target.full_name, me_user_path(target)) } as <strong>#{tag_link(item.tag.name)}</strong>".html_safe
+      "#{user_link(user)} tagged #{current_user && current_user == target ? "you" : user_link(target) } as #{tag_link(item.tag.name)}".html_safe
     end
   end
 
@@ -47,9 +51,9 @@ module ActivitiesHelper
     user = activity_item.user
 
     if activity_vote?(activity_item)
-      "#{current_user && current_user == user ? "You" : link_to(user.full_name, me_user_path(user)) } vouched on #{link_to(target.full_name, me_user_path(target))} 's profile for <strong>#{tag_link(item.voteable.tag.name)}</strong>".html_safe
+      "#{current_user && current_user == user ? "You" : link_to(user.full_name, me_user_path(user)) } vouched on #{user_link(target)} 's profile for #{tag_link(item.voteable.tag.name)}".html_safe
     else
-      "#{current_user && current_user == user ? "You" : link_to(user.full_name, me_user_path(user)) } tagged #{link_to(target.full_name, me_user_path(target))} as <strong>#{tag_link(item.tag.name)}</strong>".html_safe
+      "#{current_user && current_user == user ? "You" : user_link(user) } tagged #{user_link(target)} as #{tag_link(item.tag.name)}".html_safe
     end
   end
 

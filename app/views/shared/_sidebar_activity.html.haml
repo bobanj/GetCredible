@@ -1,24 +1,14 @@
-#latest-activity
-  - if current_user && current_user == user
-    %h2 Your incoming activity
-  - else
-    %h2 Latest incoming activity
-  %ul.unstyled
-    - user.incoming_activities.paginate(:page => 1, :per_page => 5).each do |activity_item|
-      %li{:class => activity_class(activity_item)}
-        %span.icon
-        = activity_description(activity_item)
-  = link_to 'View all incoming activity ►', incoming_user_path(user)
-  %p
-    &nbsp;
-  - if current_user && current_user == user
-    %h2 Your Outgoing activity
-  - else
-    %h2 Latest Outgoing activity
-
-  %ul.unstyled
-    - user.outgoing_activities.paginate(:page => 1, :per_page => 5).each do |activity_item|
-      %li{:class => activity_class(activity_item)}
-        %span.icon
-        = activity_description(activity_item)
-  = link_to 'View all outgoing activity ►', outgoing_user_path(user)
+- if user
+  - incoming_activities =  user.incoming_activities.paginate(:page => 1, :per_page => 5)
+  - if incoming_activities.count > 0
+    #latest-activity
+      - if current_user && current_user == user
+        %h2 Your incoming activity
+      - else
+        %h2 Latest incoming activity
+      %ul.unstyled
+        - incoming_activities.each do |activity_item|
+          %li{:class => activity_class(activity_item)}
+            %span.icon
+            = activity_description(activity_item)
+      = link_to 'View all incoming activity ►', incoming_user_path(user), :class => 'js-remote'

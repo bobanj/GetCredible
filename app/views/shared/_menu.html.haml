@@ -2,12 +2,12 @@
 %nav
   %ul#global-nav
     %li#gn-logo
-      = link_to 'GetCredible', root_path
+      %span GiveBrand
     - if user_signed_in?
       %li#gn-activity
-        = link_to 'Home', all_user_path(current_user)
+        = link_to 'Home', all_user_path(current_user), :class => 'js-remote'
       %li#gn-profile
-        = link_to 'Profile', user_path(current_user)
+        = link_to 'Profile', me_user_path(current_user)
       %li#gn-logout
         = link_to "Logout", destroy_user_session_path
     - else

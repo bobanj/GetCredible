@@ -5,11 +5,11 @@
       %nav
         %ul.tabs
           %li.first{:class => activity_active_class('all')}
-            = link_to 'All', all_user_path(@user)
+            = link_to 'All', all_user_path(@user), :class => 'js-remote'
           %li{:class => activity_active_class('incoming')}
-            = link_to 'Incoming activity', incoming_user_path(@user)
+            = link_to 'Incoming activity', incoming_user_path(@user), :class => 'js-remote'
           %li.last{:class => activity_active_class('outgoing')}
-            = link_to 'Outgoing activity', outgoing_user_path(@user)
+            = link_to 'Outgoing activity', outgoing_user_path(@user), :class => 'js-remote'
 
     .feed
       %ul.list-view.unstyled
@@ -25,8 +25,7 @@
                 = activity_description(activity_item)
               %time= activity_item.created_at.strftime("%d. %b %Y")
 
-    .pagination
-      = will_paginate @activity_items
+    = will_paginate @activity_items
 
 %aside
   = render :partial => 'shared/sidebar_nav', :locals => { :user => @user }

@@ -17,20 +17,6 @@ module ApplicationHelper
     parts.join('_')
   end
 
-  def tag_cloud(user)
-    content_tag(:div, '',
-                :id => 'tag-cloud',
-                "data-tag-cloud-path" => user_user_tags_path(@user),
-                :"data-logged-in" => user_signed_in?.to_s,
-                :"data-can-vote" => (!(user == current_user)).to_s,
-                :"data-can-delete" => (@user == current_user).to_s,
-                :"data-user" => {:first_name => @user.first_name,
-                                 :last_name => @user.last_name,
-                                 :full_name => @user.full_name}.to_json)
-
-
-  end
-
   def class_for_activity(activity)
     case activity.item
       when Tag then "tag"

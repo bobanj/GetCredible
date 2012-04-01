@@ -246,23 +246,23 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
 }
 
 // Actions (the buttons)
-.actions {
-  background: #f5f5f5;
-  margin-top: $baseline;
-  margin-bottom: $baseline;
-  padding: ($baseline - 1) 20px $baseline 150px;
-  border-top: 1px solid #ddd;
-  @include border-radius(0 0 3px 3px);
-  .secondary-action {
-    float: right;
-    a {
-      line-height: 30px;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-}
+//.actions {
+//  background: #f5f5f5;
+//  margin-top: $baseline;
+//  margin-bottom: $baseline;
+//  padding: ($baseline - 1) 20px $baseline 150px;
+//  border-top: 1px solid #ddd;
+//  @include border-radius(0 0 3px 3px);
+//  .secondary-action {
+//    float: right;
+//    a {
+//      line-height: 30px;
+//      &:hover {
+//        text-decoration: underline;
+//      }
+//    }
+//  }
+//}
 
 // Help Text
 .help-inline, .help-block {
@@ -427,7 +427,7 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
   }
 }
 
-.inputs {
+ul.inputs {
   list-style: none;
   margin: 0;
   li{
@@ -436,12 +436,28 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
     line-height: 20px;
     color: $gray;
   }
+  .error{
+    margin-left: 10px;
+    color: red;
+  }
   label{
     float: left;
     width: 111px;
     margin-right: 12px;
     padding-top: 0px;
     text-align: right;
+  }
+  .buttons_left{
+    float: left;
+  }
+  .buttons{
+    float: left;
+    margin-left: 131px;
+  }
+  .checkboxes{
+    float: left;
+    margin-left: 111px;
+    margin-right: 30px;
   }
 }
 

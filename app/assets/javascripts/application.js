@@ -43,13 +43,13 @@ $(function () {
                             word.tipsy("hide");
                             word.data('votes', numVotes - 1);
                             word.removeClass("vouche").addClass("unvouche");
-                            noty({text:'You have unvouched for ' + user.first_name + ' on ' + word.text(), type:'success', timeout:800});
+                            noty({text:'You have unvouched for ' + user.full_name + ' on ' + word.text(), type:'success', timeout:800});
                             word.tipsy("show");
                         } else {
                             word.tipsy("hide");
                             word.data('votes', numVotes + 1);
                             word.removeClass("unvouche").addClass("vouche");
-                            noty({text:'You have vouched for ' + user.first_name + ' on ' + word.text(), type:'success', timeout:800});
+                            noty({text:'You have vouched for ' + user.full_name + ' on ' + word.text(), type:'success', timeout:800});
                             word.tipsy("show");
                         }
 
@@ -57,26 +57,30 @@ $(function () {
                 });
             } else {
                 if (!this.tagCloud.data('can-delete')) {
-                    noty({text:'You can not vouche for yourself', type:'alert', timeout:2500});
+                    noty({text:'You can not vouche for yourself', type:'alert', timeout:1800});
                 }
             }
         } else {
-            noty({text:'You are not authorized for this action', type:'error', timeout:2500});
+            noty({text:'You are not authorized for this action', type:'error', timeout:1800});
         }
     };
     $.getCredible.createWordList = function (data) {
         var wordList = [];
         var customClass = "word ";
         customClass += this.tagCloud.data('can-delete') ? 'remove ' : '';
-        if(data.length == 0){
+        if (data.length == 0) {
             return wordList;
         }
         var min = data[0].votes;
         var max = data[0].votes;
         var parts = 10;
         $.each(data, function (i, userTag) {
-           if(userTag.votes > max){max = userTag.votes;}
-           if(userTag.votes < min){min = userTag.votes;}
+            if (userTag.votes > max) {
+                max = userTag.votes;
+            }
+            if (userTag.votes < min) {
+                min = userTag.votes;
+            }
         });
         var divisor = (max - min) / parts;
         $.each(data, function (i, userTag) {
@@ -89,7 +93,7 @@ $(function () {
                     }
                     return pom;
                 },
-                weight: parseInt((userTag.votes - min) / divisor),
+                weight:parseInt((userTag.votes - min) / divisor),
                 title:userTag.name,
                 dataAttributes:{votes:userTag.votes, 'user-tag-id':userTag.id},
                 handlers:{click:function () {
@@ -157,6 +161,34 @@ $(function () {
         }
     }
 
+    $.getCredible.ajaxPagination = function () {
+        var pagination = $('#main .pagination');
+        if (pagination.length > 0) {
+            pagination.find('a').addClass('js-remote');
+        }
+    }
+    $.getCredible.showFlashMessages = function () {
+        var flashMessage = $("#flash-message");
+        if (flashMessage.length > 0) {
+            var messageType = flashMessage.data('type');
+            if (messageType == 'error') {
+                noty({text:flashMessage.text(), type:'error', timeout:1800, onClose:function () {
+                    flashMessage.remove()
+                }});
+            }
+            if (messageType == 'alert') {
+                noty({text:flashMessage.text(), type:'alert', timeout:1800, onClose:function () {
+                    flashMessage.remove()
+                }});
+            }
+            if (messageType == 'notice') {
+                noty({text:flashMessage.text(), type:'success', timeout:1800, onClose:function () {
+                    flashMessage.remove()
+                }});
+            }
+        }
+    }
+
     $("#tag-cloud").delegate(".remove .icon", "click", function () {
         var word = $(this).parent();
         noty({
@@ -194,19 +226,22 @@ $(function () {
         return false;
     });
 
-    var flashMessage = $("#flash-message");
-    if(flashMessage.length > 0){
-        var messageType = flashMessage.data('type');
-        if(messageType == 'error'){
-            noty({text: flashMessage.text(), type:'error', timeout:2000});
-        }
-        if(messageType == 'alert'){
-            noty({text: flashMessage.text(), type:'alert', timeout:2000});
-        }
-        if(messageType == 'notice'){
-            noty({text: flashMessage.text(), type:'success', timeout:2000});
-        }
-    }
-
+    $('#page').delegate('.js-remote', 'click', function (event) {
+        $.ajax({
+            url:$(this).attr('href'),
+            success:function (data) {
+                $('#main').html(data);
+                $.getCredible.ajaxPagination();
+                $.getCredible.showFlashMessages();
+            },
+            error:function () {
+                noty({text:'Something Went Wrong', type:'error', timeout:2000});
+            }
+        });
+        event.preventDefault();
+        return false;
+    })
+    $.getCredible.showFlashMessages();
+    $.getCredible.ajaxPagination();
     $.getCredible.updateTagCloud();
 })
