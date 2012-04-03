@@ -6,7 +6,7 @@
     = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
       %ul.inputs
         %li= f.input :email, :required => true
-        %li.buttons= f.button :submit, "Send me reset password instructions", class: 'btn large primary'
+        %li.buttons= f.button :submit, "Submit", class: 'btn large primary'
       %br
 %aside
   = render "links"
