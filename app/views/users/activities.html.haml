@@ -7,9 +7,9 @@
           %li.first{:class => activity_active_class('all')}
             = link_to 'All', all_user_path(@user), :class => 'js-remote'
           %li{:class => activity_active_class('incoming')}
-            = link_to 'Incoming activity', incoming_user_path(@user), :class => 'js-remote'
+            = link_to 'Notifications', incoming_user_path(@user), :class => 'js-remote'
           %li.last{:class => activity_active_class('outgoing')}
-            = link_to 'Outgoing activity', outgoing_user_path(@user), :class => 'js-remote'
+            = link_to 'My Activity', outgoing_user_path(@user), :class => 'js-remote'
 
     .feed
       %ul.list-view.unstyled
