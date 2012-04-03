@@ -14,13 +14,13 @@ ul.noty_container {
     padding: 0px;
     margin: 10px 0 0 0; }
   &.topLeft {
-    left: 20px; }
+    left: 15px; }
   &.topRight {
-    right: 40px;
+    right: 25px;
     li {
       float: right; } }
   &.topLeft li, &.topRight li {
-    width: 400px; } }
+    width: 280px; } }
 
 /* Fix for: http://bugs.jquery.com/ticket/2278 */
 
@@ -62,7 +62,7 @@ div.noty_modal {
     clear: both;
     position: relative;
     padding: 4px;
-    border: 3px solid #eee;
+    border: 1px solid #eee;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px; }

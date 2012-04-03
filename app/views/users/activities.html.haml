@@ -20,13 +20,13 @@
                 = link_to activity_item.user do
                   = image_tag activity_item.user.avatar.url(:small)
                   = image_tag activity_item.target.avatar.url(:tiny), :class => 'over'
-              .icon
+              -#.icon
               %h2
                 = activity_description(activity_item)
               %time= activity_item.created_at.strftime("%d. %b %Y")
 
     = will_paginate @activity_items
 
-%aside
-  = render :partial => 'shared/sidebar_nav', :locals => { :user => @user }
-  = render :partial => 'shared/sidebar_activity', :locals => { :user => @user }
+-#%aside
+-#  = render :partial => 'shared/sidebar_nav', :locals => { :user => @user }
+-#  = render :partial => 'shared/sidebar_activity', :locals => { :user => @user }

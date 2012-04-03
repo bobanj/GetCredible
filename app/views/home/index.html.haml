@@ -11,7 +11,7 @@
                 = link_to activity_item.user do
                   = image_tag activity_item.user.avatar.url(:small)
                   = image_tag activity_item.target.avatar.url(:tiny), :class => 'over'
-              .icon
+              -#.icon
               %h2
                 = activity_description(activity_item)
               %time= activity_item.created_at.strftime("%d. %b %Y")

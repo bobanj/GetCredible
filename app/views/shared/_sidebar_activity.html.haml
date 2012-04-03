@@ -9,6 +9,6 @@
       %ul.unstyled
         - incoming_activities.each do |activity_item|
           %li{:class => activity_class(activity_item)}
-            %span.icon
+            -#%span.icon
             = activity_description(activity_item)
       = link_to 'View all incoming activity ►', incoming_user_path(user), :class => 'js-remote'

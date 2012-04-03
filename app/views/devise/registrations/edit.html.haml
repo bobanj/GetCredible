@@ -7,13 +7,13 @@
       = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:multipart => true, :method => :put }) do |f|
         %ul
           %li= f.input :full_name, :wrapper => false
-          %li= f.input :job_title, :wrapper => false
-          %li= f.input :country, :wrapper => false
-          %li= f.input :city, :wrapper => false
-          %li= f.input :personal_url, :wrapper => false
-          %li= f.input :twitter_handle, :wrapper => false
           %li= f.input :avatar, :as => :file, :wrapper => false
           %li= f.hidden_field :avatar_cache
+          %li= f.input :job_title, :wrapper => false
+          -#%li= f.input :country, :wrapper => false
+          %li= f.input :city, :wrapper => false, :label => 'Location'
+          %li= f.input :personal_url, :wrapper => false, :label => 'Website'
+          %li= f.input :twitter_handle, :wrapper => false, :label => 'Twitter Username'
           %li= f.input :password, :wrapper => false
           %li= f.input :password_confirmation, :wrapper => false
           %li= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true, :wrapper => false

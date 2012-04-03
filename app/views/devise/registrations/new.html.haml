@@ -5,9 +5,9 @@
 
     = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
       %ul.inputs
-        %li= f.input :full_name, :required => true, :autofocus => true, :placeholder => "Full Name"
-        %li= f.input :email, :required => true, :placeholder => "Email"
-        %li= f.input :password, :required => true, :placeholder => "Password"
+        %li= f.input :full_name, :required => false, :autofocus => true, :placeholder => "Full Name"
+        %li= f.input :email, :placeholder => "Email"
+        %li= f.input :password, :placeholder => "Password"
         %li.buttons= f.button :submit, "Sign up", class: 'btn large primary'
       %br
 %aside

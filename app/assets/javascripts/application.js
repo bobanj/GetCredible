@@ -19,6 +19,10 @@
 
 
 $(function () {
+    $.notyConf = {
+        layout: 'topRight',
+        timeout: 1000
+    };
     $.getCredible = {};
     $.getCredible.tagCloudPath = null;
     $.getCredible.tagCloudLoader = $("#tag-cloud-loader");
@@ -30,7 +34,7 @@ $(function () {
         if (typeof(this.tagCloudPath) == 'string') {
             voteToggle = word.hasClass('vouche') ? '/unvote.json' : '/vote.json';
             if (this.tagCloud.data('logged-in') == false) {
-                noty({text:'Please login so you can vouche', type:'alert', timeout:2500});
+                noty({text:'Please login so you can vouche', type:'alert', timeout:$.notyConf.timeout, layout : $.notyConf.layout});
                 return false;
             }
 
@@ -43,13 +47,13 @@ $(function () {
                             word.tipsy("hide");
                             word.data('votes', numVotes - 1);
                             word.removeClass("vouche").addClass("unvouche");
-                            noty({text:'You have unvouched for ' + user.full_name + ' on ' + word.text(), type:'success', timeout:800});
+                            noty({text:'You have unvouched for ' + user.full_name + ' on ' + word.text(), type:'success', timeout:$.notyConf.timeout, layout : $.notyConf.layout});
                             word.tipsy("show");
                         } else {
                             word.tipsy("hide");
                             word.data('votes', numVotes + 1);
                             word.removeClass("unvouche").addClass("vouche");
-                            noty({text:'You have vouched for ' + user.full_name + ' on ' + word.text(), type:'success', timeout:800});
+                            noty({text:'You have vouched for ' + user.full_name + ' on ' + word.text(), type:'success', timeout:$.notyConf.timeout, layout : $.notyConf.layout});
                             word.tipsy("show");
                         }
 
@@ -57,11 +61,11 @@ $(function () {
                 });
             } else {
                 if (!this.tagCloud.data('can-delete')) {
-                    noty({text:'You can not vouche for yourself', type:'alert', timeout:1800});
+                    noty({text:'You can not vouche for yourself', type:'alert',timeout:$.notyConf.timeout, layout : $.notyConf.layout});
                 }
             }
         } else {
-            noty({text:'You are not authorized for this action', type:'error', timeout:1800});
+            noty({text:'You are not authorized for this action', type:'error', timeout:$.notyConf.timeout, layout : $.notyConf.layout});
         }
     };
     $.getCredible.createWordList = function (data) {
@@ -172,17 +176,17 @@ $(function () {
         if (flashMessage.length > 0) {
             var messageType = flashMessage.data('type');
             if (messageType == 'error') {
-                noty({text:flashMessage.text(), type:'error', timeout:1800, onClose:function () {
+                noty({text:flashMessage.text(), type:'error', timeout:$.notyConf.timeout, layout : $.notyConf.layout, onClose:function () {
                     flashMessage.remove()
                 }});
             }
             if (messageType == 'alert') {
-                noty({text:flashMessage.text(), type:'alert', timeout:1800, onClose:function () {
+                noty({text:flashMessage.text(), type:'alert', timeout:$.notyConf.timeout, layout : $.notyConf.layout, onClose:function () {
                     flashMessage.remove()
                 }});
             }
             if (messageType == 'notice') {
-                noty({text:flashMessage.text(), type:'success', timeout:1800, onClose:function () {
+                noty({text:flashMessage.text(), type:'success', timeout:$.notyConf.timeout, layout : $.notyConf.layout, onClose:function () {
                     flashMessage.remove()
                 }});
             }
@@ -235,7 +239,7 @@ $(function () {
                 $.getCredible.showFlashMessages();
             },
             error:function () {
-                noty({text:'Something Went Wrong', type:'error', timeout:2000});
+                noty({text:'Something Went Wrong', type:'error', timeout:$.notyConf.timeout, layout : $.notyConf.layout});
             }
         });
         event.preventDefault();
