@@ -8,7 +8,9 @@
   padding: 20px 30px 20px 30px;
   #page-header {
     @include clearfix;
-
+    .tabs{
+      clear: both;
+    }
     h1, .tabs {
       float: left;
       margin-bottom: $baseline / 2;

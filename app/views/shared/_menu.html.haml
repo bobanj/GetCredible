@@ -5,7 +5,7 @@
       %span GiveBrand
     - if user_signed_in?
       %li#gn-activity
-        = link_to 'Home', all_user_path(current_user), :class => 'js-remote'
+        = link_to 'Home', all_user_path(current_user)
       %li#gn-profile
         = link_to 'Profile', me_user_path(current_user)
       %li#gn-logout
