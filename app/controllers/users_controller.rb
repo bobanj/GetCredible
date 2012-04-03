@@ -23,8 +23,7 @@ class UsersController < ApplicationController
 
   def all
     @user = User.find(params[:id])
-    #@activity_items = @user.all_activities(:page => params[:page], :per_page => 10)
-    @activity_items = ActivityItem.paginate(:page => params[:page], :per_page => 2)
+    @activity_items = @user.all_activities(:page => params[:page], :per_page => 10)
     render 'activities', layout: (request.xhr? ? false : true)
   end
 end
