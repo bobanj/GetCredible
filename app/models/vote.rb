@@ -13,9 +13,14 @@ class Vote < ActiveRecord::Base
 
   attr_accessible :vote, :voter, :voteable
 
+  # Callbacks
+  #before_create :set_weight
 
   # Validations
   # Comment out the line below to allow multiple votes per user.
   validates_uniqueness_of :voteable_id, :scope => [:voteable_type, :voter_type, :voter_id]
 
+  private
+  def set_weight
+  end
 end

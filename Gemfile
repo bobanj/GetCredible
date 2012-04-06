@@ -45,6 +45,7 @@ end
 
 group :development do
   gem 'guard'
+  gem 'random-word'
   # gem 'guard-cucumber'
   # gem 'guard-rspec'
   gem 'guard-spork'

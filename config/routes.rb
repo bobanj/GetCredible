@@ -10,6 +10,9 @@ GetCredible::Application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   resources :users, :only => [:index, :show] do
+    collection do
+      get :login_as
+    end
     member do
       get :incoming
       get :outgoing

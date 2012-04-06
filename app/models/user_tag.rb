@@ -11,11 +11,12 @@ class UserTag < ActiveRecord::Base
 
   # Validations
   validates :user_id, :presence => true
+  validates :tagger_id, :presence => true
   validates :tag_id, :presence => true, :uniqueness => {:scope => :user_id}
 
   def self.add_tags(user, tagger, tag_names)
     tag_names.to_s.split(',').each do |tag_name|
-      tag = Tag.find_or_create_by_name(tag_name.strip)
+      tag = Tag.find_or_create_by_name(tag_name.gsub(/[^A-Za-z\s]/, '').downcase.strip)
       unless user.tags.where(:name => tag.name).any?
         user_tag = user.user_tags.new
         user_tag.tag = tag

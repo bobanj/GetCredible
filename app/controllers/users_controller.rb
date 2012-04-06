@@ -9,6 +9,14 @@ class UsersController < ApplicationController
     render :layout => false if request.xhr?
   end
 
+  def login_as
+    user = User.find params[:user] rescue false
+    if user
+      sign_in('user', user)
+    end
+    redirect_to root_path
+  end
+
   def incoming
     @user = User.find(params[:id])
     @activity_items = @user.incoming_activities.paginate(:page => params[:page], :per_page => 10)

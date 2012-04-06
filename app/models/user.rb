@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
     :personal_url, :avatar, :avatar_cache
 
   # Associations
-  has_many :authentications
+  has_many :authentications, dependent: :destroy
   has_many :user_tags, dependent: :destroy
   has_many :tags, through: :user_tags
   has_many :activity_items, order: 'created_at desc', dependent: :destroy
