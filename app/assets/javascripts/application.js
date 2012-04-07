@@ -45,13 +45,13 @@ $(function () {
                         var user = $.getCredible.tagCloud.data('user');
                         if (word.hasClass('vouche')) {
                             word.tipsy("hide");
-                            word.data('votes', numVotes - 1);
+                            word.data('votes', data.votes);
                             word.removeClass("vouche").addClass("unvouche");
                             noty({text:'You have unvouched for ' + user.full_name + ' on ' + word.text(), type:'success', timeout:$.notyConf.timeout, layout : $.notyConf.layout});
                             word.tipsy("show");
                         } else {
                             word.tipsy("hide");
-                            word.data('votes', numVotes + 1);
+                            word.data('votes', data.votes);
                             word.removeClass("unvouche").addClass("vouche");
                             noty({text:'You have vouched for ' + user.full_name + ' on ' + word.text(), type:'success', timeout:$.notyConf.timeout, layout : $.notyConf.layout});
                             word.tipsy("show");

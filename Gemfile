@@ -31,6 +31,7 @@ gem 'bootstrap-sass'
 gem 'compass-rails','~> 1.0.0.rc.3'
 gem 'compass-960-plugin'
 
+gem 'statistics2'
 #gem 'omniauth-twitter'
 # Gems used only for assets and not required
 # in production environments by default.
@@ -44,8 +45,10 @@ group :assets do
 end
 
 group :development do
+  #gem 'bullet'
   gem 'guard'
   gem 'random-word'
+
   # gem 'guard-cucumber'
   # gem 'guard-rspec'
   gem 'guard-spork'

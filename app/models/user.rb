@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
         id: user_tag.id,
         name: user_tag.tag.name,
         voted: user && user.voted_for?(user_tag),
-        votes: user_tag.votes.length
+        votes: user_tag.votes.sum(:weight).to_i
       }
     end
   end
@@ -62,8 +62,9 @@ class User < ActiveRecord::Base
       vote = vote_exclusively_for(user_tag)
       activity_items.create(item: vote, target: user_tag.user)
     else
-      false
+      vote = false
     end
+    vote
   end
 
   def remove_vote(user_tag)
