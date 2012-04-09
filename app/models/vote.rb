@@ -45,20 +45,22 @@ class Vote < ActiveRecord::Base
       lower = -confidence * (1/Math.sqrt(tbl_size))
       upper = confidence * (1/Math.sqrt(tbl_size))
     end
-      find_voter = tbl.find{|t| t[0] == self.voter_id}
+      find_voter = tbl.find{|t| t[0].to_i == self.voter_id}
     if find_voter
       voter_index = tbl.index(find_voter)
       voter_votes = find_voter[1]
       voter_votes_standardized = standardized[voter_index]
       total_sum_voters = weights.sum
       total_sum_user_tag = Vote.where("voteable_id = ?", self.voteable_id).sum(:weight)
+      total_sum_user_tag = 1 if total_sum_user_tag == 0
       max_voter_votes = weights.max
+
       if voter_votes_standardized.between?(lower, upper)
-        self.weight = (total_sum_user_tag / total_sum_voters) * (total_sum_voters / max_voter_votes ) + 1
+        self.weight = (total_sum_user_tag / voter_votes) * (total_sum_voters / max_voter_votes ) + 1
       elsif voter_votes_standardized < lower
-        self.weight = (voter_votes / total_sum_voters) * (total_sum_user_tag / total_sum_voters) * (total_sum_voters / max_voter_votes ) + 1
+        self.weight = (voter_votes / total_sum_voters) * (total_sum_user_tag / voter_votes) * (total_sum_voters / max_voter_votes ) + 1
       elsif voter_votes_standardized > upper
-        self.weight = (voter_votes / total_sum_voters) * (total_sum_user_tag / total_sum_voters) * (total_sum_voters / max_voter_votes ) + 2
+        self.weight = (voter_votes / total_sum_voters) * (total_sum_user_tag / voter_votes) * (total_sum_voters / max_voter_votes ) + 2
       end
     else
       self.weight = 1

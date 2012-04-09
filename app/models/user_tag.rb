@@ -14,6 +14,11 @@ class UserTag < ActiveRecord::Base
   validates :tagger_id, :presence => true
   validates :tag_id, :presence => true, :uniqueness => {:scope => :user_id}
 
+  def calculate_votes
+    sum_weight = votes.sum(:weight)
+    (sum_weight + 0.5).floor
+  end
+
   def self.add_tags(user, tagger, tag_names)
     tag_names.to_s.split(',').each do |tag_name|
       tag = Tag.find_or_create_by_name(tag_name.gsub(/[^A-Za-z\s]/, '').downcase.strip)

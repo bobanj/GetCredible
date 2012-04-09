@@ -19,17 +19,17 @@ class UserTagsController < ApplicationController
     user_tag = UserTag.find(params[:id])
     vote = current_user.add_vote(user_tag)
     if vote
-      render json: {:votes => user_tag.votes.sum(:weight).to_i, :status => 'ok'}.to_json
+      render json: {:votes => user_tag.calculate_votes, :status => 'ok'}.to_json
     else
       render json: {status: 'error'}.to_json
     end
   end
 
   def unvote
-    user_tag = UserTag.find(params[:id])
+    user_tag = UserTag.find(params[:id]) rescue false
 
-    if current_user.remove_vote(user_tag)
-      render json: {:votes => user_tag.votes.sum(:weight).to_i, status: 'ok'}.to_json
+    if user_tag && current_user.remove_vote(user_tag)
+      render json: {:votes => user_tag.calculate_votes, status: 'ok'}.to_json
     else
       render json: {status: 'error'}.to_json
     end

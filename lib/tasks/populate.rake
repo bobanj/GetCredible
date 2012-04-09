@@ -32,12 +32,12 @@ namespace :get_credible do
 
       puts "#########################"
       puts "Creating Users"
-      num_users = 500
+      num_users = 250
       num_users.times do |index|
         u = User.new
-        u.full_name = "populator_#{index}"
+        u.full_name = "populator_#{index + 1}"
         u.password = "populator"
-        u.email = "populator_#{index}@givebrand.to"
+        u.email = "populator_#{index + 1}@givebrand.to"
         u.save
       end
 
@@ -64,20 +64,50 @@ namespace :get_credible do
         end
       end
 
-      (1..5).each do |page|
-        puts "#############################"
-        puts page
-        users = User.paginate :per_page => 100, :page => page
-        users.each do |user|
-          votes_to_be_given = num_votes_per_page(page)
-          voters = User.limit(votes_to_be_given + 1)
-          voters.each do |voter|
-            user.user_tags.each do |user_tag|
-              voter.vote_exclusively_for(user_tag)
-            end
-          end
+      first_50 = User.includes(:user_tags).paginate :per_page => 50, :page => 1
+      second_50 = User.paginate :per_page => 50, :page => 2
+      #third_50 = User.paginate :per_page => 50, :page => 3
+      #forth_50 = User.paginate :per_page => 50, :page => 4
+
+      second_50.each_with_index do |voter,i|
+        first_50.each_with_index do |user,j |
+          puts "@@@@@@@@@@@@@@@@@@@@@@"
+          p "index => #{i},#{j}"
+          puts "@@@@@@@@@@@@@@@@@@@@@@"
+          voter.vote_exclusively_for(user.user_tags.first)
+          voter.vote_exclusively_for(user.user_tags.last)
         end
       end
+
+      first_50.each_with_index do |voter,i|
+        second_50.each_with_index do |user,j |
+          puts "@@@@@@@@@@@@@@@@@@@@@@"
+          p "index => #{i},#{j}"
+          puts "@@@@@@@@@@@@@@@@@@@@@@"
+          voter.vote_exclusively_for(user.user_tags.first)
+          voter.vote_exclusively_for(user.user_tags.last)
+        end
+      end
+    #
+    #  (1..4).each do |page|
+    #    puts "#############################"
+    #    puts page
+    #    users = User.includes(:user_tags).paginate :per_page => 50, :page => page
+    #
+    #    users.each_with_index do |user, index|
+    #      puts "@@@@@@@@@@@@@@@@@@@@@@"
+    #      p "page => #{page},  index => #{index}"
+    #      puts "@@@@@@@@@@@@@@@@@@@@@@"
+    #      votes_to_be_given = num_votes_per_page(page)
+    #      while votes_to_be_given > 0
+    #        voter = first_50[rand(49) + 1]
+    #        voter.vote_exclusively_for(user.user_tags.first)
+    #        voter.vote_exclusively_for(user.user_tags.last)
+    #        votes_to_be_given -= 1
+    #      end
+    #    end
+    #  end
+
     end
 
     def range_rand(min, max)
@@ -89,13 +119,13 @@ namespace :get_credible do
         when 1
           range_rand(10, 15)
         when 2
-          range_rand(100, 130)
+          range_rand(50, 70)
         when 3
-          range_rand(200, 300)
+          range_rand(70, 100)
         when 4
-          range_rand(300, 400)
+          range_rand(100, 150)
         when 5
-          range_rand(490, 500)
+          range_rand(200, 240)
         else
           range_rand(30, 100)
       end

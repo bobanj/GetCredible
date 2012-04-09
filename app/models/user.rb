@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
         id: user_tag.id,
         name: user_tag.tag.name,
         voted: user && user.voted_for?(user_tag),
-        votes: user_tag.votes.sum(:weight).to_i
+        votes: user_tag.calculate_votes
       }
     end
   end
