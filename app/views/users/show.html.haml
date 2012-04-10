@@ -2,7 +2,7 @@
   %section#profile
     .details
       .photo
-        = image_tag @user.avatar_url(:thumb), :width => '126', :height => 126
+        = image_tag @user.avatar_url(:thumb)
       %h1= @user.full_name
       %h2= @user.job_title
       %ul
