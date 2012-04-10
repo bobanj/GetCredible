@@ -163,6 +163,7 @@ input, textarea {
 
 .icon {
   @include replace-text("icons-sprite.png", 0, 0);
+  background-position: -100px 0;
   display: inline-block;
   height: 12px;
   width: 12px;
@@ -170,10 +171,6 @@ input, textarea {
 
 .tag .icon {
   background-position: 0 -32px;
-}
-
-.vouche .icon {
-  background-position: 0 0;
 }
 
 // List of items activity feed/search

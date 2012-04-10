@@ -58,30 +58,27 @@
       color: #b8bcbf; }
   }
 
-
-
-
   .icon {
     display: inline-block;
     margin-left: 5px;
     margin-right: 10px;
   }
 
-  .vouche .icon { background-position: 0 -16px; }
+  .vouche {
+    &:hover .icon {
+      background-position: 0 -16px;
+    }
+  }
 
   .unvouche {
-
     &:hover .icon {
       background-position: 0 0;
     }
-
-    .icon { background-position: 24px 0; }
   }
 
   .tag .icon { background-position: 0 -48px; }
 
   .remove .icon { background-position: 0 -128px; }
-
 }
 
 #tag-msg {
