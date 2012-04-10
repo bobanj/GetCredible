@@ -1,0 +1,29 @@
+
+.noty_bar {
+  background: none;
+}
+.noty_bar .noty_message {
+  padding: 5px 0px;
+}
+
+.noty_bar.success {
+  background-color: #57A957;
+  color: #FFF;
+}
+
+.noty_bar.error {
+  background-color: #C43C35;
+  color: #FFF;
+}
+.noty_bar.alert {
+  background-color: #fff6bf;
+  color: #000;
+  border: 2px solid #ffd324;
+}
+
+.noty_text {
+  margin: 0 30px 0 20px;
+  font-weight: normal;
+  font-size: 14px;
+}
+

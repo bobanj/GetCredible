@@ -171,27 +171,27 @@ $(function () {
             pagination.find('a').addClass('js-remote');
         }
     }
-    $.getCredible.showFlashMessages = function () {
-        var flashMessage = $("#flash-message");
-        if (flashMessage.length > 0) {
-            var messageType = flashMessage.data('type');
-            if (messageType == 'error') {
-                noty({text:flashMessage.text(), type:'error', timeout:$.notyConf.timeout, layout : $.notyConf.layout, onClose:function () {
-                    flashMessage.remove()
-                }});
-            }
-            if (messageType == 'alert') {
-                noty({text:flashMessage.text(), type:'alert', timeout:$.notyConf.timeout, layout : $.notyConf.layout, onClose:function () {
-                    flashMessage.remove()
-                }});
-            }
-            if (messageType == 'notice') {
-                noty({text:flashMessage.text(), type:'success', timeout:$.notyConf.timeout, layout : $.notyConf.layout, onClose:function () {
-                    flashMessage.remove()
-                }});
-            }
-        }
-    }
+    // $.getCredible.showFlashMessages = function () {
+    //     var flashMessage = $("#flash-message");
+    //     if (flashMessage.length > 0) {
+    //         var messageType = flashMessage.data('type');
+    //         if (messageType == 'error') {
+    //             noty({text:flashMessage.text(), type:'error', timeout:$.notyConf.timeout, layout : $.notyConf.layout, onClose:function () {
+    //                 flashMessage.remove()
+    //             }});
+    //         }
+    //         if (messageType == 'alert') {
+    //             noty({text:flashMessage.text(), type:'alert', timeout:$.notyConf.timeout, layout : $.notyConf.layout, onClose:function () {
+    //                 flashMessage.remove()
+    //             }});
+    //         }
+    //         if (messageType == 'notice') {
+    //             noty({text:flashMessage.text(), type:'success', timeout:$.notyConf.timeout, layout : $.notyConf.layout, onClose:function () {
+    //                 flashMessage.remove()
+    //             }});
+    //         }
+    //     }
+    // }
 
     $("#tag-cloud").delegate(".remove .icon", "click", function () {
         var word = $(this).parent();
@@ -207,7 +207,7 @@ $(function () {
                         });
                     }
                 } },
-                {type:'button pink', text:'Cancel', click:function () {
+                {type:'button orange', text:'Cancel', click:function () {
 
                 } }
             ],
@@ -236,7 +236,7 @@ $(function () {
             success:function (data) {
                 $('#main').html(data);
                 $.getCredible.ajaxPagination();
-                $.getCredible.showFlashMessages();
+                // $.getCredible.showFlashMessages();
             },
             error:function () {
                 noty({text:'Something Went Wrong', type:'error', timeout:$.notyConf.timeout, layout : $.notyConf.layout});
@@ -245,7 +245,7 @@ $(function () {
         event.preventDefault();
         return false;
     })
-    $.getCredible.showFlashMessages();
+    // $.getCredible.showFlashMessages();
     $.getCredible.ajaxPagination();
     $.getCredible.updateTagCloud();
 })
