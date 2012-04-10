@@ -2,7 +2,7 @@
 %nav
   %ul#global-nav
     %li#gn-logo
-      %span GiveBrand
+      = link_to "GiveBrand", root_path
     - if user_signed_in?
       %li#gn-activity
         = link_to 'Home', all_user_path(current_user)

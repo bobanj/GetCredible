@@ -51,7 +51,7 @@ module ActivitiesHelper
     user = activity_item.user
 
     if activity_vote?(activity_item)
-      "#{current_user && current_user == user ? "You" : link_to(user.full_name, me_user_path(user)) } vouched on #{user_link(target)} 's profile for #{tag_link(item.voteable.tag.name)}".html_safe
+      "#{current_user && current_user == user ? "You" : link_to(user.full_name, me_user_path(user)) } vouched on #{user_link(target)}'s profile for #{tag_link(item.voteable.tag.name)}".html_safe
     else
       "#{current_user && current_user == user ? "You" : user_link(user) } tagged #{user_link(target)} as #{tag_link(item.tag.name)}".html_safe
     end

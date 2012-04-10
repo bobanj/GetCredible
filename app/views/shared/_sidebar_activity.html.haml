@@ -1,14 +1,11 @@
 - if user
   - incoming_activities =  user.incoming_activities.paginate(:page => 1, :per_page => 5)
-  - if incoming_activities.count > 0
-    #latest-activity
-      - if current_user && current_user == user
-        %h2 Your incoming activity
-      - else
-        %h2 Latest incoming activity
-      %ul.unstyled
+  #latest-activity
+    %h2== #{user_link(user)}'s activity
+    %ul.unstyled
+      - if incoming_activities.present?
         - incoming_activities.each do |activity_item|
           %li{:class => activity_class(activity_item)}
-            -#%span.icon
             = activity_description(activity_item)
-      = link_to 'View all incoming activity ►', incoming_user_path(user), :class => 'js-remote'
+      - else
+        %li No recent activity
