@@ -13,6 +13,7 @@ Spork.prefork do
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'rspec/autorun'
+  require_relative 'support/rspec_patch'
   require 'shoulda/matchers/integrations/rspec'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
@@ -43,6 +44,12 @@ Spork.prefork do
 
     # Devise test helpers
     config.include Devise::TestHelpers, :type => :controller
+
+    config.after(:each, :type => :request) do |example|
+      if ENV.include?('SHOW_ME_THE_PAGE')
+        save_and_open_page if example.failed?
+      end
+    end
   end
 end
 

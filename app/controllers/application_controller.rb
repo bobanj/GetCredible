@@ -7,7 +7,14 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    stored_location_for(:user) || resource.full_name.blank? ? edit_user_registration_path : user_path(resource)
-  end
+    location = stored_location_for(:user)
 
+    if location
+      location
+    elsif resource.full_name.blank?
+      edit_user_registration_path
+    else
+      all_user_path(resource)
+    end
+  end
 end
