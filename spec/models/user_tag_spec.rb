@@ -3,6 +3,8 @@ require 'spec_helper'
 describe UserTag do
   let(:user) { Factory(:user) }
   let(:tagger) { Factory(:user) }
+  let(:tag)  { Factory(:tag) }
+  let(:tagger) { Factory(:user) }
 
   describe 'Attributes' do
     it { should allow_mass_assignment_of(:user_id) }
@@ -17,7 +19,7 @@ describe UserTag do
   end
 
   describe 'Validations' do
-    subject { Factory(:user_tag,  user: Factory(:user),  tag: Factory(:tag)) }
+    subject { Factory(:user_tag,  user: user,  tag: tag, tagger: tagger) }
     it { should validate_presence_of(:user_id) }
     it { should validate_presence_of(:tag_id) }
     it { should validate_uniqueness_of(:tag_id).scoped_to(:user_id) }

@@ -2,10 +2,11 @@ require 'spec_helper'
 
 describe User do
   let(:user) { Factory(:user) }
+  let(:tagger) { Factory(:user) }
   let(:other_user) { Factory(:user) }
   let(:voter) { Factory(:user) }
   let(:tag) { Factory(:tag) }
-  let(:user_tag) { Factory(:user_tag, tag: tag, user: user) }
+  let(:user_tag) { Factory(:user_tag, tag: tag, user: user, tagger: tagger) }
 
   describe "Attributes" do
     it { should allow_mass_assignment_of(:email) }
