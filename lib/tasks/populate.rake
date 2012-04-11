@@ -71,8 +71,8 @@ namespace :get_credible do
 
       first_50.each do |voter|
         second_50.each do |user|
-          first_tag = user.user_tags.order('asc').first
-          second_tag = user.user_tags.order('asc').last
+          first_tag = user.user_tags.order('id asc').first
+          second_tag = user.user_tags.order('id asc').last
           puts "@@@@@@@@@@@@@@@@@@@@@@"
           p "#{voter.id} => #{first_tag.id}"
           p "#{voter.id} => #{second_tag.id}"
@@ -84,8 +84,8 @@ namespace :get_credible do
 
       second_50.each do |voter|
         first_50.each do |user|
-          first_tag = user.user_tags.order('asc').first
-          second_tag = user.user_tags.order('asc').last
+          first_tag = user.user_tags.order('id asc').first
+          second_tag = user.user_tags.order('id asc').last
           puts "@@@@@@@@@@@@@@@@@@@@@@"
           p "#{voter.id} => #{first_tag.id}"
           p "#{voter.id} => #{second_tag.id}"
