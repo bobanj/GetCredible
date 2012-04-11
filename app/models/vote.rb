@@ -31,17 +31,14 @@ class Vote < ActiveRecord::Base
     tbl = tbl.to_a
     weights = tbl.map { |t| t[1] }
     standardized = Vote.standardize_random_variable(weights)
-    if weights == standardized
-      self.weight = 1
-      return
-    end
+
     tbl_size = tbl.size
     if tbl_size > 30
-      confidence = Statistics2.pnormaldist(0.005)
+      confidence = Statistics2.pnormaldist(0.995)
       lower = -confidence * (1/Math.sqrt(tbl_size))
       upper = confidence * (1/Math.sqrt(tbl_size))
     else
-      confidence = Statistics2.ptdist(29,0.005)
+      confidence = Statistics2.ptdist(29,0.995)
       lower = -confidence * (1/Math.sqrt(tbl_size))
       upper = confidence * (1/Math.sqrt(tbl_size))
     end
@@ -54,14 +51,24 @@ class Vote < ActiveRecord::Base
       total_sum_user_tag = Vote.where("voteable_id = ?", self.voteable_id).sum(:weight)
       total_sum_user_tag = 1 if total_sum_user_tag == 0
       max_voter_votes = weights.max
-
       if voter_votes_standardized.between?(lower, upper)
-        self.weight = (total_sum_user_tag / voter_votes) * (total_sum_voters / max_voter_votes ) + 1
+        self.weight = (total_sum_user_tag / voter_votes) * (voter_votes / max_voter_votes ) * 10 + 2
       elsif voter_votes_standardized < lower
-        self.weight = (voter_votes / total_sum_voters) * (total_sum_user_tag / voter_votes) * (total_sum_voters / max_voter_votes ) + 1
+        self.weight = (voter_votes / total_sum_voters) * (total_sum_user_tag / voter_votes) * (voter_votes / max_voter_votes ) * 10 + 2
       elsif voter_votes_standardized > upper
-        self.weight = (voter_votes / total_sum_voters) * (total_sum_user_tag / voter_votes) * (total_sum_voters / max_voter_votes ) + 2
+        self.weight = (voter_votes / total_sum_voters) * (total_sum_user_tag / voter_votes) * (voter_votes / max_voter_votes ) * 100 + 3
       end
+      # TODO remove after debug
+      #puts "total_sum_user_tag: #{total_sum_user_tag}"
+      #puts "voter_votes: #{voter_votes}"
+      #puts "max_voter_votes: #{max_voter_votes}"
+      #puts "total_sum_voters: #{total_sum_voters}"
+      #puts "lower: #{lower}"
+      #puts "upper: #{upper}"
+      #puts "confidence: #{confidence}"
+      #puts "voter_votes_standardized: #{voter_votes_standardized}"
+      #puts self.weight
+      #puts "@@@@@@@@@@@@@@@@@@@@@@@@@"
     else
       self.weight = 1
     end

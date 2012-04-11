@@ -65,27 +65,33 @@ namespace :get_credible do
       end
 
       first_50 = User.includes(:user_tags).paginate :per_page => 50, :page => 1
-      second_50 = User.paginate :per_page => 50, :page => 2
+      second_50 = User.includes(:user_tags).paginate :per_page => 50, :page => 2
       #third_50 = User.paginate :per_page => 50, :page => 3
       #forth_50 = User.paginate :per_page => 50, :page => 4
 
-      second_50.each_with_index do |voter,i|
-        first_50.each_with_index do |user,j |
+      first_50.each do |voter|
+        second_50.each do |user|
+          first_tag = user.user_tags.order('asc').first
+          second_tag = user.user_tags.order('asc').last
           puts "@@@@@@@@@@@@@@@@@@@@@@"
-          p "index => #{i},#{j}"
+          p "#{voter.id} => #{first_tag.id}"
+          p "#{voter.id} => #{second_tag.id}"
           puts "@@@@@@@@@@@@@@@@@@@@@@"
-          voter.vote_exclusively_for(user.user_tags.first)
-          voter.vote_exclusively_for(user.user_tags.last)
+          voter.vote_exclusively_for(first_tag)
+          voter.vote_exclusively_for(second_tag)
         end
       end
 
-      first_50.each_with_index do |voter,i|
-        second_50.each_with_index do |user,j |
+      second_50.each do |voter|
+        first_50.each do |user|
+          first_tag = user.user_tags.order('asc').first
+          second_tag = user.user_tags.order('asc').last
           puts "@@@@@@@@@@@@@@@@@@@@@@"
-          p "index => #{i},#{j}"
+          p "#{voter.id} => #{first_tag.id}"
+          p "#{voter.id} => #{second_tag.id}"
           puts "@@@@@@@@@@@@@@@@@@@@@@"
-          voter.vote_exclusively_for(user.user_tags.first)
-          voter.vote_exclusively_for(user.user_tags.last)
+          voter.vote_exclusively_for(first_tag)
+          voter.vote_exclusively_for(second_tag)
         end
       end
     #
