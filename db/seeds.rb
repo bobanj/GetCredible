@@ -12,7 +12,9 @@ usernames.each do |username|
   user = User.find_by_email email
   unless user
     puts "Setting up Test user with: #{email} / #{password}"
-    user = User.create :email => email, :first_name => "Tester #{username}", :last_name => "Uzumaki#{username}", :job_title => "Ninja",
+    user = User.create :email => email,
+                       :full_name => "Tester Uzumaki #{username}",
+                       :job_title => "Ninja",
                        :password => password,
                        :password_confirmation => password
     user.save!
