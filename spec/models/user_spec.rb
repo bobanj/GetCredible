@@ -20,8 +20,7 @@ describe User do
     it { should have_db_column(:encrypted_password) }
     it { should have_db_column(:reset_password_token) }
     #it { should have_db_column(:confirmation_token) }
-    it { should have_db_column(:first_name).of_type(:string) }
-    it { should have_db_column(:last_name).of_type(:string) }
+    it { should have_db_column(:full_name).of_type(:string) }
     it { should have_db_column(:job_title).of_type(:string) }
     it { should have_db_column(:city).of_type(:string) }
     it { should have_db_column(:country).of_type(:string) }
@@ -179,6 +178,18 @@ describe User do
       all_activities[0].item.should == vote
       all_activities[1].item.should == user_tag2
       all_activities[2].item.should == user_tag1
+    end
+  end
+
+  describe "#short_name" do
+    it "returns 'Pink' when full_name is 'Pink'" do
+      user = Factory.build(:user, full_name: 'Pink')
+      user.short_name.should == 'Pink'
+    end
+
+    it "returns 'Pink' when full_name is 'Pink Panter'" do
+      user = Factory.build(:user, full_name: 'Pink Panter')
+      user.short_name.should == 'Pink'
     end
   end
 end

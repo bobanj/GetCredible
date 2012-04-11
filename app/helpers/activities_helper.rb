@@ -33,6 +33,10 @@ module ActivitiesHelper
     "#{link_to(user.full_name, me_user_path(user))}".html_safe
   end
 
+  def user_short(user)
+    user.short_name =~ /s$/i ? "#{user.short_name}'" : "#{user.short_name}'s"
+  end
+
   def incoming_activity_description(activity_item)
     user = activity_item.user
     item = activity_item.item

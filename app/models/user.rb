@@ -27,6 +27,10 @@ class User < ActiveRecord::Base
   # Validations
   validates :full_name, :presence => true, :format => {:with => /^[\w\s-]*$/}
 
+  def short_name
+    full_name.to_s.split(' ').first
+  end
+
   def tags_summary(user=nil)
     user_tags.includes([:tag, :votes]).map do |user_tag|
       {
