@@ -66,7 +66,7 @@ namespace :get_credible do
 
       first_50 = User.includes(:user_tags).paginate :per_page => 50, :page => 1
       second_50 = User.includes(:user_tags).paginate :per_page => 50, :page => 2
-      #third_50 = User.paginate :per_page => 50, :page => 3
+      #third_50 = User.includes(:user_tags).paginate :per_page => 50, :page => 3
       #forth_50 = User.paginate :per_page => 50, :page => 4
 
       first_50.each do |voter|
