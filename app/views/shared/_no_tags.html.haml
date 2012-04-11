@@ -1,0 +1,14 @@
+- url = me_user_url(current_user)
+- title = "Check out my profile on GiveBrand"
+- description = "Check out my profile on GiveBrand #{url}"
+
+%section#no_tags
+  = label_tag :url, "Go ahead share your page to help build your brand!"
+  = text_field_tag :url, url
+  %div{class: "addthis_toolbox addthis_default_style"}
+    %a{"class" => "addthis_button_tweet", "tw:via" => "givebrand", "tw:text" => description}
+    %a{"class" => "addthis_button_linkedin_counter", "addthis:title" => title, "addthis:description" => description }
+    %a{"class" => "addthis_button_email", "addthis:ui_email_note" => description }
+      %img{src: "http://s7.addthis.com/button1-email.gif", width: "54", height: "16", border: "0", alt: "Email"}
+
+  %script{type: "text/javascript", src: "http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f85ee20684ea540"}
