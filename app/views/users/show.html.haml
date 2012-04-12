@@ -28,7 +28,7 @@
     %li
       %script{:src => "//platform.linkedin.com/in.js", :type => "text/javascript"}
       %script{"data-counter" => "top", :type => "IN/Share"}
-  - if @user.user_tags.blank? && current_user
+  - if @user.user_tags.blank? && current_user == @user
     = render :partial => 'shared/no_tags'
   - else current_user
     = render :partial => 'shared/tag_cloud'
