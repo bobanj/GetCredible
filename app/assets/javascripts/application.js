@@ -15,6 +15,7 @@
 //= require jqcloud-0.2.10
 //= require jquery.tipsy
 //= require jquery.noty
+//= require jquery.simplemodal.js
 //require_tree .
 
 
@@ -23,10 +24,52 @@ $(function () {
         layout: 'topRight',
         timeout: 1000
     };
+
     $.getCredible = {};
-    $.getCredible.tagCloudPath = null;
-    $.getCredible.tagCloudLoader = $("#tag-cloud-loader");
-    $.getCredible.tagCloud = $("#tag-cloud");
+
+    $.getCredible.init = function () {
+      $.getCredible.tagCloudPath = null;
+      $.getCredible.tagCloudLoader = $("#tag-cloud-loader");
+      $.getCredible.tagCloud = $("#tag-cloud");
+
+      $("#tag-cloud").delegate(".remove .icon", "click", function () {
+          var word = $(this).parent();
+          noty({
+              text:'Are you sure you want to delete this tag?',
+              layout:'center',
+              type:'alert',
+              buttons:[
+                  {type:'button green', text:'Ok', click:function () {
+                      if ($.getCredible.tagCloud.data('can-delete')) {
+                          $.post($.getCredible.tagCloudPath + '/' + word.data('user-tag-id'), { _method:'delete' }, function (data) {
+                              $.getCredible.renderTagCloud($.getCredible.createWordList(data));
+                          });
+                      }
+                  } },
+                  {type:'button orange', text:'Cancel', click:function () {
+
+                  } }
+              ],
+              closable:false,
+              timeout:false
+          });
+
+      });
+
+      $("#add-tag form").submit(function (e) {
+          e.preventDefault();
+          var input = $('#tag_names');
+          var tagNames = input.val();
+          if (tagNames.length && $.getCredible.tagCloud.length > 0) {
+              input.val('');
+              $.post($.getCredible.tagCloud.data('tag-cloud-path'), {tag_names:tagNames}, function (data) {
+                  $.getCredible.renderTagCloud($.getCredible.createWordList(data));
+              });
+          }
+          return false;
+      });
+    }
+
     $.getCredible.vote = function (word) {
         var word = $(word);
         var voteToggle;
@@ -34,7 +77,11 @@ $(function () {
         if (typeof(this.tagCloudPath) == 'string') {
             voteToggle = word.hasClass('vouche') ? '/unvote.json' : '/vote.json';
             if (this.tagCloud.data('logged-in') == false) {
-                noty({text:'Please login so you can vouche', type:'alert', timeout:$.notyConf.timeout, layout : $.notyConf.layout});
+                var loginDialog = $('#login_dialog').modal();
+                $.getCredible.login(loginDialog, function () {
+                    var newWord = $('#' + word.attr('id'));
+                    $.getCredible.vote(newWord);
+                })
                 return false;
             }
 
@@ -68,6 +115,7 @@ $(function () {
             noty({text:'You are not authorized for this action', type:'error', timeout:$.notyConf.timeout, layout : $.notyConf.layout});
         }
     };
+
     $.getCredible.createWordList = function (data) {
         var wordList = [];
         var customClass = "word ";
@@ -107,7 +155,8 @@ $(function () {
         });
         return wordList;
     }
-    $.getCredible.renderTagCloud = function (wordList) {
+
+    $.getCredible.renderTagCloud = function (wordList, voteCallback) {
         $.getCredible.tagCloudLoader.show('fast');
         $.getCredible.tagCloud.html('');
         $.getCredible.tagCloud.jQCloud(wordList, {
@@ -153,14 +202,20 @@ $(function () {
                         }
                     }).append('<span class="icon"></span>');
                 });
+
+
+                // vote callback after login via modal window
+                if (typeof(voteCallback) === 'function') {
+                  voteCallback();
+                }
             }})
     }
 
-    $.getCredible.updateTagCloud = function () {
+    $.getCredible.updateTagCloud = function (voteCallback) {
         if (this.tagCloud.length > 0) {
             this.tagCloudPath = this.tagCloud.data('tag-cloud-path');
             $.getJSON(this.tagCloud.data('tag-cloud-path'), function (data) {
-                $.getCredible.renderTagCloud($.getCredible.createWordList(data));
+                $.getCredible.renderTagCloud($.getCredible.createWordList(data), voteCallback);
             });
         }
     }
@@ -171,64 +226,57 @@ $(function () {
             pagination.find('a').addClass('js-remote');
         }
     }
-    // $.getCredible.showFlashMessages = function () {
-    //     var flashMessage = $("#flash-message");
-    //     if (flashMessage.length > 0) {
-    //         var messageType = flashMessage.data('type');
-    //         if (messageType == 'error') {
-    //             noty({text:flashMessage.text(), type:'error', timeout:$.notyConf.timeout, layout : $.notyConf.layout, onClose:function () {
-    //                 flashMessage.remove()
-    //             }});
-    //         }
-    //         if (messageType == 'alert') {
-    //             noty({text:flashMessage.text(), type:'alert', timeout:$.notyConf.timeout, layout : $.notyConf.layout, onClose:function () {
-    //                 flashMessage.remove()
-    //             }});
-    //         }
-    //         if (messageType == 'notice') {
-    //             noty({text:flashMessage.text(), type:'success', timeout:$.notyConf.timeout, layout : $.notyConf.layout, onClose:function () {
-    //                 flashMessage.remove()
-    //             }});
-    //         }
-    //     }
-    // }
 
-    $("#tag-cloud").delegate(".remove .icon", "click", function () {
-        var word = $(this).parent();
-        noty({
-            text:'Are you sure you want to delete this tag?',
-            layout:'center',
-            type:'alert',
-            buttons:[
-                {type:'button green', text:'Ok', click:function () {
-                    if ($.getCredible.tagCloud.data('can-delete')) {
-                        $.post($.getCredible.tagCloudPath + '/' + word.data('user-tag-id'), { _method:'delete' }, function (data) {
-                            $.getCredible.renderTagCloud($.getCredible.createWordList(data));
-                        });
-                    }
-                } },
-                {type:'button orange', text:'Cancel', click:function () {
+    $.getCredible.showFlashMessages = function () {
+        var flashMessage = $("#flash-message");
+        if (flashMessage.length > 0) {
+            var messageType = flashMessage.data('type');
+            if (messageType == 'error') {
+                noty({text:flashMessage.text(), type:'error', timeout:$.notyConf.timeout, layout : $.notyConf.layout, onClose:function () {
+                    flashMessage.remove()
+                }});
+            }
+            if (messageType == 'alert') {
+                noty({text:flashMessage.text(), type:'alert', timeout:$.notyConf.timeout, layout : $.notyConf.layout, onClose:function () {
+                    flashMessage.remove()
+                }});
+            }
+            // if (messageType == 'notice') {
+            //     noty({text:flashMessage.text(), type:'success', timeout:$.notyConf.timeout, layout : $.notyConf.layout, onClose:function () {
+            //         flashMessage.remove()
+            //     }});
+            // }
+        }
+    }
 
-                } }
-            ],
-            closable:false,
-            timeout:false
+
+    $.getCredible.login = function (loginDialog, voteCallback) {
+      $('#login_dialog .btn').click(function (e) {
+        e.preventDefault();
+        var form = $(this).parents('form');
+
+        $.post("/users/sign_in.json", form.serialize(), function (data) {
+          if (data.success) {
+            $('#global-header').replaceWith(data.header);
+            $('#tags').replaceWith(data.tag_cloud);
+            $.getCredible.init();
+            $.getCredible.updateTagCloud(voteCallback);
+            loginDialog.close();
+          } else {
+            $.each(data.errors, function (index, value) {
+              noty({
+                text: value,
+                type: 'error',
+                timeout:$.notyConf.timeout,
+                layout : $.notyConf.layout,
+                onClose: function () {}
+              });
+            })
+          }
         });
 
-    });
-
-    $("#add-tag form").submit(function (e) {
-        e.preventDefault();
-        var input = $('#tag_names');
-        var tagNames = input.val();
-        if (tagNames.length && $.getCredible.tagCloud.length > 0) {
-            input.val('');
-            $.post($.getCredible.tagCloud.data('tag-cloud-path'), {tag_names:tagNames}, function (data) {
-                $.getCredible.renderTagCloud($.getCredible.createWordList(data));
-            });
-        }
-        return false;
-    });
+      });
+    };
 
     $('#page').delegate('.js-remote', 'click', function (event) {
         $.ajax({
@@ -236,7 +284,7 @@ $(function () {
             success:function (data) {
                 $('#main').html(data);
                 $.getCredible.ajaxPagination();
-                // $.getCredible.showFlashMessages();
+                $.getCredible.showFlashMessages();
             },
             error:function () {
                 noty({text:'Something Went Wrong', type:'error', timeout:$.notyConf.timeout, layout : $.notyConf.layout});
@@ -245,7 +293,8 @@ $(function () {
         event.preventDefault();
         return false;
     })
-    // $.getCredible.showFlashMessages();
+    $.getCredible.showFlashMessages();
     $.getCredible.ajaxPagination();
+    $.getCredible.init();
     $.getCredible.updateTagCloud();
 })

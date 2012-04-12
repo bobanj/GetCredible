@@ -1,3 +1,8 @@
+#login_dialog{style: "display: none", title: ""}
+  = render 'shared/sign_in', :resource => User.new, :resource_name => :user
+
+
+
 #content
   %section#profile
     .details
