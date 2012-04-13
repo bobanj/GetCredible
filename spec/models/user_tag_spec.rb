@@ -26,24 +26,19 @@ describe UserTag do
   end
 
   describe "#add_tags" do
-    it "does not create a tag when tag_names is nil" do
-      UserTag.add_tags(user, tagger, nil)
-      user.tags.should be_empty
-    end
-
     it "does not create a tag when tag_names is empty" do
-      UserTag.add_tags(user, tagger, '')
+      UserTag.add_tags(user, tagger, [])
       user.tags.should be_empty
     end
 
     it "creates a tag when tag_names are single tag" do
-      UserTag.add_tags(user, tagger, 'development')
+      UserTag.add_tags(user, tagger, ['development'])
       user.tags.length.should == 1
       user.tags[0].name.should == 'development'
     end
 
     it "creates a tag when tag_names are multiple tags" do
-      UserTag.add_tags(user, tagger, 'development, design, management')
+      UserTag.add_tags(user, tagger, ['development', 'design', 'management'])
       user.tags.length.should == 3
       user.tags[0].name.should == 'development'
       user.tags[1].name.should == 'design'
@@ -51,25 +46,25 @@ describe UserTag do
     end
 
     it "creates a tag when tag_names are multiple tags with multiple words" do
-      UserTag.add_tags(user, tagger, 'web design, project management')
+      UserTag.add_tags(user, tagger, ['web design', 'project management'])
       user.tags.length.should == 2
       user.tags[0].name.should == 'web design'
       user.tags[1].name.should == 'project management'
     end
 
     it "does not create duplicate tags for a user" do
-      UserTag.add_tags(user, tagger, 'web design, web design, web design')
+      UserTag.add_tags(user, tagger, ['web design', 'web design', 'web design'])
       Tag.count.should == 1
       user.tags.length.should == 1
       user.tags[0].name.should == 'web design'
     end
 
     it "creates activity item for tagger after user is tagged" do
-      UserTag.add_tags(user, tagger, 'development')
+      UserTag.add_tags(user, tagger, ['development'])
       tagger.activity_items.count.should == 1
-      UserTag.add_tags(user, tagger, 'development')
+      UserTag.add_tags(user, tagger, ['development'])
       tagger.activity_items.count.should == 1
-      UserTag.add_tags(user, tagger, 'production')
+      UserTag.add_tags(user, tagger, ['production'])
       tagger.activity_items.count.should == 2
     end
   end
@@ -80,7 +75,7 @@ describe UserTag do
     end
 
     it "sumarizes name and votes" do
-      UserTag.add_tags(user, tagger, 'web design')
+      UserTag.add_tags(user, tagger, ['web design'])
       tags = user.tags_summary(nil)
       tags.length.should == 1
       tags[0][:id].should == user.user_tags[0].id
@@ -90,7 +85,7 @@ describe UserTag do
     end
 
     it "sumarizes name and votes for a user" do
-      UserTag.add_tags(user, tagger, 'web design')
+      UserTag.add_tags(user, tagger, ['web design'])
       user_tag = user.user_tags[0]
 
       tagger.vote_exclusively_for(user_tag)

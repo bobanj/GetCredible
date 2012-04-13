@@ -84,7 +84,7 @@ describe User do
       user2 = Factory(:user)
       user3 = Factory(:user)
 
-      UserTag.add_tags(user, user2, 'design, development, management, leadership')
+      UserTag.add_tags(user, user2, ['design', 'development', 'management', 'leadership'])
 
       design      = user.user_tags[0]
       development = user.user_tags[1]
@@ -123,7 +123,7 @@ describe User do
       user = Factory(:user)
       other_user = Factory(:user)
 
-      UserTag.add_tags(user, other_user, 'web design')
+      UserTag.add_tags(user, other_user, ['web design'])
       user_tag = user.user_tags[0]
 
       other_user.vote_exclusively_for(user_tag)
@@ -134,7 +134,7 @@ describe User do
 
   describe "#outgoing_activities" do
     it "returns outgoing activities" do
-      UserTag.add_tags(user, other_user, 'development')
+      UserTag.add_tags(user, other_user, ['development'])
       user_tag = user.user_tags[0]
       other_user.add_vote(user_tag)
       vote = user_tag.votes.first
@@ -150,7 +150,7 @@ describe User do
 
   describe "#incoming_activities" do
     it "returns incoming activities" do
-      UserTag.add_tags(user, other_user, 'development')
+      UserTag.add_tags(user, other_user, ['development'])
       user_tag = user.user_tags[0]
       other_user.add_vote(user_tag)
       vote = user_tag.votes.first
@@ -164,10 +164,10 @@ describe User do
 
   describe "#all_activities" do
     it "returns all activities" do
-      UserTag.add_tags(user, other_user, 'development')
+      UserTag.add_tags(user, other_user, ['development'])
       user_tag1 = user.user_tags[0]
 
-      UserTag.add_tags(other_user, user, 'development')
+      UserTag.add_tags(other_user, user, ['development'])
       user_tag2 = other_user.user_tags[0]
 
       other_user.add_vote(user_tag)

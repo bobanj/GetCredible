@@ -53,4 +53,5 @@ group :test do
   gem 'launchy'
   gem 'capybara'
   gem 'capybara-webkit'
+  gem 'email_spec'
 end

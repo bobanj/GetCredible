@@ -20,8 +20,8 @@ class UserTag < ActiveRecord::Base
   end
 
   def self.add_tags(user, tagger, tag_names)
-    tag_names.to_s.split(',').each do |tag_name|
-      tag = Tag.find_or_create_by_name(tag_name.gsub(/[^A-Za-z\s]/, '').downcase.strip)
+    tag_names.each do |tag_name|
+      tag = Tag.find_or_create_by_name(tag_name)
       unless user.tags.where(:name => tag.name).any?
         user_tag = user.user_tags.new
         user_tag.tag = tag

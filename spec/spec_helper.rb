@@ -50,6 +50,10 @@ Spork.prefork do
         save_and_open_page if example.failed?
       end
     end
+
+    # Email spec helpers
+    config.include(EmailSpec::Helpers)
+    config.include(EmailSpec::Matchers)
   end
 end
 
