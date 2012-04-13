@@ -18,6 +18,13 @@
 //= require jquery.simplemodal.js
 //require_tree .
 
+Array.prototype.unique = function() {
+    var o = {}, i, l = this.length, r = [];
+    for(i=0; i<l;i+=1) o[this[i]] = this[i];
+    for(i in o) r.push(o[i]);
+    return r;
+};
+
 
 $(function () {
     $.notyConf = {
@@ -52,7 +59,7 @@ $(function () {
                   {type:'button green', text:'Ok', click:function () {
                       if ($.getCredible.tagCloud.data('can-delete')) {
                           $.post($.getCredible.tagCloudPath + '/' + word.data('user-tag-id'), { _method:'delete' }, function (data) {
-                              $.getCredible.renderTagCloud($.getCredible.createWordList(data));
+                              $.getCredible.renderTagCloud(data);
                           });
                       }
                   } },
@@ -77,7 +84,7 @@ $(function () {
               var addTag = function () {
                 if ($.getCredible.tagCloud.data('can-vote')) {
                   $.post($.getCredible.tagCloud.data('tag-cloud-path'), {tag_names:tagNames}, function (data) {
-                      $.getCredible.renderTagCloud($.getCredible.createWordList(data));
+                      $.getCredible.renderTagCloud(data);
                   });
                 } else {
                   $.getCredible.displayNotification('error', 'You cannot vote for yourself')
@@ -143,25 +150,13 @@ $(function () {
         }
     };
 
-    $.getCredible.createWordList = function (data) {
+    $.getCredible.createWordList = function (data, distributionOptions) {
         var wordList = [];
         var customClass = "word ";
         customClass += this.tagCloud.data('can-delete') ? 'remove ' : '';
         if (data.length == 0) {
             return wordList;
         }
-        var min = data[0].votes;
-        var max = data[0].votes;
-        var parts = 10;
-        $.each(data, function (i, userTag) {
-            if (userTag.votes > max) {
-                max = userTag.votes;
-            }
-            if (userTag.votes < min) {
-                min = userTag.votes;
-            }
-        });
-        var divisor = (max - min) / parts;
         $.each(data, function (i, userTag) {
             wordList.push({
                 text:userTag.name,
@@ -172,7 +167,7 @@ $(function () {
                     }
                     return pom;
                 },
-                weight:parseInt((userTag.votes - min) / divisor),
+                weight:parseInt((userTag.votes - distributionOptions.min) / distributionOptions.divisor),
                 title:userTag.name,
                 dataAttributes:{votes:userTag.votes, 'user-tag-id':userTag.id},
                 handlers:{click:function () {
@@ -183,41 +178,47 @@ $(function () {
         return wordList;
     }
 
-    $.getCredible.renderTagCloud = function (wordList, tagCloudCallback) {
+    $.getCredible.distributionOptions = function (data) {
+        var min = data[0].votes;
+        var max = data[0].votes;
+        var votes = [];
+        var parts;
+        $.each(data, function (i, userTag) {
+            votes.push(userTag.votes)
+            if (userTag.votes > max) {
+                max = userTag.votes;
+            }
+            if (userTag.votes < min) {
+                min = userTag.votes;
+            }
+        });
+        var uniqVotes = votes.unique().length;
+        if (uniqVotes < 5) {
+          var parts = uniqVotes;
+        } else {
+          var parts = 5;
+        }
+        var divisor = (max - min) / parts;
+
+        return {min: min, parts: parts, divisor: divisor};
+    };
+
+
+    $.getCredible.renderTagCloud = function (data, tagCloudCallback) {
+        var distributionOptions = $.getCredible.distributionOptions(data);
+        var wordList = $.getCredible.createWordList(data, distributionOptions);
+
         $.getCredible.tagCloudLoader.show('fast');
         $.getCredible.tagCloud.html('');
         $.getCredible.tagCloud.jQCloud(wordList, {
             nofollow:true,
+            parts: distributionOptions.parts,
             delayedMode:true,
             callback:function () {
                 $.getCredible.tagCloudLoader.hide('fast');
                 $("#tag-cloud .word").each(function () {
                     var word = $(this);
                     var baloonSizeClass = word.attr('class').split(' ')[0];
-                    switch (baloonSizeClass) {
-                        case 'w10':
-                        case 'w9':
-                            baloonSizeClass = 'w5';
-                            break;
-                        case 'w8':
-                        case 'w7':
-                            baloonSizeClass = 'w4';
-                            break;
-                        case 'w6':
-                        case 'w5':
-                            baloonSizeClass = 'w3';
-                            break;
-                        case 'w4':
-                        case 'w3':
-                            baloonSizeClass = 'w2';
-                            break;
-                        case 'w2':
-                        case 'w1':
-                            baloonSizeClass = 'w1';
-                            break;
-                        default:
-                            baloonSizeClass = 'w1';
-                    }
 
                     $(this).tipsy({
                         gravity:'e',
@@ -242,7 +243,7 @@ $(function () {
         if (this.tagCloud.length > 0) {
             this.tagCloudPath = this.tagCloud.data('tag-cloud-path');
             $.getJSON(this.tagCloud.data('tag-cloud-path'), function (data) {
-                $.getCredible.renderTagCloud($.getCredible.createWordList(data), tagCloudCallback);
+                $.getCredible.renderTagCloud(data, tagCloudCallback);
             });
         }
     }
