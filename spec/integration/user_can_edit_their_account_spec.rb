@@ -10,6 +10,10 @@ describe 'User', type: :request do
     click_link("Edit profile")
     fill_in("Full name", with: "Some other Name")
     click_button("Save")
+    page.should have_content("You have updated your profile successfully.")
+
+    click_link("Profile")
+    click_link("Edit profile")
     find_field("Full name").value.should == "Some other Name"
   end
 end
