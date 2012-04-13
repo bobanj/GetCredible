@@ -60,11 +60,34 @@ $(function () {
           e.preventDefault();
           var input = $('#tag_names');
           var tagNames = input.val();
+
           if (tagNames.length && $.getCredible.tagCloud.length > 0) {
               input.val('');
-              $.post($.getCredible.tagCloud.data('tag-cloud-path'), {tag_names:tagNames}, function (data) {
-                  $.getCredible.renderTagCloud($.getCredible.createWordList(data));
-              });
+
+              var addTag = function () {
+                if ($.getCredible.tagCloud.data('can-vote')) {
+                  $.post($.getCredible.tagCloud.data('tag-cloud-path'), {tag_names:tagNames}, function (data) {
+                      $.getCredible.renderTagCloud($.getCredible.createWordList(data));
+                  });
+                } else {
+                  noty({
+                    text: 'You cannot vote for yourself',
+                    type: 'error',
+                    timeout:$.notyConf.timeout,
+                    layout : $.notyConf.layout,
+                    onClose: function () {}
+                  });
+                }
+              }
+
+              if ($.getCredible.tagCloud.data('logged-in')) {
+                addTag()
+              } else {
+                var loginDialog = $('#login_dialog').modal();
+                $.getCredible.login(loginDialog, function () {
+                  addTag()
+                })
+              }
           }
           return false;
       });

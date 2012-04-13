@@ -1,17 +1,13 @@
 - can_delete ||= false
 %section#tags
   #add-tag
-    - if current_user && current_user != @user
-      .inner
-        =form_tag user_user_tags_path(@user) do
-          %label="Add Tags"
-          %input{:type => 'text', :name => 'tags', :placeholder => 'e.g. web design, leadership (comma separated)', :class => 'large', :id => 'tag_names'}
-          %button.btn.primary.large ADD TAG
-        .vouche Or <strong>vouch for existing tag</strong><br/> by clicking on it
-      .arrow
-    - else
-      .inner
-        %h3 &nbsp;
+    .inner
+      =form_tag user_user_tags_path(@user) do
+        %label="Add Tags"
+        %input{:type => 'text', :name => 'tags', :placeholder => 'e.g. web design, leadership (comma separated)', :class => 'large', :id => 'tag_names'}
+        %button.btn.primary.large ADD TAG
+      .vouche Or <strong>vouch for existing tag</strong><br/> by clicking on it
+    .arrow
   = image_tag "ajax_loader.gif", :id => 'tag-could-loader', :style => "display:none;"
   %div{:id => 'tag-cloud',
        "data-tag-cloud-path" => user_user_tags_path(@user),
