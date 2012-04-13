@@ -1,4 +1,4 @@
-#devise {
+.devise {
   padding: 20px 30px 20px 30px;
   #page-header {
     margin-bottom: 10px;
@@ -18,3 +18,16 @@
   padding: 20px;
 }
 
+
+#login_dialog {
+  section {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    clear: both;
+  }
+  #user_sign_up {
+    .button_sign_up {
+      margin-left: 270px;
+    }
+  }
+}

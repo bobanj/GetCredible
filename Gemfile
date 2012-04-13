@@ -4,8 +4,8 @@ gem 'rails', '3.2.2'
 gem 'unicorn', '4.2.0'
 
 gem 'pg'
-gem "capybara", :group => [:development, :test]
-gem "devise"
+gem 'devise',           '>= 2.0.0'
+gem 'devise_invitable', '~> 1.0.0'
 gem "haml", ">= 3.0.0"
 gem "haml-rails"
 gem "jquery-rails"
@@ -52,4 +52,6 @@ group :test do
   gem 'shoulda-matchers'
   gem 'spork', '~> 0.9.0.rc'
   gem 'launchy'
+  gem 'capybara'
+  gem 'capybara-webkit'
 end

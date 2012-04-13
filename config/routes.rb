@@ -9,7 +9,8 @@ GetCredible::Application.routes.draw do
 
   devise_for :users, :controllers => {
     :omniauth_callbacks => "users/omniauth_callbacks",
-    :sessions => "sessions"
+    :sessions => "users/sessions",
+    :invitations => "users/invitations"
   }
 
   resources :users, :only => [:index, :show] do

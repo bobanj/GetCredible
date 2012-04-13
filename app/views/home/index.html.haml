@@ -12,8 +12,7 @@
                   = image_tag activity_item.user.avatar.url(:small)
                   = image_tag activity_item.target.avatar.url(:tiny), :class => 'over'
               -#.icon
-              %h2
-                = activity_description(activity_item)
+              %h2= activity_description(activity_item)
               %time= activity_item.created_at.strftime("%d. %b %Y")
 
     -#= will_paginate @activity_items

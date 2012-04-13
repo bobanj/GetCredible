@@ -183,7 +183,7 @@ $(function () {
         return wordList;
     }
 
-    $.getCredible.renderTagCloud = function (wordList, voteCallback) {
+    $.getCredible.renderTagCloud = function (wordList, tagCloudCallback) {
         $.getCredible.tagCloudLoader.show('fast');
         $.getCredible.tagCloud.html('');
         $.getCredible.tagCloud.jQCloud(wordList, {
@@ -232,17 +232,17 @@ $(function () {
 
 
                 // vote callback after login via modal window
-                if (typeof(voteCallback) === 'function') {
-                  voteCallback();
+                if (typeof(tagCloudCallback) === 'function') {
+                  tagCloudCallback();
                 }
             }})
     }
 
-    $.getCredible.updateTagCloud = function (voteCallback) {
+    $.getCredible.updateTagCloud = function (tagCloudCallback) {
         if (this.tagCloud.length > 0) {
             this.tagCloudPath = this.tagCloud.data('tag-cloud-path');
             $.getJSON(this.tagCloud.data('tag-cloud-path'), function (data) {
-                $.getCredible.renderTagCloud($.getCredible.createWordList(data), voteCallback);
+                $.getCredible.renderTagCloud($.getCredible.createWordList(data), tagCloudCallback);
             });
         }
     }
@@ -271,17 +271,18 @@ $(function () {
     }
 
 
-    $.getCredible.login = function (loginDialog, voteCallback) {
-      $('#login_dialog .btn').click(function (e) {
+    $.getCredible.login = function (loginDialog, tagCloudCallback) {
+      $('#user_sign_in .btn').click(function (e) {
         e.preventDefault();
         var form = $(this).parents('form');
 
-        $.post("/users/sign_in.json", form.serialize(), function (data) {
+        var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-slug');
+        $.post("/users/sign_in.json", params, function (data) {
           if (data.success) {
             $('#global-header').replaceWith(data.header);
             $('#tags').replaceWith(data.tag_cloud);
             $.getCredible.init();
-            $.getCredible.updateTagCloud(voteCallback);
+            $.getCredible.updateTagCloud(tagCloudCallback);
             loginDialog.close();
           } else {
             $.each(data.errors, function (index, text) {
@@ -289,7 +290,26 @@ $(function () {
             })
           }
         });
+      });
 
+      $('#user_sign_up .btn').click(function (e) {
+        e.preventDefault();
+        var form = $(this).parents('form');
+
+        var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-slug');
+        $.post("/users/invitation.json", params, function (data) {
+          if (data.success) {
+            $('#global-header').replaceWith(data.header);
+            $('#tags').replaceWith(data.tag_cloud);
+            $.getCredible.init();
+            $.getCredible.updateTagCloud(tagCloudCallback);
+            loginDialog.close();
+          } else {
+            $.each(data.errors, function (index, text) {
+              $.getCredible.displayNotification('error', text);
+            })
+          }
+        });
       });
     };
 
