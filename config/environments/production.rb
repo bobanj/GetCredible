@@ -66,5 +66,15 @@ GetCredible::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # Devise Mailer
-  config.action_mailer.default_url_options = { :host => 'givebrand.heroku.com' }
+  config.action_mailer.default_url_options = { :host => 'givebrand.to' }
 end
+
+ActionMailer::Base.smtp_settings = {
+  :address        => 'smtp.sendgrid.net',
+  :port           => '587',
+  :authentication => :plain,
+  :user_name      => ENV['SENDGRID_USERNAME'],
+  :password       => ENV['SENDGRID_PASSWORD'],
+  :domain         => 'heroku.com'
+}
+ActionMailer::Base.delivery_method = :smtp
