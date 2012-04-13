@@ -11,7 +11,6 @@
  *= require tipsy
  *= require_self
  *= require simplemodal
- *require_directory .
  *
 */
 
@@ -20,6 +19,7 @@
 
 @import "base";
 @import "bootstrap";
+@import "type";
 @import "forms";
 @import "noty";
 @import "noty_buttons";
@@ -467,14 +467,7 @@ footer {
 }
 
 #page-header {
-
   border-bottom: 1px solid $borderColor;
-
-  h1 {
-    font-size: 24px;
-    font-weight: normal;
-  }
-
 }
 
 // Sidebar
