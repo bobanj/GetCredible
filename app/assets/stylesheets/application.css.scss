@@ -23,9 +23,6 @@
 @import "forms";
 @import "noty";
 @import "noty_buttons";
-// Lato font
-
-//@import url(http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
 
 /* COMPONENTS
 -----------------------------------------------------------------------*/
@@ -258,7 +255,7 @@ html, body {
 }
 
 body {
-  font-family: 'Lato', Arial, helvetica, sans-serif;
+  font-family: Arial, helvetica, sans-serif;
 }
 
 /* GRIDS
