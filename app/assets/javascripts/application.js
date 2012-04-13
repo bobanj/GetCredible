@@ -27,6 +27,16 @@ $(function () {
 
     $.getCredible = {};
 
+    $.getCredible.displayNotification = function (type, text) {
+      noty({
+        text: text,
+        type: type,
+        timeout:$.notyConf.timeout,
+        layout : $.notyConf.layout,
+        onClose: function () {}
+      });
+    };
+
     $.getCredible.init = function () {
       $.getCredible.tagCloudPath = null;
       $.getCredible.tagCloudLoader = $("#tag-cloud-loader");
@@ -70,13 +80,7 @@ $(function () {
                       $.getCredible.renderTagCloud($.getCredible.createWordList(data));
                   });
                 } else {
-                  noty({
-                    text: 'You cannot vote for yourself',
-                    type: 'error',
-                    timeout:$.notyConf.timeout,
-                    layout : $.notyConf.layout,
-                    onClose: function () {}
-                  });
+                  $.getCredible.displayNotification('error', 'You cannot vote for yourself')
                 }
               }
 
@@ -117,13 +121,13 @@ $(function () {
                             word.tipsy("hide");
                             word.data('votes', data.votes);
                             word.removeClass("vouche").addClass("unvouche");
-                            noty({text:'You have unvouched for ' + user.full_name + ' on ' + word.text(), type:'success', timeout:$.notyConf.timeout, layout : $.notyConf.layout});
+                            $.getCredible.displayNotification('success', 'You have unvouched for ' + user.full_name + ' on ' + word.text());
                             word.tipsy("show");
                         } else {
                             word.tipsy("hide");
                             word.data('votes', data.votes);
                             word.removeClass("unvouche").addClass("vouche");
-                            noty({text:'You have vouched for ' + user.full_name + ' on ' + word.text(), type:'success', timeout:$.notyConf.timeout, layout : $.notyConf.layout});
+                            $.getCredible.displayNotification('success', 'You have vouched for ' + user.full_name + ' on ' + word.text());
                             word.tipsy("show");
                         }
 
@@ -131,11 +135,11 @@ $(function () {
                 });
             } else {
                 if (!this.tagCloud.data('can-delete')) {
-                    noty({text:'You can not vouche for yourself', type:'alert',timeout:$.notyConf.timeout, layout : $.notyConf.layout});
+                    $.getCredible.displayNotification('alert', 'You can not vouche for yourself')
                 }
             }
         } else {
-            noty({text:'You are not authorized for this action', type:'error', timeout:$.notyConf.timeout, layout : $.notyConf.layout});
+            $.getCredible.displayNotification('error', 'You are not authorized for this action')
         }
     };
 
@@ -255,19 +259,13 @@ $(function () {
         if (flashMessage.length > 0) {
             var messageType = flashMessage.data('type');
             if (messageType == 'error') {
-                noty({text:flashMessage.text(), type:'error', timeout:$.notyConf.timeout, layout : $.notyConf.layout, onClose:function () {
-                    flashMessage.remove()
-                }});
+                $.getCredible.displayNotification('error', flashMessage.text());
             }
             if (messageType == 'alert') {
-                noty({text:flashMessage.text(), type:'alert', timeout:$.notyConf.timeout, layout : $.notyConf.layout, onClose:function () {
-                    flashMessage.remove()
-                }});
+                $.getCredible.displayNotification('alert', flashMessage.text());
             }
             // if (messageType == 'notice') {
-            //     noty({text:flashMessage.text(), type:'success', timeout:$.notyConf.timeout, layout : $.notyConf.layout, onClose:function () {
-            //         flashMessage.remove()
-            //     }});
+            //     $.getCredible.displayNotification('success', flashMessage.text());
             // }
         }
     }
@@ -286,14 +284,8 @@ $(function () {
             $.getCredible.updateTagCloud(voteCallback);
             loginDialog.close();
           } else {
-            $.each(data.errors, function (index, value) {
-              noty({
-                text: value,
-                type: 'error',
-                timeout:$.notyConf.timeout,
-                layout : $.notyConf.layout,
-                onClose: function () {}
-              });
+            $.each(data.errors, function (index, text) {
+              $.getCredible.displayNotification('error', text);
             })
           }
         });
@@ -310,7 +302,7 @@ $(function () {
                 $.getCredible.showFlashMessages();
             },
             error:function () {
-                noty({text:'Something Went Wrong', type:'error', timeout:$.notyConf.timeout, layout : $.notyConf.layout});
+                $.getCredible.displayNotification('error', 'Something Went Wrong');
             }
         });
         event.preventDefault();
