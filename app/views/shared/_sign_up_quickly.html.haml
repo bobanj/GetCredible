@@ -1,9 +1,0 @@
-%section.devise
-  %header#page-header
-    %h1 Sign Up
-
-  = simple_form_for(:user, :url => user_invitation_path, :namespace => 'sign_up', :html => {:id => 'user_sign_up'}) do |f|
-    %ul.inputs
-      %li= f.input :email, :required => false, :autofocus => true, :input_html => { :value => nil }
-      %li.button_sign_up= f.button :submit, "Sign up", class: 'btn large primary'
-    %br

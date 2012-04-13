@@ -23,11 +23,18 @@
   section {
     padding-top: 10px;
     padding-bottom: 10px;
-    clear: both;
-  }
-  #user_sign_up {
-    .button_sign_up {
-      margin-left: 270px;
+    float: left;
+    width: 230px;
+    label {
+      text-align: left;
+    }
+
+    .checkboxes {
+      margin-left: 0px;
+    }
+    .buttons_left {
+      margin-left: 10px;
+      padding-top: 5px;
     }
   }
 }

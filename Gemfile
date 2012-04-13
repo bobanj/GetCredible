@@ -5,7 +5,6 @@ gem 'unicorn', '4.2.0'
 
 gem 'pg'
 gem 'devise',           '>= 2.0.0'
-gem 'devise_invitable', '~> 1.0.0'
 gem "haml", ">= 3.0.0"
 gem "haml-rails"
 gem "jquery-rails"

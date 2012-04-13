@@ -1,12 +1,14 @@
 #content
   %section#devise
     %header#page-header
-      %h1 Resend unlock instructions
+      %h1 Sign Up
 
-    = simple_form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f|
-      = f.error_notification
+    = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
       %ul.inputs
-        %li= f.input :email, :required => true
-        %li= f.button :submit, "Resend unlock instructions", class: 'btn large primary'
+        %li= f.input :full_name, :required => false, :autofocus => true, :placeholder => "Full Name"
+        %li= f.input :email, :placeholder => "Email"
+        %li= f.input :password, :placeholder => "Password"
+        %li.buttons= f.button :submit, "Sign up", class: 'btn large primary'
+      %br
 %aside
   = render "links"

@@ -297,7 +297,7 @@ $(function () {
         var form = $(this).parents('form');
 
         var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-slug');
-        $.post("/users/invitation.json", params, function (data) {
+        $.post("/users.json", params, function (data) {
           if (data.success) {
             $('#global-header').replaceWith(data.header);
             $('#tags').replaceWith(data.tag_cloud);
