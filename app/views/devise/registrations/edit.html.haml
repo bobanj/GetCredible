@@ -14,9 +14,6 @@
           %li= f.input :city, :wrapper => false, :label => 'Location'
           %li= f.input :personal_url, :wrapper => false, :label => 'Website'
           %li= f.input :twitter_handle, :wrapper => false, :label => 'Twitter Username'
-          %li= f.input :password, :wrapper => false
-          %li= f.input :password_confirmation, :wrapper => false
-          %li= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true, :wrapper => false
           %li &nbsp;
           %li.buttons= f.button :submit, "Save", class: 'btn primary large'
   - if current_user.user_tags.count > 0
