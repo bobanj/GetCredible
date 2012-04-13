@@ -24,10 +24,7 @@
               .photo
                 = link_to user do
                   = image_tag user.avatar.url(:avatar)
-              %h2
-                = link_to(user.full_name, me_user_path(user))
-                ,
-                = user.job_title
+              %h2= profile_title(user)
               .details
 
                 - if current_user && user.interacted_by(current_user)
