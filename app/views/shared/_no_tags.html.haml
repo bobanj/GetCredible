@@ -5,10 +5,15 @@
 %section#no_tags
   = label_tag :url, "Go ahead share your page to help build your brand!"
   = text_field_tag :url, url
-  %div{class: "addthis_toolbox addthis_default_style"}
-    %a{"class" => "addthis_button_tweet", "tw:via" => "givebrand", "tw:text" => description}
-    %a{"class" => "addthis_button_linkedin_counter", "addthis:title" => title, "addthis:description" => description }
-    %a{"class" => "addthis_button_email", "addthis:ui_email_note" => description }
-      %img{src: "http://s7.addthis.com/button1-email.gif", width: "54", height: "16", border: "0", alt: "Email"}
 
-  %script{type: "text/javascript", src: "http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f85ee20684ea540"}
+  %div{class: "sharethis"}
+    %span{class: 'st_linkedin_large', displayText: 'LinkedIn'}
+    %span{class: 'st_facebook_large', displayText: 'Facebook'}
+    %span{class: 'st_twitter_large', displayText: 'Tweet'}
+    %span{class: 'st_plusone_large', displayText: 'Google +1'}
+    %span{class: 'st_email_large', displayText: 'Email'}
+    :javascript
+      var switchTo5x=true;
+    %script{type:"text/javascript", src: "http://w.sharethis.com/button/buttons.js"}
+    :javascript
+      stLight.options({publisher: "59d377c3-8222-4df7-bbb0-413a9cb64564"});
