@@ -23,10 +23,8 @@ class ApplicationController < ActionController::Base
       {
         :success => true,
         :user => resource,
-        :header => render_to_string(:layout => false, :partial => 'shared/header',
-                                    :formats => [:html], :handlers => [:haml]),
-        :tag_cloud => render_to_string(:layout => false, :partial => 'shared/tag_cloud',
-                                       :formats => [:html], :handlers => [:haml])
+        :header => render_to_string(:layout => false, :partial => 'shared/header.html.haml'),
+        :tag_cloud => render_to_string(:layout => false, :partial => 'shared/tag_cloud.html.haml')
       }
     end
 end

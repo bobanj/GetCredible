@@ -179,6 +179,10 @@ $(function () {
     }
 
     $.getCredible.distributionOptions = function (data) {
+        if (data.length === 0) {
+            return {min: 1, parts: 1, divisor: 1};
+        }
+
         var min = data[0].votes;
         var max = data[0].votes;
         var votes = [];
