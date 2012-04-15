@@ -558,6 +558,9 @@ footer {
   }
 
 }
+.hidden {
+  display: none;
+}
 
 @import "profile";
 @import "activity";
