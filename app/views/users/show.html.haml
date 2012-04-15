@@ -1,3 +1,10 @@
+- content_for :meta_tags do
+  %meta{ :property => "og:title", :content => "#{user_long(@user)} profile at GiveBrand.to" }
+  %meta{ :property => "og:type", :content => "article" }
+  %meta{ :property => "og:url", :content => me_user_url(@user) }
+  %meta{ :property => "og:site_name", :content => "Give Brand" }
+
+
 #login_dialog{style: "display: none", title: ""}
   = render 'shared/sign_in'
   = render 'shared/sign_up', :resource => User.new, :resource_name => :user

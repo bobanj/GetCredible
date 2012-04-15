@@ -37,6 +37,10 @@ module ActivitiesHelper
     user.short_name =~ /s$/i ? "#{user.short_name}'" : "#{user.short_name}'s"
   end
 
+  def user_long(user)
+    user.full_name =~ /s$/i ? "#{user.full_name}'" : "#{user.full_name}'s"
+  end
+
   def incoming_activity_description(activity_item)
     user = activity_item.user
     item = activity_item.item
