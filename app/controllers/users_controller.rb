@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.search(params)
+    render 'index', layout: (request.xhr? ? false : true)
   end
 
   def show
