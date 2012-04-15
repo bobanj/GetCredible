@@ -27,7 +27,7 @@ module ApplicationHelper
 
   def user_avatar_url(user)
     if user.avatar.present?
-      "http://givebrand.to#{user.avatar_url(:thumb)}"
+      user.avatar_url(:thumb)
     else
       "http://givebrand.to#{image_path(@user.avatar_url(:thumb))}"
     end
