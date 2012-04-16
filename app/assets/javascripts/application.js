@@ -92,11 +92,11 @@ $(function () {
               }
 
               if ($.getCredible.tagCloud.data('logged-in')) {
-                addTag()
+                addTag();
               } else {
                 var loginDialog = $('#login_dialog').modal();
                 $.getCredible.login(loginDialog, function () {
-                  addTag()
+                  addTag();
                 })
               }
           }

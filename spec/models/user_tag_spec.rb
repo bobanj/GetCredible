@@ -67,6 +67,29 @@ describe UserTag do
       UserTag.add_tags(user, tagger, ['production'])
       tagger.activity_items.count.should == 2
     end
+
+    it "creates vouche if tag already exists" do
+      UserTag.add_tags(user, tagger, ['web design'])
+      Tag.count.should == 1
+      user.tags.length.should == 1
+      user.user_tags[0].votes.length.should == 1
+      user.tags[0].name.should == 'web design'
+
+      # if the same user tags, it should not create vouche
+      UserTag.add_tags(user, tagger, ['web design'])
+      Tag.count.should == 1
+      user.tags.length.should == 1
+      user.user_tags[0].reload.votes.length.should == 1
+      user.tags[0].name.should == 'web design'
+
+      # if other user tags, it should create a vouche
+      other_tagger = Factory(:user)
+      UserTag.add_tags(user, other_tagger, ['web design'])
+      Tag.count.should == 1
+      user.tags.length.should == 1
+      user.user_tags[0].reload.votes.length.should == 2
+      user.tags[0].name.should == 'web design'
+    end
   end
 
   describe "#tags_summary" do
