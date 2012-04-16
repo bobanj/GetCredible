@@ -38,9 +38,6 @@ class UserTag < ActiveRecord::Base
         # automatically add vote on tag creation
         tagger.add_vote(user_tag, false)
       end
-
-      # add vote
-      tagger.add_vote(user_tag, false)
     end
   end
 end
