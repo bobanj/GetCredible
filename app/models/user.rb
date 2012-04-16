@@ -61,10 +61,12 @@ class User < ActiveRecord::Base
     user_tags.joins(:votes).where('votes.voter_id = ?', other_user.id).exists?
   end
 
-  def add_vote(user_tag)
+  def add_vote(user_tag, log_vote_activity = true)
     if self != user_tag.user
       vote = vote_exclusively_for(user_tag)
-      activity_items.create(item: vote, target: user_tag.user)
+      if log_vote_activity
+        activity_items.create(item: vote, target: user_tag.user)
+      end
     else
       vote = false
     end

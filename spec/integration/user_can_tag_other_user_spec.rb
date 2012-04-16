@@ -12,10 +12,19 @@ describe 'User', type: :request do
     fill_in("Add Tags", with: "developer, designer")
     click_button("ADD TAG")
 
-    tags = other_user.tags.map(&:name)
+    tags = other_user.tags
     tags.length.should == 2
-    tags.should include("developer")
-    tags.should include("designer")
+
+    tag_names = tags.map(&:name)
+    tag_names.should include("developer")
+    tag_names.should include("designer")
+
+    user_tags = other_user.user_tags
+    user_tags.length.should == 2
+
+    # it creates vote for each tag
+    user_tags[0].votes.length.should == 1
+    user_tags[1].votes.length.should == 1
 
     unread_emails_for(other_user.email).size.should == parse_email_count(1)
     open_email(other_user.email)

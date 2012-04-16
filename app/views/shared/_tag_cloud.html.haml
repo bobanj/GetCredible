@@ -14,7 +14,7 @@
 
 
   - if @user.user_tags.blank? && current_user == @user
-    = render :partial => 'shared/no_tags.html.haml'
+    = render :partial => 'shared/no_tags'
   - else current_user
     %div{:id => 'tag-cloud',
          "data-tag-cloud-path" => user_user_tags_path(@user),

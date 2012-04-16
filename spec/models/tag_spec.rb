@@ -15,10 +15,9 @@ describe Tag do
     it "removes user tags and votes after deletion" do
       user  = Factory(:user)
       user2 = Factory(:user)
-      UserTag.add_tags(user, user2, ['design', 'development', 'management', 'leadership'])
-      design = user.user_tags[0]
-      user2.vote_exclusively_for(design)
+      UserTag.add_tags(user, user2, ['design'])
       Vote.count.should == 1
+
       tag = Tag.find_by_name 'design'
       tag.destroy
       Vote.count.should == 0
