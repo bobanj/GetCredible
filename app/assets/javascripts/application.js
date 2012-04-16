@@ -51,6 +51,10 @@ $(function () {
       $.getCredible.tagCloudLoader = $("#tag-cloud-loader");
       $.getCredible.tagCloud = $("#tag-cloud");
 
+      if ($('#tagit').length > 0) {
+          $('#tagit').tagit({tagSource: _tags, select: true});
+      }
+
       $("#tag-cloud").delegate(".remove .icon", "click", function () {
           var word = $(this).parent();
           noty({
@@ -347,7 +351,4 @@ $(function () {
     $.getCredible.ajaxPagination();
     $.getCredible.init();
     $.getCredible.updateTagCloud();
-
-
-    $('#tagit').tagit({tagSource: _tags, select: true});
 })
