@@ -52,7 +52,11 @@ $(function () {
       $.getCredible.tagCloud = $("#tag-cloud");
 
       if ($('#tagit').length > 0) {
-          $('#tagit').tagit({tagSource: _tags, select: true});
+          $('#tagit').tagit({
+            tagSource: _tags,
+            select: true,
+            triggerKeys: ['enter', 'comma', 'tab']
+          });
       }
 
       $("#tag-cloud").delegate(".remove .icon", "click", function () {
