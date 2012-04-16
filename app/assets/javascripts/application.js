@@ -55,7 +55,8 @@ $(function () {
           $('#tagit').tagit({
             tagSource: _tags,
             select: true,
-            triggerKeys: ['enter', 'comma', 'tab']
+            triggerKeys: ['enter', 'comma', 'tab'],
+            maxTags: 1
           });
       }
 
