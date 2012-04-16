@@ -90,10 +90,10 @@ describe UserTagsController do
       post :vote, :user_id => other_user.id, :id => "1"
       JSON.parse(response.body)['status'].should == 'ok'
 
-      unread_emails_for(other_user.email).size.should == parse_email_count(1)
-      open_email(other_user.email)
-      current_email.should have_subject("[GiveBrand] You received a vote!")
-      current_email.should have_content("User vouched for developer")
+      unread_emails_for(other_user.email).size.should == parse_email_count(0)
+      # open_email(other_user.email)
+      # current_email.should have_subject("[GiveBrand] You received a vote!")
+      # current_email.should have_content("User vouched for developer")
     end
 
     it "cannot vote for himself" do
