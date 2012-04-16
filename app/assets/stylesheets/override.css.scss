@@ -27,3 +27,23 @@
   font-size: 14px;
 }
 
+#tagit_wrapper {
+  float: left;
+  margin-right: 15px;
+  width: 280px;
+
+  ul.tagit {
+    margin-left: 5px;
+
+    input[type="text"] {
+      box-shadow: none;
+    }
+
+    input[type="text"]:focus {
+      box-shadow: none;
+    }
+  }
+  .ui-autocomplete .ui-menu-item {
+    background: #F1F1F1;
+  }
+}

@@ -17,7 +17,7 @@ describe UserTagsController do
   end
 
   describe "#create" do
-    let(:user) { Factory(:user) }
+    let(:user) { Factory(:user, full_name: 'User') }
 
     it "requires signed in user" do
       controller.should_not_receive(:create)
@@ -40,6 +40,32 @@ describe UserTagsController do
 
       UserTag.should_not_receive(:add_tags)
       post :create, tag_names: 'something', user_id: 1, format: 'json'
+    end
+
+    it "automatically sends email and votes when tagging" do
+      other_user = Factory :user, full_name: "Other User"
+      sign_in(user)
+
+      post :create, tag_names: "developer, designer", user_id: other_user.id, format: 'json'
+
+      tags = other_user.tags
+      tags.length.should == 2
+
+      tag_names = tags.map(&:name)
+      tag_names.should include("developer")
+      tag_names.should include("designer")
+
+      user_tags = other_user.user_tags
+      user_tags.length.should == 2
+
+      # it creates vote for each tag
+      user_tags[0].votes.length.should == 1
+      user_tags[1].votes.length.should == 1
+
+      unread_emails_for(other_user.email).size.should == parse_email_count(1)
+      open_email(other_user.email)
+      current_email.should have_subject("[GiveBrand] You have been tagged!")
+      current_email.should have_content("User tagged you with: developer, designer ")
     end
   end
 

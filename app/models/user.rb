@@ -36,7 +36,9 @@ class User < ActiveRecord::Base
       {
         id: user_tag.id,
         name: user_tag.tag.name,
-        voted: user && user.voted_for?(user_tag),
+        # voted: user && user.voted_for?(user_tag),
+        voted: user && user.votes.detect { |vote|
+          vote.voteable_id == user_tag.id && vote.voteable_type == "UserTag" },
         votes: user_tag.calculate_votes
       }
     end

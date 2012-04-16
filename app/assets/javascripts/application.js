@@ -11,11 +11,13 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
 //= require jqcloud-0.2.10
 //= require jquery.tipsy
 //= require jquery.noty
 //= require jquery.simplemodal.js
+//= require tagit
 //require_tree .
 
 Array.prototype.unique = function() {
@@ -75,29 +77,37 @@ $(function () {
 
       $("#add-tag form").submit(function (e) {
           e.preventDefault();
-          var input = $('#tag_names');
-          var tagNames = input.val();
+          // var input = $('#tag_names');
+          // var tagNames = input.val();
+          var tagitElement = $('#tagit');
+
+          var tagNames = [];
+          $.each(tagitElement.tagit('tags'), function (index, element) {
+              tagNames.push(element.value);
+          })
 
           if (tagNames.length && $.getCredible.tagCloud.length > 0) {
-              input.val('');
+              // input.val('');
+              tagitElement.tagit('reset')
 
               var addTag = function () {
                 if ($.getCredible.tagCloud.data('can-vote')) {
-                  $.post($.getCredible.tagCloud.data('tag-cloud-path'), {tag_names:tagNames}, function (data) {
+                  $.post($.getCredible.tagCloud.data('tag-cloud-path'),
+                          {tag_names: tagNames.join(', ')}, function (data) {
                       $.getCredible.renderTagCloud(data);
                   });
                 } else {
-                  $.getCredible.displayNotification('error', 'You cannot vote for yourself')
+                    $.getCredible.displayNotification('error', 'You cannot vote for yourself')
                 }
               }
 
               if ($.getCredible.tagCloud.data('logged-in')) {
-                addTag();
-              } else {
-                var loginDialog = $('#login_dialog').modal();
-                $.getCredible.login(loginDialog, function () {
                   addTag();
-                })
+              } else {
+                  var loginDialog = $('#login_dialog').modal();
+                  $.getCredible.login(loginDialog, function () {
+                      addTag();
+                  })
               }
           }
           return false;
@@ -337,4 +347,7 @@ $(function () {
     $.getCredible.ajaxPagination();
     $.getCredible.init();
     $.getCredible.updateTagCloud();
+
+
+    $('#tagit').tagit({tagSource: _tags, select: true});
 })
