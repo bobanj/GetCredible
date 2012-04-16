@@ -62,10 +62,18 @@ describe UserTag do
     it "creates activity item for tagger after user is tagged" do
       UserTag.add_tags(user, tagger, ['development'])
       tagger.activity_items.count.should == 1
+      tagger.activity_items.where("item_type = 'UserTag'").length.should == 1
+      tagger.activity_items.where("item_type = 'Vote'").length.should == 0
+
       UserTag.add_tags(user, tagger, ['development'])
-      tagger.activity_items.count.should == 1
-      UserTag.add_tags(user, tagger, ['production'])
       tagger.activity_items.count.should == 2
+      tagger.activity_items.where("item_type = 'UserTag'").length.should == 1
+      tagger.activity_items.where("item_type = 'Vote'").length.should == 1
+
+      UserTag.add_tags(user, tagger, ['production'])
+      tagger.activity_items.count.should == 3
+      tagger.activity_items.where("item_type = 'UserTag'").length.should == 2
+      tagger.activity_items.where("item_type = 'Vote'").length.should == 1
     end
 
     it "creates vouche if tag already exists" do

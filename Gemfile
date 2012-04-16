@@ -24,6 +24,7 @@ gem 'bootstrap-sass'
 gem 'compass-rails','~> 1.0.0.rc.3'
 gem 'compass-960-plugin'
 gem 'statistics2'
+gem 'rankable_graph'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.2'

@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   has_many :incoming_activities, :foreign_key => :target_id,
                                  :class_name => 'ActivityItem',
                                  :order => 'created_at DESC'
+  has_many :voted_users, :through => :votes, :uniq => true
 
   # Validations
   validates :full_name, :presence => true, :format => {:with => /^[\w\s-]*$/}
