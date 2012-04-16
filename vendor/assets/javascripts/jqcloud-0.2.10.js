@@ -97,7 +97,7 @@
             // Only used if option.shape == 'rectangular'
             steps_in_direction = 0.0,
             quarter_turns = 0.0,
-            weight = 0,
+            weight = 1,
             inner_html,
             word_span;
 

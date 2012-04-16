@@ -30,7 +30,7 @@ class RankCalculator
         outgoing = calculate_outgoing(user, tag)
         incoming = calculate_incoming(user, tag)
 
-        weight = (rank * total_users.to_f * (incoming.to_f / outgoing.to_f)).ceil
+        weight = (rank.to_f * total_users.to_f * (incoming.to_f / outgoing.to_f)).ceil
         weight = 1 if weight == 0
 
         # puts "name: #{user.full_name}; rank: #{rank}; tag: #{tag.name}; incoming: #{incoming}; outgoing: #{outgoing}; weight: #{weight}"
