@@ -26,7 +26,7 @@ module UserTagsHelper
     if user.avatar.present?
       user.avatar_url(size)
     else
-      "#{DOMAIN_URL}/assets#{user.avatar_url(size)}"
+      "#{DOMAIN_URL}/assets/#{user.avatar_url(size)}"
     end
   end
 
