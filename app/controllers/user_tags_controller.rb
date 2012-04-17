@@ -1,10 +1,14 @@
 class UserTagsController < ApplicationController
+  include UserTagsHelper
+  # include ActionView::Helpers::TagHelper
+  # include ActionView::Helpers::AssetTagHelper
+  # def controller;self;end;private(:controller)
 
   before_filter :authenticate_user!, :except => [:index]
   before_filter :load_user
 
   def index
-    render json: @user.tags_summary(current_user)
+    render json: tags_summary(@user, current_user)
   end
 
   def create
@@ -14,7 +18,7 @@ class UserTagsController < ApplicationController
       UserMailer.tag_email(current_user, @user, tag_names).deliver
     end
 
-    render json: @user.tags_summary(current_user)
+    render json: tags_summary(@user, current_user)
   end
 
   def vote
@@ -41,7 +45,7 @@ class UserTagsController < ApplicationController
   def destroy
     user_tag = current_user.user_tags.find_by_id(params[:id])
     user_tag.destroy
-    render json: @user.tags_summary(current_user)
+    render json: tags_summary(@user, current_user)
   end
 
   private

@@ -177,6 +177,12 @@ $(function () {
             return wordList;
         }
         $.each(data, function (i, userTag) {
+            var voters = []
+
+            $.each(userTag.voters, function(index, voter) {
+              voters.push('<img src=' + voter.avatar + ' title=' + voter.name + '/>')
+            })
+
             wordList.push({
                 text:userTag.name,
                 customClass:function () {
@@ -188,7 +194,9 @@ $(function () {
                 },
                 weight:parseInt((userTag.votes - distributionOptions.min) / distributionOptions.divisor),
                 title:userTag.name,
-                dataAttributes:{votes:userTag.votes, 'user-tag-id':userTag.id},
+                dataAttributes: { votes: userTag.votes, 'user-tag-id': userTag.id,
+                                  rank: userTag.rank, total: userTag.total,
+                                  voters: voters.join(''), voters_count: voters.length},
                 handlers:{click:function () {
                     $.getCredible.vote(this);
                 }}
@@ -241,17 +249,22 @@ $(function () {
                 $.getCredible.tagCloudLoader.hide('fast');
                 $("#tag-cloud .word").each(function () {
                     var word = $(this);
-                    var baloonSizeClass = word.attr('class').split(' ')[0];
 
                     $(this).tipsy({
-                        gravity:'e',
+                        gravity:'sw',
                         fade:true,
                         html:true,
                         delayOut:50,
                         title:function () {
-                            return '<span id="" class="' + baloonSizeClass + '">' + word.data('votes') + '</span>';
+                            var rank = word.data('rank') ? '#' + word.data('rank') : 'N/A'
+                            return '<div>' +
+                              '<h3>GiveBrand Index Rank</h3>' +
+                              '<b>' + rank + ' out of ' + word.data('total') + '</b>' +
+                              '<p>' + word.data('voters_count') + ' people vouched for you' + '</p>' +
+                              word.data('voters') +
+                            '</div>';
                         }
-                    }).append('<span class="icon"></span>');
+                    });
                 });
 
 

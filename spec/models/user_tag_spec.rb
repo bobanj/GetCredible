@@ -4,7 +4,6 @@ describe UserTag do
   let(:user) { Factory(:user) }
   let(:tagger) { Factory(:user) }
   let(:tag)  { Factory(:tag) }
-  let(:tagger) { Factory(:user) }
 
   describe 'Attributes' do
     it { should allow_mass_assignment_of(:user_id) }
@@ -16,6 +15,9 @@ describe UserTag do
     it { should belong_to(:tag) }
     it { should belong_to(:tagger) }
     it { should have_many(:activity_items).dependent(:destroy) }
+    it { should have_many(:votes).dependent(:destroy) }
+    it { should have_many(:voters).through(:votes) }
+    it { should have_many(:last_voters).through(:votes) }
   end
 
   describe 'Validations' do
@@ -97,36 +99,6 @@ describe UserTag do
       user.tags.length.should == 1
       user.user_tags[0].reload.votes.length.should == 2
       user.tags[0].name.should == 'web design'
-    end
-  end
-
-  describe "#tags_summary" do
-    it "is empty when no user tags" do
-      user.tags_summary.should be_empty
-    end
-
-    it "sumarizes name and votes" do
-      UserTag.add_tags(user, tagger, ['web design'])
-      tags = user.tags_summary(nil)
-      tags.length.should == 1
-      tags[0][:id].should == user.user_tags[0].id
-      tags[0][:name].should == "web design"
-      tags[0][:votes].should == 1
-      tags[0][:voted].should be_false
-    end
-
-    it "sumarizes name and votes for a user" do
-      UserTag.add_tags(user, tagger, ['web design'])
-      user_tag = user.user_tags[0]
-
-      tagger.vote_exclusively_for(user_tag)
-
-      tags = user.tags_summary(tagger)
-      tags.length.should == 1
-      tags[0][:id].should == user.user_tags[0].id
-      tags[0][:name].should == "web design"
-      tags[0][:votes].should == 1
-      tags[0][:voted].should be_true
     end
   end
 end

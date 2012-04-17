@@ -1,13 +1,13 @@
 class UserTag < ActiveRecord::Base
 
-  # Additions
-  acts_as_voteable
-
   # Associations
   belongs_to :user
   belongs_to :tag
   belongs_to :tagger, :class_name => 'User'
+  has_many :votes, :foreign_key => :voteable_id, :dependent => :destroy
   has_many :activity_items, :as => :item, :dependent => :destroy
+  has_many :voters, :through => :votes
+  has_many :last_voters, :through => :votes, :source => :voter, :limit => 5, :order => 'id DESC'
 
   # Validations
   validates :user_id, :presence => true

@@ -11,6 +11,13 @@ describe Tag do
     it { should validate_uniqueness_of(:name) }
   end
 
+  describe 'Associations' do
+    it { should have_many(:user_tags).dependent(:destroy) }
+    it { should have_many(:votes) }
+    it { should have_many(:voters).through(:votes) }
+    it { should have_many(:voted_ranking) }
+  end
+
   describe 'Destroy' do
     it "removes user tags and votes after deletion" do
       user  = Factory(:user)

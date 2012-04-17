@@ -8,8 +8,9 @@ describe UserTagsController do
 
   describe "#index" do
     it "returns user tags" do
-      user = stub(:user, :tags_summary => [])
+      user = stub(:user)
       User.stub(:find).with('1').and_return(user)
+      controller.stub(:tags_summary).with(user, nil).and_return([])
 
       get :index, format: 'json', :user_id => '1'
       JSON.parse(response.body).should be_empty

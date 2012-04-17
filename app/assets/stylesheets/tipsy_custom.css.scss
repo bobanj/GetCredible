@@ -10,51 +10,22 @@
   padding: 0;
   @include text-shadow(#fff 0px 1px 0px);
 
-  span {
+  div {
+    color: #000;
+    background: #EEE;
     display: block;
+    padding: 5px;
+    width: 250px;
+    text-align: left;
+
+    b {
+      font-weight: bold;
+    }
+
+    img {
+      margin: 0 3px;
+    }
   }
-
-  .w1 {
-    background: image-url('baloon-15.png') no-repeat;
-    line-height: 15px;
-    height: 15px;
-    padding-right: 3px;
-    width: 15px;
-
-  }
-
-  .w2 {
-    background: image-url('baloon-20.png') no-repeat;
-    line-height: 20px;
-    height: 20px;
-    padding-right: 4px;
-    width: 20px;
-  }
-
-  .w3 {
-    background: image-url('baloon-25.png') no-repeat;
-    line-height: 25px;
-    height: 25px;
-    padding-right: 5px;
-    width: 25px;
-  }
-
-  .w4 {
-    background: image-url('baloon-30.png') no-repeat;
-    line-height: 30px;
-    height: 30px;
-    padding-right: 6px;
-    width: 30px;
-  }
-
-  .w5 {
-    background: image-url('baloon-35.png') no-repeat;
-    line-height: 35px;
-    height: 35px;
-    padding-right: 7px;
-    width: 35px;
-  }
-
 }
 
 .tipsy-arrow {

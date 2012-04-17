@@ -1,14 +1,14 @@
 class Vote < ActiveRecord::Base
   # Scopes
-  scope :for_voter, lambda { |*args| where(["voter_id = ? AND voter_type = ?", args.first.id, args.first.class.base_class.name]) }
-  scope :for_voteable, lambda { |*args| where(["voteable_id = ? AND voteable_type = ?", args.first.id, args.first.class.base_class.name]) }
+  scope :for_voter, lambda { |*args| where(["voter_id = ?", args.first.id]) }
+  scope :for_voteable, lambda { |*args| where(["voteable_id = ?", args.first.id]) }
   scope :recent, lambda { |*args| where(["created_at > ?", (args.first || 2.weeks.ago)]) }
   scope :descending, order("created_at DESC")
 
   # Activities
   belongs_to :user_tag, :foreign_key => "voteable_id"
-  belongs_to :voteable, :polymorphic => true
-  belongs_to :voter, :polymorphic => true
+  belongs_to :voteable, :class_name => 'UserTag'
+  belongs_to :voter, :class_name => 'User'
   has_many :activity_items, :as => :item, :dependent => :destroy
   has_many :voted_users, :through => :user_tag, :source => :user
 
@@ -19,7 +19,13 @@ class Vote < ActiveRecord::Base
 
   # Validations
   # Comment out the line below to allow multiple votes per user.
-  validates_uniqueness_of :voteable_id, :scope => [:voteable_type, :voter_type, :voter_id]
+  validates_uniqueness_of :voteable_id, :scope => :voter_id
+
+  def self.for_tag(tag)
+    joins("INNER JOIN user_tags ON user_tags.id = votes.voteable_id").
+    joins("INNER JOIN tags ON user_tags.tag_id = tags.id").
+    where("tags.id = ?", tag.id)
+  end
 
   private
 

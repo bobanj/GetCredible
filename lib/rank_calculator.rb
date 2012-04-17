@@ -33,7 +33,7 @@ class RankCalculator
         weight = (rank.to_f * total_users.to_f * (incoming.to_f / outgoing.to_f)).ceil
         weight = 1 if weight == 0
 
-        # puts "name: #{user.full_name}; rank: #{rank}; tag: #{tag.name}; incoming: #{incoming}; outgoing: #{outgoing}; weight: #{weight}"
+        puts "name: #{user.full_name}; rank: #{rank}; tag: #{tag.name}; incoming: #{incoming}; outgoing: #{outgoing}; weight: #{weight}"
         vote.weight = weight
         vote.save(validate: false)
       end
@@ -52,10 +52,7 @@ class RankCalculator
     end
 
     def calculate_outgoing(user, tag)
-      user.votes.
-        joins("INNER JOIN user_tags ON user_tags.id = votes.voteable_id AND votes.voteable_type = 'UserTag'").
-        joins("INNER JOIN tags ON user_tags.tag_id = tags.id").
-        where("tags.id = ?", tag.id).length
+      user.votes.joins({:user_tag => :tag}).where("tags.id = ?", tag.id).length
     end
 
     def calculate_incoming(user, tag)

@@ -1,11 +1,14 @@
 class User < ActiveRecord::Base
+
+  include ApplicationHelper
+  include ActionView::Helpers::AssetTagHelper
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable #, :omniauthable
 
   # Additions
-  acts_as_voter
   mount_uploader :avatar, AvatarUploader
   extend FriendlyId
   friendly_id :full_name, use: :slugged
@@ -23,6 +26,7 @@ class User < ActiveRecord::Base
   has_many :incoming_activities, :foreign_key => :target_id,
                                  :class_name => 'ActivityItem',
                                  :order => 'created_at DESC'
+  has_many :votes, :foreign_key => :voter_id, :dependent => :destroy
   has_many :voted_users, :through => :votes, :uniq => true
 
   # Validations
@@ -32,17 +36,17 @@ class User < ActiveRecord::Base
     full_name.to_s.split(' ').first
   end
 
-  def tags_summary(user=nil)
-    user_tags.includes([:tag, :votes]).map do |user_tag|
-      {
-        id: user_tag.id,
-        name: user_tag.tag.name,
-        # voted: user && user.voted_for?(user_tag),
-        voted: user && user.votes.detect { |vote|
-          vote.voteable_id == user_tag.id && vote.voteable_type == "UserTag" },
-        votes: user_tag.calculate_votes
-      }
+  def get_rank(rates, user)
+    rank = 1
+
+    rates.each_with_index do |user_tag, index|
+      if user_tag.user_id = user.id
+        rank = index + 1
+        break
+      end
     end
+
+    return rank
   end
 
   def top_tags(limit)
@@ -67,6 +71,8 @@ class User < ActiveRecord::Base
   def add_vote(user_tag, log_vote_activity = true)
     if self != user_tag.user
       vote = vote_exclusively_for(user_tag)
+      # Vote.create!(:vote => direction, :voteable => voteable, :voter => self)
+
       if log_vote_activity
         activity_items.create(item: vote, target: user_tag.user)
       end
@@ -127,8 +133,13 @@ class User < ActiveRecord::Base
                         :page => params[:page], :per_page => params[:per_page])
   end
 
-  private
-  def email_required?
-    authentications.blank?
+  def vote_exclusively_for(voteable)
+    Vote.where(:voter_id => self.id, :voteable_id => voteable.id).map(&:destroy)
+    Vote.create!(:vote => true, :voteable => voteable, :voter => self)
   end
+
+  private
+    def email_required?
+      authentications.blank?
+    end
 end

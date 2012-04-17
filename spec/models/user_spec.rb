@@ -33,6 +33,9 @@ describe User do
     it { should have_many(:user_tags).dependent(:destroy) }
     it { should have_many(:tags).through(:user_tags) }
     it { should have_many(:activity_items).dependent(:destroy) }
+    it { should have_many(:incoming_activities) }
+    it { should have_many(:votes).dependent(:destroy) }
+    it { should have_many(:voted_users).through(:votes) }
   end
 
   describe "Validations" do
@@ -47,6 +50,12 @@ describe User do
 
     it "returns true when vote is added" do
       voter.add_vote(user_tag).should be_true
+    end
+
+    it "cannot add double votes" do
+      voter.add_vote(user_tag).should be_true
+      voter.add_vote(user_tag).should be_true
+      voter.votes.length.should == 1
     end
 
     it "cannot add a vote the same user" do
