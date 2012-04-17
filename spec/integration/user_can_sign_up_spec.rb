@@ -14,6 +14,9 @@ describe 'User', type: :request do
     click_button("Sign up")
     page.should have_content('Welcome! You have signed up successfully.')
 
+    user = User.find_by_email(email)
+    current_path.should == all_user_path(user)
+
     unread_emails_for(email).size.should == parse_email_count(1)
     open_email(email)
     current_email.should have_subject("[GiveBrand] Welcome")

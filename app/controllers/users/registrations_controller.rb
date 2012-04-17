@@ -15,15 +15,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
       UserMailer.welcome_email(resource).deliver
 
       respond_to do |format|
-        format.html { super }
+        format.html { redirect_to after_sign_in_path_for(resource) }
         format.json { render :json => user_signed_in_content(resource) }
       end
     else
-      clean_up_passwords resource
-
       respond_to do |format|
         format.html { super }
         format.json do
+          clean_up_passwords resource
           render :json => {:status => false,
                            :errors => resource.errors.full_messages}
         end
