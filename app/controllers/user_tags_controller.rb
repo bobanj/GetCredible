@@ -1,8 +1,5 @@
 class UserTagsController < ApplicationController
   include UserTagsHelper
-  # include ActionView::Helpers::TagHelper
-  # include ActionView::Helpers::AssetTagHelper
-  # def controller;self;end;private(:controller)
 
   before_filter :authenticate_user!, :except => [:index]
   before_filter :load_user
@@ -26,7 +23,7 @@ class UserTagsController < ApplicationController
     vote = current_user.add_vote(user_tag)
     if vote
       # UserMailer.vote_email(current_user, @user, user_tag.tag.name).deliver
-      render json: {:votes => user_tag.calculate_votes, :status => 'ok'}.to_json
+      render json: tag_summary(user_tag, @user, current_user).merge({:status => 'ok'}).to_json
     else
       render json: {status: 'error'}.to_json
     end
@@ -36,7 +33,7 @@ class UserTagsController < ApplicationController
     user_tag = @user.user_tags.find(params[:id])
 
     if user_tag && current_user.remove_vote(user_tag)
-      render json: {:votes => user_tag.calculate_votes, status: 'ok'}.to_json
+      render json: tag_summary(user_tag, @user, current_user).merge({:status => 'ok'}).to_json
     else
       render json: {status: 'error'}.to_json
     end

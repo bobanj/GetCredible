@@ -143,19 +143,24 @@ $(function () {
                     if (data.status == 'ok') {
                         var numVotes = word.data('votes');
                         var user = $.getCredible.tagCloud.data('user');
+                        var voters = $.getCredible.voterImages(data.voters);
+
+                        word.tipsy("hide");
+                        word.data('votes', data.votes);
+                        word.data('rank', data.rank);
+                        word.data('total', data.total);
+                        word.data('voters', voters.join(''));
+                        word.data('voters_count', voters.length);
+
                         if (word.hasClass('vouche')) {
-                            word.tipsy("hide");
-                            word.data('votes', data.votes);
                             word.removeClass("vouche").addClass("unvouche");
                             $.getCredible.displayNotification('success', 'You have unvouched for ' + user.full_name + ' on ' + word.text());
-                            word.tipsy("show");
                         } else {
-                            word.tipsy("hide");
-                            word.data('votes', data.votes);
                             word.removeClass("unvouche").addClass("vouche");
                             $.getCredible.displayNotification('success', 'You have vouched for ' + user.full_name + ' on ' + word.text());
-                            word.tipsy("show");
                         }
+
+                        word.tipsy("show");
 
                     }
                 });
@@ -169,6 +174,15 @@ $(function () {
         }
     };
 
+    $.getCredible.voterImages = function (voters) {
+      var votersImages = [];
+      $.each(voters, function(index, voter) {
+        votersImages.push('<img src=' + voter.avatar + ' title=' + voter.name + '/>')
+      })
+
+      return votersImages;
+    };
+
     $.getCredible.createWordList = function (data, distributionOptions) {
         var wordList = [];
         var customClass = "word ";
@@ -177,11 +191,7 @@ $(function () {
             return wordList;
         }
         $.each(data, function (i, userTag) {
-            var voters = []
-
-            $.each(userTag.voters, function(index, voter) {
-              voters.push('<img src=' + voter.avatar + ' title=' + voter.name + '/>')
-            })
+            var voters = $.getCredible.voterImages(userTag.voters);
 
             wordList.push({
                 text:userTag.name,
