@@ -44,9 +44,13 @@
       box-shadow: none;
     }
   }
-  .ui-autocomplete .ui-menu-item {
-    background: #F1F1F1;
+  .ui-autocomplete {
+    @include box-shadow(#ccc 0 1px 3px);
+    .ui-menu-item {
+      background: #F1F1F1;
+    }  
   }
+  
 }
 
 ul.tagit {
