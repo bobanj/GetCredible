@@ -25,7 +25,7 @@ class RankCalculator
   end
 
   def calculate
-    start = Time.now
+    #start = Time.now
     #ActiveRecord::Base.connection.execute('DELETE FROM "user_tag_results"')
     Tag.all.each do |tag|
       total_user_tags = tag.user_tags.count
@@ -81,7 +81,7 @@ class RankCalculator
 
     end
 
-    puts (Time.now - start).to_s
+    #puts (Time.now - start).to_s
   end
 
   private
