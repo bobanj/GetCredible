@@ -14,11 +14,6 @@ class UserTag < ActiveRecord::Base
   validates :tagger_id, :presence => true
   validates :tag_id, :presence => true, :uniqueness => {:scope => :user_id}
 
-  def calculate_votes
-    sum_weight = votes.map(&:weight).sum
-    (sum_weight + 0.5).floor
-  end
-
   def self.add_tags(user, tagger, tag_names)
     user_tags = user.user_tags
     tag_names.each do |tag_name|

@@ -22,8 +22,9 @@ module UserTagsHelper
       id: user_tag.id,
       name: tag.name,
       # voted: viewer && viewer.voted_for?(user_tag),
-      voted: viewer && viewer.votes.detect { |vote| vote.voteable_id == user_tag.id },
-      votes: user_tag.calculate_votes,
+      #voted: viewer && viewer.votes.detect { |vote| vote.voteable_id == user_tag.id },
+      voted: viewer && viewer.votes.where('voteable_id = ?', user_tag.id).any?,
+      votes: user_tag.weight,
       # TODO: eager load: voted_ranking
       total: tag.voted_ranking.length,
       rank: rank_index ? rank_index + 1 : rank_index,

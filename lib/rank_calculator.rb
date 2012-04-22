@@ -1,66 +1,97 @@
+class Float
+  # 0.666666666 -> 66.7
+  def to_percentage
+    100 * (self * (10 ** 3)).round / (10 ** 3).to_f
+  end
+end
+
 class RankCalculator
   attr_accessor :rankable_graph, :probability,
-                :tolerance, :users, :total_users
+                :tolerance, :user_tags
 
   def initialize
-    @rankable_graph = RankableGraph.new
+    @rankable_graph = nil
 
     # The bigger the number, less probability
     # we have to teleport to some random link
     @probability = 0.85
-
     # the smaller the number, the more exact the
     # result will be but more CPU cycles will be needed
     @tolerance = 0.0001
 
     # all users with linkings
-    @users = User.includes(:voted_users)
-    @total_users = @users.length
+    #@user_tags = UserTag.select("user_tags.id").where("user_tags.tag_id IN (SELECT user_tags.tag_id FROM user_tags INNER JOIN votes ON votes.voteable_id = user_tags.id)").all
+    #@user_tags = UserTag.select("user_tags.id").where("user_tags.tag_id IN (SELECT user_tags.tag_id FROM user_tags INNER JOIN votes ON votes.voteable_id = user_tags.id)").all
   end
 
   def calculate
-    setup_linking
+    start = Time.now
+    #ActiveRecord::Base.connection.execute('DELETE FROM "user_tag_results"')
+    Tag.all.each do |tag|
+      total_user_tags = tag.user_tags.count
+      #scale_max = probability * total_user_tags + (1 - probability)
+      #base = scale_max ** 0.01
+      #scale_range = []
+      #(1..100).to_a.inject(scale_max) { |result, scale_element|
+      #  scale_range << Range.new(result / base, result)
+      #  result / base
+      #}
+      #scale_range << Range.new(0, scale_range.last.min)
+      #scale_range.reverse!
 
-    rankable_graph.rank(probability, tolerance) do |user_id, rank|
-      user = find_user_by_id(user_id)
-
-      user.votes.each do |vote|
-        user_tag = vote.user_tag
-        tag      = user_tag.tag
-        outgoing = calculate_outgoing(user, tag)
-        incoming = calculate_incoming(user, tag)
-
-        weight = (rank.to_f * total_users.to_f * (incoming.to_f / outgoing.to_f)).ceil
-        weight = 1 if weight == 0
-
-        puts "name: #{user.full_name}; rank: #{rank}; tag: #{tag.name}; incoming: #{incoming}; outgoing: #{outgoing}; weight: #{weight}"
-        vote.weight = weight
-        vote.save(validate: false)
+      rankable_graph = RankableGraph.new
+      tag.user_tags.includes(:votes => {:voter => :user_tags}).each do |user_tag|
+        user_tag.votes.each do |vote|
+          findit = vote.voter.user_tags.detect { |vut| vut.tag_id == user_tag.tag_id }
+          if findit
+            rankable_graph.link(findit.id, user_tag.id)
+          end
+        end
       end
+
+      rankable_graph.rank(probability, tolerance) do |user_tag_id, rank|
+        user_tag = UserTag.find_by_id user_tag_id rescue nil
+        if user_tag
+
+          outgoing = calculate_outgoing(user_tag, tag)
+          incoming = calculate_incoming(user_tag)
+
+          weight = rank.to_f * total_user_tags.to_f * (incoming.to_f / outgoing.to_f)
+          weight = 1 if weight == 0
+          user_tag.weight = weight
+          user_tag.save
+          #if weight > scale_max
+          #  # Change if changing scale
+          #  user_tag.weight = 100
+          #  puts "user_tag.id:#{user_tag.id}  rank: #{rank}  incoming: #{incoming}   outgoing: #{outgoing}    weight:#{weight}"
+          #  #UserTagResult.create tag_id: user_tag.tag_id, user_id: user_tag.user_id, user_tag_id: user_tag.id, rank: rank, incoming: incoming, outgoing: outgoing, weight: weight, weight_index: index
+          #else
+          #  scale_range.each_with_index do |range, index|
+          #    if range.cover?(weight)
+          #      user_tag.weight = index
+          #      puts "user_tag.id:#{user_tag.id}  rank: #{rank}  incoming: #{incoming}   outgoing: #{outgoing}    weight:#{weight}  index: #{index}"
+          #      #UserTagResult.create tag_id: user_tag.tag_id, user_id: user_tag.user_id, user_tag_id: user_tag.id, rank: rank, incoming: incoming, outgoing: outgoing, weight: weight, weight_index: index
+          #      break
+          #    end
+          #  end
+          #end
+          #user_tag.save
+        end
+      end
+
     end
 
-    puts "#{Time.now} rank calculated."
+    puts (Time.now - start).to_s
   end
 
   private
-    def setup_linking
-      users.each do |user|
-        user.voted_users.each do |voted_user|
-          rankable_graph.link(user.id, voted_user.id)
-        end
-      end
-    end
 
-    def calculate_outgoing(user, tag)
-      user.votes.joins({:user_tag => :tag}).where("tags.id = ?", tag.id).length
-    end
+  def calculate_outgoing(user_tag, tag)
+    user_tag.user.votes.joins({:user_tag => :tag}).where("tags.id = ?", tag.id).length
+  end
 
-    def calculate_incoming(user, tag)
-      user_tag = user.user_tags.joins(:tag).where("tags.id = ?", tag.id).first
-      user_tag ? user_tag.votes.length : 0
-    end
+  def calculate_incoming(user_tag)
+    user_tag.votes.length
+  end
 
-    def find_user_by_id(user_id)
-      users.detect { |user| user.id == user_id }
-    end
 end
