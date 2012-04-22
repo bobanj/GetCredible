@@ -59,7 +59,7 @@ class RankCalculator
           weight = rank.to_f * total_user_tags.to_f * (incoming.to_f / outgoing.to_f)
           weight = 1 if weight == 0
           user_tag.weight = weight
-          user_tag.save
+          user_tag.save unless weight.infinite?
           #if weight > scale_max
           #  # Change if changing scale
           #  user_tag.weight = 100
