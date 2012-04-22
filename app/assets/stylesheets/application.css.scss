@@ -326,8 +326,9 @@ aside #latest-activity {
   }
   li {
     border-bottom: none;
-    border-top: 1px solid #eee;
-    padding: 5px 10px 0px 20px;
+    border-top: 1px solid #ddd;
+    margin-bottom: 0 !important;
+    padding: 5px 10px 7px 20px;
     .tag-icon {
       left: auto;
       right: -11px;
@@ -436,8 +437,12 @@ footer {
 }
 
 #profile-nav, #latest-activity, #invite-side, #import {
-  border-bottom: 1px solid #e9e9e9;
+  border-bottom: 2px solid #e9e9e9;
   padding: 20px;
+}
+
+#profile-nav .xxl {
+  font-size: 12px;
 }
 
 #invite-side, #import, #latest-activity {
@@ -540,26 +545,23 @@ footer {
 #global-search {
   display: inline-block;
   margin-top: 27px;
-  //border-left: 1px solid $white;
   padding-left: 10px;
 
   form {
-    margin: 5px 0 0 0;
-    background: #e9e9e9;
-    @include box-shadow(rgba($black, 0.2) 0px 1px 2px inset, $white 0px 1px 0px);
+    margin: 0 0 0 10px;
+    background: #fff;
+    border: 4px solid #eee;
+    @include box-shadow(rgba($black, 0.2) 0px 1px 3px inset);
     @include border-radius(1px);
     width: 215px;
     @include clearfix;
-    &:hover, &:focus, &:active {
-      background: #f9f9f9;
-    }
   }
 
   input {
     @include box-shadow(none);
     @include text-shadow(#fff 0 1px 0);
     background: none;
-    color: #999;
+    color: #888;
     width: 165px;
     border: 0 none;
     float: left;
@@ -570,7 +572,7 @@ footer {
   button {
     background-color: transparent;
     border: 0 none;
-    border-left: 1px solid #ccc;
+    border-left: 1px solid #d9d9d9;
     float: left;
     @include replace-text("icon-search.png");
     height: 30px;
@@ -583,22 +585,93 @@ footer {
 #main {
   //background: #fff;
   //border: 1px solid $borderColor;
-  background: rgba(255, 255, 255, 0.7);
-  @include box-shadow(0 1px 2px rgba(0, 0, 0, 0.08));
-  @include border-radius(3px);
+  //background: rgba(255, 255, 255, 0.7);
+  //@include box-shadow(0 1px 2px rgba(0, 0, 0, 0.08));
+  //@include border-radius(3px);
 }
 
 #content {
   background: #fff;
+  @include box-shadow(0 1px 2px rgba(0, 0, 0, 0.08));
+  @include border-radius(3px);
   border-right: 1px solid #eee;
   min-height: 200px;
+}
+
+#home_index {
+  #content {
+    background: #fff;
+    display: block;
+    float: none;
+    margin: 0 auto;
+  }
+}
+
+#featured {
+  text-align: center;
+  h1 {
+    font-size: 58px;
+    margin-top: 70px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  h2 {
+    color: #777;
+    font-size: 18px;
+    line-height: 1.5;
+    padding: 0 15%;
+  }
+  h3 {
+    color: $blue;
+    font: 18px museo;
+    line-height: 1.5;
+    margin-bottom: 4px;
+  }
+  .big-signup {
+    background: $blue;
+    color: #fff;
+    display: inline-block;
+    font: 24px museo, georgia, sans-serif;
+    margin: 20px auto 30px;
+    opacity: 0.9;
+    padding: 15px 20%;
+    @include border-radius(3px);
+    @include box-shadow(rgba(0, 0, 0, 0.1) 0 2px 3px inset, rgba(0, 0, 0, 0.2) 0 1px 3px);
+    @include transition(all .4s);
+    &:hover, &:focus {
+      background: $green;
+      opacity: 1;
+      padding: 15px 25%;
+      text-decoration: none;
+    }
+  }
+  ul {
+    margin: 0 10%;
+    @include pie-clearfix;
+  }
+  li {
+    display: inline;
+    float: left;
+    margin: 0 2%;
+    width: 21%;
+    p {
+      font-size: 12px;
+      line-height: 1.5;
+    }
+  }
+  .cloud {
+    background: image_url('cloud-top.png') repeat-x bottom center;
+    height: 50px;
+    margin: 0 auto;
+    width: 700px;
+  }
 }
 
 #page-header {
   border-bottom: 1px solid #eee;
   
   h1 {
-    line-height: 1.9;
+    line-height: 1.8;
   }
 }
 
@@ -623,7 +696,11 @@ aside {
       margin-left: 80px;
       width: 118px;
     }
-
+    h3 {
+      font-family: museo;
+      font-size: 14px;
+      line-height: 1.6;
+    }
   }
 
   h2 {

@@ -33,11 +33,15 @@
   }
 
   h1 {
-    margin-bottom: 7px;
+    color: $blue;
+    line-height: 1.8;
+    margin-top: 10px;
+    margin-bottom: 0px;
   }
 
   h2 {
-    font-size: 18px;
+    color: #888;
+    font-size: 16px;
     font-weight: normal;
     line-height: $baseline / 2;
     margin-bottom: $baseline;
@@ -54,6 +58,13 @@
       float: right;
       text-align: right;
     }
+    .location, .twitter, .web {
+      font-size: 12px;
+      span {
+        margin-right: 2px;
+        margin-bottom: -2px;
+      }
+    }
     .location .icon {
       background-position: 0 -64px;
     }
@@ -69,7 +80,6 @@
     a {
       color: $gray;
     }
-
   }
 
   .inputs-list {
@@ -186,16 +196,20 @@
     margin: -1px auto 0 auto;
     width: 22px;
   }
-
 }
 
 ul.social_fixed {
   background: rgba(0, 0, 0, 0.05);
   display: block;
+  opacity: 0.6;
   position: fixed;
-  top: 120px;
+  top: 115px;
   margin: 0 0 0 -70px;
   padding: 10px 5px 0px 6px;
+  @include transition(all 0.4s);
+  &:hover, &:focus {
+    opacity: 1;
+  }
 
   li {
     list-style: none;

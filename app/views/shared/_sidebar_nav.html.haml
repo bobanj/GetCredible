@@ -5,6 +5,5 @@
         =link_to image_tag(user.avatar_url(:avatar)), me_user_path(user)
 
       .my-actions
-        = "Welcome #{user.short_name}"
-        %br
+        %h3= "Welcome #{user.short_name}"
         = link_to 'Edit profile', edit_user_registration_path, :class => 'xxl'

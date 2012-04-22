@@ -397,6 +397,13 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
   .buttons {
     padding-top: 10px;
   }
+  .error{
+    background: #f5f5f5;
+    color: $red;
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+  }
 }
 
 // Stacked forms

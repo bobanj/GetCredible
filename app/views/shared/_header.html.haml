@@ -3,14 +3,15 @@
   %nav
     %ul#global-nav
       %li#gn-logo
-        %span GiveBrand
+        %span
+          = link_to 'GiveBrand', '/'
       - if user_signed_in?
         %li#gn-logout
           = link_to "Logout", destroy_user_session_path
         %li#gn-profile
           = link_to 'Profile', me_user_path(current_user)
-        %li#gn-activity
-          = link_to 'Home', all_user_path(current_user)
+        //%li#gn-activity
+        //  = link_to 'Home', all_user_path(current_user)
       - else
         %li#gn-register
           = link_to "Sign up", new_user_registration_path
