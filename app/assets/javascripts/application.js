@@ -270,7 +270,7 @@ $(function () {
                             return '<div>' +
                               '<h3>GiveBrand Index Rank</h3>' +
                               '<b>' + rank + ' out of ' + word.data('total') + '</b>' +
-                              '<br /><b>Weight:' + word.data('votes') + '</b>' +
+                              '<br /><b>Score: ' + word.data('votes') + '</b>' +
                               '<p>' + word.data('voters_count') + ' people vouched for you' + '</p>' +
                               word.data('voters') +
                             '</div>';

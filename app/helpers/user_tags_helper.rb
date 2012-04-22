@@ -16,8 +16,10 @@ module UserTagsHelper
 
   def tag_summary(user_tag, user, viewer)
     tag        = user_tag.tag
-    rank_index = tag.voted_ranking.index(user)
-
+    #rank_index = tag.voted_ranking.index(user)
+    #rank_index ? rank_index + 1 : rank_index
+    rank_index = tag.user_tags.order("created_at asc, weight desc").index(user_tag)
+    rank_index = rank_index + 1 if rank_index
     {
       id: user_tag.id,
       name: tag.name,
@@ -26,8 +28,8 @@ module UserTagsHelper
       voted: viewer && viewer.votes.where('voteable_id = ?', user_tag.id).any?,
       votes: user_tag.weight,
       # TODO: eager load: voted_ranking
-      total: tag.voted_ranking.length,
-      rank: rank_index ? rank_index + 1 : rank_index,
+      total: tag.user_tags.length,
+      rank: rank_index,
       # TODO: eager load: last_voters
       voters: user_tag.last_voters.map{ |voter|
         { :name => voter.full_name, avatar: user_avatar_url(voter, :small) } }
