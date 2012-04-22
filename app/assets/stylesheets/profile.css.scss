@@ -5,12 +5,13 @@
 // Import common settings
 
 #profile {
-  border-bottom: 1px solid $borderColor;
+  border-bottom: 1px solid #e9e9e9;
 
   .photo {
 
     float: left;
-    margin-left: -170px;
+    //margin-left: -170px;
+    margin-right: 20px;
 
     a { padding: 8px; }
   }
@@ -19,7 +20,7 @@
   .details, .actions { float: left;  }
 
   .details {
-    margin-left: 170px;
+    //margin-left: 170px;
     width: 365px;
   }
 
@@ -71,6 +72,11 @@
 
   }
 
+  .inputs-list {
+    margin-top: 5px;
+    padding-left: 0;
+  }
+
   &.edit {
 
     .details {
@@ -84,21 +90,22 @@
 
 
     li {
-      margin-bottom: 4px;
       clear: both;
     }
 
     label {
       width: 111px;
       margin-right: 12px;
-      padding-top: 8px;
     }
 
     input {
       color: $grayDark;
       font-size: 14px;
-      padding: 6px 8px;
-      width: 216px;
+      //padding: 6px 8px;
+      width: 300px;
+    }
+    input[type=submit] {
+      color: #fff;
     }
 
     .name, .title {
@@ -126,16 +133,19 @@
 #add-tag {
 
   .inner {
-    @include background-image(linear-gradient($white, lighten($black, 94%)));
+    @include background-image(linear-gradient(rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.05)));
     @include clearfix;
     border-bottom: 1px solid $borderColor;
   }
 
   form {
     margin: 0;
-    float: left;
     border-right: 1px solid $white;
-    padding: 18px 17px 16px 0;
+    margin: 0 auto;
+    padding: 30px 20px 0;
+    position: relative;
+    text-align: center;
+    width: 70%;
   }
 
   label {
@@ -146,9 +156,9 @@
   }
 
   input {
-    margin-right: 3px;
-    width: 267px;
-
+    background: transparent;
+    //margin-right: 3px;
+    //width: 267px;
     &::-webkit-input-placeholder {
       font-style: italic;
     }
@@ -158,20 +168,26 @@
     }
 
   }
+  
+  button {
+    font-size: 12px;
+    height: 36px;
+    padding: 9px 30px 8px;
+    position: absolute;
+    right: 22px;
+    top: 37px;
+  }
 
   .vouche {
-    float: left;
-    border-left: 1px solid $borderColor;
     line-height: 17px;
-    padding: 22px 15px;
+    padding: 0 15px 22px 15px;
     text-align: center;
-    width: 163px;
   }
 
   .arrow {
-    background: image-url('arrow-tag.png');
+    background: image-url('arrow-tag.png') center bottom no-repeat;
     clear: both;
-    height: 19px;
+    height: 14px;
     margin: -1px auto 0 auto;
     width: 22px;
   }
@@ -179,11 +195,12 @@
 }
 
 ul.social_fixed {
+  background: rgba(0, 0, 0, 0.05);
   display: block;
   position: fixed;
-  top: 70px;
+  top: 120px;
   margin: 0 0 0 -70px;
-  padding: 0;
+  padding: 10px 5px 0px 6px;
 
   li {
     list-style: none;

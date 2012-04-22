@@ -2,10 +2,11 @@
   - incoming_activities =  user.incoming_activities.paginate(:page => 1, :per_page => 5)
   #latest-activity
     %h2== #{user_short(user)} Activity
-    %ul.unstyled
+    %ul.list-view.unstyled
       - if incoming_activities.present?
         - incoming_activities.each do |activity_item|
           %li{:class => activity_class(activity_item)}
+            .tag-icon
             = activity_description(activity_item)
       - else
         %li No recent activity

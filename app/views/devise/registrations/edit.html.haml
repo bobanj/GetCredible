@@ -3,9 +3,10 @@
     .details
       .photo
         = image_tag current_user.avatar_url(:thumb)
-
+        
       = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:multipart => true, :method => :put }) do |f|
-        %ul
+        %h1 Edit your profile
+        %ul.inputs-list.left
           %li= f.input :full_name, :wrapper => false
           %li= f.input :avatar, :as => :file, :wrapper => false
           %li= f.hidden_field :avatar_cache
@@ -14,7 +15,6 @@
           %li= f.input :city, :wrapper => false, :label => 'Location'
           %li= f.input :personal_url, :wrapper => false, :label => 'Website'
           %li= f.input :twitter_handle, :wrapper => false, :label => 'Twitter Username'
-          %li &nbsp;
           %li.buttons= f.button :submit, "Save", class: 'btn primary large'
   - if current_user.user_tags.count > 0
     = render :partial => 'shared/tag_cloud', :locals => {:can_delete => true}

@@ -3,7 +3,7 @@
  * ----------------------------------------------------- */
 
 // Links
-$linkColor:         #69b3f1 !default;
+$linkColor:         #137ac2 !default;
 $linkColorHover:    darken($linkColor, 15) !default;
 
 // Grays
@@ -22,7 +22,7 @@ $borderColor:       darken($white, 17%) !default;
 //$blue:              #049CDB !default;
 $blue:              $linkColor !default;
 $blueDark:          #0064CD !default;
-$green:             #46a546 !default;
+$green:             #30ba00 !default;
 $red:               #9d261d !default;
 $yellow:            #ffc40d !default;
 $orange:            #f89406 !default;
@@ -31,7 +31,7 @@ $purple:            #7a43b6 !default;
 
 // Baseline grid
 $basefont:          13px !default;
-$baseline:          20px !default;
+$baseline:          25px !default;
 
 // Griditude
 // Modify the grid styles in mixins.less

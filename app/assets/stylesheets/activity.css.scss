@@ -5,15 +5,18 @@
 // Import common settings
 
 #activity {
-  padding: 20px 30px 20px 30px;
+  padding: 20px 0;
   #page-header {
     @include clearfix;
+    padding: 0 25px;
     .tabs{
       clear: both;
     }
     h1, .tabs {
+      color: $linkColor;
       float: left;
-      margin-bottom: $baseline / 2;
+      margin-bottom: 4px;
+      //margin-bottom: $baseline / 2;
     }
 
     h1 {

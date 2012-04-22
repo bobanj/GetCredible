@@ -4,6 +4,7 @@ gem 'rails', '3.2.2'
 gem 'unicorn', '4.2.0'
 
 gem 'pg'
+gem 'sqlite3'
 gem 'devise',           '>= 2.0.0'
 gem "haml", ">= 3.0.0"
 gem "haml-rails"
@@ -23,7 +24,7 @@ gem 'bootstrap-sass'
 gem 'compass-rails','~> 1.0.0.rc.3'
 gem 'compass-960-plugin'
 gem 'statistics2'
-gem 'rankable_graph'
+# gem 'rankable_graph'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.2'
@@ -47,7 +48,7 @@ end
 
 group :test do
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
+  # gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'spork', '~> 0.9.0.rc'
   gem 'launchy'

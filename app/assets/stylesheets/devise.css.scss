@@ -1,6 +1,7 @@
 .devise {
-  padding: 20px 30px 20px 30px;
+  padding: 20px 0 0;
   #page-header {
+    padding: 0 25px;
     margin-bottom: 10px;
     h1 {
       margin-bottom: 10px;
@@ -34,7 +35,7 @@
     }
     .buttons_left {
       margin-left: 10px;
-      padding-top: 5px;
+      //padding-top: 5px;
     }
   }
 }

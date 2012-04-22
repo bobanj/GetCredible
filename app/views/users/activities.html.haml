@@ -2,7 +2,7 @@
   %section#activity
     %header#page-header
       %h1 Recent Activity
-      %nav
+      %nav.right
         %ul.tabs
           %li.first{:class => activity_active_class('all')}
             = link_to 'All', all_user_path(@user), :class => 'js-remote'
@@ -10,12 +10,18 @@
             = link_to 'Notifications', incoming_user_path(@user), :class => 'js-remote'
           %li.last{:class => activity_active_class('outgoing')}
             = link_to 'My Activity', outgoing_user_path(@user), :class => 'js-remote'
-
+    
+    
     .feed
+      //%p
+      //  You have no recent activities.
+      //  %br
+      //  = link_to 'Some useful action.'
       %ul.list-view.unstyled
         - @activity_items.each do |activity_item|
           %li{:class => activity_class(activity_item)}
             .content
+              .tag-icon
               .photo
                 = link_to activity_item.user do
                   = image_tag activity_item.user.avatar.url(:small)
@@ -27,6 +33,9 @@
 
     = will_paginate @activity_items
 
--#%aside
--#  = render :partial => 'shared/sidebar_nav', :locals => { :user => @user }
--#  = render :partial => 'shared/sidebar_activity', :locals => { :user => @user }
+%aside
+  .textbox
+    %h3 Some title
+    %p Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci.
+  //= render :partial => 'shared/sidebar_nav', :locals => { :user => @user }
+  //= render :partial => 'shared/sidebar_activity', :locals => { :user => @user }

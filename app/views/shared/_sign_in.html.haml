@@ -3,7 +3,7 @@
     %h1 Sign In
 
   = simple_form_for(:user, :url => user_session_path, :namespace => 'sign_in', :html => {:id => 'user_sign_in'}) do |f|
-    %ul.inputs
+    %ul.inputs-list
       %li= f.input :email, :required => false, :autofocus => true, :input_html => { :value => nil }
       %li= f.input :password, :required => false, :input_html => { :value => nil }
       %li.checkboxes= f.input :remember_me, :as => :boolean
