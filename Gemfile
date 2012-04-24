@@ -48,7 +48,7 @@ end
 
 group :test do
   gem 'database_cleaner'
-  # gem 'factory_girl_rails'
+  gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'spork', '~> 0.9.0.rc'
   gem 'launchy'

@@ -1,22 +1,23 @@
-- #TODO change paths after refactor
 %header#global-header
   %nav
     %ul#global-nav
-      %li#gn-logo
-        %span
-          = link_to 'GiveBrand', '/'
       - if user_signed_in?
+        %li#gn-logo
+          %span
+            = link_to 'GiveBrand', all_user_path(current_user)
         %li#gn-logout
           = link_to "Logout", destroy_user_session_path
         %li#gn-profile
           = link_to 'Profile', me_user_path(current_user)
-        //%li#gn-activity
-        //  = link_to 'Home', all_user_path(current_user)
       - else
+        %li#gn-logo
+          %span
+            = link_to 'GiveBrand', root_path
         %li#gn-register
           = link_to "Sign up", new_user_registration_path
         %li#gn-login
           = link_to 'Login', new_user_session_path
+
   #global-search
     = form_tag users_path, :id => 'g-search', :method => :get do
       = label_tag :q, "Search"
