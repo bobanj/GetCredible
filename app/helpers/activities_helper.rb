@@ -1,6 +1,6 @@
 module ActivitiesHelper
   def activity_active_class(name)
-    params[:action] == name ? 'active' : nil
+    params[:id] == name ? 'active' : nil
   end
 
   def activity_class(activity_item)

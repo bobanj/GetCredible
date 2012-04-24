@@ -4,7 +4,7 @@
       - if user_signed_in?
         %li#gn-logo
           %span
-            = link_to 'GiveBrand', all_user_path(current_user)
+            = link_to 'GiveBrand', activity_path('all')
         %li#gn-logout
           = link_to "Logout", destroy_user_session_path
         %li#gn-profile

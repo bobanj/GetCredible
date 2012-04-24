@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     elsif resource.full_name.blank?
       edit_user_registration_path
     else
-      all_user_path(resource)
+      activity_path('all')
     end
   end
 

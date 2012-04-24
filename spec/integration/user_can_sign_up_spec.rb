@@ -15,7 +15,7 @@ describe 'User', type: :request do
     page.should have_content('Welcome! You have signed up successfully.')
 
     user = User.find_by_email(email)
-    current_path.should == all_user_path(user)
+    current_path.should == activity_path('all')
 
     unread_emails_for(email).size.should == parse_email_count(1)
     open_email(email)
