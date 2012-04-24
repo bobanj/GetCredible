@@ -55,7 +55,7 @@ $(function () {
           $('#tagit').tagit({
             tagSource: _tags,
             select: true,
-            triggerKeys: ['enter', 'comma', 'tab'],
+            triggerKeys: ['comma', 'tab'],
             maxTags: 1
           });
       }
@@ -86,8 +86,12 @@ $(function () {
 
       $("#add-tag form").submit(function (e) {
           e.preventDefault();
-          // var input = $('#tag_names');
-          // var tagNames = input.val();
+
+          // trigger tab event
+          var e = jQuery.Event("keydown");
+          e.which = 9; // tab
+          $(".tagit-input").trigger(e);
+
           var tagitElement = $('#tagit');
 
           var tagNames = [];
