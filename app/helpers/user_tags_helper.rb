@@ -26,11 +26,11 @@ module UserTagsHelper
       name: tag.name,
       # voted: viewer && viewer.voted_for?(user_tag),
       #voted: viewer && viewer.votes.detect { |vote| vote.voteable_id == user_tag.id },
-      voted: viewer && viewer.votes.where('voteable_id = ?', user_tag.id).any?,
+      voted: (viewer && viewer.votes.where('voteable_id = ?', user_tag.id).any?) ? true : false,
       votes: tag_scores.score(user_tag.id),
       # TODO: eager load: voted_ranking
       total: tag.user_tags.length,
-      rank: tag_scores.rank(user_tag.id),
+      rank: tag_scores.revrank(user_tag.id) + 1,
       # TODO: eager load: last_voters
       voters: user_tag.last_voters.map{ |voter|
         { :name => voter.full_name, avatar: user_avatar_url(voter, :small) } }

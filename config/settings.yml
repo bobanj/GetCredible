@@ -1,2 +1,6 @@
 redis:
+  namespace: 'give_brand'
   url: 'redis://127.0.0.1:6379'
+site:
+  name: 'Give Brand'
+  author: 'Give Brand'
