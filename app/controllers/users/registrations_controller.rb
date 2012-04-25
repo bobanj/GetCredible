@@ -36,7 +36,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       flash[:notice] = "You have updated your profile successfully."
       # Sign in the user by passing validation in case his password changed
       sign_in @user, :bypass => true
-      redirect_to edit_user_registration_path
+      redirect_to me_user_path(@user)
     else
       render "edit"
     end
