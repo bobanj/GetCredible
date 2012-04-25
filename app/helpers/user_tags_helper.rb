@@ -20,7 +20,7 @@ module UserTagsHelper
     #rank_index ? rank_index + 1 : rank_index
     #rank_index = tag.user_tags.order("created_at asc, weight desc").index(user_tag)
     #rank_index = rank_index + 1 if rank_index
-    tag_scores = Redis::SortedSet.new("tag:#{tag.id}:scores")
+    tag_scores = Redis::SortedSet.new("tag:#{tag.id}:scores", Redis.current)
     {
       id: user_tag.id,
       name: tag.name,
