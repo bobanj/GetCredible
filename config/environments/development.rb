@@ -38,6 +38,8 @@ GetCredible::Application.configure do
   # Devise Mailer
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
+  ENV["REDISTOGO_URL"] = 'redis://127.0.0.1:6379'
+
   #config.after_initialize do
   #  Bullet.enable = true
   #  Bullet.alert = true
