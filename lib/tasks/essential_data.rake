@@ -26,13 +26,13 @@ namespace :get_credible do
 
     puts "#########################"
     puts "Creating Tags"
-    tags = RandomWord.adjs.to_a[1..1].map { |word| {:name => word} }
+    tags = RandomWord.adjs.to_a[1..10].map { |word| {:name => word} }
     Tag.create tags
     tags = Tag.all
 
     puts "#########################"
     puts "Creating Users"
-    num_users = 200
+    num_users = 150
     num_users.times do |index|
       u = User.new
       u.full_name = "populator_#{index + 1}"

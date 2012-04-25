@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.2'
 gem 'unicorn', '4.2.0'
 
-gem 'pg'
+gem 'mysql2'
 #gem 'sqlite3'
 gem 'devise',           '>= 2.0.0'
 gem "haml", ">= 3.0.0"
@@ -25,6 +25,8 @@ gem 'compass-rails','~> 1.0.0.rc.3'
 gem 'compass-960-plugin'
 gem 'statistics2'
 gem 'rankable_graph'
+gem 'redis-objects'
+gem 'redis-namespace'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.2'

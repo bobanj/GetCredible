@@ -72,7 +72,6 @@ class User < ActiveRecord::Base
     if self != user_tag.user
       vote = vote_exclusively_for(user_tag)
       # Vote.create!(:vote => direction, :voteable => voteable, :voter => self)
-
       if log_vote_activity
         activity_items.create(item: vote, target: user_tag.user)
       end

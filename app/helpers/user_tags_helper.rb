@@ -18,18 +18,19 @@ module UserTagsHelper
     tag        = user_tag.tag
     #rank_index = tag.voted_ranking.index(user)
     #rank_index ? rank_index + 1 : rank_index
-    rank_index = tag.user_tags.order("created_at asc, weight desc").index(user_tag)
-    rank_index = rank_index + 1 if rank_index
+    #rank_index = tag.user_tags.order("created_at asc, weight desc").index(user_tag)
+    #rank_index = rank_index + 1 if rank_index
+    tag_scores = Redis::SortedSet.new("tag:#{tag.id}:scores")
     {
       id: user_tag.id,
       name: tag.name,
       # voted: viewer && viewer.voted_for?(user_tag),
       #voted: viewer && viewer.votes.detect { |vote| vote.voteable_id == user_tag.id },
       voted: viewer && viewer.votes.where('voteable_id = ?', user_tag.id).any?,
-      votes: user_tag.weight,
+      votes: tag_scores.score(user_tag.id),
       # TODO: eager load: voted_ranking
       total: tag.user_tags.length,
-      rank: rank_index,
+      rank: tag_scores.rank(user_tag.id),
       # TODO: eager load: last_voters
       voters: user_tag.last_voters.map{ |voter|
         { :name => voter.full_name, avatar: user_avatar_url(voter, :small) } }

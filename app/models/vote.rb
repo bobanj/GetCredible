@@ -16,6 +16,7 @@ class Vote < ActiveRecord::Base
 
   # Callbacks
   # before_create :set_weight # NOTE: disabled, see: lib/tasks/calculate_rank.rake
+  after_create :update_voteable_counters
 
   # Validations
   # Comment out the line below to allow multiple votes per user.
@@ -28,6 +29,10 @@ class Vote < ActiveRecord::Base
   end
 
   private
+
+  def update_voteable_counters
+    voteable.update_counters
+  end
 
   # def set_weight
   #   # Returns Array of arrays [user_id, weight]

@@ -14,6 +14,16 @@ class UserTag < ActiveRecord::Base
   validates :tagger_id, :presence => true
   validates :tag_id, :presence => true, :uniqueness => {:scope => :user_id}
 
+  # Redis
+  include Redis::Objects
+  value :outgoing
+  value :incoming
+
+  def update_counters
+    self.incoming.value = calculate_incoming
+    self.outgoing.value = calculate_outgoing
+  end
+
   def self.add_tags(user, tagger, tag_names)
     user_tags = user.user_tags
     tag_names.each do |tag_name|
@@ -35,4 +45,14 @@ class UserTag < ActiveRecord::Base
       end
     end
   end
+
+  private
+  def calculate_outgoing
+    self.user.votes.joins({:user_tag => :tag}).where("tags.id = ?", tag_id).length
+  end
+
+  def calculate_incoming
+    self.votes.length
+  end
+
 end

@@ -139,6 +139,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.17.2)
     multi_json (1.1.0)
+    mysql2 (0.3.11)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -148,7 +149,6 @@ GEM
       net-ssh (>= 1.99.1)
     nokogiri (1.5.0)
     orm_adapter (0.0.6)
-    pg (0.13.2)
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)
@@ -184,6 +184,11 @@ GEM
     rb-readline (0.4.2)
     rdoc (3.12)
       json (~> 1.4)
+    redis (2.2.2)
+    redis-namespace (1.1.0)
+      redis (< 3.0.0)
+    redis-objects (0.5.2)
+      redis (>= 2.1.1)
     rmagick (2.13.1)
     rspec (2.8.0)
       rspec-core (~> 2.8.0)
@@ -270,7 +275,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   libnotify
-  pg
+  mysql2
   rails (= 3.2.2)
   rails3-generators
   random-word
@@ -278,6 +283,8 @@ DEPENDENCIES
   rb-fsevent
   rb-inotify
   rb-readline
+  redis-namespace
+  redis-objects
   rmagick
   rspec-rails (>= 2.8.1)
   sass-rails

@@ -28,7 +28,9 @@ namespace :get_credible do
       user.vote_exclusively_for(supertag)
     end
 
-    2000.times do |i|
+    num_random_votes = 5000
+    puts "Creating #{num_random_votes} Random Votes"
+    num_random_votes.times do |i|
       random_voter = User.find_by_id (rand(User.count) + 1) rescue nil
       if random_voter
         random_user_tag = UserTag.find_by_id(range_rand(1,100)) rescue nil
