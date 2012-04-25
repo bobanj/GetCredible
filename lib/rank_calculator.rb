@@ -33,7 +33,9 @@ class RankCalculator
         scale_range << Range.new(result / base, result)
         result / base
       }
-      scale_range << Range.new(0, scale_range.last.min)
+      pom = scale_range.last
+      pom = pom.first < pom.last ? pom.first : pom.last
+      scale_range << Range.new(0, pom)
       scale_range.reverse!
 
       rankable_graph = RankableGraph.new
@@ -71,6 +73,7 @@ class RankCalculator
         weight = rank.to_f * total_user_tags.to_f * (incoming.to_f / outgoing.to_f)
         weight = 1.to_f + weight if weight < 1
         if weight.infinite?
+          break
           raise "Infinite Weight for #{user_tag_id}"
           return false
         end
