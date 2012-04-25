@@ -280,7 +280,7 @@ $(function () {
                               word.data('voters') +
                             '</div>';
                         }
-                    });
+                    }).append('<span class="icon"></span>');
                 });
 
 
