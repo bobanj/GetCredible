@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.2'
 gem 'unicorn', '4.2.0'
 
-gem 'mysql2'
+gem 'pg'
 #gem 'sqlite3'
 gem 'devise',           '>= 2.0.0'
 gem "haml", ">= 3.0.0"
@@ -27,7 +27,7 @@ gem 'statistics2'
 gem 'rankable_graph'
 gem 'redis-objects'
 gem 'redis-namespace'
-
+gem 'rails_config'
 group :assets do
   gem 'coffee-rails', '~> 3.2.2'
   gem 'uglifier', '>= 1.2.3'
