@@ -28,6 +28,7 @@ gem 'rankable_graph'
 gem 'redis-objects'
 gem 'redis-namespace'
 gem 'rails_config'
+
 group :assets do
   gem 'coffee-rails', '~> 3.2.2'
   gem 'uglifier', '>= 1.2.3'

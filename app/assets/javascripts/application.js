@@ -107,6 +107,7 @@ $(function () {
                 if ($.getCredible.tagCloud.data('can-vote')) {
                   $.post($.getCredible.tagCloud.data('tag-cloud-path'),
                           {tag_names: tagNames.join(', ')}, function (data) {
+                      $.getCredible.displayNotification('success', 'You have tagged ' + $.getCredible.tagCloud.data('user').full_name + ' with ' + tagNames.join(', '));
                       $.getCredible.renderTagCloud(data);
                   });
                 } else {
