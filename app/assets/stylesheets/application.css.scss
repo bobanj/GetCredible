@@ -85,7 +85,7 @@ input, textarea {
     }
 
   }
-  
+
 
 // Button Sizes
 
@@ -511,7 +511,7 @@ footer {
     //border-right: 1px solid $borderColor;
     @include text-shadow($white 0px 1px 0px);
 
-    &:hover {
+    &:hover, &.active {
       color: #137ac2;
       text-decoration: none;
       background: rgba(0, 0, 0, 0.03);
@@ -669,7 +669,7 @@ footer {
 
 #page-header {
   border-bottom: 1px solid #eee;
-  
+
   h1 {
     line-height: 1.8;
   }
