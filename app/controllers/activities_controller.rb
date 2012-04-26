@@ -4,7 +4,6 @@ class ActivitiesController < ApplicationController
 
   def show
     @activity_items = load_activity_items
-    @user           = current_user
     render 'index', layout: (request.xhr? ? false : true)
   end
 
