@@ -269,7 +269,8 @@ $(function () {
                         gravity:'sw',
                         fade:true,
                         html:true,
-                        delayOut:50,
+                        delayOut:0,
+                        delayIn:350,
                         title:function () {
                             var rank = word.data('rank') ? '#' + word.data('rank') : 'N/A'
                             return '<div>' +
