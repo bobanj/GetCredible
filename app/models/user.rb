@@ -82,8 +82,12 @@ class User < ActiveRecord::Base
   end
 
   def remove_vote(user_tag)
-    vote = user_tag.votes.for_voter(self).first
-    vote ? vote.destroy : false
+    if user_tag.tagger == self
+      false # cannot remove vote for the tag user has created
+    else
+      vote = user_tag.votes.for_voter(self).first
+      vote ? vote.destroy : false
+    end
   end
 
   def self.search(params)

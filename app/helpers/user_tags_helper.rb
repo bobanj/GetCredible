@@ -27,6 +27,7 @@ module UserTagsHelper
       # voted: viewer && viewer.voted_for?(user_tag),
       #voted: viewer && viewer.votes.detect { |vote| vote.voteable_id == user_tag.id },
       voted: (viewer && viewer.votes.where('voteable_id = ?', user_tag.id).any?) ? true : false,
+      tagged: user_tag.tagger == viewer,
       votes: tag_scores.score(user_tag.id),
       # TODO: eager load: voted_ranking
       total: tag.user_tags.length,

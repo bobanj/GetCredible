@@ -76,14 +76,20 @@ describe User do
       user_tag.reload.votes.length.should == 0
     end
 
-    it "returns true when vote is remove" do
+    it "returns true when vote is removed" do
       voter.add_vote(user_tag)
       user_tag.votes.length.should == 1
       voter.remove_vote(user_tag).should be_true
     end
 
-    it "returns false when vote is not remove" do
+    it "returns false when vote is not removed" do
       voter.remove_vote(user_tag).should be_false
+    end
+
+    it "cannot unvote the tag it has created" do
+      UserTag.add_tags(user, tagger, ['development'])
+      user_tag = user.user_tags.first
+      tagger.remove_vote(user_tag).should be_false
     end
   end
 

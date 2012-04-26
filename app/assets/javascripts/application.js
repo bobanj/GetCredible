@@ -136,6 +136,11 @@ $(function () {
         var voteToggle;
 
         if (typeof(this.tagCloudPath) == 'string') {
+            if (word.hasClass('vouche') && word.data('tagged')) {
+              $.getCredible.displayNotification('error', 'You cannot unvouch the tag you have added');
+              return;
+            }
+
             voteToggle = word.hasClass('vouche') ? '/unvote.json' : '/vote.json';
             if (this.tagCloud.data('logged-in') == false) {
                 var loginDialog = $('#login_dialog').modal();
@@ -213,7 +218,7 @@ $(function () {
                 weight:parseInt((userTag.votes - distributionOptions.min) / distributionOptions.divisor),
                 title:userTag.name,
                 dataAttributes: { votes: userTag.votes, 'user-tag-id': userTag.id,
-                                  rank: userTag.rank, total: userTag.total,
+                                  rank: userTag.rank, total: userTag.total, tagged: userTag.tagged,
                                   voters: voters.join(''), voters_count: voters.length},
                 handlers:{click:function () {
                     $.getCredible.vote(this);
