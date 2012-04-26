@@ -85,7 +85,7 @@ input, textarea {
     }
 
   }
-  
+
 
 // Button Sizes
 
@@ -511,7 +511,7 @@ footer {
     //border-right: 1px solid $borderColor;
     @include text-shadow($white 0px 1px 0px);
 
-    &:hover {
+    &:hover, &.active {
       color: #137ac2;
       text-decoration: none;
       background: rgba(0, 0, 0, 0.03);
@@ -590,12 +590,30 @@ footer {
   //@include border-radius(3px);
 }
 
-#content {
+#content, .inner {
   background: #fff;
   @include box-shadow(0 1px 2px rgba(0, 0, 0, 0.08));
   @include border-radius(3px);
   border-right: 1px solid #eee;
   min-height: 200px;
+}
+
+.inner {
+  padding: 30px 40px;
+  h1 {
+    margin-bottom: 15px;
+  }
+  h2 {
+    color: $blue;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+  p {
+    padding-left: 10px;
+  }
+  ol {
+    margin-left: 40px;
+  }
 }
 
 #home_index {
@@ -669,7 +687,7 @@ footer {
 
 #page-header {
   border-bottom: 1px solid #eee;
-  
+
   h1 {
     line-height: 1.8;
   }

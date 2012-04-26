@@ -8,4 +8,10 @@ class HomeController < ApplicationController
         paginate(:per_page => 10, :page => 1)
     end
   end
+
+  def privacy
+  end
+
+  def terms
+  end
 end

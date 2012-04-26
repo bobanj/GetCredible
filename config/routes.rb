@@ -19,5 +19,8 @@ GetCredible::Application.routes.draw do
 
   root :to => 'home#index'
 
+  get '/privacy' => 'home#privacy'
+  get '/terms' => 'home#terms'
+
   match '/:id' => 'users#show', :as => 'me_user'
 end
