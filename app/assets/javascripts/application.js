@@ -398,7 +398,5 @@ $(function () {
     $.getCredible.ajaxPagination();
     $.getCredible.init();
     $.getCredible.updateTagCloud();
-    $('#slider').rhinoslider({
-        effect: 'shuffle'
-    });
+    $('#slider').rhinoslider();
 })

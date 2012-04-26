@@ -781,180 +781,84 @@
 	};
 
 	$.fn.rhinoslider.effects = {
-		//options: animateActive, easing, shiftValue, parts
-		shuffle: function ($slider, params, callback) {
-			var
-			vars = $slider.data('slider:vars'),
-				settings = params.settings,
-				values = [],
-				preShuffle = function ($slider, settings, $li) {
-					var vars = $slider.data('slider:vars');
-					$li.html('<div class="' + vars.prefix + 'partContainer">' + $li.html() + '</div>');
+		//options: direction, animateActive, easing
+		slide: function ($slider, params, callback) {
+			var vars = $slider.data('slider:vars');
+			var settings = params.settings;
+			var direction = params.direction;
+			var values = [];
+			values.width = vars.container.width();
+			values.height = vars.container.height();
+			//if showtime is 0, content is sliding permanently so linear is the way to go
+			values.easing = settings.showTime === 0 ? 'linear' : settings.easing;
+			values.nextEasing = settings.showTime === 0 ? 'linear' : settings.easing;
+			$slider.css('overflow', 'hidden');
 
-					var part = $li.html();
-					var width = $slider.width();
-					var height = $slider.height();
-					for (i = 1; i < (settings.parts.x * settings.parts.y); i++) {
-						$li.html($li.html() + part);
-					}
-					var $parts = $li.children('.' + vars.prefix + 'partContainer');
-					var partValues = [];
-					partValues.width = $li.width() / settings.parts.x;
-					partValues.height = $li.height() / settings.parts.y;
-					$parts.each(function (i) {
-						var $this = $(this);
-						partValues.top = ((i - (i % settings.parts.x)) / settings.parts.x) * partValues.height;
-						partValues.left = (i % settings.parts.x) * partValues.width;
-						partValues.marginTop = -partValues.top;
-						partValues.marginLeft = -partValues.left;
-						$this.css({
-							top: partValues.top,
-							left: partValues.left,
-							width: partValues.width,
-							height: partValues.height,
-							position: 'absolute',
-							overflow: 'hidden'
-						}).html('<div class="' + vars.prefix + 'part">' + $this.html() + '</div>');
-						$this.children('.' + vars.prefix + 'part').css({
-							marginTop: partValues.marginTop,
-							marginLeft: partValues.marginLeft,
-							width: width,
-							height: height,
-							background: $li.css('background-image') + ' ' + $li.parent().css('background-color')
-						});
-					});
-					return $parts;
-				},
-				//calc amount of parts
-				calcParts = function (parts, c) {
-					if (parts.x * parts.y > 36) {
-						if (c) {
-							if (parts.x > 1) {
-								parts.x--;
-							} else {
-								parts.y--;
-							}
-							c = false;
-						} else {
-							if (parts.y > 1) {
-								parts.y--;
-							} else {
-								parts.x--;
-							}
-							c = true;
-						}
-						return calcParts(parts, c);
-					}
-					return parts;
-				},
-				//effect "shuffle"
-				shuffle = function ($slider, settings) {
-					settings.parts.x = settings.parts.x < 1 ? 1 : settings.parts.x;
-					settings.parts.y = settings.parts.y < 1 ? 1 : settings.parts.y;
-					settings.parts = calcParts(settings.parts, true);
-					settings.shiftValue.x = settings.shiftValue.x < 0 ? settings.shiftValue.x * -1 : settings.shiftValue.x;
-					settings.shiftValue.y = settings.shiftValue.y < 0 ? settings.shiftValue.y * -1 : settings.shiftValue.y;
-					var vars = $slider.data('slider:vars');
-					var activeContent = vars.active.html();
-					var nextContent = vars.next.html();
-					var width = $slider.width();
-					var height = $slider.height();
-					var $activeParts = preShuffle($slider, settings, vars.active);
-					var $nextParts = preShuffle($slider, settings, vars.next);
-					var activeBackgroundImage = vars.active.css('background-image');
-					var activeBackgroundColor = vars.active.css('background-color');
-					var nextBackgroundImage = vars.next.css('background-image');
-					var nextBackgroundColor = vars.next.css('background-color');
-					vars.active.css({
-						backgroundImage: 'none',
-						backgroundColor: 'none',
-						opacity: 1
-					});
-					vars.next.css({
-						backgroundImage: 'none',
-						backgroundColor: 'none',
-						opacity: 1,
-						zIndex: 2
-					});
-					var partValues = [];
-					partValues.width = vars.next.width() / settings.parts.x;
-					partValues.height = vars.next.height() / settings.parts.y;
-					if (settings.animateActive) {
-						$activeParts.each(function (i) {
-							$this = $(this);
-							var newLeft, newTop;
-							newLeft = (Math.random() * (settings.shiftValue.x * 2) - settings.shiftValue.x);
-							newTop = (Math.random() * (settings.shiftValue.y * 2) - settings.shiftValue.y);
-							$this.animate({
-								opacity: 0,
-								top: '+=' + newTop,
-								left: '+=' + newLeft
-							}, settings.effectTime, settings.easing);
-						});
-					}
-					$nextParts.each(function (i) {
-						$this = $(this);
-						partValues.top = ((i - (i % settings.parts.x)) / settings.parts.x) * partValues.height;
-						partValues.left = (i % settings.parts.x) * partValues.width;
-						var newLeft, newTop;
-						newLeft = partValues.left + (Math.random() * (settings.shiftValue.x * 2) - settings.shiftValue.x);
-						newTop = partValues.top + (Math.random() * (settings.shiftValue.y * 2) - settings.shiftValue.y);
+			//check, in which direction the content will be moved
+			switch (direction) {
+				case 'toTop':
+					values.top = -values.height;
+					values.left = 0;
+					values.nextTop = -values.top;
+					values.nextLeft = 0;
+					break;
+				case 'toBottom':
+					values.top = values.height;
+					values.left = 0;
+					values.nextTop = -values.top;
+					values.nextLeft = 0;
+					break;
+				case 'toRight':
+					values.top = 0;
+					values.left = values.width;
+					values.nextTop = 0;
+					values.nextLeft = -values.left;
+					break;
+				case 'toLeft':
+					values.top = 0;
+					values.left = -values.width;
+					values.nextTop = 0;
+					values.nextLeft = -values.left;
+					break;
+			}
 
-						$this.css({
-							top: newTop,
-							left: newLeft,
-							opacity: 0
-						}).animate({
-							top: partValues.top,
-							left: partValues.left,
-							opacity: 1
-						}, settings.effectTime, settings.easing, function () {
-							if (i == $activeParts.length - 1) {
-								vars.active.html(activeContent);
-								vars.next.html(nextContent);
-								vars.active.css({
-									backgroundImage: activeBackgroundImage,
-									backgroundColor: activeBackgroundColor,
-									opacity: 0
-								});
-								vars.next.css({
-									backgroundImage: nextBackgroundImage,
-									backgroundColor: nextBackgroundColor,
-									opacity: 1
-								});
-								callback($slider, settings);
-							}
-						});
-					});
-				}
+			//put the "next"-element on top of the others and show/hide it, depending on the effect
+			vars.next.css({
+				zIndex: 2,
+				opacity: 1
+			});
 
-			shuffle($slider, settings);
+			//if animateActive is false, the active-element will not move
+			if (settings.animateActive) {
+				vars.active.css({
+					top: 0,
+					left: 0
+				}).animate({
+					top: values.top,
+					left: values.left,
+					opacity: 1
+				}, settings.effectTime, values.easing);
+			}
+			vars.next
+			//position "next"-element depending on the direction
+			.css({
+				top: values.nextTop,
+				left: values.nextLeft
+			}).animate({
+				top: 0,
+				left: 0,
+				opacity: 1
+			}, settings.effectTime, values.nextEasing, function () {
+				//reset element-positions
+				callback($slider, settings);
+			});
 		}
 	};
 
 	$.fn.rhinoslider.preparations = {
-		shuffle: function ($slider, settings, vars) {
-			//if shuffle-effect has x and y shift or parts
-			var shiftValue = String(tmpShiftValue);
-			if (shiftValue.indexOf(',') >= 0) {
-				var tmp = shiftValue.split(',');
-				settings.shiftValue.x = tmp[0];
-				settings.shiftValue.y = tmp[1];
-			} else {
-				settings.shiftValue.x = parseInt(tmpShiftValue, 10);
-				settings.shiftValue.y = parseInt(tmpShiftValue, 10);
-			}
-			var parts = String(tmpParts);
-			if (parts.indexOf(',') >= 0) {
-				var tmp = parts.split(',');
-				settings.parts.x = tmp[0];
-				settings.parts.y = tmp[1];
-			} else {
-				settings.parts.x = parseInt(tmpParts, 10);
-				settings.parts.y = parseInt(tmpParts, 10);
-			}
-			
-			vars.items.css('overflow', 'visible');
+		slide: function ($slider, settings, vars) {
+			vars.items.css('overflow', 'hidden');
+			$slider.css('overflow', 'hidden');
 		}
 	};
 
