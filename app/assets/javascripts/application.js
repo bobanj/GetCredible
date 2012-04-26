@@ -281,12 +281,16 @@ $(function () {
                         delayIn:350,
                         title:function () {
                             var rank = word.data('rank') ? '#' + word.data('rank') : 'N/A'
-                            return '<div>' +
-                              '<h3>GiveBrand Index Rank</h3>' +
-                              '<b>' + rank + ' out of ' + word.data('total') + '</b>' +
-                              '<br /><b>Score: ' + word.data('votes') + '</b>' +
-                              '<p>' + word.data('voters_count') + ' people vouched for you' + '</p>' +
-                              word.data('voters') +
+                            return '<div class="tag-wrap">' +
+                              '<div class="tag-score">' +
+                                '<p>score</p>' +
+                                '<p class="tag-big">' + word.data('votes') + '</p>' +
+                                '<p class="tag-place">' + rank + ' out of ' + word.data('total') + '</p>' +
+                              '</div>' +
+                              '<div class="tag-votes">' +
+                                '<p>' + word.data('voters_count') + ' people vouched for you' + '</p>' +
+                                '<p>' + word.data('voters') + '</p>' +
+                              '</div>' +
                             '</div>';
                         }
                     }).append('<span class="icon"></span>');

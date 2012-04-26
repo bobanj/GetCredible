@@ -2,7 +2,7 @@
 // jqcloud
 #tag-cloud {
 
-  height: 310px;
+  min-height: 250px;
   line-height: normal;
   overflow: hidden;
   position: relative;
@@ -22,26 +22,27 @@
 
     cursor: pointer;
     display: inline-block;
+    font-family: impact;
     padding: 0 20px 0 0;
 
     &.w5 {
-      font-size: 42px;
+      font-size: 50px;
       color: #16193B;
     }
     &.w4 {
-      font-size: 32px;
+      font-size: 42px;
       color: #35478C;
     }
     &.w3 {
-      font-size: 24px;
+      font-size: 32px;
       color: #4E7AC7;
     }
     &.w2 {
-      font-size: 18px;
+      font-size: 24px;
       color: #7FB2F0;
     }
     &.w1 {
-      font-size: 14px;
+      font-size: 18px;
       color: #ADD5F7;
     }
   }
@@ -67,6 +68,8 @@
   .tag .icon { background-position: 0 -48px; }
 
   .remove .icon { background-position: 0 -128px; }
+  
+  .word { font-family: impact;}
 }
 
 #tag-msg {

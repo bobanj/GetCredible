@@ -106,6 +106,10 @@ input, textarea {
   display: inline;
   float: left;
 }
+.right {
+  display: inline;
+  float: right;
+}
 
 // Tabs
 
@@ -263,8 +267,7 @@ input, textarea {
   h2 {
     color: $grayDark;
     float: left;
-    font-size: 12px;
-    font-weight: normal;
+    font-size: 14px;
     line-height: 16px;
   }
 
@@ -273,6 +276,12 @@ input, textarea {
     font-size: 11px;
     float: right;
     line-height: 1;
+  }
+  .details {
+    display: block;
+    float: left;
+    margin-top: 5px;
+    width: 93%;
   }
 
 }
@@ -340,7 +349,8 @@ aside #latest-activity {
 .textbox {
   padding: 10px 20px 20px;
   h3 {
-    font-family: 'Museo';
+    font-family: "impact";
+    font-weight: normal;
   }
   p {
     color: #777;
@@ -520,20 +530,26 @@ footer {
 
 // Logo style
 
-  #gn-logo a, span {
-    border-left: 0 none;
-    color: $linkColor;
-    font-size: 18px;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-  #gn-logo span, #gn-logo a {
-    background: image-url('logo.png') no-repeat center;
-    height: 49px;
+  #gn-logo a {
+    //background: image-url('logo.png') no-repeat center;
+    color: $blue;
+    font: 32px "impact";
     margin-top: 25px;
     padding: 0;
-    text-indent: -99999px;
-    width: 148px;
+    //text-indent: -99999px;
+    @include transform(skew(0deg, -6deg));
+    span {
+      color: #444;
+      display: inline;
+      float: left;
+      font-size: 32px;
+      font-weight: normal;
+      padding: 0;
+    }
+    &:hover {
+      background: none;
+      @include transform(skew(0deg, -5deg));
+    }
   }
   #gn-login, #gn-register, #gn-activity, #gn-profile, #gn-logout {
     float: right;
@@ -590,7 +606,7 @@ footer {
   //@include border-radius(3px);
 }
 
-#content, .inner {
+#content, .inner-page {
   background: #fff;
   @include box-shadow(0 1px 2px rgba(0, 0, 0, 0.08));
   @include border-radius(3px);
@@ -598,7 +614,7 @@ footer {
   min-height: 200px;
 }
 
-.inner {
+.inner-page {
   padding: 30px 40px;
   h1 {
     margin-bottom: 15px;
@@ -641,7 +657,7 @@ footer {
   }
   h3 {
     color: $blue;
-    font: 18px museo;
+    font: 18px "impact";
     line-height: 1.5;
     margin-bottom: 4px;
   }
@@ -649,7 +665,7 @@ footer {
     background: $blue;
     color: #fff;
     display: inline-block;
-    font: 24px museo, georgia, sans-serif;
+    font: 24px "impact", georgia, sans-serif;
     margin: 20px auto 30px;
     opacity: 0.9;
     padding: 15px 20%;
@@ -715,8 +731,9 @@ aside {
       width: 118px;
     }
     h3 {
-      font-family: museo;
-      font-size: 14px;
+      font-family: "impact";
+      font-size: 18px;
+      font-weight: normal;
       line-height: 1.6;
     }
   }

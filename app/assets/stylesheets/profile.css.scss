@@ -21,7 +21,7 @@
 
   .details {
     //margin-left: 170px;
-    width: 365px;
+    width: 100%;
   }
 
   .actions {
@@ -46,10 +46,13 @@
     line-height: $baseline / 2;
     margin-bottom: $baseline;
   }
-
+  .left {
+    width: 70%;
+  }
   ul {
     list-style: none;
-    margin: 0;
+    margin: 20px 0 0;
+    width: 30%;
     .error{
       margin-left: 120px;
       color: red;
@@ -72,7 +75,9 @@
     .web .icon {
       background-position: 0 -80px;
     }
-
+    .twitter {
+      margin-top: 3px;
+    }
     .twitter .icon {
       background-position: 0 -96px;
     }
@@ -147,7 +152,7 @@
   form {
     margin: 0;
     margin: 0 auto;
-    padding: 30px 20px 0;
+    padding: 20px 20px 0;
     position: relative;
     text-align: center;
     width: 70%;
@@ -180,12 +185,13 @@
     padding: 9px 30px 8px;
     position: absolute;
     right: 22px;
-    top: 37px;
+    top: 27px;
   }
 
   .vouche {
-    line-height: 17px;
-    padding: 0 15px 22px 15px;
+    font-size: 11px;
+    line-height: 1.2;
+    padding: 0 15px 10px 15px;
     text-align: center;
   }
 

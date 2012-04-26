@@ -28,7 +28,7 @@
               .details
 
                 - if current_user && user.interacted_by(current_user)
-                  .icon
+
                   = "You interacted with #{user.full_name}’s profile."
 
                 - top_tags = user.top_tags(3)

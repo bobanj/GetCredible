@@ -16,11 +16,12 @@
 #content
   %section#profile
     .details
-      .photo
-        = image_tag @user.avatar_url(:thumb)
-      %h1= @user.full_name
-      %h2= @user.job_title
-      %ul
+      .left
+        .photo
+          = image_tag @user.avatar_url(:thumb)
+        %h1= @user.full_name
+        %h2= @user.job_title
+      %ul.right
         - unless @user.city.blank?
           %li.location
             %span.icon
