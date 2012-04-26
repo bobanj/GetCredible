@@ -11,6 +11,8 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//= require easing
+//= require mousewheel
 //= require jquery-ui
 //= require jquery_ujs
 //= require jqcloud-0.2.10
@@ -18,6 +20,7 @@
 //= require jquery.noty
 //= require jquery.simplemodal.js
 //= require tagit
+//= require rhinoslider-1.04
 //require_tree .
 
 Array.prototype.unique = function() {
@@ -381,9 +384,12 @@ $(function () {
         });
         event.preventDefault();
         return false;
-    })
+    });
     $.getCredible.showFlashMessages();
     $.getCredible.ajaxPagination();
     $.getCredible.init();
     $.getCredible.updateTagCloud();
+    $('#slider').rhinoslider({
+        effect: 'shuffle'
+    });
 })
