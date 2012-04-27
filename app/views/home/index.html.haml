@@ -1,24 +1,41 @@
 #featured
-  %h1 Lorem Ipsum Dolor Sit Amet
-  %h2 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-  = link_to "Sign up now for free!", new_user_registration_path, :class => "big-signup"
+  //%h1 Lorem Ipsum Dolor Sit Amet
+  //%h2 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+  //= link_to "Sign up now for free!", new_user_registration_path, :class => "big-signup"
 
   %ul#slider.unstyled{:style => "height:200px"}
     %li
+      = image_tag 'screen.png'
+      %h1 Follow Activity
+      %p Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+      = link_to "Sign up now for free!", new_user_registration_path, :class => "big-signup left"
+    %li
+      = image_tag 'screen.png'
+      %h1 Share Progress
+      %p Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+      = link_to "Sign up now for free!", new_user_registration_path, :class => "big-signup left"
+    %li
+      = image_tag 'screen.png'
+      %h1 Get Credible
+      %p Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+      = link_to "Sign up now for free!", new_user_registration_path, :class => "big-signup left"
+      
+  %ul.unstyled.slim
+    %li
       = image_tag 'info.png'
-      %h3 Vouche or Tag
+      %h2 Vouche or Tag
       %p Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
     %li
       = image_tag 'info.png'
-      %h3 Follow Activity
+      %h2 Follow Activity
       %p Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
     %li
       = image_tag 'info.png'
-      %h3 Share Progress
+      %h2 Share Progress
       %p Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
     %li
       = image_tag 'info.png'
-      %h3 Get Credible
+      %h2 Get Credible
       %p Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
 
   .cloud

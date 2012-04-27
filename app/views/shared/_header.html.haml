@@ -3,19 +3,16 @@
     %ul#global-nav
       - if user_signed_in?
         %li#gn-logo
-          = link_to activity_path('all') do
-            %span give
-            BRAND
+          = link_to 'GiveBrand', activity_path('all')
         %li#gn-logout
           = link_to "Logout", destroy_user_session_path
         %li#gn-profile
           = link_to 'Profile', me_user_path(current_user), :class => ((params[:controller] == 'users' && params[:action] == 'show') || (params[:controller] == 'users/registrations') ? 'active' : nil)
         %li#gn-activity
-          = link_to 'Home', activity_path('all'), :class => (params[:controller] == 'activities' ? 'active' : nil)
+          = link_to 'Activities', activity_path('all'), :class => (params[:controller] == 'activities' ? 'active' : nil)
       - else
         %li#gn-logo
-          %span
-            = link_to 'GiveBrand', root_path
+          = link_to 'GiveBrand', root_path
         %li#gn-register
           = link_to "Sign up", new_user_registration_path, :class => (params[:controller] == 'users/registrations' ? 'active' : nil)
         %li#gn-login

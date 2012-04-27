@@ -349,7 +349,7 @@ aside #latest-activity {
 .textbox {
   padding: 10px 20px 20px;
   h3 {
-    font-family: "impact";
+    font-family: "gnuolane";
     font-weight: normal;
   }
   p {
@@ -531,13 +531,17 @@ footer {
 // Logo style
 
   #gn-logo a {
-    //background: image-url('logo.png') no-repeat center;
+    background: image-url('logo2.png') no-repeat center;
     color: $blue;
-    font: 32px "impact";
-    margin-top: 25px;
+    font: bold 32px "gnuolane";
+    height: 63px;
+    margin: 25px 0;
+    opacity: 0.9;
     padding: 0;
-    //text-indent: -99999px;
-    @include transform(skew(0deg, -6deg));
+    text-indent: -99999px;
+    width: 150px;
+    @include transition(opacity .4s);
+    //@include transform(skew(0deg, -6deg));
     span {
       color: #444;
       display: inline;
@@ -547,8 +551,7 @@ footer {
       padding: 0;
     }
     &:hover {
-      background: none;
-      @include transform(skew(0deg, -5deg));
+      opacity: 1;
     }
   }
   #gn-login, #gn-register, #gn-activity, #gn-profile, #gn-logout {
@@ -645,19 +648,20 @@ footer {
   text-align: center;
   h1 {
     font-size: 58px;
-    margin-top: 70px;
+    font-weight: bold;
+    margin-top: 40px;
     margin-bottom: 20px;
-    text-align: center;
   }
   h2 {
     color: #777;
-    font-size: 18px;
+    font-family: gnuolane;
+    font-size: 24px;
     line-height: 1.5;
     padding: 0 15%;
   }
   h3 {
     color: $blue;
-    font: 18px "impact";
+    font: 18px "gnuolane";
     line-height: 1.5;
     margin-bottom: 4px;
   }
@@ -665,23 +669,27 @@ footer {
     background: $blue;
     color: #fff;
     display: inline-block;
-    font: 24px "impact", georgia, sans-serif;
-    margin: 20px auto 30px;
+    float: left;
+    font: 20px "gnuolane", georgia, sans-serif;
+    margin: 15px 0 20px;
     opacity: 0.9;
-    padding: 15px 20%;
+    padding: 12px 5%;
+    text-align: center;
+    width: 25%;
     @include border-radius(3px);
     @include box-shadow(rgba(0, 0, 0, 0.1) 0 2px 3px inset, rgba(0, 0, 0, 0.2) 0 1px 3px);
     @include transition(all .4s);
     &:hover, &:focus {
       background: $green;
       opacity: 1;
-      padding: 15px 25%;
       text-decoration: none;
     }
   }
-  ul {
-    margin: 0 10%;
+  ul.slim {
+    border-top: 1px solid #fff;
+    padding-top: 30px;
     @include pie-clearfix;
+    @include radial-gradient(color-stops(rgba(0, 0, 0, 0.015), rgba(0, 0, 0, 0)), top center);
   }
   li {
     display: inline;
@@ -689,7 +697,7 @@ footer {
     margin: 0 2%;
     width: 21%;
     p {
-      font-size: 12px;
+      font: 12px museo;
       line-height: 1.5;
     }
   }
@@ -731,7 +739,7 @@ aside {
       width: 118px;
     }
     h3 {
-      font-family: "impact";
+      font-family: "gnuolane";
       font-size: 18px;
       font-weight: normal;
       line-height: 1.6;
@@ -819,3 +827,4 @@ footer {
 @import "pagination";
 @import "override";
 @import "rhinoslider";
+@import "rhino_override";

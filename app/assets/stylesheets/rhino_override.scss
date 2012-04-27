@@ -1,0 +1,61 @@
+.rhino-container {
+  //background: $blue;
+  height: 300px !important;
+  margin: 0 0 30px !important;
+  text-align: left;
+  width: 940px !important;
+  @include box-shadow(#eee 0 1px 2px);
+  
+  h1 {
+    float: left;
+    text-align: left;
+    width: 45%;
+  }
+  p {
+    float: left;
+    font-family: museo;
+    font-size: 14px !important;
+    width: 50%;
+  }
+  img {
+    border: 5px solid #fff;
+    float: right;
+    width: 45%;
+  }
+}
+
+.rhino-prev, .rhino-next {
+  bottom: 140px;
+}
+
+.rhino-prev {
+  left: -80px;
+}
+.rhino-next {
+  right: -80px;
+}
+
+.rhino-bullets {
+  background: none !important;
+  display: block !important;
+  left: 40px;
+  li {
+    position: relative;
+    top: -15px;
+  }
+}
+
+.rhino-bullet {
+  background: #333 !important;
+  display: inline-block;
+  height: 8px !important;
+  line-height: 1;
+  margin: 8px;
+  padding: 2px !important;
+  width: 8px !important;
+  @include border-radius(10px);
+  &.rhino-active-bullet {
+    background: $blue !important;
+    color: $blue !important;
+  }
+}
