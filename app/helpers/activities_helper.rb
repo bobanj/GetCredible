@@ -47,9 +47,9 @@ module ActivitiesHelper
     target = activity_item.target
 
     if activity_vote?(activity_item)
-      "#{user_link(user)} vouched for #{tag_link(item.voteable.tag.name)}".html_safe
+      "Check YOU out! #{user_link(user)} vouched for your tag: #{tag_link(item.voteable.tag.name)}".html_safe
     else
-      "#{user_link(user)} tagged #{current_user && current_user == target ? "you" : user_link(target) } as #{tag_link(item.tag.name)}".html_safe
+      "Sweet! #{user_link(user)} tagged #{current_user && current_user == target ? "you" : user_link(target) }: #{tag_link(item.tag.name)}".html_safe
     end
   end
 
@@ -59,9 +59,9 @@ module ActivitiesHelper
     user = activity_item.user
 
     if activity_vote?(activity_item)
-      "#{current_user && current_user == user ? "You" : link_to(user.full_name, me_user_path(user)) } vouched on #{user_link(target)}'s profile for #{tag_link(item.voteable.tag.name)}".html_safe
+      "#{current_user && current_user == user ? "You" : link_to(user.full_name, me_user_path(user)) } vouched for #{user_link(target)}'s tag: #{tag_link(item.voteable.tag.name)}".html_safe
     else
-      "#{current_user && current_user == user ? "You" : user_link(user) } tagged #{user_link(target)} as #{tag_link(item.tag.name)}".html_safe
+      "#{current_user && current_user == user ? "You" : user_link(user) } tagged #{user_link(target)}: #{tag_link(item.tag.name)}".html_safe
     end
   end
 
