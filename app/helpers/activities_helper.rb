@@ -85,10 +85,10 @@ module ActivitiesHelper
       "#{users.map{|user| link_to(user.full_name, me_user_path(user))}.join(' and ')} tagged or vouched for #{who?(user)} so far.".html_safe
     else
       output = []
-      user = users.pop
-      output << link_to(user.full_name, me_user_path(user))
-      user = users.pop
-      output << link_to(user.full_name, me_user_path(user))
+      u = users.pop
+      output << link_to(u.full_name, me_user_path(u))
+      u = users.pop
+      output << link_to(u.full_name, me_user_path(u))
       output.join(', ').concat(" and #{users.length} other people tagged or vouched for #{who?(user)} so far.").html_safe
     end
 
