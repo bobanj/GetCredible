@@ -25,11 +25,10 @@ class ScoreCalculator
     #ActiveRecord::Base.connection.execute('DELETE FROM "user_tag_results"')
     Tag.all.each do |tag|
       total_user_tags = tag.user_tags_count
-      scale_range = []
       # Comment set_scale_range to toggle logaritmic score calculation
       scale_max = probability * total_user_tags + (1 - probability)
       base = scale_max ** 0.01
-      set_scale_range(scale_range, scale_max, base)
+      scale_range = set_scale_range(scale_max, base)
 
       rankable_graph = RankableGraph.new
       tag_scores = Redis::SortedSet.new("tag:#{tag.id}:scores")
@@ -56,7 +55,8 @@ class ScoreCalculator
           outgoing = Redis::Value.new("user_tag:#{user_tag_id}:outgoing").value
         end
 
-        weight = rank.to_f * total_user_tags.to_f * (incoming.to_f / outgoing.to_f)
+        weight = rank.to_f * total_user_tags.to_f * (incoming.to_f / (incoming.to_f + outgoing.to_f))
+
         weight = 1.to_f + weight if weight < 1
         if weight.infinite?
           break
@@ -86,7 +86,8 @@ class ScoreCalculator
 
   private
 
-  def set_scale_range(scale_range, scale_max, base)
+  def set_scale_range(scale_max, base)
+    scale_range = []
     (1..score_max).to_a.inject(scale_max) { |result, scale_element|
       scale_range << Range.new(result / base, result)
       result / base
@@ -94,7 +95,7 @@ class ScoreCalculator
     pom = scale_range.last
     pom = pom.first < pom.last ? pom.first : pom.last
     scale_range << Range.new(0, pom)
-    scale_range.reverse!
+    scale_range.reverse
   end
 
 end
