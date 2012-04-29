@@ -219,7 +219,8 @@ $(function () {
                 html:{
                     class: $.getCredible.wordClass(customClass, userTag)
                 },
-                weight:parseInt((userTag.score - distributionOptions.min) / distributionOptions.divisor),
+                //weight:parseInt((userTag.score - distributionOptions.min) / distributionOptions.divisor),
+                weight:parseInt(userTag.score),
                 title:userTag.name,
                 dataAttributes:{ score:userTag.score, 'user-tag-id':userTag.id,
                     rank:userTag.rank, total:userTag.total, tagged:userTag.tagged,
