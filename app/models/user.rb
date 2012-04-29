@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   # Associations
   has_many :authentications, dependent: :destroy
   has_many :user_tags, dependent: :destroy
-  has_many :tags, through: :user_tags
+  has_many :tags, through: :user_tags, :order => "name asc"
   has_many :activity_items, order: 'created_at desc', dependent: :destroy
   has_many :incoming_activities, :foreign_key => :target_id,
                                  :class_name => 'ActivityItem',
