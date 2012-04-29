@@ -2,7 +2,7 @@ class UserTag < ActiveRecord::Base
 
   # Associations
   belongs_to :user
-  belongs_to :tag
+  belongs_to :tag, :counter_cache => true
   belongs_to :tagger, :class_name => 'User'
   has_many :votes, :foreign_key => :voteable_id, :dependent => :destroy
   has_many :activity_items, :as => :item, :dependent => :destroy

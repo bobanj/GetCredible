@@ -24,17 +24,16 @@ module UserTagsHelper
     {
       id: user_tag.id,
       name: tag.name,
-      # voted: viewer && viewer.voted_for?(user_tag),
-      #voted: viewer && viewer.votes.detect { |vote| vote.voteable_id == user_tag.id },
       voted: (viewer && viewer.votes.where('voteable_id = ?', user_tag.id).any?) ? true : false,
       tagged: user_tag.tagger == viewer,
-      votes: tag_scores.score(user_tag.id),
+      score: tag_scores.score(user_tag.id).round,
       # TODO: eager load: voted_ranking
-      total: tag.user_tags.length,
+      total: tag.user_tags_count,
       rank: tag_scores.revrank(user_tag.id) + 1,
       # TODO: eager load: last_voters
       voters: user_tag.last_voters.map{ |voter|
-        { :name => voter.full_name, avatar: user_avatar_url(voter, :small) } }
+        { :name => voter.full_name, avatar: user_avatar_url(voter, :small) } },
+      voters_count: user_tag.incoming.value
     }
   end
 end
