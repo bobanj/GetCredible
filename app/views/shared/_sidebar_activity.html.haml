@@ -1,5 +1,5 @@
 - if user
-  - incoming_activities =  user.incoming_activities.paginate(:page => 1, :per_page => 5)
+  - incoming_activities =  user.incoming_activities.includes(:item, :target, :user).limit(5)
   #latest-activity
     %h2== #{user_short(user)} Activity
     %ul.list-view.unstyled

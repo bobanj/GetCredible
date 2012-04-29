@@ -1,7 +1,7 @@
 module UserTagsHelper
 
   def tags_summary(user, viewer=nil)
-    user.user_tags.includes([:tag, :votes]).map do |user_tag|
+    user.user_tags.includes([:tag, :votes, :user, :last_voters, :tagger]).map do |user_tag|
       tag_summary(user_tag, user, viewer)
     end
   end
@@ -20,7 +20,7 @@ module UserTagsHelper
     {
       id: user_tag.id,
       name: tag.name,
-      voted: viewer && viewer.votes.where('voteable_id = ?', user_tag.id).any?,
+      voted: viewer && viewer.votes.detect{|vote| vote.voteable_id = user_tag.id},
       tagged: user_tag.tagger == viewer,
       score: tag_scores.score(user_tag.id).round,
       # TODO: eager load: voted_ranking
