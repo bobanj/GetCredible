@@ -59,7 +59,7 @@ $(function () {
             tagSource: _tags,
             select: true,
             triggerKeys: ['comma', 'tab'],
-            maxTags: 1
+            maxTags: 10
           });
       }
 
