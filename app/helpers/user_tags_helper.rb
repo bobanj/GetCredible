@@ -20,9 +20,9 @@ module UserTagsHelper
     {
       id: user_tag.id,
       name: tag.name,
-      voted: viewer && viewer.votes.detect{|vote| vote.voteable_id = user_tag.id},
+      voted: viewer && viewer.votes.detect{|vote| vote.voteable_id = user_tag.id} ? true : false,
       tagged: user_tag.tagger == viewer,
-      score: tag_scores.score(user_tag.id).round,
+      score: tag_scores.score(user_tag.id).round + 1,
       # TODO: eager load: voted_ranking
       total: tag.user_tags_count,
       rank: tag_scores.revrank(user_tag.id) + 1,
