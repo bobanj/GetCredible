@@ -20,7 +20,7 @@ describe Vote do
   end
 
   describe 'Callbacks' do
-    it 'Updates UserTag incoming and outgoing after create' do
+    it 'Updates UserTag incoming and outgoing after create and destroy' do
       voter = Factory(:user)
       user_tag.votes.count.should == 0
       voter.add_vote(user_tag)
@@ -30,7 +30,23 @@ describe Vote do
       user_tag2 = Factory(:user_tag, tag: tag, user: voter, tagger: tagger)
       user.add_vote(user_tag2)
       user_tag.reload.outgoing.value.should == '1'
+      user_tag.reload.incoming.value.should == '1'
+      user_tag2.reload.outgoing.value.should == '1'
+      user_tag2.reload.incoming.value.should == '1'
+
+      voter.remove_vote(user_tag)
+      user_tag.reload.outgoing.value.should == '1'
+      user_tag.reload.incoming.value.should == '0'
+      user_tag2.reload.outgoing.value.should == '0'
+      user_tag2.reload.incoming.value.should == '1'
+
+      user.remove_vote(user_tag2)
+      user_tag.reload.outgoing.value.should == '0'
+      user_tag.reload.incoming.value.should == '0'
+      user_tag2.reload.outgoing.value.should == '0'
+      user_tag2.reload.incoming.value.should == '0'
     end
+
   end
 
 end

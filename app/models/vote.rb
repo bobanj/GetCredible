@@ -37,6 +37,8 @@ class Vote < ActiveRecord::Base
 
   def update_voteable_counters
     voteable.update_counters
+    voter_user_tag = voter.user_tags.where(:tag_id => voteable.tag_id).first
+    voter_user_tag.update_counters if voter_user_tag
   end
 
 end
