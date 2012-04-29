@@ -48,11 +48,11 @@ class UserTag < ActiveRecord::Base
 
   private
   def calculate_outgoing
-    self.user.votes.joins({:user_tag => :tag}).where("tags.id = ?", tag_id).length
+    self.user.votes.joins({:user_tag => :tag}).where("tags.id = ?", tag_id).count
   end
 
   def calculate_incoming
-    self.votes.length
+    self.votes.count
   end
 
 end

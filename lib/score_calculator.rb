@@ -7,7 +7,7 @@
 
 require 'redis/sorted_set'
 
-class RankCalculator
+class ScoreCalculator
   attr_accessor :probability, :tolerance, :score_max
 
   def initialize
@@ -48,19 +48,12 @@ class RankCalculator
         # TODO set outgoing and incoming votes after vote:create so they only get here
 
         incoming = Redis::Value.new("user_tag:#{user_tag_id}:incoming").value rescue false
-        unless incoming
-          user_tag = UserTag.find_by_id user_tag_id
-          incoming = calculate_incoming(user_tag)
-          value = Redis::Value.new("user_tag:#{user_tag_id}:incoming")
-          value.value = incoming
-        end
-
         outgoing = Redis::Value.new("user_tag:#{user_tag_id}:outgoing").value rescue false
-        unless outgoing
+        if !incoming || !outgoing
           user_tag = UserTag.find_by_id user_tag_id unless user_tag
-          outgoing = calculate_outgoing(user_tag, tag)
-          value = Redis::Value.new("user_tag:#{user_tag_id}:outgoing")
-          value.value = outgoing
+          user_tag.update_counters
+          incoming = Redis::Value.new("user_tag:#{user_tag_id}:incoming").value
+          outgoing = Redis::Value.new("user_tag:#{user_tag_id}:outgoing").value
         end
 
         weight = rank.to_f * total_user_tags.to_f * (incoming.to_f / outgoing.to_f)
@@ -102,14 +95,6 @@ class RankCalculator
     pom = pom.first < pom.last ? pom.first : pom.last
     scale_range << Range.new(0, pom)
     scale_range.reverse!
-  end
-
-  def calculate_outgoing(user_tag, tag)
-    user_tag.user.votes.joins({:user_tag => :tag}).where("tags.id = ?", tag.id).length
-  end
-
-  def calculate_incoming(user_tag)
-    user_tag.votes.length
   end
 
 end
