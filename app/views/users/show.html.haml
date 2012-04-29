@@ -3,7 +3,7 @@
   %meta{ :property => "og:type", :content => "article" }
   %meta{ :property => "og:url", :content => me_user_url(@user) }
   %meta{ :property => "og:site_name", :content => "Give Brand" }
-  %meta{ :property => "og:description", :content => "Help boost my influence at givebrand.to! #{me_user_url(@user)}" }
+  %meta{ :property => "og:description", :content => "Help boost my influence at givebrand.to!" }
   %meta{ :property => "og:image", :content => user_avatar_url(@user) }
 
 :javascript
@@ -45,7 +45,7 @@
         !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
     %li
       %script{:src => "//platform.linkedin.com/in.js", :type => "text/javascript"}
-      %script{"data-counter" => "top", "data-url" => me_user_url(@user), :type => "in/share+init"}
+      %script{"data-counter" => "top", "data-url" => me_user_url(@user), :type => "IN/Share"}
 
   = render :partial => 'shared/tag_cloud'
 
