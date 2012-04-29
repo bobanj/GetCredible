@@ -32,4 +32,15 @@ module UserTagsHelper
       voters_count: user_tag.incoming.value
     }
   end
+
+  def preload_associations(activity_items)
+    vote_activities      = activity_items.select{|i| i.item_type == 'Vote'}
+    user_tag_activities  = activity_items.select{|i| i.item_type == 'UserTag'}
+
+    ActiveRecord::Associations::Preloader.
+      new(vote_activities, [{:item => {:voteable => :tag}}, :target, :user]).run
+
+    ActiveRecord::Associations::Preloader.
+      new(user_tag_activities, [{:item => :tag}, :target, :user]).run
+  end
 end

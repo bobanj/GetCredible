@@ -1,5 +1,6 @@
 - if user
-  - incoming_activities =  user.incoming_activities.includes(:item, :target, :user).limit(5)
+  - incoming_activities =  user.incoming_activities.limit(5)
+  - preload_associations(incoming_activities)
   #latest-activity
     %h2== #{user_short(user)} Activity
     %ul.list-view.unstyled
