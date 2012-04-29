@@ -1,9 +1,9 @@
 class UserMailer < ActionMailer::Base
-  default from: "no-reply@givebrand.to"
+  default from: "GiveBrand <no-reply@givebrand.to>"
 
   def welcome_email(user)
     @user = user
-    mail(to: user.email, subject: "[GiveBrand] Welcome")
+    mail(to: user.email, subject: "[GiveBrand] Welcome to GiveBrand!")
   end
 
   def tag_email(tagger, tagged, tag_names)
