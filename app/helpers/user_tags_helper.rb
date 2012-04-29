@@ -22,7 +22,7 @@ module UserTagsHelper
     {
       id: user_tag.id,
       name: tag.name,
-      voted: viewer && viewer.votes.detect{|vote| vote.voteable_id = user_tag.id} ? true : false,
+      voted: viewer && viewer.votes.detect{|vote| vote.voteable_id == user_tag.id} ? true : false,
       tagged: user_tag.tagger == viewer,
       score: score,
       # TODO: eager load: voted_ranking
