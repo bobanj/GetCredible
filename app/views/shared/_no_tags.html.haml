@@ -3,13 +3,13 @@
 - description = "Check out my profile on GiveBrand #{url}"
 
 %section#no_tags
-  = label_tag :url, "Go ahead share your page to help build your brand!"
+  = label_tag :url, "Don't be shy! Share your brand page now to start getting tagged."
   = text_field_tag :url, url
 
   %div{class: "sharethis"}
     %span{class: 'st_linkedin_large', displayText: 'LinkedIn'}
     %span{class: 'st_facebook_large', displayText: 'Facebook'}
-    %span{class: 'st_twitter_large', displayText: 'Tweet'}
+    %span{class: 'st_twitter_large', st_via: 'givebrand', displayText: 'Tweet'}
     %span{class: 'st_plusone_large', displayText: 'Google +1'}
     %span{class: 'st_email_large', displayText: 'Email'}
     :javascript
