@@ -22,12 +22,12 @@ module UserTagsHelper
       name: tag.name,
       voted: viewer && viewer.votes.detect{|vote| vote.voteable_id = user_tag.id} ? true : false,
       tagged: user_tag.tagger == viewer,
-      score: tag_scores.score(user_tag.id).round + 1,
+      score: tag_scores.score(user_tag.id).round,
       # TODO: eager load: voted_ranking
       total: tag.user_tags_count,
       rank: tag_scores.revrank(user_tag.id) + 1,
       # TODO: eager load: last_voters
-      voters: user_tag.last_voters.map{ |voter|
+      voters: user_tag.last_voters.all.map{ |voter|
         { :name => voter.full_name, avatar: user_avatar_url(voter, :small) } },
       voters_count: user_tag.incoming.value
     }

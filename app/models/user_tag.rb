@@ -7,7 +7,7 @@ class UserTag < ActiveRecord::Base
   has_many :votes, :foreign_key => :voteable_id, :dependent => :destroy
   has_many :activity_items, :as => :item, :dependent => :destroy
   has_many :voters, :through => :votes
-  has_many :last_voters, :through => :votes, :source => :voter, :limit => 5, :order => 'id DESC'
+  has_many :last_voters, :through => :votes, :source => :voter, :order => 'id DESC', :limit => 5
 
   # Validations
   validates :user_id, :presence => true
