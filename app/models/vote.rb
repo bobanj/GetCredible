@@ -5,13 +5,17 @@ class Vote < ActiveRecord::Base
   scope :recent, lambda { |*args| where(["created_at > ?", (args.first || 2.weeks.ago)]) }
   scope :descending, order("created_at DESC")
 
-  # Activities
+  # Associations
   belongs_to :user_tag, :foreign_key => "voteable_id"
   belongs_to :voteable, :class_name => 'UserTag'
   belongs_to :voter, :class_name => 'User'
   has_many :activity_items, :as => :item, :dependent => :destroy
   has_many :voted_users, :through => :user_tag, :source => :user
 
+  # Validations
+  validates_presence_of :voteable_id, :voter_id, :vote
+
+  # Accessible
   attr_accessible :vote, :voter, :voteable, :user
 
   # Callbacks

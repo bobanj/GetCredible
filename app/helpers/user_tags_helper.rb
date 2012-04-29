@@ -16,15 +16,11 @@ module UserTagsHelper
 
   def tag_summary(user_tag, user, viewer)
     tag        = user_tag.tag
-    #rank_index = tag.voted_ranking.index(user)
-    #rank_index ? rank_index + 1 : rank_index
-    #rank_index = tag.user_tags.order("created_at asc, weight desc").index(user_tag)
-    #rank_index = rank_index + 1 if rank_index
     tag_scores = Redis::SortedSet.new("tag:#{tag.id}:scores")
     {
       id: user_tag.id,
       name: tag.name,
-      voted: (viewer && viewer.votes.where('voteable_id = ?', user_tag.id).any?) ? true : false,
+      voted: viewer && viewer.votes.where('voteable_id = ?', user_tag.id).any?,
       tagged: user_tag.tagger == viewer,
       score: tag_scores.score(user_tag.id).round,
       # TODO: eager load: voted_ranking
