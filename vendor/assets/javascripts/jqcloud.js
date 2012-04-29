@@ -108,10 +108,11 @@
                     weight = Math.round((word.weight - word_array[word_array.length - 1].weight) /
                         (word_array[0].weight - word_array[word_array.length - 1].weight) * (options.parts - 1.0)) + 1;
                 }
-                var fontSize = (150.0*(1.0+(1.5*word.weight+4-word_array.length/2)/word_array.length));
-                if(fontSize > 1000){fontSize='300%'} else {fontSize = fontSize + '%'}
-                word_span = $('<span>').attr(word.html).addClass('w' + weight + " " + custom_class).css('font-size', fontSize);
-                //word_span = $('<span>').attr(word.html).addClass('w' + weight + " " + custom_class);
+                //var fontSize = (150.0*(1.0+(1.5*word.weight+4-word_array.length/2)/word_array.length));
+                //if(fontSize > 1000){fontSize='300%'} else {fontSize = fontSize + '%'}
+                //word_span = $('<span>').attr(word.html).addClass('w' + weight + " " + custom_class).css('font-size', fontSize);
+
+                word_span = $('<span>').attr(word.html).addClass('w' + weight + " " + custom_class);
                 if(word.dataAttributes){
                     $.each( word.dataAttributes , function(i,v){ word_span.attr('data-'+i,v); } );
                 }
