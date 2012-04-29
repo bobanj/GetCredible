@@ -23,112 +23,114 @@
 //= require rhinoslider-1.04
 //require_tree .
 
-Array.prototype.unique = function() {
+Array.prototype.unique = function () {
     var o = {}, i, l = this.length, r = [];
-    for(i=0; i<l;i+=1) o[this[i]] = this[i];
-    for(i in o) r.push(o[i]);
+    for (i = 0; i < l; i += 1) o[this[i]] = this[i];
+    for (i in o) r.push(o[i]);
     return r;
 };
 
 
 $(function () {
     $.notyConf = {
-        layout: 'topRight',
-        timeout: 1000
+        layout:'topRight',
+        timeout:1000
     };
 
     $.getCredible = {};
 
     $.getCredible.displayNotification = function (type, text) {
-      noty({
-        text: text,
-        type: type,
-        timeout:$.notyConf.timeout,
-        layout : $.notyConf.layout,
-        onClose: function () {}
-      });
+        noty({
+            text:text,
+            type:type,
+            timeout:$.notyConf.timeout,
+            layout:$.notyConf.layout,
+            onClose:function () {
+            }
+        });
     };
 
     $.getCredible.init = function () {
-      $.getCredible.tagCloudPath = null;
-      $.getCredible.tagCloudLoader = $("#tag-cloud-loader");
-      $.getCredible.tagCloud = $("#tag-cloud");
+        $.getCredible.tagCloudPath = null;
+        $.getCredible.tagCloudLoader = $("#tag-cloud-loader");
+        $.getCredible.tagCloud = $("#tag-cloud");
 
-      if ($('#tagit').length > 0) {
-          $('#tagit').tagit({
-            tagSource: _tags,
-            select: true,
-            triggerKeys: ['comma', 'tab'],
-            maxTags: 10
-          });
-      }
+        var tagit = $('#tagit');
+        if (tagit.length > 0) {
+            tagit.tagit({
+                placeholderText: tagit.data('placeholder'),
+                availableTags: tagit.data('existing-tags'),
+                allowSpaces:true,
+                singleField:true
+            });
+        }
 
-      $("#tag-cloud").delegate(".remove .icon", "click", function () {
-          var word = $(this).parent();
-          noty({
-              text:'Are you sure you want to delete this tag?',
-              layout:'center',
-              type:'alert',
-              buttons:[
-                  {type:'button green', text:'Ok', click:function () {
-                      if ($.getCredible.tagCloud.data('can-delete')) {
-                          $.post($.getCredible.tagCloudPath + '/' + word.data('user-tag-id'), { _method:'delete' }, function (data) {
-                              $.getCredible.renderTagCloud(data);
-                          });
-                      }
-                  } },
-                  {type:'button orange', text:'Cancel', click:function () {
+        $("#tag-cloud").delegate(".remove .icon", "click", function () {
+            var word = $(this).parent();
+            noty({
+                text:'Are you sure you want to delete this tag?',
+                layout:'center',
+                type:'alert',
+                buttons:[
+                    {type:'button green', text:'Ok', click:function () {
+                        if ($.getCredible.tagCloud.data('can-delete')) {
+                            $.post($.getCredible.tagCloudPath + '/' + word.data('user-tag-id'), { _method:'delete' }, function (data) {
+                                $.getCredible.renderTagCloud(data);
+                            });
+                        }
+                    } },
+                    {type:'button orange', text:'Cancel', click:function () {
 
-                  } }
-              ],
-              closable:false,
-              timeout:false
-          });
+                    } }
+                ],
+                closable:false,
+                timeout:false
+            });
 
-      });
+        });
 
-      $("#add-tag form").submit(function (e) {
-          e.preventDefault();
+        $("#add-tag form").submit(function (e) {
+            e.preventDefault();
 
-          // trigger tab event
-          var e = jQuery.Event("keydown");
-          e.which = 9; // tab
-          $(".tagit-input").trigger(e);
+            // trigger tab event
+            var e = jQuery.Event("keydown");
+            e.which = 9; // tab
+            $(".tagit-input").trigger(e);
 
-          var tagitElement = $('#tagit');
+            var tagitElement = $('#tagit');
 
-          var tagNames = [];
-          $.each(tagitElement.tagit('tags'), function (index, element) {
-              tagNames.push(element.value);
-          })
+            var tagNames = [];
+            $.each(tagitElement.tagit('tags'), function (index, element) {
+                tagNames.push(element.value);
+            })
 
-          if (tagNames.length && $.getCredible.tagCloud.length > 0) {
-              // input.val('');
-              tagitElement.tagit('reset');
+            if (tagNames.length && $.getCredible.tagCloud.length > 0) {
+                // input.val('');
+                tagitElement.tagit('removeAll');
 
-              var addTag = function () {
-                if ($.getCredible.tagCloud.data('can-vote')) {
-                  $.post($.getCredible.tagCloud.data('tag-cloud-path'),
-                          {tag_names: tagNames.join(', ')}, function (data) {
-                      $.getCredible.displayNotification('success', 'You have tagged ' + $.getCredible.tagCloud.data('user').full_name + ' with ' + tagNames.join(', '));
-                      $.getCredible.renderTagCloud(data);
-                  });
-                } else {
-                    $.getCredible.displayNotification('error', 'You cannot vote for yourself')
+                var addTag = function () {
+                    if ($.getCredible.tagCloud.data('can-vote')) {
+                        $.post($.getCredible.tagCloud.data('tag-cloud-path'),
+                            {tag_names:tagNames.join(', ')}, function (data) {
+                                $.getCredible.displayNotification('success', 'You have tagged ' + $.getCredible.tagCloud.data('user').full_name + ' with ' + tagNames.join(', '));
+                                $.getCredible.renderTagCloud(data);
+                            });
+                    } else {
+                        $.getCredible.displayNotification('error', 'You cannot vote for yourself')
+                    }
                 }
-              }
 
-              if ($.getCredible.tagCloud.data('logged-in')) {
-                  addTag();
-              } else {
-                  var loginDialog = $('#login_dialog').modal();
-                  $.getCredible.login(loginDialog, function () {
-                      addTag();
-                  })
-              }
-          }
-          return false;
-      });
+                if ($.getCredible.tagCloud.data('logged-in')) {
+                    addTag();
+                } else {
+                    var loginDialog = $('#login_dialog').modal();
+                    $.getCredible.login(loginDialog, function () {
+                        addTag();
+                    })
+                }
+            }
+            return false;
+        });
     }
 
     $.getCredible.vote = function (word) {
@@ -137,8 +139,8 @@ $(function () {
 
         if (typeof(this.tagCloudPath) == 'string') {
             if (word.hasClass('vouche') && word.data('tagged')) {
-              $.getCredible.displayNotification('error', 'You cannot unvouch the tag you have added');
-              return;
+                $.getCredible.displayNotification('error', 'You cannot unvouch the tag you have added');
+                return;
             }
 
             voteToggle = word.hasClass('vouche') ? '/unvote.json' : '/vote.json';
@@ -187,12 +189,12 @@ $(function () {
     };
 
     $.getCredible.voterImages = function (voters) {
-      var votersImages = [];
-      $.each(voters, function(index, voter) {
-        votersImages.push('<img src=' + voter.avatar + ' title=' + voter.name + '/>')
-      })
+        var votersImages = [];
+        $.each(voters, function (index, voter) {
+            votersImages.push('<img src=' + voter.avatar + ' title=' + voter.name + '/>')
+        })
 
-      return votersImages;
+        return votersImages;
     };
 
     $.getCredible.createWordList = function (data, distributionOptions) {
@@ -216,9 +218,9 @@ $(function () {
                 },
                 weight:parseInt((userTag.score - distributionOptions.min) / distributionOptions.divisor),
                 title:userTag.name,
-                dataAttributes: { score: userTag.score, 'user-tag-id': userTag.id,
-                                  rank: userTag.rank, total: userTag.total, tagged: userTag.tagged,
-                                  voters: voters.join(''), voters_count: userTag.voters_count},
+                dataAttributes:{ score:userTag.score, 'user-tag-id':userTag.id,
+                    rank:userTag.rank, total:userTag.total, tagged:userTag.tagged,
+                    voters:voters.join(''), voters_count:userTag.voters_count},
                 handlers:{click:function () {
                     $.getCredible.vote(this);
                 }}
@@ -229,7 +231,7 @@ $(function () {
 
     $.getCredible.distributionOptions = function (data) {
         if (data.length === 0) {
-            return {min: 1, parts: 1, divisor: 1};
+            return {min:1, parts:1, divisor:1};
         }
 
         var min = data[0].score;
@@ -247,13 +249,13 @@ $(function () {
         });
         var uniqVotes = votes.unique().length;
         if (uniqVotes < 5) {
-          var parts = uniqVotes;
+            var parts = uniqVotes;
         } else {
-          var parts = 5;
+            var parts = 5;
         }
         var divisor = (max - min) / parts;
 
-        return {min: min, parts: parts, divisor: divisor};
+        return {min:min, parts:parts, divisor:divisor};
     };
 
 
@@ -265,7 +267,7 @@ $(function () {
         $.getCredible.tagCloud.html('');
         $.getCredible.tagCloud.jQCloud(wordList, {
             nofollow:true,
-            parts: distributionOptions.parts,
+            parts:distributionOptions.parts,
             delayedMode:true,
             callback:function () {
                 $.getCredible.tagCloudLoader.hide('fast');
@@ -281,16 +283,16 @@ $(function () {
                         title:function () {
                             var rank = word.data('rank') ? '#' + word.data('rank') : 'N/A'
                             return '<div class="tag-wrap">' +
-                              '<div class="tag-score">' +
+                                '<div class="tag-score">' +
                                 '<p>score</p>' +
                                 '<p class="tag-big">' + word.data('score') + '</p>' +
                                 '<p class="tag-place">' + rank + ' out of ' + word.data('total') + '</p>' +
-                              '</div>' +
-                              '<div class="tag-votes">' +
+                                '</div>' +
+                                '<div class="tag-votes">' +
                                 '<p>' + word.data('voters_count') + ' people vouched for you' + '</p>' +
                                 '<p>' + word.data('voters') + '</p>' +
-                              '</div>' +
-                            '</div>';
+                                '</div>' +
+                                '</div>';
                         }
                     }).append('<span class="icon"></span>');
                 });
@@ -298,7 +300,7 @@ $(function () {
 
                 // vote callback after login via modal window
                 if (typeof(tagCloudCallback) === 'function') {
-                  tagCloudCallback();
+                    tagCloudCallback();
                 }
             }})
     }
@@ -337,45 +339,45 @@ $(function () {
 
 
     $.getCredible.login = function (loginDialog, tagCloudCallback) {
-      $('#user_sign_in .btn').click(function (e) {
-        e.preventDefault();
-        var form = $(this).parents('form');
+        $('#user_sign_in .btn').click(function (e) {
+            e.preventDefault();
+            var form = $(this).parents('form');
 
-        var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-slug');
-        $.post("/users/sign_in.json", params, function (data) {
-          if (data.success) {
-            $('#global-header').replaceWith(data.header);
-            $('#tags').replaceWith(data.tag_cloud);
-            $.getCredible.init();
-            $.getCredible.updateTagCloud(tagCloudCallback);
-            loginDialog.close();
-          } else {
-            $.each(data.errors, function (index, text) {
-              $.getCredible.displayNotification('error', text);
-            })
-          }
+            var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-slug');
+            $.post("/users/sign_in.json", params, function (data) {
+                if (data.success) {
+                    $('#global-header').replaceWith(data.header);
+                    $('#tags').replaceWith(data.tag_cloud);
+                    $.getCredible.init();
+                    $.getCredible.updateTagCloud(tagCloudCallback);
+                    loginDialog.close();
+                } else {
+                    $.each(data.errors, function (index, text) {
+                        $.getCredible.displayNotification('error', text);
+                    })
+                }
+            });
         });
-      });
 
-      $('#user_sign_up .btn').click(function (e) {
-        e.preventDefault();
-        var form = $(this).parents('form');
+        $('#user_sign_up .btn').click(function (e) {
+            e.preventDefault();
+            var form = $(this).parents('form');
 
-        var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-slug');
-        $.post("/users.json", params, function (data) {
-          if (data.success) {
-            $('#global-header').replaceWith(data.header);
-            $('#tags').replaceWith(data.tag_cloud);
-            $.getCredible.init();
-            $.getCredible.updateTagCloud(tagCloudCallback);
-            loginDialog.close();
-          } else {
-            $.each(data.errors, function (index, text) {
-              $.getCredible.displayNotification('error', text);
-            })
-          }
+            var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-slug');
+            $.post("/users.json", params, function (data) {
+                if (data.success) {
+                    $('#global-header').replaceWith(data.header);
+                    $('#tags').replaceWith(data.tag_cloud);
+                    $.getCredible.init();
+                    $.getCredible.updateTagCloud(tagCloudCallback);
+                    loginDialog.close();
+                } else {
+                    $.each(data.errors, function (index, text) {
+                        $.getCredible.displayNotification('error', text);
+                    })
+                }
+            });
         });
-      });
     };
 
     $('#page').delegate('.js-remote', 'click', function (event) {
@@ -398,7 +400,7 @@ $(function () {
     $.getCredible.init();
     $.getCredible.updateTagCloud();
     $('#slider').rhinoslider({
-        autoPlay: true,
-        showTime: 5000
+        autoPlay:true,
+        showTime:5000
     });
 })

@@ -5,13 +5,13 @@
       - if @user != current_user
         = form_tag user_user_tags_path(@user) do
           //= label_tag :tag_names, "Add Tags"
-          -# = text_field_tag :tag_names, '', :placeholder => 'e.g. web design, leadership (comma separated)', :class => 'large', :id => 'tag_names'
+          -#= text_field_tag :tag_names, '', :id => 'tagit', :'data-existing-tags' => @user.tags.map(&:name), :placeholder => 'e.g. web design, leadership (comma separated)', :class => 'large', :id => 'tag_names'
 
           #tagit_wrapper
-            %ul{id: "tagit", name: "nameOfSelect"}
+            %ul{id: "tagit", name: "nameOfSelect", :'data-existing-tags' => @user.tags.map(&:name), :'data-placeholder' => 'e.g. web design, leadership (comma separated)'}
 
           %button.btn.primary.large Tag 'em!
-        .vouche ... or <strong>click a tag</strong> below to vouch for it yourself!
+        .vouche press Enter when finished ... or <strong>click a tag</strong> below to vouch for it yourself!
     .arrow
   = image_tag "ajax_loader.gif", :id => 'tag-could-loader', :style => "display:none;"
 
