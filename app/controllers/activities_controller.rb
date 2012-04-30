@@ -1,9 +1,12 @@
 class ActivitiesController < ApplicationController
+  include UserTagsHelper
 
   before_filter :authenticate_user!
 
   def show
     @activity_items = load_activity_items
+    preload_associations(@activity_items)
+
     render 'index', layout: (request.xhr? ? false : true)
   end
 

@@ -42,16 +42,16 @@ describe UserTag do
     it "creates a tag when tag_names are multiple tags" do
       UserTag.add_tags(user, tagger, ['development', 'design', 'management'])
       user.tags.length.should == 3
-      user.tags[0].name.should == 'development'
-      user.tags[1].name.should == 'design'
+      user.tags[0].name.should == 'design'
+      user.tags[1].name.should == 'development'
       user.tags[2].name.should == 'management'
     end
 
     it "creates a tag when tag_names are multiple tags with multiple words" do
       UserTag.add_tags(user, tagger, ['web design', 'project management'])
       user.tags.length.should == 2
-      user.tags[0].name.should == 'web design'
-      user.tags[1].name.should == 'project management'
+      user.tags[0].name.should == 'project management'
+      user.tags[1].name.should == 'web design'
     end
 
     it "does not create duplicate tags for a user" do

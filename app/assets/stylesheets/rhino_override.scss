@@ -20,12 +20,18 @@
   img {
     border: 5px solid #fff;
     float: right;
+    margin-top: 15px;
     width: 45%;
   }
 }
 
+.rhino-toggle {
+  left: -65px;
+  top: 40px;
+}
+
 .rhino-prev, .rhino-next {
-  bottom: 140px;
+  bottom: 130px;
 }
 
 .rhino-prev {
@@ -41,7 +47,7 @@
   left: 40px;
   li {
     position: relative;
-    top: -15px;
+    bottom: -25px;
   }
 }
 

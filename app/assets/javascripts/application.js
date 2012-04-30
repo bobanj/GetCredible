@@ -59,7 +59,7 @@ $(function () {
             tagSource: _tags,
             select: true,
             triggerKeys: ['comma', 'tab'],
-            maxTags: 1
+            maxTags: 10
           });
       }
 
@@ -104,7 +104,7 @@ $(function () {
 
           if (tagNames.length && $.getCredible.tagCloud.length > 0) {
               // input.val('');
-              tagitElement.tagit('reset')
+              tagitElement.tagit('reset');
 
               var addTag = function () {
                 if ($.getCredible.tagCloud.data('can-vote')) {
@@ -154,16 +154,15 @@ $(function () {
             if (this.tagCloud.data('can-vote')) {
                 $.post(this.tagCloudPath + '/' + word.data('user-tag-id') + voteToggle, function (data) {
                     if (data.status == 'ok') {
-                        var numVotes = word.data('votes');
                         var user = $.getCredible.tagCloud.data('user');
                         var voters = $.getCredible.voterImages(data.voters);
 
                         word.tipsy("hide");
-                        word.data('votes', data.votes);
+                        word.data('score', data.score);
                         word.data('rank', data.rank);
                         word.data('total', data.total);
                         word.data('voters', voters.join(''));
-                        word.data('voters_count', voters.length);
+                        word.data('voters_count', data.voters_count);
 
                         if (word.hasClass('vouche')) {
                             word.removeClass("vouche").addClass("unvouche");
@@ -215,11 +214,11 @@ $(function () {
                     }
                     return pom;
                 },
-                weight:parseInt((userTag.votes - distributionOptions.min) / distributionOptions.divisor),
+                weight:parseInt((userTag.score - distributionOptions.min) / distributionOptions.divisor),
                 title:userTag.name,
-                dataAttributes: { votes: userTag.votes, 'user-tag-id': userTag.id,
+                dataAttributes: { score: userTag.score, 'user-tag-id': userTag.id,
                                   rank: userTag.rank, total: userTag.total, tagged: userTag.tagged,
-                                  voters: voters.join(''), voters_count: voters.length},
+                                  voters: voters.join(''), voters_count: userTag.voters_count},
                 handlers:{click:function () {
                     $.getCredible.vote(this);
                 }}
@@ -233,17 +232,17 @@ $(function () {
             return {min: 1, parts: 1, divisor: 1};
         }
 
-        var min = data[0].votes;
-        var max = data[0].votes;
+        var min = data[0].score;
+        var max = data[0].score;
         var votes = [];
         var parts;
         $.each(data, function (i, userTag) {
-            votes.push(userTag.votes)
-            if (userTag.votes > max) {
-                max = userTag.votes;
+            votes.push(userTag.score)
+            if (userTag.score > max) {
+                max = userTag.score;
             }
-            if (userTag.votes < min) {
-                min = userTag.votes;
+            if (userTag.score < min) {
+                min = userTag.score;
             }
         });
         var uniqVotes = votes.unique().length;
@@ -284,7 +283,7 @@ $(function () {
                             return '<div class="tag-wrap">' +
                               '<div class="tag-score">' +
                                 '<p>score</p>' +
-                                '<p class="tag-big">' + word.data('votes') + '</p>' +
+                                '<p class="tag-big">' + word.data('score') + '</p>' +
                                 '<p class="tag-place">' + rank + ' out of ' + word.data('total') + '</p>' +
                               '</div>' +
                               '<div class="tag-votes">' +
@@ -398,5 +397,8 @@ $(function () {
     $.getCredible.ajaxPagination();
     $.getCredible.init();
     $.getCredible.updateTagCloud();
-    $('#slider').rhinoslider();
+    $('#slider').rhinoslider({
+        autoPlay: true,
+        showTime: 5000
+    });
 })

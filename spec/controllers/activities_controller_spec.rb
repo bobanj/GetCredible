@@ -13,6 +13,7 @@ describe ActivitiesController do
     before :each do
       sign_in(user)
       controller.stub(:current_user).and_return(user)
+      controller.stub(:preload_associations)
     end
 
     it "can return all activities" do

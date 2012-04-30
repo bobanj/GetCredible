@@ -7,6 +7,7 @@ describe User do
   let(:voter) { Factory(:user) }
   let(:tag) { Factory(:tag) }
   let(:user_tag) { Factory(:user_tag, tag: tag, user: user, tagger: tagger) }
+  let(:user_tag2) { Factory(:user_tag, tag: tag, user: user, tagger: tagger) }
 
   describe "Attributes" do
     it { should allow_mass_assignment_of(:email) }
@@ -149,12 +150,10 @@ describe User do
 
   describe "#outgoing_activities" do
     it "returns outgoing activities" do
-      UserTag.add_tags(user, other_user, ['development'])
-      user_tag = user.user_tags[0]
-      other_user.add_vote(user_tag)
-      vote = user_tag.votes.first
-
-      other_user.activity_items.length.should == 2
+      UserTag.add_tags(user, other_user, ['development']) # logs only tag, not vote
+      user_tag = user.user_tags.first
+      other_user.add_vote(user_tag2) # logs vote
+      vote = user_tag2.votes.last
 
       outgoing_activities = other_user.outgoing_activities
       outgoing_activities.length.should == 2
@@ -165,10 +164,10 @@ describe User do
 
   describe "#incoming_activities" do
     it "returns incoming activities" do
-      UserTag.add_tags(user, other_user, ['development'])
+      UserTag.add_tags(user, other_user, ['development']) # logs only tag, not vote
       user_tag = user.user_tags[0]
-      other_user.add_vote(user_tag)
-      vote = user_tag.votes.first
+      other_user.add_vote(user_tag2) # logs vote
+      vote = user_tag2.votes.first
 
       incoming_activities = user.incoming_activities
       incoming_activities.length.should == 2

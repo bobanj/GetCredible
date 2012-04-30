@@ -1,17 +1,19 @@
 - content_for :meta_tags do
-  %meta{ :property => "og:title", :content => "Help build my brand at givebrand.to!" }
+  %meta{ :property => "og:title", :content => "Help boost my influence at givebrand.to!" }
   %meta{ :property => "og:type", :content => "article" }
   %meta{ :property => "og:url", :content => me_user_url(@user) }
   %meta{ :property => "og:site_name", :content => "Give Brand" }
-  %meta{ :property => "og:description", :content => "Help build my brand at givebrand.to! #{me_user_url(@user)}" }
+  %meta{ :property => "og:description", :content => "Help boost my influence at givebrand.to!" }
   %meta{ :property => "og:image", :content => user_avatar_url(@user) }
 
 :javascript
   var _tags = #{@user.tags.map(&:name)};
 
 #login_dialog{style: "display: none", title: ""}
+  %p.note Almost there! Sign up to join GiveBrand or login to your account.
   = render 'shared/sign_in'
   = render 'shared/sign_up', :resource => User.new, :resource_name => :user
+
 
 #content
   %section#profile
@@ -33,17 +35,17 @@
             = link_to @user.personal_url, @user.personal_url, :target => '_blank'
         - unless @user.twitter_handle.blank?
           %li.twitter
-            %a.twitter-follow-button{"data-show-count" => "false", :href => "https://twitter.com/#{@user.twitter_handle}"}="Follow @#{@user.twitter_handle}"
+            %a.twitter-follow-button{"data-hashtags" => "givebrand", "data-show-count" => "false", :href => "https://twitter.com/#{@user.twitter_handle}"}="Follow @#{@user.twitter_handle}"
             :javascript
               !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
   %ul.social_fixed
     %li
-      %a.twitter-share-button{"data-hashtags" => "givebrand",'data-count' => "vertical", "data-text" => "Help build my brand at givebrand.to! ", "data-via" => "givebrand", :href => "https://twitter.com/share"} Tweet
+      %a.twitter-share-button{'data-count' => "vertical", "data-text" => "Help boost my influence at givebrand.to! #{me_user_url(@user)} #givebrand via @givebrand", :href => "https://twitter.com/share"} Tweet
       :javascript
         !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
     %li
       %script{:src => "//platform.linkedin.com/in.js", :type => "text/javascript"}
-      %script{"data-counter" => "top", :type => "IN/Share"}
+      %script{"data-counter" => "top", "data-url" => me_user_url(@user), :type => "IN/Share"}
 
   = render :partial => 'shared/tag_cloud'
 

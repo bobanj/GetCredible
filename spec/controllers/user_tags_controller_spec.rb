@@ -66,7 +66,7 @@ describe UserTagsController do
       unread_emails_for(other_user.email).size.should == parse_email_count(1)
       open_email(other_user.email)
       current_email.should have_subject("[GiveBrand] You have been tagged!")
-      current_email.should have_content("User tagged you with: developer, designer ")
+      current_email.should have_content("Great news: User added a new tag for you! Here it is: developer, designer")
     end
   end
 
@@ -84,6 +84,7 @@ describe UserTagsController do
       user_tag   = Factory.build(:user_tag, :user => other_user,
                                  :tag => Factory(:tag, name: 'developer'))
       User.stub(:find).and_return(other_user)
+      controller.should_receive(:tag_summary).and_return({})
       other_user.stub_chain(:user_tags, :find).with("1").and_return(user_tag)
 
       user.should_receive(:add_vote).with(user_tag).and_return(true)
@@ -124,6 +125,7 @@ describe UserTagsController do
     it "can remove vote from a user tag" do
       user_tag = Factory.build(:user_tag, tagger: user, tag: tag)
       User.stub(:find).and_return(other_user)
+      controller.should_receive(:tag_summary).and_return({})
       other_user.stub_chain(:user_tags, :find).with("1").and_return(user_tag)
       user.should_receive(:remove_vote).and_return(true)
 

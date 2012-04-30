@@ -2,12 +2,12 @@ class UserTag < ActiveRecord::Base
 
   # Associations
   belongs_to :user
-  belongs_to :tag
+  belongs_to :tag, :counter_cache => true
   belongs_to :tagger, :class_name => 'User'
   has_many :votes, :foreign_key => :voteable_id, :dependent => :destroy
   has_many :activity_items, :as => :item, :dependent => :destroy
   has_many :voters, :through => :votes
-  has_many :last_voters, :through => :votes, :source => :voter, :limit => 5, :order => 'id DESC'
+  has_many :last_voters, :through => :votes, :source => :voter, :order => 'id DESC', :limit => 5
 
   # Validations
   validates :user_id, :presence => true
@@ -48,11 +48,11 @@ class UserTag < ActiveRecord::Base
 
   private
   def calculate_outgoing
-    self.user.votes.joins({:user_tag => :tag}).where("tags.id = ?", tag_id).length
+    self.user.votes.joins({:user_tag => :tag}).where("tags.id = ?", tag_id).count
   end
 
   def calculate_incoming
-    self.votes.length
+    self.votes.count
   end
 
 end

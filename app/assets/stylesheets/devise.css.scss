@@ -38,4 +38,18 @@
       //padding-top: 5px;
     }
   }
+  section.sign_in {
+    margin-right: 60px;
+  }
+  .inputs-list {
+    padding: 0 5px;
+    input[type="checkbox"] {
+      margin: 0 5px 0 0;
+    }
+  }
+  .note {
+    clear: both;
+    color: #404040;
+    margin: 0;
+  }
 }

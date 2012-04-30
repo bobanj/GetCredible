@@ -146,6 +146,7 @@
   .inner {
     @include background-image(linear-gradient(rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.05)));
     @include clearfix;
+    @include box-shadow(rgba(0, 0, 0, 0.03) 0 3px 3px inset);
     border-bottom: 1px solid $borderColor;
   }
 
@@ -176,16 +177,20 @@
     &:-moz-placeholder {
       font-style: italic;
     }
+    
+    &:active, &:focus {
+      border: 1px solid $blue;
+    }
 
   }
   
   button {
-    font-size: 12px;
-    height: 36px;
+    font: bold 18px "gnuolane", georgia, sans-serif;
+    height: 44px;
     padding: 9px 30px 8px;
     position: absolute;
     right: 22px;
-    top: 27px;
+    top: 22px;
   }
 
   .vouche {
@@ -212,6 +217,7 @@ ul.social_fixed {
   top: 115px;
   margin: 0 0 0 -70px;
   padding: 10px 5px 0px 6px;
+  @include box-shadow(rgba(0, 0, 0, 0.2) 0 0 3px inset);
   @include transition(all 0.4s);
   &:hover, &:focus {
     opacity: 1;

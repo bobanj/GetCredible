@@ -31,4 +31,16 @@ describe Tag do
     end
   end
 
+  describe "Counter Cache for user tags" do
+    let(:tag) { Factory(:tag) }
+
+    it "should be increased when a user tag is created" do
+      tag.user_tags_count.should == 0
+      user = Factory(:user)
+      user2 = Factory(:user)
+      Factory(:user_tag, :tag => tag, :tagger => user2, :user => user)
+      tag.reload.user_tags_count.should == 1
+    end
+  end
+
 end
