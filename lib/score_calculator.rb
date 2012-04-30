@@ -55,6 +55,7 @@ class ScoreCalculator
           outgoing = Redis::Value.new("user_tag:#{user_tag_id}:outgoing").value
         end
 
+        outgoing = 1 if outgoing.to_i == 0
         weight = rank.to_f * total_user_tags.to_f * (incoming.to_f / (incoming.to_f + outgoing.to_f))
 
         weight = 1.to_f + weight if weight < 1
