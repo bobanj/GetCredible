@@ -477,7 +477,7 @@ footer {
   //border-right: 1px solid $borderColor;
   //@include border-bottom-radius(3px);
   margin-bottom: 0px;
-
+  position: relative;
   label {
     display: none;
   }
@@ -635,15 +635,6 @@ footer {
   }
 }
 
-#home_index {
-  #content {
-    background: #fff;
-    display: block;
-    float: none;
-    margin: 0 auto;
-  }
-}
-
 #featured {
   text-align: center;
   h1 {
@@ -704,7 +695,7 @@ footer {
   .cloud {
     background: image_url('cloud-top.png') repeat-x bottom center;
     height: 50px;
-    margin: 0 auto;
+    //margin: 0 auto;
     width: 700px;
   }
 }
@@ -714,6 +705,35 @@ footer {
 
   h1 {
     line-height: 1.8;
+  }
+}
+
+.benefits ul {
+  padding: 25px 0 20px 25px;
+  li {
+    margin-bottom: 30px;
+  }
+  h2 {
+    font: normal 24px "gnuolane", serif;
+    @include text-shadow(#fff 0 1px 0);
+  }
+  p {
+    color: #666;
+    font-size: 12px;
+    line-height: 1.5;
+    @include text-shadow(#fff 0 1px 0);
+  }
+}
+
+#twitter {
+  opacity: 0.8;
+  position: absolute;
+  right: -50px;
+  top: 40px;
+  &:hover, &:focus {
+    opacity: 1;
+    right: -55px;
+    @include transition(all .5s);
   }
 }
 
