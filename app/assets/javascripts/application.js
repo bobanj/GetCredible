@@ -399,6 +399,6 @@ $(function () {
     $.getCredible.updateTagCloud();
     $('#slider').rhinoslider({
         autoPlay: true,
-        showTime: 5000
+        showTime: 15000
     });
 })
