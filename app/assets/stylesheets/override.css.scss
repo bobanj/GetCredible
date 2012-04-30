@@ -1,6 +1,12 @@
-
+ul.noty_container {
+  opacity: 0.9;
+  width: 200px;
+  &.topLeft li, &.topRight li {
+    width: 200px; }
+}
 .noty_bar {
   background: none;
+  
 }
 .noty_bar .noty_message {
   padding: 5px 0px;
@@ -8,25 +14,28 @@
 
 .noty_bar.success {
   background: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid $green;
   color: $green;
   font-weight: bold;
+  width: 200px;
   @include border-radius(1px);
   @include box-shadow(#eee 0 0 2px);
 }
 .noty_bar.error {
   background: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid $red;
   color: $red;
   font-weight: bold;
+  width: 200px;
   @include border-radius(1px);
   @include box-shadow(#eee 0 0 2px);
 }
 .noty_bar.alert {
   background: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid $blue;
   color: $blue;
   font-weight: bold;
+  width: 200px;
   @include border-radius(1px);
   @include box-shadow(#eee 0 0 2px);
 }
@@ -34,7 +43,7 @@
 .noty_text {
   margin: 0 20px 0 15px;
   font-weight: normal;
-  font-size: 12px;
+  font-size: 11px;
 }
 
 #tagit_wrapper {
