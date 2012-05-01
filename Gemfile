@@ -28,6 +28,7 @@ gem 'rankable_graph'
 gem 'redis-objects'
 gem 'redis-namespace'
 gem 'rails_config'
+gem 'soulmate'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.2'

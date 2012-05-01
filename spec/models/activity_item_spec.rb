@@ -14,4 +14,11 @@ describe ActivityItem do
     it { should have_db_column(:item_type) }
     it { should have_db_column(:target_id) }
   end
+
+  describe 'Validations' do
+    subject { Factory(:activity_item) }
+    it { should validate_presence_of(:item_id) }
+    it { should validate_presence_of(:item_type) }
+    it { should validate_presence_of(:user_id) }
+  end
 end

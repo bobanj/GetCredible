@@ -11,7 +11,6 @@
  *= require tipsy
  *= require_self
  *= require simplemodal
- *= require tagit-simple-blue
  *
 */
 
@@ -827,3 +826,4 @@ footer {
 @import "override";
 @import "rhinoslider";
 @import "rhino_override";
+@import "tokeninput_facebook";
