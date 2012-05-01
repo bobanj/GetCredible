@@ -37,7 +37,7 @@ class Tag < ActiveRecord::Base
 
   def load_into_soulmate
     loader = Soulmate::Loader.new("tag")
-    loader.add("term" => name, "id" => id)
+    loader.add("term" => name, "id" => id, "score" => user_tags_count)
   end
 
   def unload_from_soulmate
