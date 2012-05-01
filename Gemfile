@@ -48,6 +48,7 @@ group :development do
   gem 'hirb'
   gem 'rails3-generators'
   gem 'wirble'
+  gem 'quiet_assets'
 end
 
 group :test do
