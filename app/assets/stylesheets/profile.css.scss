@@ -177,11 +177,6 @@
     &:-moz-placeholder {
       font-style: italic;
     }
-    
-    &:active, &:focus {
-      border: 1px solid $blue;
-    }
-
   }
   
   button {

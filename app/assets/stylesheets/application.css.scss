@@ -579,9 +579,6 @@ footer {
     @include border-radius(1px);
     width: 215px;
     @include clearfix;
-    &:active, &:focus {
-      border-color: $blue;
-    }
   }
 
   input {
