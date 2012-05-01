@@ -208,7 +208,14 @@
             })
             .blur(function () {
                 hide_dropdown();
-                $(this).val("");
+                var trimmed = $.trim($(this).val());
+                if(trimmed != ''){
+                    var pom = {};
+                    pom[settings.propertyToSearch] = trimmed;
+                    add_token(pom);
+                } else {
+                    $(this).val("");
+                }
                 token_list.removeClass(settings.classes.focused);
             })
             .bind("keyup keydown blur update", resize_input)
