@@ -5,9 +5,13 @@ class ActivitiesController < ApplicationController
 
   def show
     @activity_items = load_activity_items
-    preload_associations(@activity_items)
 
-    render 'index', layout: (request.xhr? ? false : true)
+    if @activity_items.present?
+      preload_associations(@activity_items)
+      render 'index', layout: (request.xhr? ? false : true)
+    else
+      redirect_to tour_url
+    end
   end
 
   private

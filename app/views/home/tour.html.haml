@@ -1,0 +1,26 @@
+- content_for :scripts do
+  :javascript
+    $(window).load(function() {
+      $(this).joyride();
+    });
+
+%div
+  %h2#numero1 Slide 1
+  %p Lorem text.
+%div
+  %h2#numero2 Slide 2
+  %p Lorem text.
+%div
+  %h2#numero3 Slide 3
+  %p Lorem text.
+
+%ol#joyRideTipContent
+  %li.custom{"data-id" => "numero1", "data-text" => "Next"}
+    %h2 Stop #1
+    %p desc.
+  %li{"data-id" => "numero2", "data-options" => "tipLocation:top;tipAnimation:fade", "data-text" => "Next"}
+    %h2 Stop #2
+    %p desc.
+  %li{"data-id" => "numero3", "data-text" => "Close"}
+    %h2 Stop #3
+    %p desc.
