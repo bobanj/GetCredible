@@ -1,5 +1,5 @@
 %p Hello #{@voted.full_name}!
 
-%p #{@voter.full_name} vouched for #{@tag_name}.
+%p #{link_to @voter.full_name, me_user_url(@voter)} vouched for #{@tag_name}.
 
-%p= link_to "http://givebrand.to/", "http://givebrand.to/"
+= render 'signature'

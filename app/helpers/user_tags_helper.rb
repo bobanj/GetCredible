@@ -25,7 +25,6 @@ module UserTagsHelper
       voted: viewer && viewer.votes.detect{|vote| vote.voteable_id == user_tag.id} ? true : false,
       tagged: user_tag.tagger == viewer,
       score: score,
-      # TODO: eager load: voted_ranking
       total: tag.user_tags_count,
       rank: tag_scores.revrank(user_tag.id) + 1,
       # TODO: eager load: last_voters

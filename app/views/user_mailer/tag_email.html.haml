@@ -1,6 +1,6 @@
 %p Hey, #{@tagged.full_name}.
 
-%p Great news: #{@tagger.full_name} added a new tag for you! Here it is: #{@tag_names.join(', ')}
+%p Great news: #{link_to @tagger.full_name, me_user_url(@tagger)} added a new tag for you! Here it is: #{@tag_names.join(', ')}
 
 %p Love it? We're humbled just to know you. Rock on!
 
@@ -8,5 +8,4 @@
 
 %p Won't you consider paying it forward? Keep the love flowing... tag one of your contacts. Have a great day!
 
-%br
-%p The GiveBrand team
+= render 'signature'
