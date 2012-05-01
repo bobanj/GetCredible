@@ -34,16 +34,15 @@
 
   h1 {
     color: $blue;
-    line-height: 1.8;
+    font-size: 30px;
+    line-height: 1.4;
     margin-top: 10px;
     margin-bottom: 0px;
   }
 
   h2 {
     color: #888;
-    font-size: 16px;
-    font-weight: normal;
-    line-height: $baseline / 2;
+    font: normal 16px/1.6 museo, arial, sans-serif;
     margin-bottom: $baseline;
   }
   .left {
@@ -180,7 +179,7 @@
   }
   
   button {
-    font: bold 18px "gnuolane", georgia, sans-serif;
+    font: bold 18px "gnuolane", sans-serif;
     height: 42px;
     padding: 9px 30px 8px;
     position: absolute;
@@ -232,20 +231,22 @@ ul.social_fixed {
   label {
     display: block;
     float: none;
-    margin: 30px auto 10px;
+    font: 20px "gnuolane", sans-serif;
+    margin: 20px auto 5px;
     text-align: center;
     width: auto;
   }
 
   #url {
     display: block;
-    height: 20px;
-    margin: 20px auto 20px;
-    width: 290px;
+    height: 24px;
+    margin: 10px auto;
+    width: 400px;
   }
 
   .sharethis {
     margin: 10px auto 30px;
+    text-align: center;
     width: 305px;
   }
 }
