@@ -37,7 +37,7 @@
   float: left;
   height: 86px !important;
   max-width: 100px;
-  padding: 2px 0 0;
+  padding: 2px 0 2px;
   position: relative;
   width: 28%;
   @include border-left-radius(3px);
@@ -53,9 +53,9 @@
 .tag-big {
   color: #fff;
   font-family: gnuolane;
-  font-size: 42px !important;
+  font-size: 40px !important;
   font-weight: normal !important;
-  padding: 1px;
+  padding: 2px;
 }
 .tag-place {
   background: #222;
@@ -75,10 +75,10 @@
   float: left;
   max-width: 200px;
   //padding: 5px 2% 5px 5%;
-  padding: 2%;
+  padding: 5px 3%;
   text-align: left;
   //width: 64%;
-  width: 68%;
+  width: 66%;
   @include border-right-radius(3px);
   @include box-shadow(rgba(0, 0, 0, 0.05) 0 0 3px);
   p {

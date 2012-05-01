@@ -15,109 +15,67 @@ ul.noty_container {
 .noty_bar.success {
   background: #fff;
   border: 1px solid $green;
-  color: $green;
-  font-weight: bold;
+  color: $green - #111;
   width: 200px;
   @include border-radius(1px);
-  @include box-shadow(#eee 0 0 2px);
+  @include box-shadow(rgba(0, 0, 0, 0.1) 0 0 2px);
 }
 .noty_bar.error {
   background: #fff;
   border: 1px solid $red;
   color: $red;
-  font-weight: bold;
   width: 200px;
   @include border-radius(1px);
-  @include box-shadow(#eee 0 0 2px);
+  @include box-shadow(rgba(0, 0, 0, 0.1) 0 0 2px);
 }
 .noty_bar.alert {
   background: #fff;
   border: 1px solid $blue;
   color: $blue;
-  font-weight: bold;
   width: 200px;
   @include border-radius(1px);
-  @include box-shadow(#eee 0 0 2px);
+  @include box-shadow(rgba(0, 0, 0, 0.1) 0 0 2px);
 }
 
 .noty_text {
   margin: 0 20px 0 15px;
-  font-weight: normal;
+  font-weight: bold;
   font-size: 11px;
+  line-height: 1.4;
 }
-
-#tagit_wrapper {
-  //float: left;
-  margin-right: 5px;
-  width: 75%;
-
-  ul.tagit {
-    border: 1px solid #ccc;
-    margin-left: 5px;
-    margin-bottom: 7px;
-
-    input[type="text"] {
-      box-shadow: none;
-    }
-
-    input[type="text"]:focus {
-      box-shadow: none;
-    }
-  }
-  .ui-autocomplete {
-    border: 1px solid #ccc;
-    border-top: none;
-    top: 41px !important;
-    @include border-bottom-radius(5px);
-    @include box-shadow(#e9e9e9 0 1px 2px);
-    
-    .ui-menu-item {
-      background: #fff;
-      border-right: 1px solid #e9e9e9;
-      &:first-child, &:first-child a {
-        @include border-bottom-left-radius(5px);
-      }
-      &:last-child, &:last-child a {
-        border-right: none;
-        @include border-bottom-right-radius(5px);
-      }
-      
-      a {
-        border-top: #ddd;
-        color: $blue;
-        padding: 6px 9px;
-        &:hover, &:focus {
-          background: #555;
-          color: #fff;
-        }
-      }
-    }  
-  } 
+ul.token-input-list-facebook {
+  height: 35px !important;
 }
-
-ul.tagit {
-  padding: 5px 3px 5px 7px !important;
-  @include box-shadow(#ddd 0 0 3px inset);
-}
-
-ul.tagit li.tagit-choice {
-  background: #137AC2 !important;
-  border: none !important;
+li.token-input-token-facebook {
+  background: $blue;
+  border: 1px solid $blue;
   color: #fff;
   font-size: 12px;
-  line-height: 1.7;
-  padding: 5px 25px 4px 9px !important;
+  padding-left: 10px;
   @include border-radius(2px);
 }
-ul.tagit li.tagit-choice a.tagit-close {
-  background: image_url('icon-close.png') no-repeat center;
-  color: #ddd !important;
-  height: 12px;
-  line-height: 1;
-  margin: 8px 4px 0 0;
-  padding: 0 !important;
-  text-indent: -99999px;
-  width: 12px;
-  @include text-shadow(rgba(0, 0, 0, 0.3) 0 1px 0 !important);
-  @include border-radius(10px);
+.token-input-dropdown-facebook {
+  border-top: 1px solid #eee;
+  width: 373px !important;
+  p {
+    font-size: 11px;
+    font-weight: normal;
+    padding: 3px 5px;
+  }
+}
+#simplemodal-container .simplemodal-data {
+  
+  .note {
+    background: $blue;
+    color: #fff;
+    margin-bottom: 20px;
+    padding: 10px 5px;
+    text-align: center;
+  }
+  #page-header {
+    padding-left: 5px;
+  }
+  .buttons_left {
+    margin: 0;
+  }
 }

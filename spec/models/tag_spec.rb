@@ -18,6 +18,13 @@ describe Tag do
     it { should have_many(:voted_ranking) }
   end
 
+  describe 'Create' do
+    let(:tag) { Factory(:tag) }
+    it "loads into soulmate for autocomplete after save" do
+      Tag.search(tag.name).should_not be_empty
+    end
+  end
+
   describe 'Destroy' do
     it "removes user tags and votes after deletion" do
       user  = Factory(:user)
@@ -28,6 +35,12 @@ describe Tag do
       tag = Tag.find_by_name 'design'
       tag.destroy
       Vote.count.should == 0
+    end
+
+    it "is unloaded from soulmate after destroy" do
+      tag  = Factory(:tag)
+      tag = tag.destroy
+      Tag.search(tag.name).detect{|t| t["id"] == tag.id && t["term"] == tag.name}.should be_nil
     end
   end
 

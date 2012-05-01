@@ -24,26 +24,27 @@
     display: inline-block;
     font-family: gnuolane;
     padding: 0 20px 0 0;
+    text-transform: uppercase;
 
     &.w5 {
       font-size: 50px;
-      color: #16193B;
+      color: #222;
     }
     &.w4 {
       font-size: 42px;
-      color: #35478C;
+      color: #555;
     }
     &.w3 {
       font-size: 32px;
-      color: #4E7AC7;
+      color: $blue;
     }
     &.w2 {
       font-size: 24px;
-      color: #7FB2F0;
+      color: $blue + #222;
     }
     &.w1 {
       font-size: 18px;
-      color: #ADD5F7;
+      color: $blue + #444;
     }
   }
 

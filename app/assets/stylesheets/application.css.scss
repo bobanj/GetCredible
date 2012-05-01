@@ -11,7 +11,6 @@
  *= require tipsy
  *= require_self
  *= require simplemodal
- *= require tagit-simple-blue
  *
 */
 
@@ -854,6 +853,7 @@ footer {
 @import "tag_cloud";
 @import "tipsy_custom";
 @import "pagination";
-@import "override";
 @import "rhinoslider";
 @import "rhino_override";
+@import "tokeninput_facebook";
+@import "override";

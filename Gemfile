@@ -28,6 +28,7 @@ gem 'rankable_graph'
 gem 'redis-objects'
 gem 'redis-namespace'
 gem 'rails_config'
+gem 'soulmate'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.2'
@@ -47,6 +48,7 @@ group :development do
   gem 'hirb'
   gem 'rails3-generators'
   gem 'wirble'
+  gem 'quiet_assets'
 end
 
 group :test do

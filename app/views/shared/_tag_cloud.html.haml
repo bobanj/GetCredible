@@ -4,11 +4,7 @@
     .inner{:class => (@user == current_user) ? "cannot_tag" : nil}
       - if @user != current_user
         = form_tag user_user_tags_path(@user) do
-          //= label_tag :tag_names, "Add Tags"
-          -# = text_field_tag :tag_names, '', :placeholder => 'e.g. web design, leadership (comma separated)', :class => 'large', :id => 'tag_names'
-
-          #tagit_wrapper
-            %ul{id: "tagit", name: "nameOfSelect"}
+          = text_field_tag :tag_names, '', :placeholder => 'e.g. web design, leadership (comma separated)', :class => 'large', :id => 'tag_names'
 
           %button.btn.primary.large Tag 'em!
         .vouche ... or <strong>click a tag</strong> below to vouch for it yourself!

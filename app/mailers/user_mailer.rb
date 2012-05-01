@@ -10,7 +10,7 @@ class UserMailer < ActionMailer::Base
     @tagger    = tagger
     @tagged    = tagged
     @tag_names = tag_names
-    mail(to: tagged.email, subject: "You have been tagged!")
+    mail(to: tagged.email, subject: "Tagged... You're it!")
   end
 
   def vote_email(voter, voted, tag_name)
