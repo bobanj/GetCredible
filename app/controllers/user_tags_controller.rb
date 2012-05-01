@@ -12,7 +12,6 @@ class UserTagsController < ApplicationController
     if current_user != @user
       tag_names = TagCleaner.clean(params[:tag_names])
       UserTag.add_tags(@user, current_user, tag_names)
-      UserMailer.tag_email(current_user, @user, tag_names).deliver
     end
 
     render json: tags_summary(@user, current_user)
@@ -22,7 +21,6 @@ class UserTagsController < ApplicationController
     user_tag = @user.user_tags.find(params[:id])
     vote = current_user.add_vote(user_tag)
     if vote
-      # UserMailer.vote_email(current_user, @user, user_tag.tag.name).deliver
       render json: tag_summary(user_tag, @user, current_user).merge({:status => 'ok'}).to_json
     else
       render json: {status: 'error'}.to_json

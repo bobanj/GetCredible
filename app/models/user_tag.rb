@@ -26,6 +26,8 @@ class UserTag < ActiveRecord::Base
 
   def self.add_tags(user, tagger, tag_names)
     user_tags = user.user_tags
+    new_tags  = []
+
     tag_names.each do |tag_name|
       tag = Tag.find_or_create_by_name(tag_name)
       user_tag = user_tags.detect{ |user_tag| user_tag.tag_id == tag.id }
@@ -34,6 +36,7 @@ class UserTag < ActiveRecord::Base
         # just add vote if tag already exists
         tagger.add_vote(user_tag)
       else
+        new_tags << tag.name
         user_tag = user.user_tags.new
         user_tag.tag = tag
         user_tag.tagger = tagger
@@ -44,6 +47,9 @@ class UserTag < ActiveRecord::Base
         tagger.add_vote(user_tag, false)
       end
     end
+
+    # email user with the new tags
+    UserMailer.tag_email(tagger, user, new_tags).deliver if new_tags.present?
   end
 
   private
