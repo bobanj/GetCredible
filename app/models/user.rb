@@ -31,6 +31,10 @@ class User < ActiveRecord::Base
 
   # Validations
   validates :full_name, :presence => true, :format => {:with => /^[\w\s-]*$/}
+  validates :personal_url, :url_format => true, :allow_blank => true
+
+  # Callbacks
+  before_validation :add_protocol_to_personal_url
 
   def short_name
     full_name.to_s.split(' ').first
@@ -144,5 +148,11 @@ class User < ActiveRecord::Base
   private
     def email_required?
       authentications.blank?
+    end
+
+    def add_protocol_to_personal_url
+      if personal_url.present? && personal_url !~ /http/
+        self.personal_url = 'http://' + personal_url
+      end
     end
 end

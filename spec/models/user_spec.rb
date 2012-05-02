@@ -41,6 +41,31 @@ describe User do
 
   describe "Validations" do
     it { should validate_presence_of(:full_name) }
+
+    it "validates format of personal_url when not blank" do
+      user = Factory.build(:user, :personal_url => 'test')
+      user.should_not be_valid
+      user.errors[:personal_url].should include("is not a valid url")
+    end
+
+    it "does not validate format of personal_url when blank" do
+      user = Factory.build(:user, :personal_url => '')
+      user.should be_valid
+    end
+  end
+
+  describe "Callbacks" do
+    it "adds protocol to personal_url when it doesn not have protocol" do
+      user = Factory.build(:user, :personal_url => 'givebrand.to')
+      user.valid?.should be_true
+      user.personal_url.should == 'http://givebrand.to'
+    end
+
+    it "does not add protocol to personal_url when it has protocol" do
+      user = Factory.build(:user, :personal_url => 'http://givebrand.to')
+      user.valid?.should be_true
+      user.personal_url.should == 'http://givebrand.to'
+    end
   end
 
   describe "#add_vote" do
