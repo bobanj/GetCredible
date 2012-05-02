@@ -2,32 +2,45 @@
   //%h1 Lorem Ipsum Dolor Sit Amet
   //%h2 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
   //= link_to "Sign up now for free!", new_user_registration_path, :class => "big-signup"
+  
+  %h1 A new brand of influence
+  %h2 Let the people who know you best tell the rest of the world what you do best.
+  .easy-signup
+    = simple_form_for(User.new, :as => :user, :url => registration_path(:user)) do |f|
+      %ul
+        %li= f.input :full_name, :required => false, :autofocus => true, :placeholder => "Full Name", :label => false
+        %li= f.input :email, :placeholder => "Email", :label => false
+        %li= f.input :password, :placeholder => "Password", :label => false
+        %li.buttons= f.button :submit, "Sign up now for free", class: 'btn large primary'
 
-  %ul#slider.unstyled{:style => "height:200px"}
+  %br
+  
+  -#%ul#slider.unstyled{:style => "height:200px"}
+  %ul#explain.unstyled.slim
     %li
-      = image_tag 'screen.png'
-      %h1 Spread some love
+      = image_tag 'screen1.png'
+      %h3 Spread some love
       %p Assign influence tags to your contacts — or build them up by vouching for a tag they've already been given — then keep an eye on their burgeoning empires as more people pitch in to tag them.
-      = link_to "Sign up now for free!", new_user_registration_path, :class => "big-signup left"
+      -#= link_to "Sign up now for free!", new_user_registration_path, :class => "big-signup left"
     %li
-      = image_tag 'screen.png'
-      %h1 Get tagged back
-      %p Keep doing what you do best…and share your GiveBrand page throughout your social networks. Start building that tag cloud — it grows and morphs as you add to it — and watch your own personal brand start to blow up.
-      = link_to "Sign up now for free!", new_user_registration_path, :class => "big-signup left"
+      = image_tag 'screen2.png'
+      %h3 Get tagged back
+      %p Keep doing what you do best…and share your GiveBrand page throughout your social networks. Start building that tag cloud, and watch your own personal brand start to blow up.
+      -#= link_to "Sign up now for free!", new_user_registration_path, :class => "big-signup left"
     %li
-      = image_tag 'screen.png'
-      %h1 Get cred... organically
+      = image_tag 'screen3.png'
+      %h3 Get cred... organically
       %p GiveBrand doesn't use some mysterious algorithm. Our formula's simple: The more you've been tagged, the bigger your influence (you rock star, you).
-      = link_to "Sign up now for free!", new_user_registration_path, :class => "big-signup left"
+      -#= link_to "Sign up now for free!", new_user_registration_path, :class => "big-signup left"
     %li
-      = image_tag 'screen.png'
-      %h1 Use your Midas touch
+      = image_tag 'screen4.png'
+      %h3 Use your Midas touch
       %p Want to tag someone else as influential in a category you're already dominating? Everything you touch turns to gold! Your tag means that much more as a top dog.
-      = link_to "Sign up now for free!", new_user_registration_path, :class => "big-signup left"
+      -#= link_to "Sign up now for free!", new_user_registration_path, :class => "big-signup left"
 
-  .cloud
+  -#.cloud
 
-#content
+#content.center
   %section#activity
     %header#page-header
       %h1 Recent Activities
@@ -47,7 +60,7 @@
 
     -#= will_paginate @activity_items
 
-%aside.benefits
+-# %aside.benefits
   -# %ul.unstyled.slim
   -#   %li
   -#     //= image_tag 'info.png'

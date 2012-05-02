@@ -620,6 +620,11 @@ footer {
   @include border-radius(3px);
   border-right: 1px solid #eee;
   min-height: 200px;
+  &.center {
+    display: block;
+    float: none;
+    margin: 0 auto;
+  }
 }
 
 .inner-page {
@@ -644,34 +649,54 @@ footer {
   margin-top: 25px;
   text-align: center;
   h1 {
-    font-size: 58px;
+    font-size: 80px;
     font-weight: bold;
-    margin-top: 40px;
+    margin-top: 60px;
     margin-bottom: 20px;
   }
   h2 {
     color: #777;
     font-family: gnuolane;
-    font-size: 24px;
+    font-size: 32px;
     line-height: 1.5;
   }
   h3 {
     color: $blue;
-    font: 18px "gnuolane";
+    font: bold 24px "gnuolane";
     line-height: 1.5;
     margin-bottom: 4px;
+  }
+  .easy-signup {
+    background: #e9e9e9;
+    border: 1px solid #ddd;
+    margin: 20px auto 10px;
+    width: 900px;
+    @include pie-clearfix;
+    ul {
+      margin: 0;
+    }
+    li {
+      position: relative;
+      top: 3px;
+      &:last-child {
+        right: -2px;
+        top: 0px;
+      }
+    }
+    input[type=submit] {
+      width: 210px;
+    }
   }
   .big-signup {
     background: $blue;
     color: #fff;
-    display: inline-block;
-    float: left;
+    display: block;
     font: 20px "gnuolane", georgia, sans-serif;
-    margin: 15px 0 20px;
+    margin: 15px auto 20px;
     opacity: 0.9;
     padding: 12px 5%;
     text-align: center;
-    width: 25%;
+    width: 55%;
     @include border-radius(3px);
     @include box-shadow(rgba(0, 0, 0, 0.1) 0 2px 3px inset, rgba(0, 0, 0, 0.2) 0 1px 3px);
     @include transition(all .4s);
@@ -682,18 +707,15 @@ footer {
     }
   }
   ul.slim {
-    border-top: 1px solid #fff;
-    padding-top: 30px;
-    @include pie-clearfix;
-    @include radial-gradient(color-stops(rgba(0, 0, 0, 0.015), rgba(0, 0, 0, 0)), top center);
+    padding: 0 5%;
   }
   li {
     display: inline;
     float: left;
-    margin: 0 2%;
-    width: 21%;
+    margin: 0 1.5%;
+    width: 22%;
     p {
-      font: 12px museo;
+      font-size: 12px;
       line-height: 1.5;
     }
   }
@@ -703,6 +725,25 @@ footer {
     //margin: 0 auto;
     width: 700px;
   }
+  img {
+    border: 4px solid #fff;
+    margin-bottom: 10px;
+    position: relative;
+    width: 150px;
+    z-index: 2;
+    @include border-radius(100px);
+  }
+}
+
+#divider {
+  background: #fff;
+  height: 2px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 460px;
+  width: 100%;
+  z-index: 1;
 }
 
 #page-header {
