@@ -19,6 +19,9 @@ class UserTag < ActiveRecord::Base
   value :outgoing
   value :incoming
 
+  # Callbacks
+  after_destroy :remove_from_redis
+
   def update_counters
     self.incoming.value = calculate_incoming
     self.outgoing.value = calculate_outgoing
@@ -59,6 +62,12 @@ class UserTag < ActiveRecord::Base
 
   def calculate_incoming
     self.votes.count
+  end
+
+  def remove_from_redis
+    Redis::SortedSet.new("tag:#{tag_id}:scores").delete(id)
+    Redis::Value.new("user_tag:#{id}:incoming").delete
+    Redis::Value.new("user_tag:#{id}:outgoing").delete
   end
 
 end
