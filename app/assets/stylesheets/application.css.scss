@@ -734,18 +734,19 @@ footer {
     z-index: 2;
     @include border-radius(100px);
   }
+  #divider {
+    background: #fff;
+    height: 2px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 460px;
+    width: 100%;
+    z-index: 1;
+  }
 }
 
-#divider {
-  background: #fff;
-  height: 2px;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 460px;
-  width: 100%;
-  z-index: 1;
-}
+
 
 #page-header {
   border-bottom: 1px solid #eee;
