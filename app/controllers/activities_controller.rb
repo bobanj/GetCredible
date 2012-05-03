@@ -4,9 +4,9 @@ class ActivitiesController < ApplicationController
   before_filter :authenticate_user!
 
   def show
-    @activity_items = load_activity_items
 
-    if @activity_items.present?
+    if current_user.user_tags.exists?
+      @activity_items = load_activity_items
       preload_associations(@activity_items)
       render 'index', layout: (request.xhr? ? false : true)
     else

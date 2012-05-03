@@ -12,6 +12,7 @@ describe ActivitiesController do
   describe "#show" do
     before :each do
       sign_in(user)
+      user.stub_chain(:user_tags, :exists?).and_return(true)
       controller.stub(:current_user).and_return(user)
       controller.stub(:preload_associations)
     end
