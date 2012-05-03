@@ -138,7 +138,7 @@ $(function () {
 
             voteToggle = word.hasClass('vouche') ? '/unvote.json' : '/vote.json';
             if (this.tagCloud.data('logged-in') == false) {
-                $("#user_tag_vote").val(word.data('user-tag-id'));
+                $("#word_id_after_login").val(word.attr('id'));
                 $.getCredible.modalApi = $('#login_dialog').modal();
                 return;
             }
@@ -321,18 +321,31 @@ $(function () {
         }
     }
 
+    $.getCredible.addTagOrVoteAfterLogin = function(){
+        if($("#tag_names").val() != ''){
+            $("#add-tag form").submit();
+        }
+        if($('#word_id_after_login').val() != ''){
+            $.getCredible.vote($('#word_id_after_login').val());
+            $('#word_id_after_login').val('');
+        }
+    }
+
     $('#user_sign_in .btn').click(function (e) {
         e.preventDefault();
         var form = $(this).parents('form');
 
-        var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-slug') + '&tag_names=' + $("#tag_names").val() + '&user_tag_vote=' + $('#user_tag_vote').val();
+        var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-slug');
         $.post("/users/sign_in.json", params, function (data) {
             if (data.success) {
                 $('#global-header').replaceWith(data.header);
                 $('#tags').replaceWith(data.tag_cloud);
                 $.getCredible.init();
                 $.getCredible.updateTagCloud();
+                $.getCredible.addTagOrVoteAfterLogin();
                 $.getCredible.modalApi.close();
+
+
             } else {
                 $.each(data.errors, function (index, text) {
                     $.getCredible.displayNotification('error', text);
@@ -345,13 +358,14 @@ $(function () {
         e.preventDefault();
         var form = $(this).parents('form');
 
-        var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-slug') + '&tag_names=' + $("#tag_names").val() + '&user_tag_vote=' + $('#user_tag_vote').val();
+        var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-slug');
         $.post("/users.json", params, function (data) {
             if (data.success) {
                 $('#global-header').replaceWith(data.header);
                 $('#tags').replaceWith(data.tag_cloud);
                 $.getCredible.init();
                 $.getCredible.updateTagCloud();
+                $.getCredible.addTagOrVoteAfterLogin();
                 $.getCredible.modalApi.close();
             } else {
                 $.each(data.errors, function (index, text) {

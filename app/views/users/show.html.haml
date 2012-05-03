@@ -10,7 +10,7 @@
   %p.note Almost there! Sign up to join GiveBrand or login to your account.
   = render 'shared/sign_in'
   = render 'shared/sign_up', :resource => User.new, :resource_name => :user
-  = hidden_field_tag :user_tag_vote
+  = hidden_field_tag :word_id_after_login
 
 #content
   %section#profile
