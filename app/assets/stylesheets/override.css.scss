@@ -43,9 +43,7 @@ ul.noty_container {
   font-size: 11px;
   line-height: 1.4;
 }
-ul.token-input-list-facebook {
-  height: 35px !important;
-}
+
 li.token-input-token-facebook {
   background: $blue;
   border: 1px solid $blue;
@@ -54,6 +52,7 @@ li.token-input-token-facebook {
   padding-left: 10px;
   @include border-radius(2px);
 }
+
 .token-input-dropdown-facebook {
   width: 373px !important;
   p {

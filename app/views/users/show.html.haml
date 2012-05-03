@@ -6,14 +6,11 @@
   %meta{ :property => "og:description", :content => "Help boost my influence at givebrand.to!" }
   %meta{ :property => "og:image", :content => user_avatar_url(@user) }
 
-:javascript
-  var _tags = #{@user.tags.map(&:name)};
-
 #login_dialog{style: "display: none", title: ""}
   %p.note Almost there! Sign up to join GiveBrand or login to your account.
   = render 'shared/sign_in'
   = render 'shared/sign_up', :resource => User.new, :resource_name => :user
-
+  = hidden_field_tag :user_tag_vote
 
 #content
   %section#profile
