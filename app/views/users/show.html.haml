@@ -11,6 +11,7 @@
   = render 'shared/sign_in'
   = render 'shared/sign_up', :resource => User.new, :resource_name => :user
   = hidden_field_tag :word_id_after_login
+  = hidden_field_tag :tag_names_after_login
 
 #content
   %section#profile

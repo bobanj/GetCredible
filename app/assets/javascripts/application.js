@@ -56,16 +56,16 @@ $(function () {
         $.getCredible.tagCloud = $("#tag-cloud");
 
         var tagNamesTextField = $("#tag_names");
-        if(tagNamesTextField.length > 0){
+        if (tagNamesTextField.length > 0) {
             tagNamesTextField.tokenInput("/tags/search", {
-                method: 'POST',
+                method:'POST',
                 queryParam:'term',
                 propertyToSearch:'term',
                 tokenValue:'term',
                 crossDomain:false,
                 theme:"facebook",
-                hintText: 'e.g. web design, leadership (comma separated)',
-                minChars: 2
+                hintText:'e.g. web design, leadership (comma separated)',
+                minChars:2
             });
         }
 
@@ -97,7 +97,7 @@ $(function () {
             e.preventDefault();
             var form = $(this);
             var tagNames = $("#tag_names");
-            if(tagNames.length > 0){
+            if (tagNames.length > 0) {
                 tagNames = tagNames.val();
             } else {
                 tagNames = ''
@@ -119,6 +119,7 @@ $(function () {
                 if ($.getCredible.tagCloud.data('logged-in')) {
                     addTag();
                 } else {
+                    $("#tag_names_after_login").val($("#tag_names").val());
                     $.getCredible.modalApi = $('#login_dialog').modal();
                 }
             }
@@ -129,7 +130,6 @@ $(function () {
     $.getCredible.vote = function (word) {
         var word = $(word);
         var voteToggle;
-
         if (typeof(this.tagCloudPath) == 'string') {
             if (word.hasClass('vouche') && word.data('tagged')) {
                 $.getCredible.displayNotification('error', 'You cannot unvouch the tag you have added');
@@ -138,7 +138,8 @@ $(function () {
 
             voteToggle = word.hasClass('vouche') ? '/unvote.json' : '/vote.json';
             if (this.tagCloud.data('logged-in') == false) {
-                $("#word_id_after_login").val(word.attr('id'));
+                $("#word_id_after_login").val('#' + word.attr('id'));
+                $("#tag_names_after_login").val($("#tag_names").val());
                 $.getCredible.modalApi = $('#login_dialog').modal();
                 return;
             }
@@ -249,7 +250,7 @@ $(function () {
     };
 
 
-    $.getCredible.renderTagCloud = function (data) {
+    $.getCredible.renderTagCloud = function (data, tagCloudCallback) {
         var distributionOptions = $.getCredible.distributionOptions(data);
         var wordList = $.getCredible.createWordList(data, distributionOptions);
 
@@ -286,14 +287,18 @@ $(function () {
                         }
                     }).append('<span class="icon"></span>');
                 });
-            }})
+                // vote callback after login via modal window
+                if (typeof(tagCloudCallback) === 'function') {
+                    tagCloudCallback();
+                }
+            }});
     }
 
-    $.getCredible.updateTagCloud = function () {
+    $.getCredible.updateTagCloud = function (tagCloudCallback) {
         if (this.tagCloud.length > 0) {
             this.tagCloudPath = this.tagCloud.data('tag-cloud-path');
             $.getJSON(this.tagCloud.data('tag-cloud-path'), function (data) {
-                $.getCredible.renderTagCloud(data);
+                $.getCredible.renderTagCloud(data, tagCloudCallback);
             });
         }
     }
@@ -321,11 +326,13 @@ $(function () {
         }
     }
 
-    $.getCredible.addTagOrVoteAfterLogin = function(){
-        if($("#tag_names").val() != ''){
+    $.getCredible.addTagOrVoteAfterLogin = function () {
+        if ($("#tag_names_after_login").val() != '') {
+            $("#tag_names").val($("#tag_names_after_login").val());
+            $("#tag_names_after_login").val('');
             $("#add-tag form").submit();
         }
-        if($('#word_id_after_login').val() != ''){
+        if ($('#word_id_after_login').val() != '') {
             $.getCredible.vote($('#word_id_after_login').val());
             $('#word_id_after_login').val('');
         }
@@ -341,11 +348,10 @@ $(function () {
                 $('#global-header').replaceWith(data.header);
                 $('#tags').replaceWith(data.tag_cloud);
                 $.getCredible.init();
-                $.getCredible.updateTagCloud();
-                $.getCredible.addTagOrVoteAfterLogin();
-                $.getCredible.modalApi.close();
-
-
+                $.getCredible.updateTagCloud(function(){
+                    $.getCredible.addTagOrVoteAfterLogin();
+                    $.getCredible.modalApi.close();
+                });
             } else {
                 $.each(data.errors, function (index, text) {
                     $.getCredible.displayNotification('error', text);
@@ -364,9 +370,10 @@ $(function () {
                 $('#global-header').replaceWith(data.header);
                 $('#tags').replaceWith(data.tag_cloud);
                 $.getCredible.init();
-                $.getCredible.updateTagCloud();
-                $.getCredible.addTagOrVoteAfterLogin();
-                $.getCredible.modalApi.close();
+                $.getCredible.updateTagCloud(function(){
+                    $.getCredible.addTagOrVoteAfterLogin();
+                    $.getCredible.modalApi.close();
+                });
             } else {
                 $.each(data.errors, function (index, text) {
                     $.getCredible.displayNotification('error', text);
