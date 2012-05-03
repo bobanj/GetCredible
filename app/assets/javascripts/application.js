@@ -331,7 +331,7 @@ $(function () {
         }
     }
 
-    $('#user_sign_in .btn').click(function (e) {
+    $('#login_dialog #user_sign_in .btn').click(function (e) {
         e.preventDefault();
         var form = $(this).parents('form');
 
@@ -354,7 +354,7 @@ $(function () {
         });
     });
 
-    $('#user_sign_up .btn').click(function (e) {
+    $('#login_dialog #user_sign_up .btn').click(function (e) {
         e.preventDefault();
         var form = $(this).parents('form');
 
