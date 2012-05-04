@@ -22,7 +22,7 @@
 
     cursor: pointer;
     display: inline-block;
-    font-family: gnuolane;
+    font-family: 'franklin-gothic-urw-cond';
     padding: 0 20px 0 0;
     text-transform: uppercase;
 
@@ -71,7 +71,7 @@
   .remove .icon { background-position: 0 -128px; }
 
   .word {
-    font-family: gnuolane;
+    font-family: 'franklin-gothic-urw-cond';
     &:hover, &:focus {
       position: relative;
       z-index: 99999999;

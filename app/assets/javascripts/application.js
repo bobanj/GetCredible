@@ -15,7 +15,7 @@
 //= require mousewheel
 //= require jquery-ui
 //= require jquery_ujs
-//= require jqcloud-0.2.10
+//= require jqcloud
 //= require jquery.tipsy
 //= require jquery.noty
 //= require jquery.simplemodal
@@ -187,27 +187,30 @@ $(function () {
         return votersImages;
     };
 
-    $.getCredible.createWordList = function (data, distributionOptions) {
-        var wordList = [];
+    $.getCredible.getWordCustomClass = function (userTag) {
         var customClass = "word ";
         customClass += this.tagCloud.data('can-delete') ? 'remove ' : '';
+        if ($.getCredible.tagCloud.data('can-vote')) {
+            customClass += userTag.voted ? "vouche " : "unvouche ";
+        }
+        return customClass;
+    }
+
+    $.getCredible.createWordList = function (data, distributionOptions) {
+        var wordList = [];
+
         if (data.length == 0) {
             return wordList;
         }
         $.each(data, function (i, userTag) {
             var voters = $.getCredible.voterImages(userTag.voters);
-
             wordList.push({
                 text:userTag.name,
-                customClass:function () {
-                    var pom = customClass + '';
-                    if ($.getCredible.tagCloud.data('can-vote')) {
-                        pom += userTag.voted ? "vouche " : "unvouche ";
-                    }
-                    return pom;
+                html:{
+                    title:userTag.name,
+                    class:$.getCredible.getWordCustomClass(userTag)
                 },
-                weight:parseInt((userTag.score - distributionOptions.min) / distributionOptions.divisor),
-                title:userTag.name,
+                weight: parseInt((userTag.score - distributionOptions.min) / distributionOptions.divisor),
                 dataAttributes:{ score:userTag.score, 'user-tag-id':userTag.id,
                     rank:userTag.rank, total:userTag.total, tagged:userTag.tagged,
                     voters:voters.join(''), voters_count:userTag.voters_count},
@@ -239,12 +242,11 @@ $(function () {
         });
         var uniqVotes = votes.unique().length;
         if (uniqVotes < 5) {
-            var parts = uniqVotes;
+            parts = uniqVotes;
         } else {
-            var parts = 5;
+            parts = 5;
         }
         var divisor = (max - min) / parts;
-
         return {min:min, parts:parts, divisor:divisor};
     };
 
@@ -255,11 +257,15 @@ $(function () {
 
         $.getCredible.tagCloudLoader.show('fast');
         $.getCredible.tagCloud.html('');
+        var growHeight = 250 + (wordList.length * 3);
+        $.getCredible.tagCloud.css('height', growHeight + 'px');
         $.getCredible.tagCloud.jQCloud(wordList, {
-            nofollow:true,
-            parts:distributionOptions.parts,
+            width: 700,
+            height: growHeight,
+            nofollow: true,
+            parts: distributionOptions.parts,
             delayedMode:true,
-            callback:function () {
+            afterCloudRender:function () {
                 $.getCredible.tagCloudLoader.hide('fast');
                 $("#tag-cloud .word").each(function () {
                     var word = $(this);
