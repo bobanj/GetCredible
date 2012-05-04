@@ -70,7 +70,13 @@
 
   .remove .icon { background-position: 0 -128px; }
 
-  .word { font-family: gnuolane;}
+  .word {
+    font-family: gnuolane;
+    &:hover, &:focus {
+      position: relative;
+      z-index: 99999999;
+    }
+  }
 }
 
 #tag-msg {

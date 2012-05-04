@@ -67,12 +67,12 @@ input, textarea {
     font-size: 14px;
     border: 1px solid $green - #111;
     color: #fff;
-    @include background-image(linear-gradient($green + #111, $green - #111));
+    @include background-image(linear-gradient($green + #090909, $green - #090909));
     filter: none;
     @include text-shadow(rgba(0, 0, 0, 0.2) 0px 1px 0px);
 
     &:hover {
-      @include background-image(linear-gradient($green + #111, $green - #222));
+      @include background-image(linear-gradient($green + #191919, $green - #111));
       background-position: 0 0;
     }
 
