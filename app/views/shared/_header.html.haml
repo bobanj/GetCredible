@@ -10,6 +10,8 @@
         %li#gn-profile
           = link_to 'Profile', me_user_path(current_user), :class => ((params[:controller] == 'users' && params[:action] == 'show') || (params[:controller] == 'users/registrations') ? 'active' : nil)
         %li#gn-activity
+          = link_to 'Tour', tour_path, :class => (params[:controller] == 'home' && params[:action] == 'tour' ? 'active' : nil)
+        %li#gn-activity
           = link_to 'Home', activity_path('all'), :class => (params[:controller] == 'activities' ? 'active' : nil)
       - else
         %li#gn-logo
