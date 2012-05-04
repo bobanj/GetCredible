@@ -16,6 +16,8 @@
       - else
         %li#gn-logo
           = link_to 'GiveBrand', root_path
+        %li#gn-tour
+          = link_to 'Tour', tour_path, :class => (params[:controller] == 'home' && params[:action] == 'tour' ? 'active' : nil)
         %li#gn-register
           = link_to "Sign up", new_user_registration_path, :class => (params[:controller] == 'users/registrations' ? 'active' : nil)
         %li#gn-login
