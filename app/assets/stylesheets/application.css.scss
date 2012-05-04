@@ -649,11 +649,14 @@ footer {
 #featured {
   margin-top: 25px;
   text-align: center;
+  @include radial-gradient(color-stops(rgba(0, 0, 0, 0.03), rgba(255, 255, 255, 0.1) 60%));
+  
   h1 {
-    font-size: 80px;
+    font-size: 78px;
     font-weight: bold;
-    margin-top: 60px;
-    margin-bottom: 20px;
+    margin-top: 67px;
+    margin-bottom: 13px;
+    text-transform: uppercase;
   }
   h2 {
     color: #777;
@@ -667,10 +670,14 @@ footer {
     line-height: 1.5;
     margin-bottom: 4px;
   }
+  h1, h2, h3 {
+    @include text-shadow(#fff 0 1px 1px);
+  }
   .easy-signup {
     background: #e9e9e9;
     border: 1px solid #ddd;
     margin: 20px auto 10px;
+    padding: 2px;
     width: 900px;
     @include pie-clearfix;
     ul {
@@ -678,7 +685,7 @@ footer {
     }
     li {
       position: relative;
-      top: 3px;
+      top: 2px;
       &:last-child {
         right: -2px;
         top: 0px;
@@ -687,24 +694,8 @@ footer {
     input[type=submit] {
       width: 210px;
     }
-  }
-  .big-signup {
-    background: $blue;
-    color: #fff;
-    display: block;
-    font: 20px "gnuolane", georgia, sans-serif;
-    margin: 15px auto 20px;
-    opacity: 0.9;
-    padding: 12px 5%;
-    text-align: center;
-    width: 55%;
-    @include border-radius(3px);
-    @include box-shadow(rgba(0, 0, 0, 0.1) 0 2px 3px inset, rgba(0, 0, 0, 0.2) 0 1px 3px);
-    @include transition(all .4s);
-    &:hover, &:focus {
-      background: $green;
-      opacity: 1;
-      text-decoration: none;
+    input[type=text], input[type=email], input[type=password] {
+      padding: 6px 4px 5px;
     }
   }
   ul.slim {
@@ -720,12 +711,6 @@ footer {
       line-height: 1.5;
     }
   }
-  .cloud {
-    background: image_url('cloud-top.png') repeat-x bottom center;
-    height: 50px;
-    //margin: 0 auto;
-    width: 700px;
-  }
   img {
     border: 4px solid #fff;
     margin-bottom: 10px;
@@ -733,16 +718,7 @@ footer {
     width: 150px;
     z-index: 2;
     @include border-radius(100px);
-  }
-  #divider {
-    background: #fff;
-    height: 2px;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 460px;
-    width: 100%;
-    z-index: 1;
+    @include box-shadow(rgba(0, 0, 0, 0.05) 0 1px 2px);
   }
 }
 
