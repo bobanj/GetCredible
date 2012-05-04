@@ -720,7 +720,13 @@ footer {
     z-index: 2;
     @include border-radius(100px);
     @include box-shadow(rgba(0, 0, 0, 0.05) 0 1px 2px);
+    @include transition(all .5s);
   }
+}
+
+#explain li:hover img {
+  z-index: 3;
+  @include scale(1.2);
 }
 
 #page-header {
