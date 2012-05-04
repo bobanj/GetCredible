@@ -27,10 +27,14 @@
         = yield
 
       %footer
-        Copyright &copy; GiveBrand 2012.
+        
         = link_to 'Privacy policy', privacy_path
         &bull;
         = link_to 'Terms of use', terms_path
+        &bull;
+        = mail_to 'feedback@givebrand.com', 'Send feedback'
+        %br
+        Copyright &copy; GiveBrand 2012
 
       = yield :scripts
       = render 'shared/google_analytics'

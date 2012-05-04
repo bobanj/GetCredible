@@ -401,13 +401,14 @@ aside {
   width: 239px;
 }
 
-footer, #main {
+#main {
   @include grid(12);
 }
 
 footer {
-  @include grid(9);
-  @include grid-suffix(3);
+  @include grid(10);
+  @include grid-prefix(1);
+  @include grid-suffix(1);
 }
 
 #profile,
@@ -844,7 +845,7 @@ aside {
 
 footer {
   border-top: 0 none;
-  color: #ababab;
+  color: #888;
   font-size: 11px;
   margin-top: 0;
   padding-bottom: 20px;
@@ -852,7 +853,9 @@ footer {
   text-align: center;
 
   a {
-    color: #ababab;
+    color: #888;
+    display: inline-block;
+    padding: 0 3px;
     text-decoration: underline;
   }
 
