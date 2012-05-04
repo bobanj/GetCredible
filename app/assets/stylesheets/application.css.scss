@@ -716,14 +716,12 @@ footer {
     border: 4px solid #fff;
     margin-bottom: 10px;
     position: relative;
-    width: 150px;
+    width: 170px;
     z-index: 2;
     @include border-radius(100px);
     @include box-shadow(rgba(0, 0, 0, 0.05) 0 1px 2px);
   }
 }
-
-
 
 #page-header {
   border-bottom: 1px solid #eee;
