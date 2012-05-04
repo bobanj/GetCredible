@@ -512,6 +512,15 @@ footer {
     //border-right: 1px solid $borderColor;
     @include text-shadow($white 0px 1px 0px);
   }
+  a.logo{
+    margin: 20px 0 5px;
+    padding: 0;
+    &:hover, &.active {
+      color: none;
+      text-decoration: none;
+      background: none;
+    }
+  }
   a{
     color: #666;
     display: block;
