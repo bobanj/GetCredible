@@ -21,7 +21,6 @@
 //= require jquery.simplemodal
 //= require rhinoslider-1.04
 //= require jquery.tokeninput
-//= require jquery.joyride-1.0.3
 
 Array.prototype.unique = function () {
     var o = {}, i, l = this.length, r = [];

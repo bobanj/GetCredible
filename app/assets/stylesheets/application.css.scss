@@ -11,7 +11,6 @@
  *= require tipsy
  *= require_self
  *= require simplemodal
- *= require joyride-1.0.3
  *
 */
 
@@ -653,7 +652,7 @@ footer {
   margin-top: 25px;
   text-align: center;
   @include radial-gradient(color-stops(rgba(0, 0, 0, 0.03), rgba(255, 255, 255, 0.1) 60%));
-  
+
   h1 {
     font-size: 78px;
     font-weight: bold;
