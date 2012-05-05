@@ -37,6 +37,7 @@ describe User do
     it { should have_many(:incoming_activities) }
     it { should have_many(:votes).dependent(:destroy) }
     it { should have_many(:voted_users).through(:votes) }
+    it { should have_many(:voters).through(:user_tags) }
   end
 
   describe "Validations" do
@@ -113,7 +114,7 @@ describe User do
     end
 
     it "cannot unvote the tag it has created" do
-      UserTag.add_tags(user, tagger, ['development'])
+      tagger.add_tags(user, ['development'])
       user_tag = user.user_tags.first
       tagger.remove_vote(user_tag).should be_false
     end
@@ -121,35 +122,21 @@ describe User do
 
   describe "#top_tags" do
     it "can find top tags" do
-      user  = Factory(:user)
-      user2 = Factory(:user)
-      user3 = Factory(:user)
-
-      UserTag.add_tags(user, user2, ['design', 'development', 'management', 'leadership'])
+      tagger.add_tags(user, ['design', 'development', 'management', 'leadership'])
 
       design      = user.user_tags[0]
       development = user.user_tags[1]
       management  = user.user_tags[2]
       leadership  = user.user_tags[3]
 
-      user2.vote_exclusively_for(design)
-      user2.vote_exclusively_for(development)
-      user2.vote_exclusively_for(management)
+      voter.vote_exclusively_for(development)
+      voter.vote_exclusively_for(management)
 
-      user3.vote_exclusively_for(development)
-      user3.vote_exclusively_for(management)
-      user3.vote_exclusively_for(leadership)
-
-      top_tags = user.top_tags(4)
-      top_tags.each do |top_tag|
-        top_tag.class.should == Tag
-      end
+      top_tags = user.top_tags(2)
+      top_tags.each { |top_tag| top_tag.class.should == Tag }
       tag_names = top_tags.map{|t| t.name }
       tag_names.should include('development')
       tag_names.should include('management')
-
-      #top_tags[0][:votes].should == '2'
-      #top_tags[1][:votes].should == '2'
     end
   end
 
@@ -161,26 +148,19 @@ describe User do
     end
 
     it "returns true when other user has voted for a tag interaction" do
-      user = Factory(:user)
-      other_user = Factory(:user)
-
-      UserTag.add_tags(user, other_user, ['web design'])
-      user_tag = user.user_tags[0]
-
-      other_user.vote_exclusively_for(user_tag)
-
-      user.interacted_by(other_user).should be_true
+      tagger.add_tags(user, ['web design'])
+      user.interacted_by(tagger).should be_true
     end
   end
 
   describe "#outgoing_activities" do
     it "returns outgoing activities" do
-      UserTag.add_tags(user, other_user, ['development']) # logs only tag, not vote
+      tagger.add_tags(user, ['development']) # logs only tag, not vote
       user_tag = user.user_tags.first
-      other_user.add_vote(user_tag2) # logs vote
+      tagger.add_vote(user_tag2) # logs vote
       vote = user_tag2.votes.last
 
-      outgoing_activities = other_user.outgoing_activities
+      outgoing_activities = tagger.outgoing_activities
       outgoing_activities.length.should == 2
       outgoing_activities[0].item.should == vote
       outgoing_activities[1].item.should == user_tag
@@ -189,9 +169,9 @@ describe User do
 
   describe "#incoming_activities" do
     it "returns incoming activities" do
-      UserTag.add_tags(user, other_user, ['development']) # logs only tag, not vote
+      tagger.add_tags(user, ['development']) # logs only tag, not vote
       user_tag = user.user_tags[0]
-      other_user.add_vote(user_tag2) # logs vote
+      tagger.add_vote(user_tag2) # logs vote
       vote = user_tag2.votes.first
 
       incoming_activities = user.incoming_activities
@@ -202,14 +182,14 @@ describe User do
   end
 
   describe "#all_activities" do
-    it "returns all activities" do
-      UserTag.add_tags(user, other_user, ['development'])
+    it "returns incoming and outgoing activities" do
+      tagger.add_tags(user, ['development'])
       user_tag1 = user.user_tags[0]
 
-      UserTag.add_tags(other_user, user, ['development'])
-      user_tag2 = other_user.user_tags[0]
+      user.add_tags(tagger, ['development'])
+      user_tag2 = tagger.user_tags[0]
 
-      other_user.add_vote(user_tag)
+      tagger.add_vote(user_tag) # logs vote
       vote = user_tag.votes.first
 
       all_activities = user.all_activities
@@ -217,6 +197,21 @@ describe User do
       all_activities[0].item.should == vote
       all_activities[1].item.should == user_tag2
       all_activities[2].item.should == user_tag1
+    end
+
+    it "returns friends of friends activities" do
+      user_tag = Factory(:user_tag, tag: tag, user: user, tagger: tagger)
+
+      voter.add_vote(user_tag)
+      vote = user_tag.votes.first
+
+      user.add_tags(voter, ['development'])
+      user_tag = voter.user_tags.first
+
+      all_activities = user.all_activities
+      all_activities.length.should == 2
+      all_activities[0].item.should == user_tag
+      all_activities[1].item.should == vote
     end
   end
 
@@ -229,6 +224,28 @@ describe User do
     it "returns 'Pink' when full_name is 'Pink Panter'" do
       user = Factory.build(:user, full_name: 'Pink Panter')
       user.short_name.should == 'Pink'
+    end
+  end
+
+  describe "#voters" do
+    it "returns the users that have voted the user" do
+      voter.add_vote(user_tag)
+      user.voters.should include(voter)
+    end
+  end
+
+  describe "#voted_users" do
+    it "returns the users that have been voted by the user" do
+      voter.add_vote(user_tag)
+      voter.voted_users.should include(user)
+    end
+  end
+
+  describe "#friends" do
+    it "returns the users that both interacted with the user" do
+      voter.add_vote(user_tag)
+      user.add_tags(voter, ['development'])
+      user.friends.should include(voter)
     end
   end
 end

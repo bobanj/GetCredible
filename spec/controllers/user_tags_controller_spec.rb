@@ -22,24 +22,27 @@ describe UserTagsController do
 
     it "requires signed in user" do
       controller.should_not_receive(:create)
-      UserTag.should_not_receive(:add_tags)
       post :create, tag_names: 'something'
     end
 
     it "can tag other user" do
       sign_in(user)
       other_user = Factory.build(:user)
+
+      controller.stub(:current_user).and_return(user)
       User.stub(:find).with('1').and_return(other_user)
 
-      UserTag.should_receive(:add_tags).with(other_user, user, ['something'])
+      user.should_receive(:add_tags).with(other_user, ['something'])
       post :create, tag_names: 'something', user_id: 1, format: 'json'
     end
 
     it "cannot tag himself" do
       sign_in(user)
+
+      controller.stub(:current_user).and_return(user)
       User.stub(:find).with('1').and_return(user)
 
-      UserTag.should_not_receive(:add_tags)
+      user.should_not_receive(:add_tags)
       post :create, tag_names: 'something', user_id: 1, format: 'json'
     end
 

@@ -10,7 +10,7 @@ describe UserTagsHelper do
     end
 
     it "sumarizes name and votes" do
-      UserTag.add_tags(user, tagger, ['web design'])
+      tagger.add_tags(user, ['web design'])
       tags = helper.tags_summary(user, nil)
       tags.length.should == 1
       tags[0][:id].should == user.user_tags[0].id
@@ -20,7 +20,7 @@ describe UserTagsHelper do
     end
 
     it "sumarizes name and votes for a user" do
-      UserTag.add_tags(user, tagger, ['web design'])
+      tagger.add_tags(user, ['web design'])
       user_tag = user.user_tags[0]
 
       tagger.vote_exclusively_for(user_tag)

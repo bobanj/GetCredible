@@ -27,9 +27,9 @@ describe Tag do
 
   describe 'Destroy' do
     it "removes user tags and votes after deletion" do
-      user  = Factory(:user)
-      user2 = Factory(:user)
-      UserTag.add_tags(user, user2, ['design'])
+      user   = Factory(:user)
+      tagger = Factory(:user)
+      tagger.add_tags(user, ['design'])
       Vote.count.should == 1
 
       tag = Tag.find_by_name 'design'
@@ -44,16 +44,15 @@ describe Tag do
     end
   end
 
-  describe "Counter Cache for user tags" do
+  describe "user tags counter cache" do
     let(:tag) { Factory(:tag) }
 
     it "should be increased when a user tag is created" do
       tag.user_tags_count.should == 0
-      user = Factory(:user)
-      user2 = Factory(:user)
-      Factory(:user_tag, :tag => tag, :tagger => user2, :user => user)
+      user   = Factory(:user)
+      tagger = Factory(:user)
+      Factory(:user_tag, :tag => tag, :tagger => tagger, :user => user)
       tag.reload.user_tags_count.should == 1
     end
   end
-
 end

@@ -11,7 +11,7 @@ class UserTagsController < ApplicationController
   def create
     if current_user != @user
       tag_names = TagCleaner.clean(params[:tag_names])
-      UserTag.add_tags(@user, current_user, tag_names)
+      current_user.add_tags(@user, tag_names)
     end
 
     render json: tags_summary(@user, current_user)

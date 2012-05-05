@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
                                  :order => 'created_at DESC'
   has_many :votes, :foreign_key => :voter_id, :dependent => :destroy
   has_many :voted_users, :through => :votes, :uniq => true
+  has_many :voters, :through => :user_tags, :uniq => true
 
   # Validations
   validates :full_name, :presence => true, :format => {:with => /^[\w\s-]*$/}
@@ -38,6 +39,10 @@ class User < ActiveRecord::Base
 
   def short_name
     full_name.to_s.split(' ').first
+  end
+
+  def friends
+    voted_users & voters
   end
 
   def get_rank(rates, user)
@@ -58,18 +63,16 @@ class User < ActiveRecord::Base
       select('user_tags.id, user_tags.tag_id, COUNT(*) AS total_votes').
       group("votes.voteable_id, user_tags.id, user_tags.tag_id").
       limit(limit).order('total_votes DESC').
-      includes(:tag)
-    .map do |user_tag|
-      user_tag.tag
-        #{
-        #  name: user_tag.tag.name,
-        #  votes: user_tag.total_votes
-        #}
-    end
+      includes(:tag).
+      map { |user_tag| user_tag.tag }
   end
 
   def interacted_by(other_user)
     user_tags.joins(:votes).where('votes.voter_id = ?', other_user.id).exists?
+  end
+
+  def add_tags(user, tag_names)
+    UserTag.add_tags(self, user, tag_names)
   end
 
   def add_vote(user_tag, log_vote_activity = true)
@@ -105,13 +108,13 @@ class User < ActiveRecord::Base
 
   def self.search_by_name_or_tag(q)
     includes(user_tags: :tag).
-    where("UPPER(users.full_name) LIKE UPPER(:q) OR
-           UPPER(tags.name) LIKE UPPER(:q)", {:q => "%#{q}%"})
+      where("UPPER(users.full_name) LIKE UPPER(:q) OR
+             UPPER(tags.name) LIKE UPPER(:q)", {:q => "%#{q}%"})
   end
 
   def self.search_by_tag(tag)
     includes(user_tags: :tag).
-        where("UPPER(tags.name) LIKE UPPER(:tag)", {:tag => tag})
+      where("UPPER(tags.name) LIKE UPPER(:tag)", {:tag => tag})
   end
 
   def apply_omniauth(omniauth)
@@ -129,14 +132,19 @@ class User < ActiveRecord::Base
   end
 
   def all_activities(params = {})
-    ActivityItem.paginate_by_sql("SELECT t.* FROM
-                        (SELECT activity_items.* FROM activity_items
-                          WHERE activity_items.user_id = #{id}
+    ActivityItem.paginate_by_sql(["SELECT t.* FROM
+                        (
+                          SELECT activity_items.* FROM activity_items
+                          WHERE activity_items.user_id = :id
+                          UNION
+                          SELECT activity_items.* FROM activity_items
+                          WHERE activity_items.user_id IN (:user_ids)
                           UNION
                           SELECT activity_items.*
                           FROM activity_items
-                          WHERE activity_items.target_id = #{id}) AS t
-                        ORDER BY created_at DESC",
+                          WHERE activity_items.target_id = :id
+                        ) AS t
+                        ORDER BY created_at DESC", id: id, user_ids: friends.map(&:id)],
                         :page => params[:page], :per_page => params[:per_page])
   end
 

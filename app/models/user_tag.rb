@@ -27,7 +27,7 @@ class UserTag < ActiveRecord::Base
     self.outgoing.value = calculate_outgoing
   end
 
-  def self.add_tags(user, tagger, tag_names)
+  def self.add_tags(tagger, user, tag_names)
     user_tags = user.user_tags
     new_tags  = []
 
