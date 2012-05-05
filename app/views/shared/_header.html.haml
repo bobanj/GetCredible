@@ -3,8 +3,10 @@
   %nav
     %ul#global-nav
       - if user_signed_in?
-        %li
-          = link_to image_tag('give_brand_logo.png'), activity_path('all'), :class => 'logo'
+        %li#gn-logo
+          = link_to activity_path('all'), :class => 'logo' do
+            %span give
+            brand
         %li#gn-logout
           = link_to "Logout", destroy_user_session_path
         %li#gn-profile
@@ -14,8 +16,11 @@
         %li#gn-activity
           = link_to 'Home', activity_path('all'), :class => (params[:controller] == 'activities' ? 'active' : nil)
       - else
-        %li
-          = link_to image_tag('give_brand_logo.png'), root_path, :class => 'logo'
+        %li#gn-logo
+          = link_to activity_path('all'), :class => 'logo' do
+            %span give
+            brand
+          //= link_to image_tag('give_brand_logo.png'), root_path, :class => 'logo'
         %li#gn-tour
           = link_to 'Tour', tour_path, :class => (params[:controller] == 'home' && params[:action] == 'tour' ? 'active' : nil)
         %li#gn-register

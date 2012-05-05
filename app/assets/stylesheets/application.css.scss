@@ -198,10 +198,11 @@ input, textarea {
 .list-view {
 
   li {
-    padding: 16px 20px;
+    padding: 14px 20px;
     border-bottom: 1px solid #e9e9e9;
     font-size: 11px;
     @include pie-clearfix;
+    @include transition(all .4s);
     &:hover, &:focus {
       background: #f9f9f9;
     }
@@ -266,8 +267,8 @@ input, textarea {
 
   h2 {
     color: $grayDark;
-    // float: left;
-    font-size: 14px;
+    float: left;
+    font-size: 13px;
     line-height: 16px;
   }
 
@@ -296,6 +297,7 @@ input, textarea {
   position: absolute;
   top: 15px;
   width: 21px;
+  @include transition(all .4s);
 }
 
 .vouche .tag-icon {
@@ -310,7 +312,6 @@ input, textarea {
   .tag:hover, .tag:focus {
     .tag-icon {
       background: image_url('icon-tag-hover.png') no-repeat center;
-      left: -10px;
     }
   }
 }
@@ -318,7 +319,6 @@ input, textarea {
   .vouche:hover, .vouche:focus {
     .tag-icon {
       background: image_url('icon-vouche-hover.png') no-repeat center;
-      left: -10px;
     }
   }
 }
@@ -541,27 +541,31 @@ footer {
 // Logo style
 
   #gn-logo a {
-    background: image-url('logo2.png') no-repeat center;
+    //background: image-url('logo2.png') no-repeat center;
     color: $blue;
-    font: bold 32px "gnuolane";
-    height: 63px;
-    margin: 20px 0 5px;
+    font: normal 30px "gnuolane";
+    //height: 63px;
+    letter-spacing: 0.2px;
+    margin: 35px 0 1px;
     opacity: 0.9;
     padding: 0;
-    text-indent: -99999px;
-    width: 150px;
-    @include transition(opacity .4s);
+    text-transform: uppercase;
+    //text-indent: -99999px;
+    //width: 150px;
+    @include transition(all .4s);
     //@include transform(skew(0deg, -6deg));
     span {
       color: #444;
       display: inline;
       float: left;
-      font-size: 32px;
+      font-size: 30px;
       font-weight: normal;
       padding: 0;
+      text-transform: lowercase;
     }
-    &:hover {
+    &:hover, &:focus, &:hover span {
       opacity: 1;
+      @include text-shadow(#fff 0 0 15px);
     }
   }
   #gn-login, #gn-register, #gn-activity, #gn-tour, #gn-profile, #gn-logout {
