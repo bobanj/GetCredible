@@ -4,7 +4,7 @@ class TagCleaner
     tags = []
 
     tag_names.to_s.split(',').each do |tag_name|
-      tags << tag_name.gsub(/[^A-Za-z\s]/, '').downcase.strip
+      tags << tag_name.gsub(/[^A-Za-z0-9\s]/, '').downcase.strip
     end
 
     tags.uniq

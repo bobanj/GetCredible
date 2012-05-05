@@ -15,7 +15,7 @@ describe TagCleaner do
   end
 
   it "can clean non alphabetic characters" do
-    TagCleaner.clean("developer123").should == ["developer"]
+    TagCleaner.clean("1!23+4developer123@$#4!!)___").should == ["1234developer1234"]
   end
 
   it "can clean empty spaces" do
