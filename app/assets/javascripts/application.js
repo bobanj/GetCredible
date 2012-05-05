@@ -254,7 +254,6 @@ $(function () {
     $.getCredible.renderTagCloud = function (data, tagCloudCallback) {
         var distributionOptions = $.getCredible.distributionOptions(data);
         var wordList = $.getCredible.createWordList(data, distributionOptions);
-
         $.getCredible.tagCloudLoader.show('fast');
         $.getCredible.tagCloud.html('');
         var growHeight = 250 + (wordList.length * 3);
@@ -285,7 +284,9 @@ $(function () {
                                 '<p class="tag-place">' + rank + ' out of ' + word.data('total') + '</p>' +
                                 '</div>' +
                                 '<div class="tag-votes">' +
-                                '<p>' + word.data('voters_count') + ' people vouched for you' + '</p>' +
+                                '<p>' + word.data('voters_count') +
+                                (word.data('voters_count') == 1 ? ' person' : ' people') +
+                                '  vouched for ' + word.text() + '</p>' +
                                 '<p>' + word.data('voters') + '</p>' +
                                 '</div>' +
                                 '</div>';
