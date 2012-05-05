@@ -113,10 +113,19 @@ describe User do
       voter.remove_vote(user_tag).should be_false
     end
 
-    it "cannot unvote the tag it has created" do
+    it "removes user tag if only 1 vote" do
       tagger.add_tags(user, ['development'])
       user_tag = user.user_tags.first
-      tagger.remove_vote(user_tag).should be_false
+      tagger.remove_vote(user_tag).should be_true
+      UserTag.count.should == 0
+    end
+
+    it "does not remove user tag if more than 1 vote" do
+      tagger.add_tags(user, ['development'])
+      user_tag = user.user_tags.first
+      voter.add_vote(user_tag)
+      tagger.remove_vote(user_tag).should be_true
+      UserTag.count.should == 1
     end
   end
 

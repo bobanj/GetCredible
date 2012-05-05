@@ -89,8 +89,8 @@ class User < ActiveRecord::Base
   end
 
   def remove_vote(user_tag)
-    if user_tag.tagger == self
-      false # cannot remove vote for the tag user has created
+    if user_tag.tagger == self && user_tag.votes.length <= 1
+      user_tag.destroy
     else
       vote = user_tag.votes.for_voter(self).first
       vote ? vote.destroy : false

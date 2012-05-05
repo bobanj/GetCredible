@@ -130,11 +130,6 @@ $(function () {
         var word = $(word);
         var voteToggle;
         if (typeof(this.tagCloudPath) == 'string') {
-            if (word.hasClass('vouche') && word.data('tagged')) {
-                $.getCredible.displayNotification('error', 'You cannot unvouch the tag you have added');
-                return;
-            }
-
             voteToggle = word.hasClass('vouche') ? '/unvote.json' : '/vote.json';
             if (this.tagCloud.data('logged-in') == false) {
                 $("#word_id_after_login").val('#' + word.attr('id'));
@@ -156,16 +151,21 @@ $(function () {
                         word.data('voters', voters.join(''));
                         word.data('voters_count', data.voters_count);
 
-                        if (word.hasClass('vouche')) {
-                            word.removeClass("vouche").addClass("unvouche");
-                            $.getCredible.displayNotification('success', 'You have unvouched for ' + user.full_name + ' on ' + word.text());
+                        if ( data.voters_count === null ) {
+                          $.getCredible.updateTagCloud(function () {
+                            $('.tipsy').hide();
+                          });
                         } else {
-                            word.removeClass("unvouche").addClass("vouche");
-                            $.getCredible.displayNotification('success', 'You have vouched for ' + user.full_name + ' on ' + word.text());
+                          if (word.hasClass('vouche')) {
+                              word.removeClass("vouche").addClass("unvouche");
+                              $.getCredible.displayNotification('success', 'You have unvouched for ' + user.full_name + ' on ' + word.text());
+                          } else {
+                              word.removeClass("unvouche").addClass("vouche");
+                              $.getCredible.displayNotification('success', 'You have vouched for ' + user.full_name + ' on ' + word.text());
+                          }
                         }
 
                         word.tipsy("show");
-
                     }
                 });
             } else {
