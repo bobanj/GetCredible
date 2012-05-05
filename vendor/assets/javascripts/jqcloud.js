@@ -85,7 +85,7 @@
                     steps_in_direction = 0.0,
                     quarter_turns = 0.0,
 
-                    weight = 5,
+                    weight = 1,
                     custom_class = "",
                     inner_html = "",
                     word_span = "";
