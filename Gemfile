@@ -29,6 +29,7 @@ gem 'redis-objects'
 gem 'redis-namespace'
 gem 'rails_config'
 gem 'soulmate'
+gem 'newrelic_rpm'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.2'
