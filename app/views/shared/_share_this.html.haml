@@ -8,4 +8,8 @@
     var switchTo5x=true;
   %script{type:"text/javascript", src: "http://w.sharethis.com/button/buttons.js"}
   :javascript
-    stLight.options({publisher: "59d377c3-8222-4df7-bbb0-413a9cb64564"});
+    try{
+      stLight.options({publisher: "59d377c3-8222-4df7-bbb0-413a9cb64564"});
+    } catch(e) {
+
+    }
