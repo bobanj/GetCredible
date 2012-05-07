@@ -257,4 +257,24 @@ describe User do
       user.friends.should include(voter)
     end
   end
+
+  describe "#search" do
+    it "can find users by tag" do
+      tagger.add_tags(user, ['development'])
+      users = User.search(q: 'development')
+      users.should include(user)
+    end
+
+    it "can find users by name" do
+      user = Factory(:user, full_name: 'Pink Panter')
+      users = User.search(q: 'Panter')
+      users.should include(user)
+    end
+
+    it "returns no user when query is blank" do
+      user = Factory(:user, full_name: 'Pink Panter')
+      users = User.search(q: '')
+      users.should_not include(user)
+    end
+  end
 end

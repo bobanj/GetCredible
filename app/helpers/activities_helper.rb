@@ -26,7 +26,7 @@ module ActivitiesHelper
   end
 
   def tag_link(tag_name)
-    "#{link_to(tag_name, users_path(:tag => tag_name))}".html_safe
+    "#{link_to(tag_name, users_path(:q => tag_name))}".html_safe
   end
 
   def user_link(user)

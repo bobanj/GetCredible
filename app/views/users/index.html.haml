@@ -1,19 +1,10 @@
 #content
   %section#search
     %header#page-header
-      - if params[:q].present?
-        %h1
-          Search results for
-          %em
-            = "'#{params[:q]}'"
-      - elsif params[:tag].present?
-        %h1
-          Search results for tag
-          %em
-            = "'#{params[:tag]}'"
-      - else
-        %h1 Latest profiles
-
+      %h1
+        Search results for
+        %em
+          = "'#{params[:q]}'"
 
     .feed
       %ul.list-view.unstyled

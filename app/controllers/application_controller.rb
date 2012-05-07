@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
 
   private
     def user_signed_in_content(resource)
+      self.formats = [:html] # let partials resolve with html not json format
       @user = User.find(params[:user_id])
       {
         :success => true,

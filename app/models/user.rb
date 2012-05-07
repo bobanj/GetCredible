@@ -37,6 +37,9 @@ class User < ActiveRecord::Base
   # Callbacks
   before_validation :add_protocol_to_personal_url
 
+  # Scopes
+  scope :none, where("1 = 0")
+
   def short_name
     full_name.to_s.split(' ').first
   end
@@ -99,8 +102,11 @@ class User < ActiveRecord::Base
 
   def self.search(params)
     scope = scoped
-    scope = scope.search_by_name_or_tag(params[:q]) if params[:q].present?
-    scope = scope.search_by_tag(params[:tag]) if params[:tag].present?
+    if params[:q].present?
+      scope = scope.search_by_name_or_tag(params[:q])
+    else
+      scope = scope.none
+    end
     scope = scope.paginate(:per_page => 10, :page => params[:page])
 
     scope
@@ -110,11 +116,6 @@ class User < ActiveRecord::Base
     includes(user_tags: :tag).
       where("UPPER(users.full_name) LIKE UPPER(:q) OR
              UPPER(tags.name) LIKE UPPER(:q)", {:q => "%#{q}%"})
-  end
-
-  def self.search_by_tag(tag)
-    includes(user_tags: :tag).
-      where("UPPER(tags.name) LIKE UPPER(:tag)", {:tag => tag})
   end
 
   def apply_omniauth(omniauth)
