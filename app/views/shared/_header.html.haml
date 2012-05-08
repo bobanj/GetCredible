@@ -17,7 +17,7 @@
           = link_to 'Home', activity_path('all'), :class => (params[:controller] == 'activities' ? 'active' : nil)
       - else
         %li#gn-logo
-          = link_to activity_path('all'), :class => 'logo' do
+          = link_to root_path, :class => 'logo' do
             %span give
             brand
           //= link_to image_tag('give_brand_logo.png'), root_path, :class => 'logo'
