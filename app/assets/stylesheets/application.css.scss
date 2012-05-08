@@ -545,11 +545,11 @@ footer {
     color: $blue;
     font: normal 30px "gnuolane";
     //height: 63px;
-    letter-spacing: 0.2px;
+    letter-spacing: 0.6px;
     margin: 35px 0 1px;
     opacity: 0.9;
     padding: 0;
-    text-transform: uppercase;
+    //text-transform: uppercase;
     //text-indent: -99999px;
     //width: 150px;
     @include transition(all .4s);
