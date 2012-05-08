@@ -8,7 +8,7 @@ describe 'User', type: :request do
 
     visit(root_path)
     click_link("Sign up")
-    fill_in("Full name", with: "Some User")
+    fill_in("Username", with: "pink_panter")
     fill_in("Email", with: email)
     fill_in("Password", with: "password")
     click_button("Sign up")
@@ -20,7 +20,7 @@ describe 'User', type: :request do
     unread_emails_for(email).size.should == parse_email_count(1)
     open_email(email)
     current_email.should have_subject("Welcome to GiveBrand!")
-    current_email.should have_content("Dear Some User")
+    current_email.should have_content("Dear pink_panter")
     current_email.should have_content("Welcome to GiveBrand!")
   end
 end

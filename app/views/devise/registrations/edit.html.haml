@@ -3,16 +3,16 @@
     .details
       .photo
         = image_tag current_user.avatar_url(:thumb)
-        
+
       = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:multipart => true, :method => :put }) do |f|
         %h1 Edit your profile
         %ul.inputs-list.left
+          %li= f.input :username, :required => false, :wrapper => false
           %li= f.input :full_name, :wrapper => false
           %li= f.input :avatar, :as => :file, :wrapper => false
           %li= f.hidden_field :avatar_cache
           %li= f.input :job_title, :wrapper => false
-          -#%li= f.input :country, :wrapper => false
-          %li= f.input :city, :wrapper => false, :label => 'Location'
+          %li= f.input :location, :wrapper => false
           %li= f.input :personal_url, :wrapper => false, :label => 'Website'
           %li= f.input :twitter_handle, :wrapper => false, :label => 'Twitter Username'
           %li.buttons= f.button :submit, "Save", class: 'btn primary large'

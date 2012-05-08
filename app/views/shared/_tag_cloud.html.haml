@@ -19,7 +19,7 @@
   - else current_user
     %div{:id => 'tag-cloud',
          "data-tag-cloud-path" => user_user_tags_path(@user),
-                    :"data-user-slug" => @user.slug.to_s,
+                    :"data-user-name" => @user.username.to_s,
                     :"data-logged-in" => user_signed_in?.to_s,
                     :"data-can-vote" => (@user != current_user).to_s,
                     :"data-can-delete" => can_delete.to_s,

@@ -10,12 +10,10 @@ class User < ActiveRecord::Base
 
   # Additions
   mount_uploader :avatar, AvatarUploader
-  extend FriendlyId
-  friendly_id :full_name, use: :slugged
 
   # Attributes
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-    :full_name,:job_title, :city, :country, :twitter_handle,
+    :username, :full_name, :job_title, :location, :twitter_handle,
     :personal_url, :avatar, :avatar_cache
 
   # Associations
@@ -31,7 +29,11 @@ class User < ActiveRecord::Base
   has_many :voters, :through => :user_tags, :uniq => true
 
   # Validations
-  validates :full_name, :presence => true
+  validates :username, :presence => true,
+               :format => { with: /^\w+$/,
+                            message: "only use letters, numbers and '_'" },
+               :length => { minimum: 3 },
+               :uniqueness => true
   validates :personal_url, :url_format => true, :allow_blank => true
 
   # Callbacks
@@ -42,6 +44,10 @@ class User < ActiveRecord::Base
 
   def short_name
     full_name.to_s.split(' ').first
+  end
+
+  def full_name
+    read_attribute(:full_name).presence || username
   end
 
   def friends
@@ -115,6 +121,7 @@ class User < ActiveRecord::Base
   def self.search_by_name_or_tag(q)
     includes(user_tags: :tag).
       where("UPPER(users.full_name) LIKE UPPER(:q) OR
+             UPPER(users.username) LIKE UPPER(:q) OR
              UPPER(tags.name) LIKE UPPER(:q)", {:q => "%#{q}%"})
   end
 
@@ -152,6 +159,10 @@ class User < ActiveRecord::Base
   def vote_exclusively_for(voteable)
     Vote.where(:voter_id => self.id, :voteable_id => voteable.id).map(&:destroy)
     Vote.create!(:vote => true, :voteable => voteable, :voter => self)
+  end
+
+  def to_param
+    username
   end
 
   private

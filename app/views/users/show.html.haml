@@ -22,10 +22,10 @@
         %h1= @user.full_name
         %h2= @user.job_title
       %ul.right
-        - unless @user.city.blank?
+        - unless @user.location.blank?
           %li.location
             %span.icon
-            = @user.city
+            = @user.location
         - unless @user.personal_url.blank?
           %li.web
             %span.icon

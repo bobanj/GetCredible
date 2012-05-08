@@ -31,12 +31,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def update
-    @user = User.find(current_user.id)
-    if @user.update_attributes(params[:user])
+    if current_user.update_attributes(params[:user])
       flash[:notice] = "You have updated your profile successfully."
       # Sign in the user by passing validation in case his password changed
-      sign_in @user, :bypass => true
-      redirect_to me_user_path(@user)
+      sign_in current_user, :bypass => true
+      redirect_to me_user_path(current_user)
     else
       render "edit"
     end

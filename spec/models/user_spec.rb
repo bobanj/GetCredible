@@ -14,17 +14,22 @@ describe User do
     it { should allow_mass_assignment_of(:password) }
     it { should allow_mass_assignment_of(:password_confirmation) }
     it { should allow_mass_assignment_of(:remember_me) }
+    it { should allow_mass_assignment_of(:username) }
+    it { should allow_mass_assignment_of(:full_name) }
+    it { should allow_mass_assignment_of(:job_title) }
+    it { should allow_mass_assignment_of(:location) }
+    it { should allow_mass_assignment_of(:personal_url) }
+    it { should allow_mass_assignment_of(:twitter_handle) }
   end
 
   describe "Database Columns" do
     it { should have_db_column(:email) }
     it { should have_db_column(:encrypted_password) }
     it { should have_db_column(:reset_password_token) }
-    #it { should have_db_column(:confirmation_token) }
+    it { should have_db_column(:username).of_type(:string) }
     it { should have_db_column(:full_name).of_type(:string) }
     it { should have_db_column(:job_title).of_type(:string) }
-    it { should have_db_column(:city).of_type(:string) }
-    it { should have_db_column(:country).of_type(:string) }
+    it { should have_db_column(:location).of_type(:string) }
     it { should have_db_column(:twitter_handle).of_type(:string) }
     it { should have_db_column(:personal_url).of_type(:string) }
     it { should have_db_column(:avatar).of_type(:string) }
@@ -41,10 +46,30 @@ describe User do
   end
 
   describe "Validations" do
-    it { should validate_presence_of(:full_name) }
+    subject { Factory(:user) }
+    it { should validate_presence_of(:username) }
+    it { should validate_uniqueness_of(:username) }
+    it { should ensure_length_of(:username).is_at_least(3) }
+
+    it "validates format of username" do
+      user = Factory.build(:user, username: 'invalid username')
+      user.valid?.should be_false
+      user.username = 'invalid@username'
+      user.valid?.should be_false
+      user.username = 'invalid-username'
+      user.valid?.should be_false
+      user.username = ' invalid-username'
+      user.valid?.should be_false
+      user.username = 'invalid-username '
+      user.valid?.should be_false
+      user.username = 'valid_username'
+      user.valid?.should be_true
+      user.username = 'validusername'
+      user.valid?.should be_true
+    end
 
     it "validates format of personal_url when not blank" do
-      user = Factory.build(:user, :personal_url => 'test')
+      user = Factory.build(:user, personal_url: 'test')
       user.should_not be_valid
       user.errors[:personal_url].should include("is not a valid url")
     end
@@ -271,10 +296,28 @@ describe User do
       users.should include(user)
     end
 
+    it "can find users by username" do
+      user = Factory(:user, username: 'green_panter')
+      users = User.search(q: 'green')
+      users.should include(user)
+    end
+
     it "returns no user when query is blank" do
       user = Factory(:user, full_name: 'Pink Panter')
       users = User.search(q: '')
       users.should_not include(user)
+    end
+  end
+
+  describe "#full_name" do
+    it "returns username when full_name is blank" do
+      user = Factory.build(:user, :full_name => '', :username => 'pink-panter')
+      user.full_name.should == 'pink-panter'
+    end
+
+    it "returns full_name when full_name is present" do
+      user = Factory.build(:user, :full_name => 'Pink Panter', :username => 'p')
+      user.full_name.should == 'Pink Panter'
     end
   end
 end

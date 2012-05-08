@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by_username!(params[:id])
     render :layout => false if request.xhr?
   end
 end

@@ -45,6 +45,6 @@ class UserTagsController < ApplicationController
 
   private
     def load_user
-      @user = User.find(params[:user_id])
+      @user = User.find_by_username!(params[:user_id])
     end
 end

@@ -348,7 +348,7 @@ $(function () {
         e.preventDefault();
         var form = $(this).parents('form');
 
-        var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-slug');
+        var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-name');
         $.post("/users/sign_in.json", params, function (data) {
             if (data.success) {
                 $('#global-header').replaceWith(data.header);
@@ -370,7 +370,7 @@ $(function () {
         e.preventDefault();
         var form = $(this).parents('form');
 
-        var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-slug');
+        var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-name');
         $.post("/users.json", params, function (data) {
             if (data.success) {
                 $('#global-header').replaceWith(data.header);
