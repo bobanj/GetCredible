@@ -105,26 +105,6 @@ class User < ActiveRecord::Base
       vote ? vote.destroy : false
     end
   end
-
-  def self.search(params)
-    scope = scoped
-    if params[:q].present?
-      scope = scope.search_by_name_or_tag(params[:q])
-    else
-      scope = scope.none
-    end
-    scope = scope.paginate(:per_page => 10, :page => params[:page])
-
-    scope
-  end
-
-  def self.search_by_name_or_tag(q)
-    includes(user_tags: :tag).
-      where("UPPER(users.full_name) LIKE UPPER(:q) OR
-             UPPER(users.username) LIKE UPPER(:q) OR
-             UPPER(tags.name) LIKE UPPER(:q)", {:q => "%#{q}%"})
-  end
-
   def apply_omniauth(omniauth)
     unless omniauth['credentials'].blank?
       authentications.build(:provider => omniauth['provider'],
@@ -163,6 +143,37 @@ class User < ActiveRecord::Base
 
   def to_param
     username
+  end
+
+  # Class methods
+
+  def self.search(params)
+    scope = scoped
+    if params[:q].present?
+      scope = scope.search_by_name_or_tag(params[:q])
+    else
+      scope = scope.none
+    end
+    scope = scope.paginate(:per_page => 10, :page => params[:page])
+
+    scope
+  end
+
+  def self.search_by_name_or_tag(q)
+    includes(user_tags: :tag).
+      where("UPPER(users.full_name) LIKE UPPER(:q) OR
+             UPPER(users.username) LIKE UPPER(:q) OR
+             UPPER(tags.name) LIKE UPPER(:q)", {:q => "%#{q}%"})
+  end
+
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:email)
+      where(conditions).where(["lower(username) = :value OR lower(email) = :value",
+                               { :value => login.downcase }]).first
+    else
+      where(conditions).first
+    end
   end
 
   private
