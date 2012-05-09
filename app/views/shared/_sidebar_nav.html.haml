@@ -5,10 +5,18 @@
         =link_to image_tag(user.avatar_url(:avatar)), me_user_path(user)
 
       .my-actions
-        %h3= "Welcome #{user.short_name}"
+        %h3
+          = "Welcome #{user.short_name}"
+          = link_to '20%', '#', :id => 'guide-tip', :class => 'guide-tip'
+          
         = link_to 'Edit profile', edit_user_registration_path, :class => 'edit'
-        = link_to '20%Tipsy@wip', '#', :id => 'guide-tip', :class => 'edit'
+        
 - #TODO Add show or don't show guide logic...@wip
 #guide-tip-content{:style => 'display:none'}
-  %p
-    Aloha
+  #profile-guide
+    .profile-progress-info
+      %h3 Profile completion
+      .profile-progress-box
+        .profile-progress-bar
+        %span.profile-progress 20%
+    = link_to "complete your profile", "#", :class => "profile-complete"

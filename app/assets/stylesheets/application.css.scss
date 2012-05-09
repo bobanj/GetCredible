@@ -352,7 +352,7 @@ aside #latest-activity {
 .textbox {
   padding: 10px 20px 20px;
   h3 {
-    font-family: "gnuolane";
+    font-family: "gnuolane", impact, sans-serif;
     font-weight: normal;
   }
   p {
@@ -460,9 +460,29 @@ footer {
   display: inline-block;
   font-size: 11px;
   line-height: 1;
+  margin-top: 6px;
   padding: 6px 9px;
   @include border-radius(2px);
   @include box-shadow(rgba(0, 0, 0, 0.07) 0 0 3px inset);
+}
+
+#profile-nav .guide-tip {
+  background: $blue;
+  color: #fff;
+  display: inline-block;
+  font: bold 14px/24px "gnuolane", impact, sans-serif;
+  height: 24px;
+  padding: 2px;
+  position: absolute;
+  right: -14px;
+  text-align: center;
+  top: -14px;
+  width: 24px;
+  @include border-radius(20px);
+  &:hover, &:focus {
+    background: #444;
+    text-decoration: none;
+  }
 }
 
 #invite-side, #import, #latest-activity {
@@ -552,7 +572,7 @@ footer {
   #gn-logo a {
     //background: image-url('logo2.png') no-repeat center;
     color: $blue;
-    font: normal 30px "gnuolane";
+    font: normal 30px "gnuolane", impact, sans-serif;
     //height: 63px;
     letter-spacing: 0.6px;
     margin: 35px 0 1px;
@@ -683,13 +703,13 @@ footer {
   }
   h2 {
     color: #777;
-    font-family: gnuolane;
+    font-family: "gnuolane", impact, sans-serif;
     font-size: 32px;
     line-height: 1.5;
   }
   h3 {
     color: $blue;
-    font: bold 24px "gnuolane";
+    font: bold 24px "gnuolane", impact, sans-serif;
     line-height: 1.5;
     margin-bottom: 4px;
   }
@@ -765,7 +785,7 @@ footer {
     margin-bottom: 30px;
   }
   h2 {
-    font: normal 24px "gnuolane", serif;
+    font: normal 24px "gnuolane", impact, sans-serif;
     @include text-shadow(#fff 0 1px 0);
   }
   p {
@@ -810,10 +830,12 @@ aside {
       width: 140px;
     }
     h3 {
-      font-family: "gnuolane";
+      font-family: "gnuolane", impact, sans-serif;
       font-size: 20px;
       font-weight: bold;
       line-height: 1.3;
+      padding-right: 15px;
+      position: relative;
     }
   }
 

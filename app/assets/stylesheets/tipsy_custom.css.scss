@@ -8,9 +8,9 @@
   color: #165288;
   cursor: pointer;
   height: auto;
-  max-width: 300px !important;
+  max-width: auto !important;
   padding: 0;
-  width: 300px;
+  width: auto;
 
   div {
     display: block;
@@ -30,7 +30,7 @@
 
 .tag-wrap {
   position: relative;
-  width: 100%;
+  width: 300px;
 }
 .tag-score {
   background: $blue - #111;
@@ -53,7 +53,7 @@
 }
 .tag-big {
   color: #fff;
-  font-family: gnuolane;
+  font-family: "gnuolane", impact, sans-serif;
   font-size: 40px !important;
   font-weight: normal !important;
   padding: 2px;
@@ -102,4 +102,52 @@
   right: 0;
   top: 0;
   width: 100%;
+}
+
+// Profile guide tipsy
+
+#profile-guide {
+  background: #fff;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #f9f9f9;
+  height: auto !important;
+  text-align: left;
+  width: 200px;
+  @include border-radius(3px);
+  @include box-shadow(rgba(0, 0, 0, 0.2) 0 1px 2px);
+  .profile-progress-info {
+    padding: 15px 15px 5px 15px;
+  }
+  h3 {
+    color: #444;
+    font: 18px "gnuolane", impact, sans-serif;
+  }
+  .profile-progress-box {
+    border-top: 2px solid $blue;
+    height: 24px;
+    margin-top: 2px;
+    width: 100%;
+  }
+  .profile-progress-bar {
+    background: $blue + #333;
+    float: left;
+    height: 24px;
+    width: 20%;
+  }
+  .profile-progress {
+    color: $blue;
+    display: inline-block;
+    font: 16px "gnuolane", impact, sans-serif;
+    padding: 3px 0 0 5px;
+  }
+  .profile-complete {
+    background: rgba(0, 0, 0, 0.02);
+    border-top: 1px solid #eee;
+    clear: both;
+    display: block;
+    line-height: 1.4;
+    margin-top: 0 !important;
+    padding: 4px 15px;
+    @include border-bottom-radius(3px);
+  }
 }
