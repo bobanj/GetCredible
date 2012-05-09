@@ -6,7 +6,11 @@
 
 #profile {
   border-bottom: 1px solid #e9e9e9;
-
+  
+  p, a, span, li {
+    font-family: "proxima nova", arial, sans-serif;
+  }
+  
   .photo {
 
     float: left;
@@ -42,7 +46,7 @@
 
   h2 {
     color: #888;
-    font: normal 16px/1.6 museo, arial, sans-serif;
+    font: normal 16px/1.6 "proxima nova", arial, sans-serif;
     margin-bottom: $baseline;
   }
   .left {
@@ -226,11 +230,12 @@ ul.social_fixed {
 }
 
 #no_tags {
+  padding-bottom: 30px;
   label {
     display: block;
     float: none;
-    font: 20px "gnuolane", sans-serif;
-    margin: 20px auto 5px;
+    font: 20px/1 "gnuolane", sans-serif;
+    margin: 15px auto 0;
     text-align: center;
     width: auto;
   }
