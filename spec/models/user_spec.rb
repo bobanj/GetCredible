@@ -95,16 +95,28 @@ describe User do
   end
 
   describe "Callbacks" do
-    it "adds protocol to personal_url when it doesn not have protocol" do
-      user = Factory.build(:user, :personal_url => 'givebrand.to')
+    it "adds protocol and removes empty spaces from personal_url" do
+      user = Factory.build(:user, :personal_url => ' givebrand.to ')
       user.valid?.should be_true
       user.personal_url.should == 'http://givebrand.to'
     end
 
-    it "does not add protocol to personal_url when it has protocol" do
-      user = Factory.build(:user, :personal_url => 'http://givebrand.to')
+    it "removes empty spaces from personal_url" do
+      user = Factory.build(:user, :personal_url => ' http://givebrand.to ')
       user.valid?.should be_true
       user.personal_url.should == 'http://givebrand.to'
+    end
+
+    it "removes @ sign and empty spaces from twitter username" do
+      user = Factory.build(:user, twitter_handle: ' @pink_panter ')
+      user.valid?.should be_true
+      user.twitter_handle.should == 'pink_panter'
+    end
+
+    it "removes empty spaces from twitter username" do
+      user = Factory.build(:user, twitter_handle: ' pink_panter ')
+      user.valid?.should be_true
+      user.twitter_handle.should == 'pink_panter'
     end
   end
 

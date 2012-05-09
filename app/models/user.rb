@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
 
   # Callbacks
   before_validation :add_protocol_to_personal_url
+  before_validation :clean_twitter_username
 
   # Scopes
   scope :none, where("1 = 0")
@@ -183,8 +184,16 @@ class User < ActiveRecord::Base
   end
 
   def add_protocol_to_personal_url
+    personal_url.to_s.strip!
     if personal_url.present? && personal_url !~ /http/
       self.personal_url = 'http://' + personal_url
+    end
+  end
+
+  def clean_twitter_username
+    twitter_handle.to_s.strip!
+    if twitter_handle.present? && twitter_handle[0] == '@'
+      self.twitter_handle = twitter_handle[1..-1]
     end
   end
 
