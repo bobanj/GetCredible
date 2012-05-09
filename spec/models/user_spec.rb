@@ -82,12 +82,12 @@ describe User do
     it "validates that username is not a route" do
       user = Factory.build(:user, username: 'tour')
       user.valid?.should be_false
-      user.errors[:username].should include("has already been taken")
+      user.errors[:username].should include("is not available")
 
       user.username = 'tour/invalid_route'
       user.valid?.should_not raise_exception lambda { ActionController::RoutingError }
       user.valid?.should be_false
-      user.errors[:username].should include("has already been taken")
+      user.errors[:username].should include("is not available")
 
       user.username = 'unique_id'
       user.valid?.should be_true

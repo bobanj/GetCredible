@@ -194,7 +194,7 @@ class User < ActiveRecord::Base
 
     if !(path && path[:controller] == 'users' &&
          path[:action] == 'show' && path[:id] == username)
-      errors.add(:username, "has already been taken")
+      errors.add(:username, "is not available")
     end
   end
 end
