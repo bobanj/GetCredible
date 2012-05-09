@@ -78,6 +78,20 @@ describe User do
       user = Factory.build(:user, :personal_url => '')
       user.should be_valid
     end
+
+    it "validates that username is not a route" do
+      user = Factory.build(:user, username: 'tour')
+      user.valid?.should be_false
+      user.errors[:username].should include("has already been taken")
+
+      user.username = 'tour/invalid_route'
+      user.valid?.should_not raise_exception lambda { ActionController::RoutingError }
+      user.valid?.should be_false
+      user.errors[:username].should include("has already been taken")
+
+      user.username = 'unique_id'
+      user.valid?.should be_true
+    end
   end
 
   describe "Callbacks" do

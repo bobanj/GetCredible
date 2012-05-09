@@ -35,6 +35,7 @@ class User < ActiveRecord::Base
                :length => { minimum: 3 },
                :uniqueness => true
   validates :personal_url, :url_format => true, :allow_blank => true
+  validate :username_is_not_a_route
 
   # Callbacks
   before_validation :add_protocol_to_personal_url
@@ -177,13 +178,23 @@ class User < ActiveRecord::Base
   end
 
   private
-    def email_required?
-      authentications.blank?
-    end
+  def email_required?
+    authentications.blank?
+  end
 
-    def add_protocol_to_personal_url
-      if personal_url.present? && personal_url !~ /http/
-        self.personal_url = 'http://' + personal_url
-      end
+  def add_protocol_to_personal_url
+    if personal_url.present? && personal_url !~ /http/
+      self.personal_url = 'http://' + personal_url
     end
+  end
+
+  def username_is_not_a_route
+    path = Rails.application.routes.
+        recognize_path("#{username}", :method => :get) rescue nil
+
+    if !(path && path[:controller] == 'users' &&
+         path[:action] == 'show' && path[:id] == username)
+      errors.add(:username, "has already been taken")
+    end
+  end
 end
