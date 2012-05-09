@@ -57,8 +57,9 @@
     margin: 20px 0 0;
     width: 30%;
     .error{
-      margin-left: 120px;
-      color: red;
+      border: 1px solid $red + #999;
+      border-top: none;
+      color: $red;
     }
     .actions{
       float: right;
