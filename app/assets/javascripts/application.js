@@ -411,4 +411,16 @@ $(function () {
         autoPlay:true,
         showTime:5000
     });
+    $('#guide-tip').tipsy({
+        title: function(){
+            return $('#guide-tip-content').html();
+        },
+        gravity:'ne',
+        fade:true,
+        html:true,
+        delayOut:0,
+        delayIn:350}).click(function(){
+            console.log("slssl");
+            return false;
+        })
 })

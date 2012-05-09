@@ -7,3 +7,8 @@
       .my-actions
         %h3= "Welcome #{user.short_name}"
         = link_to 'Edit profile', edit_user_registration_path, :class => 'edit'
+        = link_to '20%Tipsy@wip', '#', :id => 'guide-tip', :class => 'edit'
+- #TODO Add show or don't show guide logic...@wip
+#guide-tip-content{:style => 'display:none'}
+  %p
+    Aloha
