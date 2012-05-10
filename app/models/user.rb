@@ -44,8 +44,21 @@ class User < ActiveRecord::Base
   # Scopes
   scope :none, where("1 = 0")
 
+  def profile_complete_percent
+    empty_count = 0
+    empty_count += 1 if job_title.blank?
+    empty_count += 1 if location.blank?
+    empty_count += 1 if twitter_handle.blank?
+    empty_count += 1 if full_name.blank?
+    empty_count += 1 if personal_url.blank?
+    empty_count += 1 unless user_tags.any?
+    empty_count += 1 unless avatar.present?
+    percentage = ((9 - empty_count) * 100) / 9
+    [0,percentage,100].sort[1]
+  end
+
   def short_name
-    full_name.to_s.split(' ').first
+    full_name ? full_name.to_s.split(' ').first : username
   end
 
   def full_name

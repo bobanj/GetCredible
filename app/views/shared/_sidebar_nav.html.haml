@@ -1,13 +1,14 @@
 - if user
   %nav#profile-nav
     - if current_user && current_user == user
+      - profile_complete_percent = user.profile_complete_percent
       .photo
         =link_to image_tag(user.avatar_url(:avatar)), me_user_path(user)
 
       .my-actions
         %h3
           = "Welcome #{user.short_name}"
-          = link_to '20%', '#', :id => 'guide-tip', :class => 'guide-tip'
+          = link_to "#{user.profile_complete_percent}%", '#', :id => 'guide-tip', :class => 'guide-tip'
           
         = link_to 'Edit profile', edit_user_registration_path, :class => 'edit'
         
@@ -18,8 +19,8 @@
       %h3 Profile completion
       .profile-progress-box
         .profile-progress-bar
-        %span.profile-progress 20%
-    = link_to "complete your profile", "#", :class => "profile-complete"
+        %span.profile-progress="#{user.profile_complete_percent}%"
+    = link_to "complete your profile", "#", :id => 'complete-profile',:class => "profile-complete"
 
 #guide-tip-modal{:style => 'display:none'}
   = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :html => {:multipart => true, :method => :put }) do |f|

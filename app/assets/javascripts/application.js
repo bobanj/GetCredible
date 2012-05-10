@@ -415,12 +415,26 @@ $(function () {
         title: function(){
             return $('#guide-tip-content').html();
         },
+        trigger: 'manual',
         gravity:'ne',
         fade:true,
         html:true,
         delayOut:0,
         delayIn:350}).click(function(){
-            $('#guide-tip-modal').modal();
+            if($(".tipsy").size() > 0){
+                $(this).tipsy("hide");
+            } else {
+                $(this).tipsy("show");
+            }
             return false;
-        })
+        }).hover(function(){
+            $(this).tipsy("show");
+            $('#complete-profile').click(function(){
+                $('#guide-tip').tipsy("hide");
+                $('#guide-tip-modal').modal();
+            });
+        },function(){
+            return false;
+        });
+
 })
