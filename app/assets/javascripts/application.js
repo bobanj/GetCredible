@@ -420,7 +420,7 @@ $(function () {
         html:true,
         delayOut:0,
         delayIn:350}).click(function(){
-            console.log("slssl");
+            $('#guide-tip-modal').modal();
             return false;
         })
 })

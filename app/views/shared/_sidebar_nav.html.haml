@@ -20,3 +20,17 @@
         .profile-progress-bar
         %span.profile-progress 20%
     = link_to "complete your profile", "#", :class => "profile-complete"
+
+#guide-tip-modal{:style => 'display:none'}
+  = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :html => {:multipart => true, :method => :put }) do |f|
+    %h1 Edit your profile
+    %ul.inputs-list.left
+      %li= f.input :username, :required => false, :wrapper => false
+      %li= f.input :full_name, :wrapper => false
+      %li= f.input :avatar, :as => :file, :wrapper => false
+      %li= f.hidden_field :avatar_cache
+      %li= f.input :job_title, :wrapper => false
+      %li= f.input :location, :wrapper => false
+      %li= f.input :personal_url, :wrapper => false, :label => 'Website'
+      %li= f.input :twitter_handle, :wrapper => false, :label => 'Twitter Username'
+      %li.buttons= f.button :submit, "Save", class: 'btn primary large'
