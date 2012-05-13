@@ -32,12 +32,26 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def update
     if current_user.update_attributes(params[:user])
-      flash[:notice] = "You have updated your profile successfully."
-      # Sign in the user by passing validation in case his password changed
-      sign_in current_user, :bypass => true
-      redirect_to me_user_path(current_user)
+      respond_to do |format|
+        format.html do
+          flash[:notice] = "You have updated your profile successfully."
+          # Sign in the user by passing validation in case his password changed
+          sign_in current_user, :bypass => true
+          redirect_to me_user_path(current_user)
+        end
+        format.js do
+          render :json => {:status => 'ok'}
+        end
+      end
     else
-      render "edit"
+      respond_to do |format|
+        format.html do
+          render "edit"
+        end
+        format.js do
+          render :json => {:status => 'error', :error => current_user.errors.full_messages}
+        end
+      end
     end
   end
 end

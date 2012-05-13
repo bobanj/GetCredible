@@ -9,18 +9,13 @@
         %h3
           = "Welcome #{user.short_name}"
           = link_to "#{user.profile_complete_percent}%", '#', :id => 'guide-tip', :class => 'guide-tip'
-          
+        -#%input.knob{"value" => 50, "data-width" => "50", "data-readOnly" => 'true', :type => "text"}
         = link_to 'Edit profile', edit_user_registration_path, :class => 'edit'
-        
-- #TODO Add show or don't show guide logic...@wip
+
 #guide-tip-content{:style => 'display:none'}
-  #profile-guide
-    .profile-progress-info
-      %h3 Profile completion
-      .profile-progress-box
-        .profile-progress-bar
-        %span.profile-progress="#{user.profile_complete_percent}%"
-    = link_to "complete your profile", "#", :id => 'complete-profile',:class => "profile-complete"
+  %span.profile-progress="Just a fiew steps away from completing your profile."
+  -#= link_to "complete your profile", "#", :id => 'complete-profile',:class => "profile-complete"
+  = link_to "complete your profile", "#", :id => 'complete-profile',:class => "button"
 
 #guide-tip-modal{:style => 'display:none'}
   = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :html => {:multipart => true, :method => :put }) do |f|

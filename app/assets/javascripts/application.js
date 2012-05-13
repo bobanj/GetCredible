@@ -19,8 +19,13 @@
 //= require jquery.tipsy
 //= require jquery.noty
 //= require jquery.simplemodal
-//= require rhinoslider-1.04
 //= require jquery.tokeninput
+//= require jquery.qtip
+//= require jquery.knob
+//= require jquery-progress-bubbles
+//= require rhinoslider-1.04
+
+
 
 Array.prototype.unique = function () {
     var o = {}, i, l = this.length, r = [];
@@ -407,34 +412,113 @@ $(function () {
     $.getCredible.ajaxPagination();
     $.getCredible.init();
     $.getCredible.updateTagCloud();
-    $('#slider').rhinoslider({
-        autoPlay:true,
-        showTime:5000
-    });
-    $('#guide-tip').tipsy({
-        title: function(){
-            return $('#guide-tip-content').html();
-        },
-        trigger: 'manual',
-        gravity:'ne',
-        fade:true,
-        html:true,
-        delayOut:0,
-        delayIn:350}).click(function(){
-            if($(".tipsy").size() > 0){
-                $(this).tipsy("hide");
-            } else {
-                $(this).tipsy("show");
+    $('.knob').knob();
+    $('#guide-tip').qtip({
+        content: {
+            text: $('#guide-tip-content'),
+            title: {
+                text: "You are almost there !!!",
+                button: true
             }
-            return false;
-        }).hover(function(){
-            $(this).tipsy("show");
-            $('#complete-profile').click(function(){
-                $('#guide-tip').tipsy("hide");
-                $('#guide-tip-modal').modal();
-            });
-        },function(){
+        },
+        show: {
+            //event: 'click',
+            ready: true,
+            solo: true
+        },
+        hide: false,
+        position: {
+            my: 'top right',
+            at: 'bottom left'
+        },
+        style: {
+            width: 200,
+            height: 80,
+            classes: 'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded'
+        }
+    }).click(function(event) {
+            event.preventDefault();
             return false;
         });
+
+    $('#bubbles').progressBubbles( {
+            bubbles : [
+                {'title' : '1'},
+                {'title' : '2'},
+                {'title' : '3'},
+                {'title' : '4'}
+            ]
+        }
+    );
+
+    $('#complete-profile').qtip(
+        {
+            id: 'modal', // Since we're only creating one modal, give it an ID so we can style it
+            content: {
+                text: $('#bubbles_container'),
+                title: {
+                    text: 'Modal qTip',
+                    button: true
+                }
+            },
+            position: {
+                my: 'center', // ...at the center of the viewport
+                at: 'center',
+                target: $(window)
+            },
+            show: {
+                ready: true,
+                event: 'click', // Show it on click...
+                //solo: true, // ...and hide all other tooltips...
+                modal: true // ...and make it modal
+            },
+            hide: false,
+            style: {
+                classes: 'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded'
+            },
+            events: {
+                show: function(event, api) {
+                    $("#skip_step_1").click(function(){
+                        $('#bubbles').progressBubbles('progress');
+                        $("#step_1").hide();
+                        $("#step_2").show();
+                    });
+                    $("#skip_step_2").click(function(){
+                        $('#bubbles').progressBubbles('progress');
+                        $("#step_2").hide();
+                        $("#step_3").show();
+                    });
+                }
+            }
+        }).click(function(event) {
+            event.preventDefault();
+            return false;
+        });
+
+//    $('#guide-tip').tipsy({
+//        title: function(){
+//            return $('#guide-tip-content').html();
+//        },
+//        trigger: 'manual',
+//        gravity:'ne',
+//        fade:true,
+//        html:true,
+//        delayOut:0,
+//        delayIn:350}).click(function(){
+//            if($(".tipsy").size() > 0){
+//                $(this).tipsy("hide");
+//            } else {
+//                $(this).tipsy("show");
+//            }
+//            return false;
+//        }).hover(function(){
+//            $(this).tipsy("show");
+//            $('#complete-profile').click(function(){
+//                $('#guide-tip').tipsy("hide");
+//                $('#guide-tip-modal').modal();
+//            });
+//        },function(){
+//            return false;
+//        });
 
 })
