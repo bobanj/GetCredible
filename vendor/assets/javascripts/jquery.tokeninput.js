@@ -31,7 +31,7 @@
         deleteText: "&times;",
         animateDropdown: true,
         theme: null,
-        zindex: 999,
+        zindex: 99999,
         resultsFormatter: function(item){ return "<li>" + item[this.propertyToSearch]+ "</li>" },
         tokenFormatter: function(item) { return "<li><p>" + item[this.propertyToSearch] + "</p></li>" },
 

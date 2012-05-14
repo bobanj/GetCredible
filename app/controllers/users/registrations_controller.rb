@@ -34,13 +34,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if current_user.update_attributes(params[:user])
       respond_to do |format|
         format.html do
-          flash[:notice] = "You have updated your profile successfully."
+          flash[:notice] = 'You have updated your profile successfully.'
           # Sign in the user by passing validation in case his password changed
           sign_in current_user, :bypass => true
           redirect_to me_user_path(current_user)
         end
-        format.js do
-          render :json => {:status => 'ok'}
+        format.json do
+          if current_user.changed?
+            render :json => {:status => 'ok', :messages => ['You have updated your profile successfully.']}
+          else
+            render :json => {:status => "same", :messages => ['No changes']}
+          end
         end
       end
     else
@@ -48,8 +52,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
         format.html do
           render "edit"
         end
-        format.js do
-          render :json => {:status => 'error', :error => current_user.errors.full_messages}
+        format.json do
+          render :json => {:status => 'error', :messages => current_user.errors.full_messages}
         end
       end
     end

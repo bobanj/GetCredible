@@ -24,7 +24,7 @@
 //= require jquery.knob
 //= require jquery-progress-bubbles
 //= require rhinoslider-1.04
-
+//= require jquery.validate.min
 
 
 Array.prototype.unique = function () {
@@ -156,18 +156,18 @@ $(function () {
                         word.data('voters', voters.join(''));
                         word.data('voters_count', data.voters_count);
 
-                        if ( data.voters_count === null ) {
-                          $.getCredible.updateTagCloud(function () {
-                            $('.tipsy').hide();
-                          });
+                        if (data.voters_count === null) {
+                            $.getCredible.updateTagCloud(function () {
+                                $('.tipsy').hide();
+                            });
                         } else {
-                          if (word.hasClass('vouche')) {
-                              word.removeClass("vouche").addClass("unvouche");
-                              $.getCredible.displayNotification('success', 'You have unvouched for ' + user.full_name + ' on ' + word.text());
-                          } else {
-                              word.removeClass("unvouche").addClass("vouche");
-                              $.getCredible.displayNotification('success', 'You have vouched for ' + user.full_name + ' on ' + word.text());
-                          }
+                            if (word.hasClass('vouche')) {
+                                word.removeClass("vouche").addClass("unvouche");
+                                $.getCredible.displayNotification('success', 'You have unvouched for ' + user.full_name + ' on ' + word.text());
+                            } else {
+                                word.removeClass("unvouche").addClass("vouche");
+                                $.getCredible.displayNotification('success', 'You have vouched for ' + user.full_name + ' on ' + word.text());
+                            }
                         }
 
                         word.tipsy("show");
@@ -215,7 +215,7 @@ $(function () {
                     title:userTag.name,
                     class:$.getCredible.getWordCustomClass(userTag)
                 },
-                weight: parseInt((userTag.score - distributionOptions.min) / distributionOptions.divisor),
+                weight:parseInt((userTag.score - distributionOptions.min) / distributionOptions.divisor),
                 dataAttributes:{ score:userTag.score, 'user-tag-id':userTag.id,
                     rank:userTag.rank, total:userTag.total, tagged:userTag.tagged,
                     voters:voters.join(''), voters_count:userTag.voters_count},
@@ -264,10 +264,10 @@ $(function () {
         var growHeight = 250 + (wordList.length * 3);
         $.getCredible.tagCloud.css('height', growHeight + 'px');
         $.getCredible.tagCloud.jQCloud(wordList, {
-            width: 700,
-            height: growHeight,
-            nofollow: true,
-            parts: distributionOptions.parts,
+            width:700,
+            height:growHeight,
+            nofollow:true,
+            parts:distributionOptions.parts,
             delayedMode:true,
             afterCloudRender:function () {
                 $.getCredible.tagCloudLoader.hide('fast');
@@ -359,7 +359,7 @@ $(function () {
                 $('#global-header').replaceWith(data.header);
                 $('#tags').replaceWith(data.tag_cloud);
                 $.getCredible.init();
-                $.getCredible.updateTagCloud(function(){
+                $.getCredible.updateTagCloud(function () {
                     $.getCredible.addTagOrVoteAfterLogin();
                     $.getCredible.modalApi.close();
                 });
@@ -381,7 +381,7 @@ $(function () {
                 $('#global-header').replaceWith(data.header);
                 $('#tags').replaceWith(data.tag_cloud);
                 $.getCredible.init();
-                $.getCredible.updateTagCloud(function(){
+                $.getCredible.updateTagCloud(function () {
                     $.getCredible.addTagOrVoteAfterLogin();
                     $.getCredible.modalApi.close();
                 });
@@ -414,83 +414,171 @@ $(function () {
     $.getCredible.updateTagCloud();
     $('.knob').knob();
     $('#guide-tip').qtip({
-        content: {
-            text: $('#guide-tip-content'),
-            title: {
-                text: "You are almost there !!!",
-                button: true
+        content:{
+            text:$('#guide-tip-content'),
+            title:{
+                text:"You are almost there !!!",
+                button:true
             }
         },
-        show: {
+        show:{
             //event: 'click',
-            ready: true,
-            solo: true
+            ready:true,
+            solo:true
         },
-        hide: false,
-        position: {
-            my: 'top right',
-            at: 'bottom left'
+        hide:false,
+        position:{
+            my:'top right',
+            at:'bottom left'
         },
-        style: {
-            width: 200,
-            height: 80,
-            classes: 'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded'
+        style:{
+            width:200,
+            height:80,
+            classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded'
         }
-    }).click(function(event) {
+    }).click(function (event) {
             event.preventDefault();
             return false;
         });
 
-    $('#bubbles').progressBubbles( {
-            bubbles : [
-                {'title' : '1'},
-                {'title' : '2'},
-                {'title' : '3'},
-                {'title' : '4'}
+    $('#bubbles').progressBubbles({
+            bubbles:[
+                {'title':'1'},
+                {'title':'2'},
+                {'title':'3'},
+                {'title':'4'}
             ]
         }
     );
 
     $('#complete-profile').qtip(
         {
-            id: 'modal', // Since we're only creating one modal, give it an ID so we can style it
-            content: {
-                text: $('#bubbles_container'),
-                title: {
-                    text: 'Modal qTip',
-                    button: true
+            id:'modal', // Since we're only creating one modal, give it an ID so we can style it
+            content:{
+                text:$('#bubbles_container'),
+                title:{
+                    text:'Guide',
+                    button:true
                 }
             },
-            position: {
-                my: 'center', // ...at the center of the viewport
-                at: 'center',
-                target: $(window)
+            position:{
+                my:'center', // ...at the center of the viewport
+                at:'center',
+                target:$(window)
             },
-            show: {
-                ready: true,
-                event: 'click', // Show it on click...
+            show:{
+                ready:true,
+                event:'click', // Show it on click...
                 //solo: true, // ...and hide all other tooltips...
-                modal: true // ...and make it modal
+                modal:{
+                    on:true,
+                    blur:false
+                }
             },
-            hide: false,
-            style: {
-                classes: 'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded'
+            hide:false,
+            style:{
+                classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded'
             },
-            events: {
-                show: function(event, api) {
-                    $("#skip_step_1").click(function(){
-                        $('#bubbles').progressBubbles('progress');
-                        $("#step_1").hide();
-                        $("#step_2").show();
+            events:{
+                show:function (event, api) {
+                    $("#step_1_form, #step_2_form").submit(function () {
+                        var currentStep = $(this).parent();
+                        var nextStep = currentStep.next();
+                        $.ajax({
+                            url:$(this).attr('action') + '.json',
+                            type:'POST',
+                            data:$(this).serialize(),
+                            dataType:'json',
+                            success:function (data) {
+                                if (data.status == 'error') {
+                                    $.each(data.messages, function (i, message) {
+                                        $.getCredible.displayNotification('error', message);
+                                    })
+                                } else {
+                                    if (data.status == 'ok') {
+                                        $.getCredible.displayNotification('success', data.messages[0]);
+                                    }
+                                    currentStep.slideUp(function () {
+                                        $('#bubbles').progressBubbles('progress');
+                                        nextStep.slideDown();
+                                    });
+                                }
+                            }
+                        });
+                        return false;
                     });
-                    $("#skip_step_2").click(function(){
-                        $('#bubbles').progressBubbles('progress');
-                        $("#step_2").hide();
-                        $("#step_3").show();
+
+                    $("#skip_step_1").click(function () {
+                        $("#step_1").slideUp(function () {
+                            $('#bubbles').progressBubbles('progress');
+                            $("#step_2").slideDown();
+                        });
+                        return false;
+                    });
+
+                    $("#skip_step_2").click(function () {
+                        $("#step_2").slideUp(function () {
+                            $('#bubbles').progressBubbles('progress');
+                            $("#step_3").slideDown();
+                        });
+                        return false;
+                    });
+
+                    $("#prev_step_2").click(function () {
+                        $("#step_2").slideUp(function () {
+                            $('#bubbles').progressBubbles('regress');
+                            $("#step_1").slideDown();
+                        });
+                        return false;
+                    });
+
+                    $("#skip_step_3, #next_step_3").click(function () {
+                        $("#step_3").slideUp(function () {
+                            $('#bubbles').progressBubbles('progress');
+                            $("#step_4").slideDown();
+                        });
+                        return false;
+                    });
+
+                    $("#prev_step_3").click(function () {
+                        $("#step_3").slideUp(function () {
+                            $('#bubbles').progressBubbles('regress');
+                            $("#step_2").slideDown();
+                        });
+                        return false;
+                    });
+
+                    var step4Tags = $("#step_4_tags");
+                    if (step4Tags.length > 0) {
+                        step4Tags.tokenInput("/tags/search", {
+                            method:'POST',
+                            queryParam:'term',
+                            propertyToSearch:'term',
+                            tokenValue:'term',
+                            crossDomain:false,
+                            theme:"facebook",
+                            hintText:'e.g. web design, leadership (comma separated)',
+                            minChars:2
+                        });
+                    }
+
+
+                    $("#next_step_4").click(function () {
+                        //api.destroy();
+                        api.hide();
+                        return false;
+                    });
+
+                    $("#prev_step_4").click(function () {
+                        $("#step_4").slideUp(function () {
+                            $('#bubbles').progressBubbles('regress');
+                            $("#step_3").slideDown();
+                        });
+                        return false;
                     });
                 }
             }
-        }).click(function(event) {
+        }).click(function (event) {
             event.preventDefault();
             return false;
         });
