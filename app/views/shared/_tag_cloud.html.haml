@@ -1,29 +1,31 @@
 - can_delete ||= false
 %section#tags
   #add-tag
-    .inner{:class => (@user == current_user) ? "cannot_tag" : nil}
-      - if @user != current_user
-        = form_tag user_user_tags_path(@user) do
-          = text_field_tag :tag_names, '', :placeholder => 'e.g. web design, leadership (comma separated)', :class => 'large', :id => 'tag_names'
+    .inner{:class => (false && @user == current_user) ? "cannot_tag" : nil}
+      = render 'shared/share_this' if @user == current_user
+      = form_tag user_user_tags_path(@user) do
+        = text_field_tag :tag_names, '', :placeholder => 'e.g. web design, leadership (comma separated)', :class => 'large', :id => 'tag_names'
 
-          %button.btn.primary.large Tag 'em!
-        .vouche ... or <strong>click a tag</strong> below to vouch for it yourself!
+        %button.btn.primary.large Tag 'em!
+      - if @user == current_user
+        .vouche You can always add more tags in field above
       - else
-        = render 'shared/share_this'
+        .vouche ... or <strong>add a tag</strong> below to vouch for it yourself!
     .arrow
   = image_tag "ajax_loader.gif", :id => 'tag-could-loader', :style => "display:none;"
 
 
-  - if @user.user_tags.blank? && current_user == @user
-    = render :partial => 'shared/no_tags'
-  - else current_user
-    %div{:id => 'tag-cloud',
-         "data-tag-cloud-path" => user_user_tags_path(@user),
-                    :"data-user-name" => @user.username.to_s,
-                    :"data-logged-in" => user_signed_in?.to_s,
-                    :"data-can-vote" => (@user != current_user).to_s,
-                    :"data-can-delete" => can_delete.to_s,
-                    :"data-user" => {:full_name => @user.full_name}.to_json}
-    #tag-msg
-      %span.icon
-      = tag_cloud_summary(@user)
+  -#- if @user.user_tags.blank? && current_user == @user
+  -#  = render :partial => 'shared/no_tags'
+  -#- else current_user
+  %div{:id => 'tag-cloud',
+       "data-tag-cloud-path" => user_user_tags_path(@user),
+                  :"data-user-name" => @user.username.to_s,
+                  :"data-logged-in" => user_signed_in?.to_s,
+                  :"data-can-vote" => (@user != current_user).to_s,
+                  :"data-can-tag" => "true",
+                  :"data-can-delete" => (@user == current_user).to_s,
+                  :"data-user" => {:full_name => @user == current_user ? 'yourself' : @user.full_name}.to_json}
+  #tag-msg
+    %span.icon
+    = tag_cloud_summary(@user)

@@ -73,30 +73,6 @@ $(function () {
             });
         }
 
-        $("#tag-cloud").delegate(".remove .icon", "click", function () {
-            var word = $(this).parent();
-            noty({
-                text:'Are you sure you want to delete this tag?',
-                layout:'center',
-                type:'alert',
-                buttons:[
-                    {type:'button green', text:'Ok', click:function () {
-                        if ($.getCredible.tagCloud.data('can-delete')) {
-                            $.post($.getCredible.tagCloudPath + '/' + word.data('user-tag-id'), { _method:'delete' }, function (data) {
-                                $.getCredible.renderTagCloud(data);
-                            });
-                        }
-                    } },
-                    {type:'button orange', text:'Cancel', click:function () {
-
-                    } }
-                ],
-                closable:false,
-                timeout:false
-            });
-
-        });
-
         $("#add-tag form").submit(function (e) {
             e.preventDefault();
             var form = $(this);
@@ -108,7 +84,7 @@ $(function () {
             }
             if (tagNames != '' && $.getCredible.tagCloud.length > 0) {
                 var addTag = function () {
-                    if ($.getCredible.tagCloud.data('can-vote')) {
+                    if ($.getCredible.tagCloud.data('can-tag')) {
                         $.post($.getCredible.tagCloud.data('tag-cloud-path'),
                             form.serialize(), function (data) {
                                 tagNamesTextField.tokenInput("clear");
@@ -298,6 +274,30 @@ $(function () {
                         }
                     }).append('<span class="icon"></span>');
                 });
+                //Delegate fails
+                $("#tag-cloud .remove .icon").click(function () {
+                    var word = $(this).parent();
+                    noty({
+                        text:'Are you sure you want to delete this tag?',
+                        layout:'center',
+                        type:'alert',
+                        buttons:[
+                            {type:'button green', text:'Ok', click:function () {
+                                if ($.getCredible.tagCloud.data('can-delete')) {
+                                    $.post($.getCredible.tagCloudPath + '/' + word.data('user-tag-id'), { _method:'delete' }, function (data) {
+                                        $.getCredible.renderTagCloud(data);
+                                    });
+                                }
+                            } },
+                            {type:'button orange', text:'Cancel', click:function () {
+
+                            } }
+                        ],
+                        closable:false,
+                        timeout:false
+                    });
+                });
+
                 // vote callback after login via modal window
                 if (typeof(tagCloudCallback) === 'function') {
                     tagCloudCallback();
@@ -309,6 +309,9 @@ $(function () {
         if (this.tagCloud.length > 0) {
             this.tagCloudPath = this.tagCloud.data('tag-cloud-path');
             $.getJSON(this.tagCloud.data('tag-cloud-path'), function (data) {
+                if($("#bubbles_container").length > 0){
+                    guideApi.show();
+                }
                 $.getCredible.renderTagCloud(data, tagCloudCallback);
             });
         }
@@ -408,12 +411,9 @@ $(function () {
         event.preventDefault();
         return false;
     });
-    $.getCredible.showFlashMessages();
-    $.getCredible.ajaxPagination();
-    $.getCredible.init();
-    $.getCredible.updateTagCloud();
-    $('.knob').knob();
-    $('#guide-tip').qtip({
+
+    //disabled qtip atm
+    $('#guide-tip-disabled').qtip({
         content:{
             text:$('#guide-tip-content'),
             title:{
@@ -423,8 +423,8 @@ $(function () {
         },
         show:{
             //event: 'click',
-            ready:true,
-            solo:true
+            ready:false,
+            solo: true
         },
         hide:false,
         position:{
@@ -451,7 +451,7 @@ $(function () {
         }
     );
 
-    $('#complete-profile').qtip(
+    var guideApi = $('<div/>').qtip(
         {
             id:'modal', // Since we're only creating one modal, give it an ID so we can style it
             content:{
@@ -467,12 +467,13 @@ $(function () {
                 target:$(window)
             },
             show:{
-                ready:true,
+                ready:false,
                 event:'click', // Show it on click...
                 //solo: true, // ...and hide all other tooltips...
                 modal:{
                     on:true,
-                    blur:false
+                    blur:false,
+                    escape:false
                 }
             },
             hide:false,
@@ -562,18 +563,63 @@ $(function () {
                         });
                     }
 
-
-                    $("#next_step_4").click(function () {
-                        //api.destroy();
-                        api.hide();
-                        return false;
-                    });
-
                     $("#prev_step_4").click(function () {
                         $("#step_4").slideUp(function () {
                             $('#bubbles').progressBubbles('regress');
                             $("#step_3").slideDown();
                         });
+                        return false;
+                    });
+
+                    $("#step_4 form").submit(function (e) {
+                        e.preventDefault();
+                        var form = $(this);
+                        var step4TagNames = $("#step_4_tags");
+                        if (step4TagNames.length > 0) {
+                            step4TagNames = step4TagNames.val();
+                        } else {
+                            step4TagNames = ''
+                        }
+                        if (step4TagNames != '' && $.getCredible.tagCloud.length > 0) {
+                            var selfTag = function () {
+                                $.post($.getCredible.tagCloud.data('tag-cloud-path'),
+                                    form.serialize(), function (data) {
+                                        step4Tags.tokenInput("clear");
+                                        $.getCredible.displayNotification('success', 'You have tagged yourself with ' + step4TagNames);
+                                        $.getCredible.renderTagCloud(data);
+                                        api.hide();
+                                        $('.token-input-dropdown-facebook').remove();
+                                    });
+                            }
+
+                            if ($.getCredible.tagCloud.data('logged-in')) {
+                                $('#step_4 .token-input-list-facebook').qtip('destroy');
+                                selfTag();
+                            } else {
+                                $.getCredible.modalApi = $('#login_dialog').modal();
+                            }
+                        } else {
+                            $.fn.qtip.zindex = 99999;
+                            $('#step_4 .token-input-list-facebook').qtip({
+                                content: {
+                                    text: 'Please add tags',
+                                    title: false
+                                },
+                                position: {
+                                    my: 'bottom center', // Use the corner...
+                                    at: 'top center' // ...and opposite corner
+                                },
+                                show: {
+                                    event: false, // Don't specify a show event...
+                                    ready: true // ... but show the tooltip when ready
+                                },
+                                hide: false, // Don't specify a hide event either!
+                                style: {
+                                    classes: 'ui-tooltip-red ui-tooltip-shadow ui-tooltip-rounded'
+                                }
+                            })
+                            //$.getCredible.displayNotification('error', 'Please add tags');
+                        }
                         return false;
                     });
                 }
@@ -582,31 +628,10 @@ $(function () {
             event.preventDefault();
             return false;
         });
-
-//    $('#guide-tip').tipsy({
-//        title: function(){
-//            return $('#guide-tip-content').html();
-//        },
-//        trigger: 'manual',
-//        gravity:'ne',
-//        fade:true,
-//        html:true,
-//        delayOut:0,
-//        delayIn:350}).click(function(){
-//            if($(".tipsy").size() > 0){
-//                $(this).tipsy("hide");
-//            } else {
-//                $(this).tipsy("show");
-//            }
-//            return false;
-//        }).hover(function(){
-//            $(this).tipsy("show");
-//            $('#complete-profile').click(function(){
-//                $('#guide-tip').tipsy("hide");
-//                $('#guide-tip-modal').modal();
-//            });
-//        },function(){
-//            return false;
-//        });
+    guideApi = guideApi.qtip('api');
+    $.getCredible.showFlashMessages();
+    $.getCredible.ajaxPagination();
+    $.getCredible.init();
+    $.getCredible.updateTagCloud();
 
 })

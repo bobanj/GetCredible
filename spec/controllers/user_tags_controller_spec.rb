@@ -34,13 +34,13 @@ describe UserTagsController do
       post :create, tag_names: 'something', user_id: other_user.username, format: 'json'
     end
 
-    it "cannot tag himself" do
+    it "can tag himself" do
       sign_in(user)
 
       controller.stub(:current_user).and_return(user)
       User.stub(:find_by_username!).with(other_user.username).and_return(user)
 
-      user.should_not_receive(:add_tags)
+      user.should_receive(:add_tags)
       post :create, tag_names: 'something', user_id: other_user.username, format: 'json'
     end
 

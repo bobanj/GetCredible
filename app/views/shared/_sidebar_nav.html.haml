@@ -8,7 +8,7 @@
       .my-actions
         %h3
           = "Welcome #{user.short_name}"
-          = link_to "#{user.profile_complete_percent}%", '#', :id => 'guide-tip', :class => 'guide-tip'
+          -#= link_to "#{user.profile_complete_percent}%", '#', :id => 'guide-tip', :class => 'guide-tip'
         -#%input.knob{"value" => 50, "data-width" => "50", "data-readOnly" => 'true', :type => "text"}
         = link_to 'Edit profile', edit_user_registration_path, :class => 'edit'
 

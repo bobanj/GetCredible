@@ -16,7 +16,8 @@ class ApplicationController < ActionController::Base
       if current_user.user_tags.exists?
         activity_path('all')
       else
-        tour_url
+        me_user_path(resource)
+        #tour_url
       end
     end
   end
