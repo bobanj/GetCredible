@@ -21,10 +21,7 @@
 //= require jquery.simplemodal
 //= require jquery.tokeninput
 //= require jquery.qtip
-//= require jquery.knob
 //= require jquery-progress-bubbles
-//= require rhinoslider-1.04
-//= require jquery.validate.min
 
 
 Array.prototype.unique = function () {
