@@ -590,32 +590,32 @@ $(function () {
                             }
 
                             if ($.getCredible.tagCloud.data('logged-in')) {
-                                $('#step_4 .token-input-list-facebook').qtip('destroy');
+                                //$('#step_4 .token-input-list-facebook').qtip('destroy');
                                 selfTag();
                             } else {
                                 $.getCredible.modalApi = $('#login_dialog').modal();
                             }
                         } else {
-                            $.fn.qtip.zindex = 99999;
-                            $('#step_4 .token-input-list-facebook').qtip({
-                                content: {
-                                    text: 'Please add tags',
-                                    title: false
-                                },
-                                position: {
-                                    my: 'bottom center', // Use the corner...
-                                    at: 'top center' // ...and opposite corner
-                                },
-                                show: {
-                                    event: false, // Don't specify a show event...
-                                    ready: true // ... but show the tooltip when ready
-                                },
-                                hide: false, // Don't specify a hide event either!
-                                style: {
-                                    classes: 'ui-tooltip-red ui-tooltip-shadow ui-tooltip-rounded'
-                                }
-                            })
-                            //$.getCredible.displayNotification('error', 'Please add tags');
+//                            $.fn.qtip.zindex = 99999;
+//                            $('#step_4 .token-input-list-facebook').qtip({
+//                                content: {
+//                                    text: 'Please add tags',
+//                                    title: false
+//                                },
+//                                position: {
+//                                    my: 'bottom center', // Use the corner...
+//                                    at: 'top center' // ...and opposite corner
+//                                },
+//                                show: {
+//                                    event: false, // Don't specify a show event...
+//                                    ready: true // ... but show the tooltip when ready
+//                                },
+//                                hide: false, // Don't specify a hide event either!
+//                                style: {
+//                                    classes: 'ui-tooltip-red ui-tooltip-shadow ui-tooltip-rounded'
+//                                }
+//                            });
+                            $.getCredible.displayNotification('error', 'Please add tags');
                         }
                         return false;
                     });
