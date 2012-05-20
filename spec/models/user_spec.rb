@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe User do
-  let(:user) { Factory(:user) }
-  let(:tagger) { Factory(:user) }
-  let(:other_user) { Factory(:user) }
-  let(:voter) { Factory(:user) }
-  let(:tag) { Factory(:tag) }
-  let(:user_tag) { Factory(:user_tag, tag: tag, user: user, tagger: tagger) }
-  let(:user_tag2) { Factory(:user_tag, tag: tag, user: user, tagger: tagger) }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:tagger) { FactoryGirl.create(:user) }
+  let(:other_user) { FactoryGirl.create(:user) }
+  let(:voter) { FactoryGirl.create(:user) }
+  let(:tag) { FactoryGirl.create(:tag) }
+  let(:user_tag) { FactoryGirl.create(:user_tag, tag: tag, user: user, tagger: tagger) }
+  let(:user_tag2) { FactoryGirl.create(:user_tag, tag: tag, user: user, tagger: tagger) }
 
   describe "Attributes" do
     it { should allow_mass_assignment_of(:email) }
@@ -46,13 +46,13 @@ describe User do
   end
 
   describe "Validations" do
-    subject { Factory(:user) }
+    subject { FactoryGirl.create(:user) }
     it { should validate_presence_of(:username) }
     it { should validate_uniqueness_of(:username) }
     it { should ensure_length_of(:username).is_at_least(3) }
 
     it "validates format of username" do
-      user = Factory.build(:user, username: 'invalid username')
+      user = FactoryGirl.build(:user, username: 'invalid username')
       user.valid?.should be_false
       user.username = 'invalid@username'
       user.valid?.should be_false
@@ -69,18 +69,18 @@ describe User do
     end
 
     it "validates format of personal_url when not blank" do
-      user = Factory.build(:user, personal_url: 'test')
+      user = FactoryGirl.build(:user, personal_url: 'test')
       user.should_not be_valid
       user.errors[:personal_url].should include("is not a valid url")
     end
 
     it "does not validate format of personal_url when blank" do
-      user = Factory.build(:user, :personal_url => '')
+      user = FactoryGirl.build(:user, :personal_url => '')
       user.should be_valid
     end
 
     it "validates that username is not a route" do
-      user = Factory.build(:user, username: 'tour')
+      user = FactoryGirl.build(:user, username: 'tour')
       user.valid?.should be_false
       user.errors[:username].should include("is not available")
 
@@ -96,25 +96,25 @@ describe User do
 
   describe "Callbacks" do
     it "adds protocol and removes empty spaces from personal_url" do
-      user = Factory.build(:user, :personal_url => ' givebrand.to ')
+      user = FactoryGirl.build(:user, :personal_url => ' givebrand.to ')
       user.valid?.should be_true
       user.personal_url.should == 'http://givebrand.to'
     end
 
     it "removes empty spaces from personal_url" do
-      user = Factory.build(:user, :personal_url => ' http://givebrand.to ')
+      user = FactoryGirl.build(:user, :personal_url => ' http://givebrand.to ')
       user.valid?.should be_true
       user.personal_url.should == 'http://givebrand.to'
     end
 
     it "removes @ sign and empty spaces from twitter username" do
-      user = Factory.build(:user, twitter_handle: ' @pink_panter ')
+      user = FactoryGirl.build(:user, twitter_handle: ' @pink_panter ')
       user.valid?.should be_true
       user.twitter_handle.should == 'pink_panter'
     end
 
     it "removes empty spaces from twitter username" do
-      user = Factory.build(:user, twitter_handle: ' pink_panter ')
+      user = FactoryGirl.build(:user, twitter_handle: ' pink_panter ')
       user.valid?.should be_true
       user.twitter_handle.should == 'pink_panter'
     end
@@ -202,8 +202,8 @@ describe User do
 
   describe "#interacted_by" do
     it "returns false when no interaction" do
-      user = Factory(:user)
-      other_user = Factory(:user)
+      user = FactoryGirl.create(:user)
+      other_user = FactoryGirl.create(:user)
       other_user.interacted_by(user).should be_false
     end
 
@@ -260,7 +260,7 @@ describe User do
     end
 
     it "returns friends of friends activities" do
-      user_tag = Factory(:user_tag, tag: tag, user: user, tagger: tagger)
+      user_tag = FactoryGirl.create(:user_tag, tag: tag, user: user, tagger: tagger)
 
       voter.add_vote(user_tag)
       vote = user_tag.votes.first
@@ -277,12 +277,12 @@ describe User do
 
   describe "#short_name" do
     it "returns 'Pink' when full_name is 'Pink'" do
-      user = Factory.build(:user, full_name: 'Pink')
+      user = FactoryGirl.build(:user, full_name: 'Pink')
       user.short_name.should == 'Pink'
     end
 
     it "returns 'Pink' when full_name is 'Pink Panter'" do
-      user = Factory.build(:user, full_name: 'Pink Panter')
+      user = FactoryGirl.build(:user, full_name: 'Pink Panter')
       user.short_name.should == 'Pink'
     end
   end
@@ -317,19 +317,19 @@ describe User do
     end
 
     it "can find users by name" do
-      user = Factory(:user, full_name: 'Pink Panter')
+      user = FactoryGirl.create(:user, full_name: 'Pink Panter')
       users = User.search(q: 'Panter')
       users.should include(user)
     end
 
     it "can find users by username" do
-      user = Factory(:user, username: 'green_panter')
+      user = FactoryGirl.create(:user, username: 'green_panter')
       users = User.search(q: 'green')
       users.should include(user)
     end
 
     it "returns no user when query is blank" do
-      user = Factory(:user, full_name: 'Pink Panter')
+      user = FactoryGirl.create(:user, full_name: 'Pink Panter')
       users = User.search(q: '')
       users.should_not include(user)
     end
@@ -337,12 +337,12 @@ describe User do
 
   describe "#full_name" do
     it "returns username when full_name is blank" do
-      user = Factory.build(:user, :full_name => '', :username => 'pink-panter')
+      user = FactoryGirl.build(:user, :full_name => '', :username => 'pink-panter')
       user.full_name.should == 'pink-panter'
     end
 
     it "returns full_name when full_name is present" do
-      user = Factory.build(:user, :full_name => 'Pink Panter', :username => 'p')
+      user = FactoryGirl.build(:user, :full_name => 'Pink Panter', :username => 'p')
       user.full_name.should == 'Pink Panter'
     end
   end

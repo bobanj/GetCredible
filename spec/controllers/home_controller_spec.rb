@@ -10,7 +10,7 @@ describe HomeController do
     end
 
     it "redirect to all activities if user is logged in" do
-      user = Factory(:user)
+      user = FactoryGirl.create(:user)
       sign_in(user)
 
       get :index

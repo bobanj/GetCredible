@@ -5,7 +5,7 @@ gem 'unicorn', '4.2.0'
 
 gem 'pg'
 #gem 'sqlite3'
-gem 'devise',           '>= 2.0.0'
+gem 'devise', '>= 2.0.0'
 gem "haml", ">= 3.0.0"
 gem "haml-rails"
 gem "jquery-rails"

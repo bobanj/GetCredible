@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe UserTagsController do
-  let(:user) { Factory(:user, full_name: 'User', username: 'user') }
-  let(:other_user) { Factory(:user, full_name: "Other User", username: 'other_user') }
+  let(:user) { FactoryGirl.create(:user, full_name: 'User', username: 'user') }
+  let(:other_user) { FactoryGirl.create(:user, full_name: "Other User", username: 'other_user') }
 
   describe "Authentication" do
     it_should_require_current_user_for :create, :vote, :unvote
@@ -71,7 +71,7 @@ describe UserTagsController do
   end
 
   describe "#vote" do
-    let(:tag) { Factory.build(:tag) }
+    let(:tag) { FactoryGirl.build(:tag) }
 
     before :each do
       sign_in(user)
@@ -79,8 +79,8 @@ describe UserTagsController do
     end
 
     it "can vote for a user tag" do
-      user_tag   = Factory.build(:user_tag, :user => other_user,
-                                 :tag => Factory(:tag, name: 'developer'))
+      user_tag   = FactoryGirl.build(:user_tag, :user => other_user,
+                                 :tag => FactoryGirl.create(:tag, name: 'developer'))
       User.stub(:find_by_username!).with(other_user.username).and_return(other_user)
       controller.should_receive(:tag_summary).and_return({})
       other_user.stub_chain(:user_tags, :find).with("1").and_return(user_tag)
@@ -97,7 +97,7 @@ describe UserTagsController do
     end
 
     it "cannot vote for himself" do
-      user_tag = Factory.build(:user_tag, :user => user)
+      user_tag = FactoryGirl.build(:user_tag, :user => user)
       User.stub(:find_by_username!).with(other_user.username).and_return(other_user)
       other_user.stub_chain(:user_tags, :find).with("1").and_return(user_tag)
 
@@ -111,7 +111,7 @@ describe UserTagsController do
   end
 
   describe "#unvote" do
-    let(:tag) { Factory.build(:tag) }
+    let(:tag) { FactoryGirl.build(:tag) }
 
     before :each do
       sign_in(user)
@@ -119,7 +119,7 @@ describe UserTagsController do
     end
 
     it "can remove vote from a user tag" do
-      user_tag = Factory.build(:user_tag, tagger: user, tag: tag)
+      user_tag = FactoryGirl.build(:user_tag, tagger: user, tag: tag)
       User.stub(:find_by_username!).with(other_user.username).and_return(other_user)
       controller.should_receive(:tag_summary).and_return({})
       other_user.stub_chain(:user_tags, :find).with("1").and_return(user_tag)
@@ -130,7 +130,7 @@ describe UserTagsController do
     end
 
     it "cannot remove vote from a user tag is it does not exists" do
-      user_tag = Factory.build(:user_tag, user: user)
+      user_tag = FactoryGirl.build(:user_tag, user: user)
       User.stub(:find_by_username!).with(other_user.username).and_return(other_user)
       UserTag.stub(:find).with("1").and_return(user_tag)
       other_user.stub_chain(:user_tags, :find).with("1").and_return(user_tag)
