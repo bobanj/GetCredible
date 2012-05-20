@@ -24,6 +24,7 @@
 //= require jquery-progress-bubbles
 
 
+
 Array.prototype.unique = function () {
     var o = {}, i, l = this.length, r = [];
     for (i = 0; i < l; i += 1) o[this[i]] = this[i];
@@ -306,7 +307,7 @@ $(function () {
         if (this.tagCloud.length > 0) {
             this.tagCloudPath = this.tagCloud.data('tag-cloud-path');
             $.getJSON(this.tagCloud.data('tag-cloud-path'), function (data) {
-                if($("#bubbles_container").length > 0){
+                if ($("#bubbles_container").length > 0) {
                     guideApi.show();
                 }
                 $.getCredible.renderTagCloud(data, tagCloudCallback);
@@ -331,9 +332,9 @@ $(function () {
             if (messageType == 'alert') {
                 $.getCredible.displayNotification('alert', flashMessage.text());
             }
-            // if (messageType == 'notice') {
-            //     $.getCredible.displayNotification('success', flashMessage.text());
-            // }
+            if (messageType == 'notice') {
+                $.getCredible.displayNotification('success', flashMessage.text());
+            }
         }
     }
 
@@ -421,7 +422,7 @@ $(function () {
         show:{
             //event: 'click',
             ready:false,
-            solo: true
+            solo:true
         },
         hide:false,
         position:{
@@ -448,7 +449,7 @@ $(function () {
         }
     );
 
-    var guideApi = $('<div/>').qtip(
+    var guideApi = $('#steps').qtip(
         {
             id:'modal', // Since we're only creating one modal, give it an ID so we can style it
             content:{
@@ -479,6 +480,15 @@ $(function () {
             },
             events:{
                 show:function (event, api) {
+                    $("#next_step_1").click(function(){
+                        $("#step_1_form").submit();
+                    });
+                    $("#next_step_2").click(function(){
+                        $("#step_2_form").submit();
+                    });
+                    $("#next_step_4").click(function(){
+                        $("#step_4_form").submit();
+                    });
                     $("#step_1_form, #step_2_form").submit(function () {
                         var currentStep = $(this).parent();
                         var nextStep = currentStep.next();
@@ -607,6 +617,57 @@ $(function () {
             return false;
         });
     guideApi = guideApi.qtip('api');
+
+    // Invite user qtip
+    $("li#gn-invite a").qtip({
+        content:{
+            // Set the text to an image HTML string with the correct src URL to the loading image you want to use
+            text:'<img src="/assets/ajax_loader.gif " alt="Loading..." />',
+            ajax:{
+                url: '/users/invitation/new',
+                success: function(data, status) {
+                    this.set('content.text', data);
+                    $('#invite_tag_names').tokenInput("/tags/search", {
+                        method:'POST',
+                        queryParam:'term',
+                        propertyToSearch:'term',
+                        tokenValue:'term',
+                        crossDomain:false,
+                        theme:"facebook",
+                        hintText:'e.g. web design, leadership (comma separated)',
+                        minChars:2
+                    });
+                }
+            },
+            title:{
+                text:'Send Invitation',
+                button:true
+            }
+        },
+        position:{
+            at:'bottom center', // Position the tooltip above the link
+            my:'top center',
+            viewport:$(window), // Keep the tooltip on-screen at all times
+            effect:false // Disable positioning animation
+        },
+        show:{
+            event:'click',
+            solo:true, // Only show one tooltip at a time
+            modal:{
+                on:true,
+                blur:false,
+                escape:false
+            }
+        },
+        hide:'unfocus',
+        style:{
+            classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded',
+            tip: false
+        }
+    }).click(function (event) {
+            event.preventDefault();
+            return false;
+        });
     $.getCredible.showFlashMessages();
     $.getCredible.ajaxPagination();
     $.getCredible.init();

@@ -1,0 +1,8 @@
+-#= link_to "Home", after_sign_in_path_for(resource)
+#content
+  = simple_form_for(resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post }) do |f|
+    = label :tag, :names, 'Tags: '
+    = text_field_tag :tag_names, '', :id => 'invite_tag_names', :placeholder => 'e.g. web design, leadership (comma separated)'
+    %ul.inputs-list.left
+      %li= f.input :email, :wrapper => false
+      %li= f.button :submit, "Save", class: 'btn primary large'

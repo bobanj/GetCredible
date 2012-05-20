@@ -49,7 +49,7 @@
       %li#step_4{:style => "display:none"}
         %h1 Add Tags
         -#TODO Handle form submit
-        = form_tag user_user_tags_path(@user) do
+        = form_tag user_user_tags_path(@user), :id => 'step_4_form' do
           = text_field_tag :tag_names, '', :placeholder => 'e.g. web design, leadership (comma separated)', :class => 'large', :id => 'step_4_tags'
           %a{id: 'prev_step_4', class: 'btn'}Previous
           = submit_tag "Finish", id: 'next_step_4', class: 'btn next'
