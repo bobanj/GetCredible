@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     elsif resource.full_name.blank?
       edit_user_registration_path
     else
-      if current_user.user_tags.exists?
+      if resource.user_tags.exists?
         activity_path('all')
       else
         me_user_path(resource)
