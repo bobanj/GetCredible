@@ -38,7 +38,7 @@ class UserTag < ActiveRecord::Base
       if user_tag
         # just add vote if tag already exists
         tagger != user ? tagger.add_vote(user_tag) : user_tag.update_counters
-      else                                 ``
+      else
         new_tags << tag.name
         user_tag = user.user_tags.new
         user_tag.tag = tag
@@ -50,9 +50,8 @@ class UserTag < ActiveRecord::Base
         tagger != user ? tagger.add_vote(user_tag, false) : user_tag.update_counters
       end
     end
-
     # email user with the new tags
-    UserMailer.tag_email(tagger, user, new_tags).deliver if new_tags.present?
+    UserMailer.tag_email(tagger, user, new_tags).deliver if new_tags.present? && tagger != user
   end
 
   private
