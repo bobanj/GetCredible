@@ -248,9 +248,11 @@ $(function () {
             (word.data('voters_count') == 1 ? ' person' : ' people') +
             '  vouched for ' + word.text() + '</p>' +
             '<p>' + word.data('voters') + '</p>' +
-            '</div>' +
-            '<div><a href="#" class="qtip_vote">'+ voucheUnvouche+'</a></div>' +
             '</div>';
+        if ($.getCredible.tagCloud.data('can-vote')) {
+           qtipContent = qtipContent + '<div><a href="#" class="qtip_vote">'+ voucheUnvouche+'</a></div>'
+        }
+        qtipContent = qtipContent +'</div>';
         word.data('qtip-content', qtipContent);
     }
     $.getCredible.renderTagCloud = function (data, tagCloudCallback) {
