@@ -13,18 +13,32 @@ class Users::InvitationsController < Devise::InvitationsController
   # POST /resource/invitation
   def create
     self.resource = resource_class.invite!(params[resource_name], current_inviter)
-
+    resource.errors.add(:tag_names, 'Please add tags') if resource.tag_names.blank?
     if resource.errors.empty?
-      set_flash_message :notice, :send_instructions, :email => self.resource.email
-      respond_with resource, :location => after_invite_path_for(resource)
+      #set_flash_message :notice, :send_instructions, :email => self.resource.email
+      @success = true
+      set_flash_message :invitation_success, :send_instructions, :email => self.resource.email
+      tag_names = TagCleaner.clean(resource.tag_names)
+      tag_names.each do |tag_name|
+          tag = Tag.find_or_create_by_name(tag_name)
+          user_tag = resource.user_tags.new
+          user_tag.tag = tag
+          user_tag.tagger = current_inviter
+          current_inviter.add_vote(user_tag, false) if user_tag.save
+      end
+      resource.tag_names = nil
+      resource.email = nil
+      #respond_with resource, :location => after_invite_path_for(resource)
+      respond_with_navigational(resource) { render :new, layout: false }
     else
-      respond_with_navigational(resource) { render :new }
+      @success = false
+      respond_with_navigational(resource) { render :new, layout: false }
     end
   end
 
   # GET /resource/invitation/accept?invitation_token=abcdef
   def edit
-    if params[:invitation_token] && self.resource = resource_class.to_adapter.find_first( :invitation_token => params[:invitation_token] )
+    if params[:invitation_token] && self.resource = resource_class.to_adapter.find_first(:invitation_token => params[:invitation_token])
       render :edit
     else
       set_flash_message(:alert, :invitation_token_invalid)
@@ -41,7 +55,7 @@ class Users::InvitationsController < Devise::InvitationsController
       sign_in(resource_name, resource)
       respond_with resource, :location => after_accept_path_for(resource)
     else
-      respond_with_navigational(resource){ render :edit }
+      respond_with_navigational(resource) { render :edit }
     end
   end
 

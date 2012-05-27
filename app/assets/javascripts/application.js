@@ -24,7 +24,6 @@
 //= require jquery-progress-bubbles
 
 
-
 Array.prototype.unique = function () {
     var o = {}, i, l = this.length, r = [];
     for (i = 0; i < l; i += 1) o[this[i]] = this[i];
@@ -161,7 +160,7 @@ $(function () {
         var votersImages = [];
         $.each(voters, function (index, voter) {
             votersImages.push('<img src=' + voter.avatar + ' title=' + voter.name + '/>')
-        })
+        });
 
         return votersImages;
     };
@@ -480,13 +479,13 @@ $(function () {
             },
             events:{
                 show:function (event, api) {
-                    $("#next_step_1").click(function(){
+                    $("#next_step_1").click(function () {
                         $("#step_1_form").submit();
                     });
-                    $("#next_step_2").click(function(){
+                    $("#next_step_2").click(function () {
                         $("#step_2_form").submit();
                     });
-                    $("#next_step_4").click(function(){
+                    $("#next_step_4").click(function () {
                         $("#step_4_form").submit();
                     });
                     $("#step_1_form, #step_2_form").submit(function () {
@@ -624,9 +623,10 @@ $(function () {
             // Set the text to an image HTML string with the correct src URL to the loading image you want to use
             text:'<img src="/assets/ajax_loader.gif " alt="Loading..." />',
             ajax:{
-                url: '/users/invitation/new',
-                success: function(data, status) {
-                    this.set('content.text', data);
+                url:'/users/invitation/new',
+                success:function (data, status) {
+                    var invitationQtipApi = this;
+                    invitationQtipApi.set('content.text', data);
                     $('#invite_tag_names').tokenInput("/tags/search", {
                         method:'POST',
                         queryParam:'term',
@@ -636,6 +636,42 @@ $(function () {
                         theme:"facebook",
                         hintText:'e.g. web design, leadership (comma separated)',
                         minChars:2
+                    });
+                    $("#cancel_invitation").click(function(){
+                        $('#invitation_status').hide();
+                        invitationQtipApi.hide();
+                    });
+                    $(".ui-tooltip-content").delegate('#invitation_form', 'submit', function (e) {
+                        e.preventDefault();
+                        $.post($(this).attr('action'),
+                            $(this).serialize(), function (data) {
+                                invitationQtipApi.set('content.text', data);
+                                var prePopulate = [];
+                                var existingTagNames = $('#invite_tag_names');
+                                if(existingTagNames.length > 0 && existingTagNames.val() != ''){
+                                    existingTagNames = existingTagNames.val().split(',');
+                                    $.each(existingTagNames, function (index, tagName) {
+                                        prePopulate.push({term: tagName});
+                                    })
+                                }
+                                $("#cancel_invitation").click(function(){
+                                    $('#invitation_status').hide();
+                                    invitationQtipApi.hide();
+                                });
+
+                                $('#invite_tag_names').tokenInput("/tags/search", {
+                                    method:'POST',
+                                    queryParam:'term',
+                                    propertyToSearch:'term',
+                                    tokenValue:'term',
+                                    crossDomain:false,
+                                    theme:"facebook",
+                                    hintText:'e.g. web design, leadership (comma separated)',
+                                    minChars:2,
+                                    prePopulate: prePopulate
+                                });
+                            });
+                        return false;
                     });
                 }
             },
@@ -662,7 +698,7 @@ $(function () {
         hide:'unfocus',
         style:{
             classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded',
-            tip: false
+            tip:false
         }
     }).click(function (event) {
             event.preventDefault();
