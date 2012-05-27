@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe UserTag do
-  let(:user) { Factory(:user) }
-  let(:tagger) { Factory(:user) }
-  let(:tag)  { Factory(:tag) }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:tagger) { FactoryGirl.create(:user) }
+  let(:tag)  { FactoryGirl.create(:tag) }
 
   describe 'Attributes' do
     it { should allow_mass_assignment_of(:user_id) }
@@ -21,7 +21,7 @@ describe UserTag do
   end
 
   describe 'Validations' do
-    subject { Factory(:user_tag,  user: user,  tag: tag, tagger: tagger) }
+    subject { FactoryGirl.create(:user_tag,  user: user,  tag: tag, tagger: tagger) }
     it { should validate_presence_of(:user_id) }
     it { should validate_presence_of(:tag_id) }
     it { should validate_uniqueness_of(:tag_id).scoped_to(:user_id) }
@@ -93,7 +93,7 @@ describe UserTag do
       user.tags[0].name.should == 'web design'
 
       # if other user tags, it should create a vouche
-      other_tagger = Factory(:user)
+      other_tagger = FactoryGirl.create(:user)
       UserTag.add_tags(other_tagger, user, ['web design'])
       Tag.count.should == 1
       user.tags.length.should == 1

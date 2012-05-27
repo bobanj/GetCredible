@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ActivitiesController do
 
-  let(:user) { Factory(:user, full_name: 'User') }
+  let(:user) { FactoryGirl.create(:user, full_name: 'User') }
   let(:activity_item) { stub('activity_item') }
 
   describe "Authentication" do

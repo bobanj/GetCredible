@@ -4,7 +4,7 @@ require_relative 'steps/app_steps'
 describe 'User', type: :request do
 
   it "can sign in with email and sign out" do
-    user = Factory :user
+    user = FactoryGirl.create(:user)
     visit root_path
     click_link("Login")
     fill_in("Email or Username", with: user.email)
@@ -16,7 +16,7 @@ describe 'User', type: :request do
   end
 
   it "can sign in with username" do
-    user = Factory :user
+    user = FactoryGirl.create(:user)
     visit root_path
     click_link("Login")
     fill_in("Email or Username", with: user.username)

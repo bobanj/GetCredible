@@ -1,0 +1,14 @@
+-#= link_to "Home", after_sign_in_path_for(resource)
+#content
+  #invitation_status
+    - if @success
+      %h1
+        = flash[:invitation_success]
+        Invite Another Friend
+  = simple_form_for(resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:id => 'invitation_form', :method => :post }) do |f|
+    %ul.inputs-list
+      %li= f.input :tag_names, :label => 'Tags', :input_html => {:id => 'invite_tag_names'}, :placeholder => 'e.g. web design, leadership (comma separated)', :wrapper => false
+      %li= f.input :email, :wrapper => false
+      %li.buttons
+        = f.button :submit, "Save", class: 'btn primary large'
+        %a{id: 'cancel_invitation', class: 'btn'}Cancel

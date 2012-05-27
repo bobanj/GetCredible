@@ -16,7 +16,7 @@ describe ActivityItem do
   end
 
   describe 'Validations' do
-    subject { Factory(:activity_item) }
+    subject { FactoryGirl.create(:activity_item) }
     it { should validate_presence_of(:item_id) }
     it { should validate_presence_of(:item_type) }
     it { should validate_presence_of(:user_id) }

@@ -15,10 +15,12 @@
 */
 
 @import "compass/reset";
+@import "compass/css3";
 // Framework imports and common settings
 
 @import "base";
 @import "bootstrap";
+@import "some_mixins";
 @import "type";
 @import "forms";
 @import "noty";
@@ -117,12 +119,21 @@ input, textarea {
   border: none;
   @include border-radius(4px);
   @include background-image(linear-gradient(lighten($black, 95%), lighten($black, 93%)));
-
-  > li {
+  margin: 0 0 25px;
+  padding: 0;
+  list-style: none;
+  zoom: 1;
+  li {
     position: relative;
+    float: left;
+    line-height: 25px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
   // For the dropdowns mostly
-   margin-bottom: 0;
-    > a {
+    a {
+      display: block;
       color: #666;
       padding: 0 15px;
       margin-right: 0;
@@ -597,7 +608,7 @@ footer {
       @include text-shadow(#fff 0 0 15px);
     }
   }
-  #gn-login, #gn-register, #gn-activity, #gn-tour, #gn-profile, #gn-logout {
+  #gn-login, #gn-register, #gn-activity, #gn-tour, #gn-profile, #gn-logout, #gn-tour, #gn-invite {
     float: right;
   }
 }
@@ -635,6 +646,7 @@ footer {
     float: left;
     font-size: 12px;
     padding: 3px 11px 2px 11px;
+    margin: 0px;
   }
 
   button {
@@ -645,6 +657,7 @@ footer {
     @include replace-text("icon-search.png");
     height: 30px;
     width: 25px;
+    padding: 0px;
   }
 }
 
@@ -692,7 +705,7 @@ footer {
 #featured {
   margin-top: 25px;
   text-align: center;
-  @include radial-gradient(color-stops(rgba(0, 0, 0, 0.03), rgba(255, 255, 255, 0.1) 60%));
+  //@include background(radial-gradient(color-stops(rgba(0, 0, 0, 0.03), rgba(255, 255, 255, 0.1) 60%)));
 
   h1 {
     font-size: 78px;
