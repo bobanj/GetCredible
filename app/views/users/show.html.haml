@@ -12,7 +12,7 @@
   = render 'shared/sign_up', :resource => User.new, :resource_name => :user
   = hidden_field_tag :word_id_after_login
   = hidden_field_tag :tag_names_after_login
-- if user_signed_in? && !current_user.user_tags.any?
+- if user_signed_in? && !current_user.user_tags.any? && @user == current_user
   #bubbles_container{:style => "display:none"}
     #bubbles
     .clear{:style => "clear:both"}
@@ -49,7 +49,7 @@
       %li#step_4{:style => "display:none"}
         %h1 Add Tags
         -#TODO Handle form submit
-        = form_tag user_user_tags_path(@user), :id => 'step_4_form' do
+        = form_tag user_user_tags_path(current_user), :id => 'step_4_form' do
           = text_field_tag :tag_names, '', :placeholder => 'e.g. web design, leadership (comma separated)', :class => 'large', :id => 'step_4_tags'
           %a{id: 'prev_step_4', class: 'btn'}Previous
           = submit_tag "Finish", id: 'next_step_4', class: 'btn next'

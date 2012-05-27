@@ -16,7 +16,6 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require jqcloud
-//= require jquery.tipsy
 //= require jquery.noty
 //= require jquery.simplemodal
 //= require jquery.tokeninput
@@ -53,6 +52,8 @@ $(function () {
 
     $.getCredible.init = function () {
         $.getCredible.tagCloudPath = null;
+        $.getCredible.tagCloudQtipApi = null;
+        $.getCredible.currentQtipTarget = null;
         $.getCredible.tagCloudLoader = $("#tag-cloud-loader");
         $.getCredible.tagCloud = $("#tag-cloud");
 
@@ -121,17 +122,19 @@ $(function () {
                     if (data.status == 'ok') {
                         var user = $.getCredible.tagCloud.data('user');
                         var voters = $.getCredible.voterImages(data.voters);
-
-                        word.tipsy("hide");
                         word.data('score', data.score);
+                        word.data('user-tag-id', data.id);
+                        word.data('tagged', data.tagged);
                         word.data('rank', data.rank);
                         word.data('total', data.total);
                         word.data('voters', voters.join(''));
                         word.data('voters_count', data.voters_count);
-
+                        $.getCredible.updateQtipContentData(word);
                         if (data.voters_count === null) {
                             $.getCredible.updateTagCloud(function () {
-                                $('.tipsy').hide();
+                                if($.getCredible.tagCloudQtipApi){
+                                    $.getCredible.tagCloudQtipApi.hide();
+                                }
                             });
                         } else {
                             if (word.hasClass('vouche')) {
@@ -142,8 +145,11 @@ $(function () {
                                 $.getCredible.displayNotification('success', 'You have vouched for ' + user.full_name + ' on ' + word.text());
                             }
                         }
-
-                        word.tipsy("show");
+                        $.getCredible.tagCloudQtipApi.set('content.text', word.data('qtip-content'));
+                        $('.qtip_vote').click(function(){
+                            $.getCredible.vote($.getCredible.currentQtipTarget);
+                            return false;
+                        });
                     }
                 });
             } else {
@@ -159,7 +165,7 @@ $(function () {
     $.getCredible.voterImages = function (voters) {
         var votersImages = [];
         $.each(voters, function (index, voter) {
-            votersImages.push('<img src=' + voter.avatar + ' title=' + voter.name + '/>')
+            votersImages.push('<img src=' + voter.avatar + ' title=' + voter.name + ' alt=' + voter.name + '/>')
         });
 
         return votersImages;
@@ -185,7 +191,7 @@ $(function () {
             wordList.push({
                 text:userTag.name,
                 html:{
-                    title:userTag.name,
+                    //title:userTag.name,
                     class:$.getCredible.getWordCustomClass(userTag)
                 },
                 weight:parseInt((userTag.score - distributionOptions.min) / distributionOptions.divisor),
@@ -228,7 +234,25 @@ $(function () {
         return {min:min, parts:parts, divisor:divisor};
     };
 
-
+    $.getCredible.updateQtipContentData = function(word){
+        var rank = word.data('rank') ? '#' + word.data('rank') : 'N/A';
+        var voucheUnvouche = word.hasClass('vouche') ? 'Vouche' : 'Unvouche';
+        var qtipContent = '<div class="tag-wrap">' +
+            '<div class="tag-score">' +
+            '<p>score</p>' +
+            '<p class="tag-big">' + word.data('score') + '</p>' +
+            '<p class="tag-place">' + rank + ' out of ' + word.data('total') + '</p>' +
+            '</div>' +
+            '<div class="tag-votes">' +
+            '<p>' + word.data('voters_count') +
+            (word.data('voters_count') == 1 ? ' person' : ' people') +
+            '  vouched for ' + word.text() + '</p>' +
+            '<p>' + word.data('voters') + '</p>' +
+            '</div>' +
+            '<div><a href="#" class="qtip_vote">'+ voucheUnvouche+'</a></div>' +
+            '</div>';
+        word.data('qtip-content', qtipContent);
+    }
     $.getCredible.renderTagCloud = function (data, tagCloudCallback) {
         var distributionOptions = $.getCredible.distributionOptions(data);
         var wordList = $.getCredible.createWordList(data, distributionOptions);
@@ -244,33 +268,55 @@ $(function () {
             delayedMode:true,
             afterCloudRender:function () {
                 $.getCredible.tagCloudLoader.hide('fast');
-                $("#tag-cloud .word").each(function () {
+                var words = $("#tag-cloud .word");
+                words.each(function () {
                     var word = $(this);
-
-                    $(this).tipsy({
-                        gravity:'sw',
-                        fade:true,
-                        html:true,
-                        delayOut:0,
-                        delayIn:350,
-                        title:function () {
-                            var rank = word.data('rank') ? '#' + word.data('rank') : 'N/A'
-                            return '<div class="tag-wrap">' +
-                                '<div class="tag-score">' +
-                                '<p>score</p>' +
-                                '<p class="tag-big">' + word.data('score') + '</p>' +
-                                '<p class="tag-place">' + rank + ' out of ' + word.data('total') + '</p>' +
-                                '</div>' +
-                                '<div class="tag-votes">' +
-                                '<p>' + word.data('voters_count') +
-                                (word.data('voters_count') == 1 ? ' person' : ' people') +
-                                '  vouched for ' + word.text() + '</p>' +
-                                '<p>' + word.data('voters') + '</p>' +
-                                '</div>' +
-                                '</div>';
-                        }
-                    }).append('<span class="icon"></span>');
+                    $.getCredible.updateQtipContentData(word);
+                    //if(word.hasClass('remove')){
+                        word.append('<span class="icon"></span>');
+                    //}
                 });
+                $.getCredible.tagCloudQtipApi = $('<div />').qtip(
+                    {
+                        content: ' ', // Can use any content here :)
+                        position: {
+                            target: 'event', // Use the triggering element as the positioning target
+                            effect: false,	// Disable default 'slide' positioning animation
+                            my:'bottom left',
+                            at:'top center'
+                        },
+                        show: {
+                            target: words
+                        },
+                        hide: {
+                            //target: words
+                            event: 'unfocus'
+                        },
+                        events: {
+                            show: function(event, api) {
+                                // Update the content of the tooltip on each show
+                                $.getCredible.currentQtipTarget = $(event.originalEvent.target);
+                                if($.getCredible.currentQtipTarget.length) {
+                                    api.set('content.text', $.getCredible.currentQtipTarget.data('qtip-content'));
+                                    $('.qtip_vote').click(function(){
+                                        $.getCredible.vote($.getCredible.currentQtipTarget);
+                                        return false;
+                                    });
+                                }
+                            },
+                            hide: function(event, api) {
+                                // Update the content of the tooltip on each show
+                                var target = $(event.originalEvent.target);
+                                if(target.hasClass('word') && $.getCredible.currentQtipTarget.attr('id') == target.attr('id')){
+                                    return false;
+                                }
+                            }
+                        },
+                        style:{
+                            classes:'ui-tooltip-light ui-tooltip-rounded'
+                        }
+
+                    }).qtip('api');
                 //Delegate fails
                 $("#tag-cloud .remove .icon").click(function () {
                     var word = $(this).parent();
@@ -637,7 +683,7 @@ $(function () {
                         hintText:'e.g. web design, leadership (comma separated)',
                         minChars:2
                     });
-                    $("#cancel_invitation").click(function(){
+                    $("#cancel_invitation").click(function () {
                         $('#invitation_status').hide();
                         invitationQtipApi.hide();
                     });
@@ -648,13 +694,13 @@ $(function () {
                                 invitationQtipApi.set('content.text', data);
                                 var prePopulate = [];
                                 var existingTagNames = $('#invite_tag_names');
-                                if(existingTagNames.length > 0 && existingTagNames.val() != ''){
+                                if (existingTagNames.length > 0 && existingTagNames.val() != '') {
                                     existingTagNames = existingTagNames.val().split(',');
                                     $.each(existingTagNames, function (index, tagName) {
-                                        prePopulate.push({term: tagName});
+                                        prePopulate.push({term:tagName});
                                     })
                                 }
-                                $("#cancel_invitation").click(function(){
+                                $("#cancel_invitation").click(function () {
                                     $('#invitation_status').hide();
                                     invitationQtipApi.hide();
                                 });
@@ -668,7 +714,7 @@ $(function () {
                                     theme:"facebook",
                                     hintText:'e.g. web design, leadership (comma separated)',
                                     minChars:2,
-                                    prePopulate: prePopulate
+                                    prePopulate:prePopulate
                                 });
                             });
                         return false;
