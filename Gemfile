@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.2'
+gem 'rails', '3.2.4'
 gem 'unicorn', '4.2.0'
 
 gem 'pg'
 #gem 'sqlite3'
 gem 'devise', '>= 2.0.0'
-gem 'devise_invitable', '~> 1.0.0'
+gem 'devise_invitable', '= 1.0.1'
 gem "haml", ">= 3.0.0"
 gem "haml-rails"
 gem "jquery-rails"

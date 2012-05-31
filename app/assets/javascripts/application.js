@@ -769,7 +769,7 @@ $(function () {
         e.preventDefault();
         $.post($(this).attr('action'),
             $(this).serialize(), function (data) {
-                $('#invitation_form').replaceWith(data);
+                $('#invitation_content').replaceWith(data);
                 var invitationStatus = $('#invitation_status');
                 if(invitationStatus.length){
                     $.getCredible.displayNotification('success', invitationStatus.text());

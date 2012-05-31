@@ -12,19 +12,23 @@ class Users::InvitationsController < Devise::InvitationsController
 
   # POST /resource/invitation
   def create
-    self.resource = resource_class.invite!(params[resource_name], current_inviter)
+    self.resource = build_resource(params[resource_name])
+    resource.valid?
     resource.errors.add(:tag_names, 'Please add tags') if resource.tag_names.blank?
+    if resource.errors[:email].blank? && resource.errors[:tag_names].blank?
+      self.resource = resource_class.invite!(params[resource_name], current_inviter)
+    end
     if resource.errors.empty?
       #set_flash_message :notice, :send_instructions, :email => self.resource.email
       @success = true
       set_flash_message :invitation_success, :send_instructions, :email => self.resource.email
       tag_names = TagCleaner.clean(resource.tag_names)
       tag_names.each do |tag_name|
-          tag = Tag.find_or_create_by_name(tag_name)
-          user_tag = resource.user_tags.new
-          user_tag.tag = tag
-          user_tag.tagger = current_inviter
-          current_inviter.add_vote(user_tag, false) if user_tag.save
+        tag = Tag.find_or_create_by_name(tag_name)
+        user_tag = resource.user_tags.new
+        user_tag.tag = tag
+        user_tag.tagger = current_inviter
+        current_inviter.add_vote(user_tag, false) if user_tag.save
       end
       resource.tag_names = nil
       resource.email = nil
