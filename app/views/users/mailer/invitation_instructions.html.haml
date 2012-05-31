@@ -1,7 +1,8 @@
 %p
   Hello #{@resource.email}!
 %p
-  Someone has invited you to #{root_url}, you can accept it through the link below.
+  Someone has invited you to #{root_url}, and tagged you with: #{@resource.tags.map(&:name).join(',')}
+  you can accept it through the link below.
 %p= link_to 'Accept invitation', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token)
 %p
   If you don't want to accept the invitation, please ignore this email.

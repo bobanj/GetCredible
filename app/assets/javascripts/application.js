@@ -132,7 +132,7 @@ $(function () {
                         $.getCredible.updateQtipContentData(word);
                         if (data.voters_count === null) {
                             $.getCredible.updateTagCloud(function () {
-                                if($.getCredible.tagCloudQtipApi){
+                                if ($.getCredible.tagCloudQtipApi) {
                                     $.getCredible.tagCloudQtipApi.hide();
                                 }
                             });
@@ -146,7 +146,7 @@ $(function () {
                             }
                         }
                         $.getCredible.tagCloudQtipApi.set('content.text', word.data('qtip-content'));
-                        $('.qtip_vote').click(function(){
+                        $('.qtip_vote').click(function () {
                             $.getCredible.vote($.getCredible.currentQtipTarget);
                             return false;
                         });
@@ -234,7 +234,7 @@ $(function () {
         return {min:min, parts:parts, divisor:divisor};
     };
 
-    $.getCredible.updateQtipContentData = function(word){
+    $.getCredible.updateQtipContentData = function (word) {
         var rank = word.data('rank') ? '#' + word.data('rank') : 'N/A';
         var voucheUnvouche = word.hasClass('vouche') ? 'Vouche' : 'Unvouche';
         var qtipContent = '<div class="tag-wrap">' +
@@ -250,9 +250,9 @@ $(function () {
             '<p>' + word.data('voters') + '</p>' +
             '</div>';
         if ($.getCredible.tagCloud.data('can-vote')) {
-           qtipContent = qtipContent + '<div><a href="#" class="qtip_vote">'+ voucheUnvouche+'</a></div>'
+            qtipContent = qtipContent + '<div><a href="#" class="qtip_vote">' + voucheUnvouche + '</a></div>'
         }
-        qtipContent = qtipContent +'</div>';
+        qtipContent = qtipContent + '</div>';
         word.data('qtip-content', qtipContent);
     }
     $.getCredible.renderTagCloud = function (data, tagCloudCallback) {
@@ -275,41 +275,41 @@ $(function () {
                     var word = $(this);
                     $.getCredible.updateQtipContentData(word);
                     //if(word.hasClass('remove')){
-                        word.append('<span class="icon"></span>');
+                    word.append('<span class="icon"></span>');
                     //}
                 });
                 $.getCredible.tagCloudQtipApi = $('<div />').qtip(
                     {
-                        content: ' ', // Can use any content here :)
-                        position: {
-                            target: 'event', // Use the triggering element as the positioning target
-                            effect: false,	// Disable default 'slide' positioning animation
+                        content:' ', // Can use any content here :)
+                        position:{
+                            target:'event', // Use the triggering element as the positioning target
+                            effect:false, // Disable default 'slide' positioning animation
                             my:'bottom left',
                             at:'top center'
                         },
-                        show: {
-                            target: words
+                        show:{
+                            target:words
                         },
-                        hide: {
+                        hide:{
                             //target: words
-                            event: 'unfocus'
+                            event:'unfocus'
                         },
-                        events: {
-                            show: function(event, api) {
+                        events:{
+                            show:function (event, api) {
                                 // Update the content of the tooltip on each show
                                 $.getCredible.currentQtipTarget = $(event.originalEvent.target);
-                                if($.getCredible.currentQtipTarget.length) {
+                                if ($.getCredible.currentQtipTarget.length) {
                                     api.set('content.text', $.getCredible.currentQtipTarget.data('qtip-content'));
-                                    $('.qtip_vote').click(function(){
+                                    $('.qtip_vote').click(function () {
                                         $.getCredible.vote($.getCredible.currentQtipTarget);
                                         return false;
                                     });
                                 }
                             },
-                            hide: function(event, api) {
+                            hide:function (event, api) {
                                 // Update the content of the tooltip on each show
                                 var target = $(event.originalEvent.target);
-                                if(target.hasClass('word') && $.getCredible.currentQtipTarget.attr('id') == target.attr('id')){
+                                if (target.hasClass('word') && $.getCredible.currentQtipTarget.attr('id') == target.attr('id')) {
                                     return false;
                                 }
                             }
@@ -752,6 +752,50 @@ $(function () {
             event.preventDefault();
             return false;
         });
+
+
+    $('#invite_tag_names').tokenInput("/tags/search", {
+        method:'POST',
+        queryParam:'term',
+        propertyToSearch:'term',
+        tokenValue:'term',
+        crossDomain:false,
+        theme:"facebook",
+        hintText:'e.g. web design, leadership (comma separated)',
+        minChars:2
+    });
+
+    $("aside").delegate('#invitation_form', 'submit', function (e) {
+        e.preventDefault();
+        $.post($(this).attr('action'),
+            $(this).serialize(), function (data) {
+                $('#invitation_form').replaceWith(data);
+                var invitationStatus = $('#invitation_status');
+                if(invitationStatus.length){
+                    $.getCredible.displayNotification('success', invitationStatus.text());
+                }
+                var prePopulate = [];
+                var existingTagNames = $('#invite_tag_names');
+                if (existingTagNames.length > 0 && existingTagNames.val() != '') {
+                    existingTagNames = existingTagNames.val().split(',');
+                    $.each(existingTagNames, function (index, tagName) {
+                        prePopulate.push({term:tagName});
+                    })
+                }
+
+                $('#invite_tag_names').tokenInput("/tags/search", {
+                    method:'POST',
+                    queryParam:'term',
+                    propertyToSearch:'term',
+                    tokenValue:'term',
+                    crossDomain:false,
+                    theme:"facebook",
+                    hintText:'e.g. web design, leadership (comma separated)',
+                    minChars:2,
+                    prePopulate:prePopulate
+                });
+            });
+    });
     $.getCredible.showFlashMessages();
     $.getCredible.ajaxPagination();
     $.getCredible.init();

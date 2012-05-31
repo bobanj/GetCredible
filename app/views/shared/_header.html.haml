@@ -13,8 +13,6 @@
           = link_to 'Profile', me_user_path(current_user), :class => ((params[:controller] == 'users' && params[:action] == 'show') || (params[:controller] == 'users/registrations') ? 'active' : nil)
         %li#gn-tour
           = link_to 'Tour', tour_path, :class => (params[:controller] == 'home' && params[:action] == 'tour' ? 'active' : nil)
-        %li#gn-invite
-          = link_to 'Invite', new_user_invitation_path, :class => (params[:controller] == 'users/invitations' && params[:action] == 'new' ? 'active' : nil)
         %li#gn-activity
           = link_to 'Home', activity_path('all'), :class => (params[:controller] == 'activities' ? 'active' : nil)
       - else

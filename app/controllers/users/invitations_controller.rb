@@ -29,10 +29,13 @@ class Users::InvitationsController < Devise::InvitationsController
       resource.tag_names = nil
       resource.email = nil
       #respond_with resource, :location => after_invite_path_for(resource)
-      respond_with_navigational(resource) { render :new, layout: false }
+      #respond_with_navigational(resource) { render :new, layout: false }
+      respond_with_navigational(resource) { render :partial => 'shared/sidebar_invite', layout: false }
+
     else
       @success = false
-      respond_with_navigational(resource) { render :new, layout: false }
+      #respond_with_navigational(resource) { render :new, layout: false }
+      respond_with_navigational(resource) { render :partial => 'shared/sidebar_invite', layout: false }
     end
   end
 
