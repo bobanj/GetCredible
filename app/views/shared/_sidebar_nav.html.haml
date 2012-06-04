@@ -3,14 +3,14 @@
     - if current_user && current_user == user
       - profile_complete_percent = user.profile_complete_percent
       .photo
-        =link_to image_tag(user.avatar_url(:avatar)), me_user_path(user)
+        =link_to image_tag(user.avatar_url(:avatar)), edit_user_registration_path
 
       .my-actions
         %h3
-          = "Welcome #{user.short_name}"
-          -#= link_to "#{user.profile_complete_percent}%", '#', :id => 'guide-tip', :class => 'guide-tip'
+          = "Welcome "
+          = link_to user.short_name, edit_user_registration_path
+        -#= link_to "#{user.profile_complete_percent}%", '#', :id => 'guide-tip', :class => 'guide-tip'
         -#%input.knob{"value" => 50, "data-width" => "50", "data-readOnly" => 'true', :type => "text"}
-        = link_to 'Edit profile', edit_user_registration_path, :class => 'edit'
 
 #guide-tip-content{:style => 'display:none'}
   %span.profile-progress="Just a fiew steps away from completing your profile."

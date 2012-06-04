@@ -87,7 +87,7 @@
       %script{:src => "//platform.linkedin.com/in.js", :type => "text/javascript"}
       %script{"data-counter" => "top", "data-url" => me_user_url(@user), :type => "IN/Share"}
 
-  = render :partial => 'shared/tag_cloud'
+  = render :partial => 'shared/tag_cloud', :locals => {:can_delete => false}
 
 %aside
   - if current_user

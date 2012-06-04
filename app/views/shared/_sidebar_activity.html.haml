@@ -1,11 +1,13 @@
 - if user
   - incoming_activities =  user.incoming_activities.limit(5)
-  - preload_associations(incoming_activities)
+  - outgoing_activities =  user.outgoing_activities.limit(5)
+  - activities = incoming_activities + outgoing_activities
+  - preload_associations(activities)
   #latest-activity
     %h2== #{user_short(user)} Activity
     %ul.list-view.unstyled
-      - if incoming_activities.present?
-        - incoming_activities.each do |activity_item|
+      - if activities.present?
+        - activities.each do |activity_item|
           %li{:class => activity_class(activity_item)}
             .tag-icon
             = activity_description(activity_item)

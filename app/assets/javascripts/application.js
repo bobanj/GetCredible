@@ -129,7 +129,10 @@ $(function () {
                         word.data('total', data.total);
                         word.data('voters', voters.join(''));
                         word.data('voters_count', data.voters_count);
+                        word.removeClass('vouche unvouche');
+                        word.addClass(data.voted ? "vouche " : "unvouche");
                         $.getCredible.updateQtipContentData(word);
+                        $.getCredible.tagCloudQtipApi.set('content.text', word.data('qtip-content'));
                         if (data.voters_count === null) {
                             $.getCredible.updateTagCloud(function () {
                                 if ($.getCredible.tagCloudQtipApi) {
@@ -138,15 +141,12 @@ $(function () {
                             });
                         } else {
                             if (word.hasClass('vouche')) {
-                                word.removeClass("vouche").addClass("unvouche");
                                 $.getCredible.displayNotification('success', 'You have unvouched for ' + user.full_name + ' on ' + word.text());
                             } else {
-                                word.removeClass("unvouche").addClass("vouche");
                                 $.getCredible.displayNotification('success', 'You have vouched for ' + user.full_name + ' on ' + word.text());
                             }
                         }
-                        $.getCredible.tagCloudQtipApi.set('content.text', word.data('qtip-content'));
-                        $('.qtip_vote').click(function () {
+                        $('.tag-vote').click(function () {
                             $.getCredible.vote($.getCredible.currentQtipTarget);
                             return false;
                         });
@@ -236,7 +236,8 @@ $(function () {
 
     $.getCredible.updateQtipContentData = function (word) {
         var rank = word.data('rank') ? '#' + word.data('rank') : 'N/A';
-        var voucheUnvouche = word.hasClass('vouche') ? 'Vouche' : 'Unvouche';
+        var voucheUnvouche = word.hasClass('vouche') ? 'Unvouche' : 'Vouche';
+        var voucheUnvoucheClass = word.hasClass('vouche') ? 'pink' : 'green';
         var qtipContent = '<div class="tag-wrap">' +
             '<div class="tag-score">' +
             '<p>score</p>' +
@@ -250,7 +251,7 @@ $(function () {
             '<p>' + word.data('voters') + '</p>' +
             '</div>';
         if ($.getCredible.tagCloud.data('can-vote')) {
-            qtipContent = qtipContent + '<div><a href="#" class="qtip_vote">' + voucheUnvouche + '</a></div>'
+            qtipContent = qtipContent + '<div><a href="#" class="tag-vote button '+ voucheUnvoucheClass +'">' + voucheUnvouche + '</a></div>'
         }
         qtipContent = qtipContent + '</div>';
         word.data('qtip-content', qtipContent);
@@ -274,9 +275,9 @@ $(function () {
                 words.each(function () {
                     var word = $(this);
                     $.getCredible.updateQtipContentData(word);
-                    //if(word.hasClass('remove')){
-                    word.append('<span class="icon"></span>');
-                    //}
+                    if(word.hasClass('remove')){
+                      word.append('<span class="icon"></span>');
+                    }
                 });
                 $.getCredible.tagCloudQtipApi = $('<div />').qtip(
                     {
@@ -300,7 +301,7 @@ $(function () {
                                 $.getCredible.currentQtipTarget = $(event.originalEvent.target);
                                 if ($.getCredible.currentQtipTarget.length) {
                                     api.set('content.text', $.getCredible.currentQtipTarget.data('qtip-content'));
-                                    $('.qtip_vote').click(function () {
+                                    $('.tag-vote').click(function () {
                                         $.getCredible.vote($.getCredible.currentQtipTarget);
                                         return false;
                                     });
