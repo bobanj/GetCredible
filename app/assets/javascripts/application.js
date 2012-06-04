@@ -134,10 +134,10 @@ $(function () {
                         $.getCredible.updateQtipContentData(word);
                         $.getCredible.tagCloudQtipApi.set('content.text', word.data('qtip-content'));
                         if (data.voters_count === null) {
+                            if ($.getCredible.tagCloudQtipApi) {
+                                $.getCredible.tagCloudQtipApi.hide($('.word'));
+                            }
                             $.getCredible.updateTagCloud(function () {
-                                if ($.getCredible.tagCloudQtipApi) {
-                                    $.getCredible.tagCloudQtipApi.hide();
-                                }
                             });
                         } else {
                             if (word.hasClass('vouche')) {
