@@ -59,9 +59,15 @@
   %section#profile
     .details
       .left
-        .photo
-          = image_tag @user.avatar_url(:thumb)
-        %h1= @user.full_name
+        - if user_signed_in? && @user == current_user
+          .photo
+            = link_to image_tag(@user.avatar_url(:thumb)), edit_user_registration_path
+          = link_to edit_user_registration_path, :class => 'no_underline' do
+            %h1= @user.full_name
+        - else
+          .photo
+            = image_tag(@user.avatar_url(:thumb))
+          %h1= @user.full_name
         %h2= @user.job_title
       %ul.right
         - unless @user.location.blank?

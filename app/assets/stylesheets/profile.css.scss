@@ -35,7 +35,9 @@
     padding: 0;
     width: 105px;
   }
-
+  a.no_underline{
+    text-decoration: none;
+  }
   h1 {
     color: $blue;
     font-size: 30px;
