@@ -554,9 +554,9 @@ $(function () {
                                     if (data.status == 'ok') {
                                         $.getCredible.displayNotification('success', data.messages[0]);
                                     }
-                                    currentStep.slideUp(function () {
+                                    currentStep.hide('fast',function () {
                                         $('#bubbles').progressBubbles('progress');
-                                        nextStep.slideDown();
+                                        nextStep.show('fast');
                                     });
                                 }
                             }
@@ -565,41 +565,41 @@ $(function () {
                     });
 
                     $("#skip_step_1").click(function () {
-                        $("#step_1").slideUp(function () {
+                        $("#step_1").hide('fast',function () {
                             $('#bubbles').progressBubbles('progress');
-                            $("#step_2").slideDown();
+                            $("#step_2").show('fast');
                         });
                         return false;
                     });
 
                     $("#skip_step_2").click(function () {
-                        $("#step_2").slideUp(function () {
+                        $("#step_2").hide('fast',function () {
                             $('#bubbles').progressBubbles('progress');
-                            $("#step_3").slideDown();
+                            $("#step_3").show('fast');
                         });
                         return false;
                     });
 
                     $("#prev_step_2").click(function () {
-                        $("#step_2").slideUp(function () {
+                        $("#step_2").hide('fast',function () {
                             $('#bubbles').progressBubbles('regress');
-                            $("#step_1").slideDown();
+                            $("#step_1").show('fast');
                         });
                         return false;
                     });
 
                     $("#skip_step_3, #next_step_3").click(function () {
-                        $("#step_3").slideUp(function () {
+                        $("#step_3").hide('fast',function () {
                             $('#bubbles').progressBubbles('progress');
-                            $("#step_4").slideDown();
+                            $("#step_4").show('fast');
                         });
                         return false;
                     });
 
                     $("#prev_step_3").click(function () {
-                        $("#step_3").slideUp(function () {
+                        $("#step_3").hide('fast',function () {
                             $('#bubbles').progressBubbles('regress');
-                            $("#step_2").slideDown();
+                            $("#step_2").show('fast');
                         });
                         return false;
                     });
@@ -619,9 +619,9 @@ $(function () {
                     }
 
                     $("#prev_step_4").click(function () {
-                        $("#step_4").slideUp(function () {
+                        $("#step_4").hide('fast',function () {
                             $('#bubbles').progressBubbles('regress');
-                            $("#step_3").slideDown();
+                            $("#step_3").show('fast');
                         });
                         return false;
                     });
