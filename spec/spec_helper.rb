@@ -66,9 +66,6 @@ Spork.each_run do
   # factories reload
   FactoryGirl.reload
 
-  # models reload
-  Dir["#{Rails.root}/app/models/**/*.rb"].each { |model| load model }
-
   load "Sporkfile.rb" if File.exists?("Sporkfile.rb")
 end
 

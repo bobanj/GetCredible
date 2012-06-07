@@ -51,7 +51,7 @@ describe Tag do
       tag.user_tags_count.should == 0
       user   = FactoryGirl.create(:user)
       tagger = FactoryGirl.create(:user)
-      FactoryGirl.create(:user_tag, :tag => tag, :tagger => tagger, :user => user)
+      tagger.add_tags(user, [tag.name])
       tag.reload.user_tags_count.should == 1
     end
   end

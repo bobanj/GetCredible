@@ -1,1 +1,9 @@
 = givebrand.to
+
+== Development notes
+
+  - Calculate tags score
+    rake calculate_score
+
+  - Fix user tag counters (after db backup restore)
+    UserTag.all.each{|ut| ut.update_counters}
