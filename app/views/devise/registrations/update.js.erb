@@ -2,7 +2,7 @@
 $.getCredible.displayNotification('error', '<%= escape_javascript @message %>');
 <% else %>
 $.getCredible.displayNotification('success', '<%= escape_javascript @message %>');
-if($("#user_avatar_main").length > 0){
+if($("#user_avatar_main").length > 0 && <%= @current_step == "step_1" %>){
     $("#user_avatar_main").replaceWith('<%= link_to image_tag(@user.avatar_url(:thumb)), edit_user_registration_path, :id => "user_avatar_main" %>')
 }
 $("#<%= @current_step%>").hide('fast',function () {
