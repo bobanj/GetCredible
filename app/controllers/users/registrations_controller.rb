@@ -39,6 +39,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
           sign_in current_user, :bypass => true
           redirect_to me_user_path(current_user)
         end
+        format.js {
+          @message = 'You have updated your profile successfully.'
+          @current_step = params[:current_step]
+          @next_step = params[:next_step]
+          render :layout => false, :status => :ok
+        }
         format.json do
           if current_user.changed?
             render :json => {:status => 'ok', :messages => ['You have updated your profile successfully.']}
@@ -52,6 +58,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
         format.html do
           render "edit"
         end
+        format.js {
+          @message = current_user.errors.full_messages.first
+          @current_step = params[:current_step]
+          @next_step = params[:next_step]
+          #if remotipart_submitted?
+            render :layout => false, :status => :unprocessable_entity
+          #end
+        }
         format.json do
           render :json => {:status => 'error', :messages => current_user.errors.full_messages}
         end

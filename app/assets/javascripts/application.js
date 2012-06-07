@@ -21,7 +21,7 @@
 //= require jquery.tokeninput
 //= require jquery.qtip
 //= require jquery-progress-bubbles
-
+//= require jquery.remotipart
 
 Array.prototype.unique = function () {
     var o = {}, i, l = this.length, r = [];
@@ -528,55 +528,8 @@ $(function () {
             },
             events:{
                 show:function (event, api) {
-                    $("#next_step_1").click(function () {
-                        $("#step_1_form").submit();
-                    });
-                    $("#next_step_2").click(function () {
-                        $("#step_2_form").submit();
-                    });
                     $("#next_step_4").click(function () {
                         $("#step_4_form").submit();
-                    });
-                    $("#step_1_form, #step_2_form").submit(function () {
-                        var currentStep = $(this).parent();
-                        var nextStep = currentStep.next();
-                        $.ajax({
-                            url:$(this).attr('action') + '.json',
-                            type:'POST',
-                            data:$(this).serialize(),
-                            dataType:'json',
-                            success:function (data) {
-                                if (data.status == 'error') {
-                                    $.each(data.messages, function (i, message) {
-                                        $.getCredible.displayNotification('error', message);
-                                    })
-                                } else {
-                                    if (data.status == 'ok') {
-                                        $.getCredible.displayNotification('success', data.messages[0]);
-                                    }
-                                    currentStep.hide('fast',function () {
-                                        $('#bubbles').progressBubbles('progress');
-                                        nextStep.show('fast');
-                                    });
-                                }
-                            }
-                        });
-                        return false;
-                    });
-
-                    $("#skip_step_1").click(function () {
-                        $("#step_1").hide('fast',function () {
-                            $('#bubbles').progressBubbles('progress');
-                            $("#step_2").show('fast');
-                        });
-                        return false;
-                    });
-
-                    $("#skip_step_2").click(function () {
-                        $("#step_2").hide('fast',function () {
-                            $('#bubbles').progressBubbles('progress');
-                            $("#step_3").show('fast');
-                        });
                         return false;
                     });
 
@@ -588,7 +541,7 @@ $(function () {
                         return false;
                     });
 
-                    $("#skip_step_3, #next_step_3").click(function () {
+                    $("#next_step_3").click(function () {
                         $("#step_3").hide('fast',function () {
                             $('#bubbles').progressBubbles('progress');
                             $("#step_4").show('fast');
@@ -660,9 +613,6 @@ $(function () {
                     });
                 }
             }
-        }).click(function (event) {
-            event.preventDefault();
-            return false;
         });
     guideApi = guideApi.qtip('api');
 

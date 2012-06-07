@@ -18,8 +18,12 @@
     .clear{:style => "clear:both"}
     %ul#steps
       %li#step_1
-        = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :html => {:id => 'step_1_form', :multipart => true, :method => :put }) do |f|
+        = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :remote => true, :html => {:id => 'step_1_form', :multipart => true, :method => :put }) do |f|
           %h1 Ninjas & Unicorns
+          = f.input :avatar, :as => :file, :wrapper => false
+          = f.hidden_field :avatar_cache
+          = hidden_field_tag :current_step, "step_1"
+          = hidden_field_tag :next_step, "step_2"
           %ul.inputs-list.left
             %li
               Username: givebrand.to/
@@ -30,8 +34,10 @@
               -#%a{id: 'skip_step_1', class: 'btn'}Skip
               = f.button :submit, "Next", id: 'next_step_1', class: 'btn next'
       %li#step_2{:style => "display:none"}
-        = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :html => {:id => 'step_2_form', :method => :put }) do |f|
+        = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :remote => true, :html => {:id => 'step_2_form', :method => :put }) do |f|
           %h1 Step 2
+          = hidden_field_tag :current_step, "step_2"
+          = hidden_field_tag :next_step, "step_3"
           %ul.inputs-list.left
             %li= f.input :location, :wrapper => false
             %li= f.input :personal_url, :wrapper => false, :label => 'Website'
@@ -61,7 +67,7 @@
       .left
         - if user_signed_in? && @user == current_user
           .photo
-            = link_to image_tag(@user.avatar_url(:thumb)), edit_user_registration_path
+            = link_to image_tag(@user.avatar_url(:thumb)), edit_user_registration_path, :id => "user_avatar_main"
           = link_to edit_user_registration_path, :class => 'no_underline' do
             %h1= @user.full_name
         - else

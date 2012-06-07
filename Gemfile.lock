@@ -202,6 +202,7 @@ GEM
       redis (< 3.0.0)
     redis-objects (0.5.2)
       redis (>= 2.1.1)
+    remotipart (1.0.2)
     rmagick (2.13.1)
     rspec (2.10.0)
       rspec-core (~> 2.10.0)
@@ -314,6 +315,7 @@ DEPENDENCIES
   rb-readline
   redis-namespace
   redis-objects
+  remotipart (~> 1.0)
   rmagick
   rspec-rails (>= 2.8.1)
   sass-rails
