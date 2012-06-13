@@ -12,7 +12,7 @@
   = render 'shared/sign_up', :resource => User.new, :resource_name => :user
   = hidden_field_tag :word_id_after_login
   = hidden_field_tag :tag_names_after_login
-- if user_signed_in? && !current_user.user_tags.any? && @user == current_user
+- if user_signed_in? && (!current_user.user_tags.any? || current_user.sign_in_count <= 1) && @user == current_user
   #bubbles_container{:style => "display:none"}
     #bubbles
     .clear{:style => "clear:both"}

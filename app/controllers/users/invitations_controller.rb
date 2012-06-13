@@ -60,7 +60,8 @@ class Users::InvitationsController < Devise::InvitationsController
     if resource.errors.empty?
       set_flash_message :notice, :updated
       sign_in(resource_name, resource)
-      respond_with resource, :location => after_accept_path_for(resource)
+      #respond_with resource, :location => after_accept_path_for(resource)
+      respond_with resource, :location => me_user_path(resource)
     else
       respond_with_navigational(resource) { render :edit }
     end
