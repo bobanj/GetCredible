@@ -1,7 +1,7 @@
 %p
   Hello #{@resource.email}!
 %p
-  Someone has invited you to #{root_url}, and tagged you with: #{@resource.tag_names}
+  #{@resource.invited_by.full_name} has invited you to #{root_url}, and tagged you with: #{@resource.tag_names}
   you can accept it through the link below.
 %p= link_to 'Accept invitation', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token)
 %p
