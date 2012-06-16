@@ -1,0 +1,2 @@
+module Twitter::ContactsHelper
+end

@@ -43,6 +43,7 @@ describe User do
     it { should have_many(:votes).dependent(:destroy) }
     it { should have_many(:voted_users).through(:votes) }
     it { should have_many(:voters).through(:user_tags) }
+    it { should have_many(:twitter_contacts).dependent(:destroy) }
   end
 
   describe "Validations" do

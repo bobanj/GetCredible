@@ -26,6 +26,7 @@
 @import "noty";
 @import "noty_buttons";
 @import "tour";
+@import "network";
 
 /* COMPONENTS
 -----------------------------------------------------------------------*/
@@ -333,13 +334,13 @@ input, textarea {
     }
   }
 }
-aside #latest-activity {
+aside .sidebar-item {
   border: none;
   li {
     padding-right: 20px;
   }
 }
-#latest-activity {
+.sidebar-item {
   padding: 20px 0 !important;
   h2 {
     font: 18px "gnuolane", impact, sans-serif;
@@ -461,7 +462,7 @@ footer {
   }
 }
 
-#profile-nav, #latest-activity, #invite-side, #import {
+#profile-nav, #invite-side, #import {
   border-bottom: 1px solid #ddd;
   padding: 20px;
 }

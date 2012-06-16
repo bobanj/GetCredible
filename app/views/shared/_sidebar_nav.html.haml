@@ -1,16 +1,17 @@
-- if user
+- if current_user
   %nav#profile-nav
-    - if current_user && current_user == user
-      - profile_complete_percent = user.profile_complete_percent
-      .photo
-        =link_to image_tag(user.avatar_url(:avatar)), edit_user_registration_path
+    - profile_complete_percent = current_user.profile_complete_percent
+    .photo
+      =link_to image_tag(current_user.avatar_url(:avatar)), edit_user_registration_path
 
-      .my-actions
-        %h3
-          = "Welcome #{user.short_name}"
-        = link_to 'Edit profile', edit_user_registration_path, :class => 'edit'
-        -#= link_to "#{user.profile_complete_percent}%", '#', :id => 'guide-tip', :class => 'guide-tip'
-        -#%input.knob{"value" => 50, "data-width" => "50", "data-readOnly" => 'true', :type => "text"}
+    .my-actions
+      %h3
+        = "Welcome #{current_user.short_name}"
+      = link_to 'Edit profile', edit_user_registration_path, :class => 'edit'
+      -#= link_to "#{current_user.profile_complete_percent}%", '#', :id => 'guide-tip', :class => 'guide-tip'
+      -#%input.knob{"value" => 50, "data-width" => "50", "data-readOnly" => 'true', :type => "text"}
+
+  = render 'shared/sidebar_network'
 
 #guide-tip-content{:style => 'display:none'}
   %span.profile-progress="Just a fiew steps away from completing your profile."
@@ -30,3 +31,4 @@
       %li= f.input :personal_url, :wrapper => false, :label => 'Website'
       %li= f.input :twitter_handle, :wrapper => false, :label => 'Twitter Username'
       %li.buttons= f.button :submit, "Save", class: 'btn primary large'
+

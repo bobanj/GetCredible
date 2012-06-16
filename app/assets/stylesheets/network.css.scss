@@ -1,0 +1,12 @@
+#loading {
+  background: rgba(0, 0, 0, 0.1) url(image_path('ajax_loader.gif')) no-repeat center;
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  text-align: center;
+  text-indent: -9999em;
+  top: 0;
+  width: 100%;
+  z-index: 10000;
+}

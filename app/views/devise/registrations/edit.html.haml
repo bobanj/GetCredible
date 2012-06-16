@@ -20,5 +20,5 @@
     = render :partial => 'shared/tag_cloud', :locals => {:can_delete => true}
 
 %aside
-  = render :partial => 'shared/sidebar_nav', :locals => { :user => current_user }
+  = render 'shared/sidebar_nav'
   = render :partial => 'shared/sidebar_activity', :locals => { :user => current_user }

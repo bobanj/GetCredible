@@ -3,7 +3,7 @@
   - outgoing_activities =  user.outgoing_activities.limit(5)
   - activities = incoming_activities + outgoing_activities
   - preload_associations(activities)
-  #latest-activity
+  .sidebar-item#latest-activity
     %h2== #{user_short(user)} Activity
     %ul.list-view.unstyled
       - if activities.present?

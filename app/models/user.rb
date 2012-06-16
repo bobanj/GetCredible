@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
   has_many :votes, :foreign_key => :voter_id, :dependent => :destroy
   has_many :voted_users, :through => :votes, :uniq => true
   has_many :voters, :through => :user_tags, :uniq => true
+  has_many :twitter_contacts, :dependent => :destroy
 
   # Validations
   validates :username, :presence => true,
@@ -156,6 +157,12 @@ class User < ActiveRecord::Base
   def vote_exclusively_for(voteable)
     Vote.where(:voter_id => self.id, :voteable_id => voteable.id).map(&:destroy)
     Vote.create!(:vote => true, :voteable => voteable, :voter => self)
+  end
+
+  def update_twitter_oauth(token, secret)
+    self.twitter_token  = token
+    self.twitter_secret = secret
+    self.save(validate: false)
   end
 
   def to_param

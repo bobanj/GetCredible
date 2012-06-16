@@ -10,7 +10,6 @@ gem 'devise_invitable', '= 1.0.1'
 gem "haml", ">= 3.0.0"
 gem "haml-rails"
 gem "jquery-rails"
-gem "rspec-rails", ">= 2.8.1", :group => [:development, :test]
 gem 'simple_form'
 gem 'country_select'
 gem 'rmagick'
@@ -31,6 +30,8 @@ gem 'rails_config'
 gem 'soulmate'
 gem 'newrelic_rpm'
 gem 'remotipart', '~> 1.0'
+gem 'twitter'
+gem 'oauth'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.2'
@@ -45,12 +46,14 @@ group :development do
   gem 'growl',      :require => RUBY_PLATFORM.include?('darwin')  && 'growl'
   gem 'rb-inotify', :require => RUBY_PLATFORM.include?('linux')   && 'rb-inotify'
   gem 'libnotify',  :require => RUBY_PLATFORM.include?('linux')   && 'rb-inotify'
-  gem 'rb-readline'
-  gem 'awesome_print'
-  gem 'hirb'
   gem 'rails3-generators'
-  gem 'wirble'
   gem 'quiet_assets'
+  gem 'thin'
+  # gem 'rb-readline'
+  # gem 'awesome_print'
+  # gem 'hirb'
+  # gem 'wirble'
+  # gem 'interactive_editor'
 end
 
 group :test do
@@ -62,4 +65,9 @@ group :test do
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'email_spec'
+end
+
+group :development, :test do
+  gem "rspec-rails", ">= 2.8.1"
+  gem 'debugger'
 end

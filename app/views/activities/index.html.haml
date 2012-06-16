@@ -29,5 +29,4 @@
     = will_paginate @activity_items
 
 %aside
-  - if current_user
-    = render :partial => 'shared/sidebar_nav', :locals => { :user => current_user }
+  = render 'shared/sidebar_nav'

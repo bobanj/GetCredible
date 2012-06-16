@@ -369,7 +369,6 @@ $(function () {
             pagination.find('a').addClass('js-remote');
         }
     }
-
     $.getCredible.showFlashMessages = function () {
         var flashMessage = $("#flash-message");
         if (flashMessage.length > 0) {
@@ -747,9 +746,25 @@ $(function () {
                 });
             });
     });
+
+    $.getCredible.twitterInvite = function () {
+      $('.twitter_contact').click(function () {
+        var contact = $(this);
+        $('#js_twitter_id').val(contact.data('twitter_id'))
+        $('#js_screen_name').val(contact.data('screen_name'))
+        $('#js_message').val(contact.data('message'))
+        $('#twitter_invite').modal();
+      });
+
+      $('#twitter_dm_form').submit(function (e) {
+        $('#loading').show();
+      });
+    };
+
     $.getCredible.showFlashMessages();
     $.getCredible.ajaxPagination();
     $.getCredible.init();
     $.getCredible.updateTagCloud();
+    $.getCredible.twitterInvite();
 
 })

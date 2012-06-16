@@ -1,0 +1,34 @@
+#loading{style: "display: none"} loading...
+#twitter_invite{style: "display: none", title: ""}
+  %p.note Send direct message to your friend!
+  = form_tag twitter_messages_path, remote: true, id: 'twitter_dm_form' do
+    %p= hidden_field_tag :twitter_id, "", :id => 'js_twitter_id', :readonly => true
+    %p= text_field_tag :screen_name, "", :id => 'js_screen_name', :readonly => true
+    %p= text_area_tag :message, "", :id => 'js_message'
+    %p= submit_tag :send_dm, value: "Send Direct Message"
+
+#content
+  %section#twitter_contacts
+  %ul
+  - if @contacts.empty?
+    %li= link_to "Import from Twitter", import_twitter_contacts_path
+  - else
+    %li= link_to "Re-Import from Twitter", import_twitter_contacts_path
+    %li= link_to "Disconnect from Twitter", twitter_session_path, :confirm => "Are you sure", :method => :delete
+
+  %ul
+    - @contacts.each do |contact|
+      %li
+        = contact.screen_name
+        = contact.name
+        = image_tag contact.avatar
+        %span.status
+          - if contact.invited?
+            Invited!
+          - else
+            = link_to "Invite", "#", :class => 'twitter_contact', :"data-twitter_id" => contact.twitter_id, :"data-screen_name" => contact.screen_name, :"data-message" => "Help boost my influence at givebrand.to! #{me_user_url(current_user)}"
+
+  = will_paginate @contacts
+
+%aside
+  = render 'shared/sidebar_nav'

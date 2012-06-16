@@ -12,6 +12,7 @@
   = render 'shared/sign_up', :resource => User.new, :resource_name => :user
   = hidden_field_tag :word_id_after_login
   = hidden_field_tag :tag_names_after_login
+
 - if user_signed_in? && @user == current_user && (!current_user.user_tags.any? || current_user.sign_in_count <= 1)
   #bubbles_container{:style => "display:none"}
     #bubbles
@@ -98,8 +99,7 @@
   = render :partial => 'shared/tag_cloud', :locals => {:can_delete => false}
 
 %aside
-  - if current_user
-    = render :partial => 'shared/sidebar_nav', :locals => { :user => current_user }
+  = render 'shared/sidebar_nav'
   = render :partial => 'shared/sidebar_activity', :locals => { :user => @user }
   - if current_user
     = render :partial => 'shared/sidebar_invite', :locals => { :resource => User.new, :resource_name => :user }

@@ -1,0 +1,7 @@
+.sidebar-item#social-network
+  %h2 Your network
+  %ul.list-view.unstyled
+    - if current_user.twitter_contacts.present?
+      %li= link_to "Twitter", twitter_contacts_path
+    - else
+      %li= link_to "Import from Twitter", import_twitter_contacts_path

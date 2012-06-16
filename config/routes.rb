@@ -25,5 +25,15 @@ GetCredible::Application.routes.draw do
   get '/terms' => 'home#terms'
   get '/tour' => 'home#tour'
 
+  namespace :twitter do
+    resource :session, :only => [:new, :show, :destroy]
+    resources :messages, :only => [:create]
+    resources :contacts, :only => [:index] do
+      collection do
+        get :import
+      end
+    end
+  end
+
   match '/:id' => 'users#show', :as => 'me_user'
 end
