@@ -519,7 +519,7 @@ $(function () {
                 modal:{
                     on:true,
                     blur:false,
-                    escape:false
+                    escape:true
                 }
             },
             hide:false,
@@ -691,7 +691,7 @@ $(function () {
             modal:{
                 on:true,
                 blur:false,
-                escape:false
+                escape:true
             }
         },
         hide:'unfocus',

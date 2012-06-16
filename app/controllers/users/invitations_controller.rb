@@ -37,6 +37,10 @@ class Users::InvitationsController < Devise::InvitationsController
       respond_with_navigational(resource) { render :partial => 'shared/sidebar_invite', layout: false }
 
     else
+      if resource.errors[:email]
+        resource.errors[:email].clear
+        resource.errors[:email] = "A user with this email has already been invited or registered"
+      end
       @success = false
       #respond_with_navigational(resource) { render :new, layout: false }
       respond_with_navigational(resource) { render :partial => 'shared/sidebar_invite', layout: false }
