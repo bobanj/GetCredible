@@ -98,7 +98,8 @@ $(function () {
                     addTag();
                 } else {
                     $("#tag_names_after_login").val($("#tag_names").val());
-                    $.getCredible.modalApi = $('#login_dialog').modal();
+                    $.getCredible.loginQtipApi.set('content.text', $('#login_dialog'));
+                    $.getCredible.loginQtipApi.show();
                 }
             }
             return false;
@@ -113,7 +114,8 @@ $(function () {
             if (this.tagCloud.data('logged-in') == false) {
                 $("#word_id_after_login").val('#' + word.attr('id'));
                 $("#tag_names_after_login").val($("#tag_names").val());
-                $.getCredible.modalApi = $('#login_dialog').modal();
+                $.getCredible.loginQtipApi.set('content.text', $('#login_dialog'));
+                $.getCredible.loginQtipApi.show();
                 return;
             }
 
@@ -406,7 +408,7 @@ $(function () {
                 $.getCredible.init();
                 $.getCredible.updateTagCloud(function () {
                     $.getCredible.addTagOrVoteAfterLogin();
-                    $.getCredible.modalApi.close();
+                    $.getCredible.loginQtipApi.hide();
                 });
             } else {
                 $.each(data.errors, function (index, text) {
@@ -428,7 +430,7 @@ $(function () {
                 $.getCredible.init();
                 $.getCredible.updateTagCloud(function () {
                     $.getCredible.addTagOrVoteAfterLogin();
-                    $.getCredible.modalApi.close();
+                    $.getCredible.loginQtipApi.hide();
                 });
             } else {
                 $.each(data.errors, function (index, text) {
@@ -595,7 +597,8 @@ $(function () {
                             if ($.getCredible.tagCloud.data('logged-in')) {
                                 selfTag();
                             } else {
-                                $.getCredible.modalApi = $('#login_dialog').modal();
+                                $.getCredible.loginQtipApi.set('content.text', $('#login_dialog'));
+                                $.getCredible.loginQtipApi.show();
                             }
                         } else {
                             skipStep3();
@@ -636,6 +639,7 @@ $(function () {
     $.getCredible.twitterInvite = function () {
       $.getCredible.twitterQtipApi = $('<div />').qtip({
           content:{
+              id:'twitter_invite_modal',
               text: ' ',
               title:{
                   text:'Import Twitter Friends',
@@ -666,7 +670,7 @@ $(function () {
 
       var defaultMessage = $('#js-twitter-contacts-list').data('message')
 
-      $('.twitter_contact').live('click', function () {
+      $('#content').delegate('.twitter_contact', 'click', function () {
           var contact = $(this);
           $('#js-twitter-id').val(contact.data('twitter_id'));
           $('#js-twitter-screen-name').val(contact.data('screen_name'));
@@ -680,12 +684,46 @@ $(function () {
       });
     };
 
+    $.getCredible.loginQtip = function () {
+      $.getCredible.loginQtipApi = $('<div />').qtip({
+          content:{
+              id: 'simplemodal-container', //TODO fix the id
+              text: ' ',
+              title: {
+                  text: ' ',
+                  button: true
+              }
+          },
+          position:{
+              my:'center', // ...at the center of the viewport
+              at:'center',
+              target: $(window)
+          },
+          show:{
+              ready: false,
+              solo: true, // ...and hide all other tooltips...
+              event: 'click',
+              modal:{
+                  on:true,
+                  blur:false,
+                  escape:true
+              }
+          },
+          hide:false,
+          style: { classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded' }
+      }).click(function (event) {
+          event.preventDefault();
+          return false;
+      }).qtip('api');
+    };
+
 
     $.getCredible.showFlashMessages();
     $.getCredible.ajaxPagination();
     $.getCredible.init();
     $.getCredible.updateTagCloud();
     $.getCredible.twitterInvite();
+    $.getCredible.loginQtip();
     $.getCredible.guide();
 
 })

@@ -24,6 +24,14 @@
 
 
 #login_dialog {
+  .note {
+    background: $blue;
+    color: #fff;
+    margin-bottom: 20px;
+    padding: 10px 5px;
+    text-align: center;
+  }
+
   section {
     padding-top: 10px;
     padding-bottom: 10px;
