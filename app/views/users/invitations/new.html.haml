@@ -1,13 +1,20 @@
-- #NOTE NOT USED ATM
--#= link_to "Home", after_sign_in_path_for(resource)
 #content
-  - if @success
-    #invitation_message
-      = flash[:invitation_success]
-  = simple_form_for(resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:id => 'invitation_form', :method => :post }) do |f|
-    %ul.inputs-list
-      %li= f.input :tag_names, :label => 'Tags', :input_html => {:id => 'invite_tag_names'}, :placeholder => 'e.g. web design, leadership (comma separated)', :wrapper => false
-      %li= f.input :email, :wrapper => false
-      %li.buttons
-        = f.button :submit, "Save", class: 'btn primary large'
-        %a{id: 'cancel_invitation', class: 'btn'}Cancel
+  #invitation_content
+    %h1 Invite a friend
+    = simple_form_for(resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:id => 'invitation_form', :method => :post }) do |f|
+      - if @success
+        #invitation_status.hide= flash[:invitation_success]
+      %ul.inputs-list
+        %li= f.input :tag_names, :label => 'Tags', :input_html => {:id => 'invite_tag_names'}, :placeholder => 'e.g. web design, leadership (comma separated)', :wrapper => false
+        %li= f.input :email, :wrapper => false
+        %li.buttons
+          = f.button :submit, "Invite", class: 'btn primary large'
+    %section#invitation_contacts
+    %h1 Friends You have invited
+    %ul
+      - @invited_users.each do |user|
+        %li
+          = user.email
+          %span.status= (user.invitation_accepted_at || user.sign_in_count > 0) ? "Accepted Your invitation" : "Pending"
+%aside
+  = render 'shared/sidebar_nav'

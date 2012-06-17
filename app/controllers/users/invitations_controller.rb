@@ -2,12 +2,13 @@ class Users::InvitationsController < Devise::InvitationsController
   before_filter :authenticate_inviter!, :only => [:new, :create]
   before_filter :has_invitations_left?, :only => [:create]
   before_filter :require_no_authentication, :only => [:edit, :update]
+  before_filter :get_invited_users, :only => [:new, :create]
   helper_method :after_sign_in_path_for
 
   # GET /resource/invitation/new
   def new
     build_resource
-    render :new, :layout => false
+    render :new
   end
 
   # POST /resource/invitation
@@ -20,8 +21,7 @@ class Users::InvitationsController < Devise::InvitationsController
     end
     if resource.errors.empty?
       #set_flash_message :notice, :send_instructions, :email => self.resource.email
-      @success = true
-      set_flash_message :invitation_success, :send_instructions, :email => self.resource.email
+      set_flash_message :notice, :send_instructions, :email => self.resource.email
       tag_names = TagCleaner.clean(resource.tag_names)
       tag_names.each do |tag_name|
         tag = Tag.find_or_create_by_name(tag_name)
@@ -32,18 +32,16 @@ class Users::InvitationsController < Devise::InvitationsController
       end
       resource.tag_names = nil
       resource.email = nil
-      #respond_with resource, :location => after_invite_path_for(resource)
-      #respond_with_navigational(resource) { render :new, layout: false }
-      respond_with_navigational(resource) { render :partial => 'shared/sidebar_invite', layout: false }
+      respond_with_navigational(resource) { render :new }
 
     else
       if resource.errors[:email]
-        resource.errors[:email].clear
-        resource.errors[:email] = "A user with this email has already been invited or registered"
+        if params[resource_name] && !params[resource_name][:email].blank?
+          resource.errors[:email].clear
+          resource.errors[:email] = "A user with this email has already been invited or registered"
+        end
       end
-      @success = false
-      #respond_with_navigational(resource) { render :new, layout: false }
-      respond_with_navigational(resource) { render :partial => 'shared/sidebar_invite', layout: false }
+      respond_with_navigational(resource) { render :new }
     end
   end
 
@@ -90,5 +88,9 @@ class Users::InvitationsController < Devise::InvitationsController
 
   def after_accept_path_for(resource)
     after_sign_in_path_for(resource)
+  end
+
+  def get_invited_users
+    @invited_users = User.where(:invited_by_id => current_user.id).order("invitation_sent_at desc")
   end
 end

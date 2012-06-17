@@ -6,7 +6,9 @@ GetCredible::Application.routes.draw do
     :sessions => "users/sessions",
     :registrations => "users/registrations",
     :invitations => 'users/invitations'
-  }
+  } #do
+    #get "users/invitations", :to => "users/invitations#index", :as => "user_invitations"
+  #end
 
   resources :users, :only => [:index, :show] do
     resources :user_tags, :only => [:index, :create, :destroy], :path => :tags do
