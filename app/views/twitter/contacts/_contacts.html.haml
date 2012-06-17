@@ -8,6 +8,6 @@
         - if contact.invited?
           Invited!
         - else
-          = link_to "Invite", "#", :class => 'twitter_contact', :"data-twitter_id" => contact.twitter_id, :"data-screen_name" => contact.screen_name, :"data-message" => "Help boost my influence at givebrand.to! #{me_user_url(current_user)}"
+          = link_to "Invite", "#", :class => 'twitter_contact', :"data-twitter_id" => contact.twitter_id, :"data-screen_name" => contact.screen_name
 
 = will_paginate @contacts

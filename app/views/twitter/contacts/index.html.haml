@@ -1,10 +1,10 @@
 #loading{style: "display: none"} loading...
 #twitter_invite{style: "display: none", title: ""}
   %p.note Send direct message to your friend!
-  = form_tag twitter_messages_path, remote: true, id: 'twitter_dm_form' do
-    %p= hidden_field_tag :twitter_id, "", :id => 'js_twitter_id', :readonly => true
-    %p= text_field_tag :screen_name, "", :id => 'js_screen_name', :readonly => true
-    %p= text_area_tag :message, "", :id => 'js_message'
+  = form_tag twitter_messages_path, remote: true, id: 'js-twitter-dm-form' do
+    %p= hidden_field_tag :twitter_id, "", :id => 'js-twitter-id', :readonly => true
+    %p= text_field_tag :screen_name, "", :id => 'js-twitter-screen-name', :readonly => true
+    %p= text_area_tag :message, "", :id => 'js-twitter-message'
     %p= submit_tag :send_dm, value: "Send Direct Message"
 
 
@@ -23,7 +23,7 @@
       %li= link_to "Re-Import", import_twitter_contacts_path
       %li= link_to "Disconnect", twitter_session_path, :confirm => "Are you sure", :method => :delete
 
-    #js_twitter_contacts_list
+    #js-twitter-contacts-list{:"data-message" => "Help boost my influence at givebrand.to! #{me_user_url(current_user)}"}
       = render 'contacts', :contacts => @contacts
 
 %aside

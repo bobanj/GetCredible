@@ -634,19 +634,54 @@ $(function () {
         minChars:2,
         prePopulate:prePopulateInvitationTags
     });
+
     $.getCredible.twitterInvite = function () {
+      $.getCredible.twitterQtipApi = $('<div />').qtip({
+          content:{
+              text: $('#twitter_invite'),
+              title:{
+                  text:'Import Twitter Friends',
+                  button:true
+              }
+          },
+          position:{
+              my:'center', // ...at the center of the viewport
+              at:'center',
+              target: $(window)
+          },
+          show:{
+              ready: false,
+              solo: true, // ...and hide all other tooltips...
+              event: 'click',
+              modal:{
+                  on:true,
+                  blur:false,
+                  escape:true
+              }
+          },
+          hide:false,
+          style: { classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded' }
+      }).click(function (event) {
+          event.preventDefault();
+          return false;
+      }).qtip('api');
+
+      var defaultMessage = $('#js-twitter-contacts-list').data('message')
+
       $('.twitter_contact').live('click', function () {
-        var contact = $(this);
-        $('#js_twitter_id').val(contact.data('twitter_id'))
-        $('#js_screen_name').val(contact.data('screen_name'))
-        $('#js_message').val(contact.data('message'))
-        $('#twitter_invite').modal();
+          var contact = $(this);
+          $('#js-twitter-id').val(contact.data('twitter_id'));
+          $('#js-twitter-screen-name').val(contact.data('screen_name'));
+          $('#js-twitter-message').val(defaultMessage);
+          $.getCredible.twitterQtipApi.set('content.text', $('#twitter_invite'));
+          $.getCredible.twitterQtipApi.show();
       });
 
-      $('#twitter_dm_form').submit(function (e) {
+      $('#js-twitter-dm-form').submit(function (e) {
         $('#loading').show();
       });
     };
+
 
     $.getCredible.showFlashMessages();
     $.getCredible.ajaxPagination();

@@ -1,7 +1,7 @@
 $('#loading').hide();
 $.getCredible.displayNotification('success', 'Message was successfully sent.');
-$.modal.close();
-$('#js_twitter_id').val('')
-$('#js_screen_name').val('')
-$('#js_message').val('')
+$.getCredible.twitterQtipApi.hide();
+$('#js-twitter-id').val('')
+$('#js-twitter-screen-name').val('')
+$('#js-twitter-message').val('')
 $('a[data-screen_name="<%= @twitter_contact.screen_name %>"]').replaceWith('Invited!')
