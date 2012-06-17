@@ -99,7 +99,4 @@
   = render :partial => 'shared/tag_cloud', :locals => {:can_delete => false}
 
 %aside
-  = render 'shared/sidebar_nav'
-  = render :partial => 'shared/sidebar_activity', :locals => { :user => @user }
-  - if current_user
-    = render :partial => 'shared/sidebar_invite', :locals => { :resource => User.new, :resource_name => :user }
+  = render 'shared/sidebar_activity', :user => @user

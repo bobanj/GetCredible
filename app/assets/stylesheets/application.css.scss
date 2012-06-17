@@ -467,7 +467,7 @@ footer {
   padding: 20px;
 }
 
-#profile-nav .edit {
+#profile-nav .view {
   background: #eee;
   display: inline-block;
   font-size: 11px;
@@ -497,7 +497,7 @@ footer {
   }
 }
 
-#invite-side, #import, #latest-activity {
+#invite-side, #import {
   border-top: 2px solid rgba($black, 0.04);
 }
 

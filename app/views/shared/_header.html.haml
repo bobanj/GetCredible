@@ -10,7 +10,7 @@
         %li#gn-logout
           = link_to "Logout", destroy_user_session_path
         %li#gn-profile
-          = link_to 'Profile', me_user_path(current_user), :class => ((params[:controller] == 'users' && params[:action] == 'show') || (params[:controller] == 'users/registrations') ? 'active' : nil)
+          = link_to 'My Profile', edit_user_registration_path, :class => ((params[:controller] == 'users/registrations') ? 'active' : nil)
         %li#gn-tour
           = link_to 'Tour', tour_path, :class => (params[:controller] == 'home' && params[:action] == 'tour' ? 'active' : nil)
         %li#gn-activity

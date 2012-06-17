@@ -11,10 +11,10 @@
   %section#twitter_contacts
   %ul
   - if @contacts.empty?
-    %li= link_to "Import from Twitter", import_twitter_contacts_path
+    %li= link_to "Import", import_twitter_contacts_path
   - else
-    %li= link_to "Re-Import from Twitter", import_twitter_contacts_path
-    %li= link_to "Disconnect from Twitter", twitter_session_path, :confirm => "Are you sure", :method => :delete
+    %li= link_to "Re-Import", import_twitter_contacts_path
+    %li= link_to "Disconnect", twitter_session_path, :confirm => "Are you sure", :method => :delete
 
   %ul
     - @contacts.each do |contact|
