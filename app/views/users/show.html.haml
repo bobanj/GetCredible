@@ -20,44 +20,48 @@
     %ul#steps
       %li#step_1
         = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :remote => true, :html => {:id => 'step_1_form', :multipart => true, :method => :put }) do |f|
-          %h1 Ninjas & Unicorns
+          %h1 Personal Information
           = f.input :avatar, :as => :file, :wrapper => false
           = f.hidden_field :avatar_cache
           = hidden_field_tag :current_step, "step_1"
           = hidden_field_tag :next_step, "step_2"
           %ul.inputs-list.left
             %li= f.input :full_name, :wrapper => false
-            %li= f.input :twitter_handle, :wrapper => false, :label => 'Twitter Username'
-            %li.buttons
-              -#%a{id: 'skip_step_1', class: 'btn'}Skip
-              = f.button :submit, "Next", id: 'next_step_1', class: 'btn next'
-      %li#step_2{:style => "display:none"}
-        = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :remote => true, :html => {:id => 'step_2_form', :method => :put }) do |f|
-          %h1 Step 2
-          = hidden_field_tag :current_step, "step_2"
-          = hidden_field_tag :next_step, "step_3"
-          %ul.inputs-list.left
             %li= f.input :location, :wrapper => false
             %li= f.input :personal_url, :wrapper => false, :label => 'Website'
             %li.buttons
-              %a{id: 'prev_step_2', class: 'btn'}Previous
-              -#%a{id: 'skip_step_2', class: 'btn'}Skip
-              = f.button :submit, "Next", id: 'next_step_2', class: 'btn'
-      %li#step_3{:style => "display:none"}
+              = f.button :submit, "Next", id: 'next_step_1', class: 'btn next'
+      %li#step_2{:style => "display:none"}
         %h1 Video
-        %a{id: 'prev_step_3', class: 'btn'}Previous
-        -#%a{id: 'skip_step_3', class: 'btn'}Skip
-        %a{id: 'next_step_3', class: 'btn'}Next
+        %ul.inputs-list.left
+          %li.buttons
+            %a{id: 'prev_step_2', class: 'btn'}Previous
+            %a{id: 'next_step_2', class: 'btn'}Next
+      %li#step_3{:style => "display:none"}
+        %h1 Add Tags
+        = form_tag user_user_tags_path(current_user), :id => 'step_3_form' do
+          = hidden_field_tag :tag_names, '', :id => 'step_3_tags'
+          %ul.inputs-list
+            %li
+              = label_tag "tag_1"
+              = text_field_tag "tag_1", nil, :placeholder => 'Enter Tag'
+            %li
+              = label_tag "tag_2"
+              = text_field_tag "tag_2", nil, :placeholder => 'Enter Tag'
+            %li
+              = label_tag "tag_3"
+              = text_field_tag "tag_3", nil, :placeholder => 'Enter Tag'
+          .clear
+          %a{id: 'prev_step_3', class: 'btn'}Previous
+          = submit_tag "Next", id: 'next_step_3', class: 'btn next'
 
       %li#step_4{:style => "display:none"}
-        %h1 Add Tags
-        -#TODO Handle form submit
-        = form_tag user_user_tags_path(current_user), :id => 'step_4_form' do
-          = text_field_tag :tag_names, '', :placeholder => 'e.g. web design, leadership (comma separated)', :class => 'large', :id => 'step_4_tags'
-          %a{id: 'prev_step_4', class: 'btn'}Previous
-          = submit_tag "Finish", id: 'next_step_4', class: 'btn next'
-        -#%a{id: 'next_step_4', class: 'btn'}Finish
-
+        %h1 Invite your friends from Twitter
+        =link_to "Invite friends from Twitter", import_twitter_contacts_path, :class => "btn large primary"
+        %br
+        %br
+        %a{id: 'prev_step_4', class: 'btn'}Previous
+        %a{id: 'next_step_4', class: 'btn'}Finish
 #content
   %section#profile
     .details

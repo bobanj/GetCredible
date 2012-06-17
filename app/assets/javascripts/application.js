@@ -527,11 +527,10 @@ $(function () {
             },
             events:{
                 show:function (event, api) {
-                    $("#next_step_4").click(function () {
-                        $("#step_4_form").submit();
-                        return false;
-                    });
+                    console.log(api.c);
+                    // Step 1 is handled with js.erb
 
+                    // Step 2 Video
                     $("#prev_step_2").click(function () {
                         $("#step_2").hide('fast',function () {
                             $('#bubbles').progressBubbles('regress');
@@ -540,11 +539,16 @@ $(function () {
                         return false;
                     });
 
-                    $("#next_step_3").click(function () {
-                        $("#step_3").hide('fast',function () {
+                    $("#next_step_2").click(function () {
+                        $("#step_2").hide('fast',function () {
                             $('#bubbles').progressBubbles('progress');
-                            $("#step_4").show('fast');
+                            $("#step_3").show('fast');
                         });
+                        return false;
+                    });
+
+                    $("#next_step_3").click(function () {
+                        $("#step_3 form").submit();
                         return false;
                     });
 
@@ -556,19 +560,10 @@ $(function () {
                         return false;
                     });
 
-                    var step4Tags = $("#step_4_tags");
-                    if (step4Tags.length > 0) {
-                        step4Tags.tokenInput("/tags/search", {
-                            method:'POST',
-                            queryParam:'term',
-                            propertyToSearch:'term',
-                            tokenValue:'term',
-                            crossDomain:false,
-                            theme:"facebook",
-                            hintText:'e.g. web design, leadership (comma separated)',
-                            minChars:2
-                        });
-                    }
+                    $("#next_step_4").click(function () {
+                        guideApi.hide();
+                        return false;
+                    });
 
                     $("#prev_step_4").click(function () {
                         $("#step_4").hide('fast',function () {
@@ -578,35 +573,38 @@ $(function () {
                         return false;
                     });
 
-                    $("#step_4 form").submit(function (e) {
+                    $("#step_3 form").submit(function (e) {
                         e.preventDefault();
                         var form = $(this);
-                        var step4TagNames = $("#step_4_tags");
-                        if (step4TagNames.length > 0) {
-                            step4TagNames = step4TagNames.val();
-                        } else {
-                            step4TagNames = ''
+                        var tagOne = $("#tag_1");
+                        var tagTwo = $("#tag_2");
+                        var tagThree = $("#tag_3");
+                        var step3TagNames = $("#step_3_tags");
+                        var skipStep3 = function(){
+                            $("#step_3").hide('fast',function () {
+                                $('#bubbles').progressBubbles('progress');
+                                $("#step_4").show('fast');
+                            });
                         }
-                        if (step4TagNames != '' && $.getCredible.tagCloud.length > 0) {
+                        if (tagOne.val() != '' && tagTwo.val() != '' && tagThree.val() != '' && $.getCredible.tagCloud.length > 0) {
+                            step3TagNames.val(tagOne.val() + ',' + tagTwo.val() + ',' + tagThree.val());
                             var selfTag = function () {
                                 $.post($.getCredible.tagCloud.data('tag-cloud-path'),
                                     form.serialize(), function (data) {
-                                        step4Tags.tokenInput("clear");
-                                        $.getCredible.displayNotification('success', 'You have tagged yourself with ' + step4TagNames);
+                                        $.getCredible.displayNotification('success', 'You have tagged yourself with ' + step3TagNames);
                                         $.getCredible.renderTagCloud(data);
-                                        api.hide();
-                                        $('.token-input-dropdown-facebook').remove();
+                                        skipStep3();
                                     });
                             }
 
                             if ($.getCredible.tagCloud.data('logged-in')) {
-                                //$('#step_4 .token-input-list-facebook').qtip('destroy');
                                 selfTag();
                             } else {
                                 $.getCredible.modalApi = $('#login_dialog').modal();
                             }
                         } else {
-                            $.getCredible.displayNotification('error', 'Please add tags');
+                            skipStep3();
+                            //$.getCredible.displayNotification('error', 'Please add tags');
                         }
                         return false;
                     });
