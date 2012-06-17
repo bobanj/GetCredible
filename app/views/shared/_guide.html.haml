@@ -1,0 +1,49 @@
+- if user_signed_in? && (!current_user.user_tags.any? || current_user.sign_in_count <= 1)
+  #bubbles_container{:style => "display:none"}
+    #bubbles
+    .clear{:style => "clear:both"}
+    %ul#steps
+      %li#step_1
+        = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :remote => true, :html => {:id => 'step_1_form', :multipart => true, :method => :put }) do |f|
+          %h1 Personal Information
+          = f.input :avatar, :as => :file, :wrapper => false
+          = f.hidden_field :avatar_cache
+          = hidden_field_tag :current_step, "step_1"
+          = hidden_field_tag :next_step, "step_2"
+          %ul.inputs-list.left
+            %li= f.input :full_name, :wrapper => false
+            %li= f.input :location, :wrapper => false
+            %li= f.input :personal_url, :wrapper => false, :label => 'Website'
+            %li.buttons
+              = f.button :submit, "Next", id: 'next_step_1', class: 'btn next'
+      %li#step_2{:style => "display:none"}
+        %h1 Video
+        %ul.inputs-list.left
+          %li.buttons
+            %a{id: 'prev_step_2', class: 'btn'}Previous
+            %a{id: 'next_step_2', class: 'btn'}Next
+      %li#step_3{:style => "display:none"}
+        %h1 Add Tags
+        = form_tag user_user_tags_path(current_user), :id => 'step_3_form' do
+          = hidden_field_tag :tag_names, '', :id => 'step_3_tags'
+          %ul.inputs-list
+            %li
+              = label_tag "tag_1"
+              = text_field_tag "tag_1", nil, :placeholder => 'Enter Tag'
+            %li
+              = label_tag "tag_2"
+              = text_field_tag "tag_2", nil, :placeholder => 'Enter Tag'
+            %li
+              = label_tag "tag_3"
+              = text_field_tag "tag_3", nil, :placeholder => 'Enter Tag'
+          .clear
+          %a{id: 'prev_step_3', class: 'btn'}Previous
+          = submit_tag "Next", id: 'next_step_3', class: 'btn next'
+
+      %li#step_4{:style => "display:none"}
+        %h1 Invite your friends from Twitter
+        =link_to "Invite friends from Twitter", import_twitter_contacts_path, :class => "btn large primary"
+        %br
+        %br
+        %a{id: 'prev_step_4', class: 'btn'}Previous
+        %a{id: 'next_step_4', class: 'btn'}Finish

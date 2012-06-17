@@ -355,9 +355,6 @@ $(function () {
         if (this.tagCloud.length > 0) {
             this.tagCloudPath = this.tagCloud.data('tag-cloud-path');
             $.getJSON(this.tagCloud.data('tag-cloud-path'), function (data) {
-                if ($("#bubbles_container").length > 0) {
-                    guideApi.show();
-                }
                 $.getCredible.renderTagCloud(data, tagCloudCallback);
             });
         }
@@ -610,8 +607,7 @@ $(function () {
                     });
                 }
             }
-        });
-    guideApi = guideApi.qtip('api');
+        }).qtip('api');
 
     var invitationExistingTagNames = $('#invite_tag_names');
     var prePopulateInvitationTags = [];
@@ -632,6 +628,12 @@ $(function () {
         minChars:2,
         prePopulate:prePopulateInvitationTags
     });
+
+    $.getCredible.guide = function(){
+        if ($("#bubbles_container").length > 0) {
+            guideApi.show();
+        }
+    }
 
     $.getCredible.twitterInvite = function () {
       $.getCredible.twitterQtipApi = $('<div />').qtip({
@@ -686,5 +688,6 @@ $(function () {
     $.getCredible.init();
     $.getCredible.updateTagCloud();
     $.getCredible.twitterInvite();
+    $.getCredible.guide();
 
 })
