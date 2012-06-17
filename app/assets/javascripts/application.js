@@ -524,9 +524,7 @@ $(function () {
             },
             events:{
                 show:function (event, api) {
-                    console.log(api.c);
                     // Step 1 is handled with js.erb
-
                     // Step 2 Video
                     $("#prev_step_2").click(function () {
                         $("#step_2").hide('fast',function () {

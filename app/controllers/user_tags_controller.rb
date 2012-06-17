@@ -13,7 +13,6 @@ class UserTagsController < ApplicationController
     tag_names = TagCleaner.clean(params[:tag_names])
     current_user.add_tags(@user, tag_names)
     #end
-
     render json: tags_summary(@user, current_user)
   end
 

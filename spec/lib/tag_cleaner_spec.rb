@@ -25,4 +25,8 @@ describe TagCleaner do
   it "can remove duplicate tags" do
     TagCleaner.clean("developer, developer").should == ["developer"]
   end
+
+  it "is empty when shitty content" do
+    TagCleaner.clean('.....@!!@@^&*@@@",,,,...#@@*&^#').should be_empty
+  end
 end
