@@ -347,4 +347,19 @@ describe User do
       user.full_name.should == 'Pink Panter'
     end
   end
+
+  describe "behaviour" do
+    it "does not change error message for attribute if no error exist" do
+      user.change_error_message(:email, 'you shell not pass')
+      user.errors[:email].should be_empty
+    end
+
+    it "changes error message for attribute if error exist" do
+      existing_user = FactoryGirl.build(:user, :email => user.email)
+      existing_user.valid?.should be_false
+      existing_user.errors[:email].should_not be_empty
+      existing_user.change_error_message(:email,'you shell not pass')
+      existing_user.errors[:email].should == ['you shell not pass']
+    end
+  end
 end

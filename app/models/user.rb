@@ -169,6 +169,14 @@ class User < ActiveRecord::Base
     username
   end
 
+  # Changes error message for attribute if error already exists
+  def change_error_message(field, message)
+    unless self.errors[field].empty?
+      self.errors[field].clear
+      self.errors[field]= message
+    end
+  end
+
   # Class methods
 
   def self.search(params)
