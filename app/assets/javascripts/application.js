@@ -635,7 +635,7 @@ $(function () {
         prePopulate:prePopulateInvitationTags
     });
     $.getCredible.twitterInvite = function () {
-      $('.twitter_contact').click(function () {
+      $('.twitter_contact').live('click', function () {
         var contact = $(this);
         $('#js_twitter_id').val(contact.data('twitter_id'))
         $('#js_screen_name').val(contact.data('screen_name'))

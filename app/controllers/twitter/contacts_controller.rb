@@ -2,9 +2,14 @@ class Twitter::ContactsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @contacts = current_user.twitter_contacts.ordered.
-      paginate :per_page => 25, :page => params[:page]
-    render 'index', layout: (request.xhr? ? false : true)
+    @contacts = current_user.twitter_contacts.search(params)
+
+    respond_to do |format|
+      format.html do
+        render 'index', layout: (request.xhr? ? false : true)
+      end
+      format.js
+    end
   end
 
   def import
