@@ -4,6 +4,7 @@ class Twitter::ContactsController < ApplicationController
   def index
     @contacts = current_user.twitter_contacts.ordered.
       paginate :per_page => 25, :page => params[:page]
+    render 'index', layout: (request.xhr? ? false : true)
   end
 
   def import
