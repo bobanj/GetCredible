@@ -2,7 +2,6 @@
 %section#tags
   #add-tag
     .inner{:class => (false && @user == current_user) ? "cannot_tag" : nil}
-      = render 'shared/share_this' if @user == current_user
       = form_tag user_user_tags_path(@user) do
         = text_field_tag :tag_names, '', :placeholder => 'e.g. web design, leadership (comma separated)', :class => 'large', :id => 'tag_names'
 

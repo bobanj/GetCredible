@@ -16,8 +16,8 @@
           %li= f.input :personal_url, :wrapper => false, :label => 'Website'
           %li= f.input :twitter_handle, :wrapper => false, :label => 'Twitter Username'
           %li.buttons= f.button :submit, "Save", class: 'btn primary large'
-  - if current_user.user_tags.count > 0
-    = render :partial => 'shared/tag_cloud', :locals => {:can_delete => true}
+
+  = render :partial => 'shared/tag_cloud', :locals => {:can_delete => true}
 
 %aside
   = render 'shared/sidebar_nav'
