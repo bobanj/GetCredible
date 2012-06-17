@@ -18,7 +18,7 @@ class TwitterContact < ActiveRecord::Base
     if params[:q].present?
       scope = scope.search_by_name_or_screen_name(params[:q])
     end
-    scope = scope.paginate(:per_page => 5, :page => params[:page])
+    scope = scope.paginate(:per_page => 25, :page => params[:page])
 
     scope.ordered
   end
