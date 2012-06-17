@@ -636,7 +636,7 @@ $(function () {
     $.getCredible.twitterInvite = function () {
       $.getCredible.twitterQtipApi = $('<div />').qtip({
           content:{
-              text: $('#twitter_invite'),
+              text: ' ',
               title:{
                   text:'Import Twitter Friends',
                   button:true
