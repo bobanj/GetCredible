@@ -65,9 +65,9 @@
     		html += '</div>';
 
     		// Add the connector
-    		if( index < settings.bubbles.length -1  ){
-    			html += '<div class="connector"></div>';
-    		}
+    		// if( index < settings.bubbles.length -1  ){
+    		//          html += '<div class="connector"></div>';
+    		//        }
 
     		// Append that html, yeah!
     		root.append(html);

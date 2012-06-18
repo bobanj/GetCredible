@@ -501,7 +501,7 @@ $(function () {
             content:{
                 text:$('#bubbles_container'),
                 title:{
-                    text:'Guide',
+                    text:'Few moments to set up your account.',
                     button:true
                 }
             },

@@ -295,6 +295,21 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
   }
 }
 
+// Move the URL inside the Input
+.url {
+  position: relative;
+  span {
+    font-size: 12px;
+    left: 29px;
+    position: absolute;
+    top: 24px;
+  }
+  input {
+    padding-left: 77px;
+    width: 137px;
+  }
+}
+
 // Allow us to put symbols and text within the input field for a cleaner look
 .input-prepend, .input-append {
   input {
@@ -367,6 +382,7 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
     width: auto;
     padding: 0;
     margin-left: 0;
+    margin-bottom: 2px;
     line-height: 1.5;
     text-align: left;
     white-space: normal;
@@ -489,6 +505,25 @@ ul.inputs {
   }
 }
 
+#steps {
+  .inputs-list {
+    padding: 0;
+    width: 100%;
+    li {
+      padding: 0 5% 10px;
+      width: 90%;
+      &:nth-child(4) {
+        padding-bottom: 0;
+      }
+      &.buttons {
+        border-top: 1px solid #eee;
+        padding: 15px 5% 10px;
+      }
+    }
+  }
+  
+}
+  
 .hint {
   clear: left;
   margin-left: 120px;

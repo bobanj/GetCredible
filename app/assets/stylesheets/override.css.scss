@@ -78,3 +78,84 @@ li.token-input-token-facebook {
     margin: 0;
   }
 }
+
+///////////
+
+#steps {
+  margin: 0;
+  h1 {
+    background: $blue;
+    color: #fff;
+    font-size: 18px;
+    line-height: 2;
+    padding: 0 5%;
+    @include box-shadow(rgba(0, 0, 0, 0.1) 0 -3px 3px);
+  }
+}
+.ui-tooltip, .qtip {
+  border: none;
+}
+.ui-tooltip-light .ui-tooltip-titlebar {
+  background: #eee;
+}
+.ui-tooltip-titlebar {
+  font: 16px "futura-pt", sans-serif;
+  line-height: 1;
+  padding: 15px 15px 0;
+  //@include box-shadow(rgba(0, 0, 0, 0.1) 0 -3px 3px inset);
+}
+.ui-tooltip-content {
+  padding: 0;
+}
+.ui-tooltip-icon .ui-icon {
+  width: auto;
+}
+.ui-tooltip-titlebar .ui-state-default {
+  background: none;
+  border: none;
+  color: $red;
+  font: 16px "futura-pt", sans-serif;
+  margin-top: 0;
+  opacity: .7;
+  right: 10px;
+  text-decoration: underline;
+  &:hover, &:focus {
+    opacity: 1;
+  }
+  span {
+    font: 14px "futura-pt", sans-serif;
+    text-decoration: underline;
+  }
+}
+
+#bubbles {
+  background: #eee;
+  height: 75px;
+  padding: 20px 7% 0 13%;
+  overflow: hidden;
+  .bubble {
+    border: none;
+    height: auto;
+    margin-right: -5%;
+    padding: 0;
+    width: 27%;
+    &.active {
+      background: $blue + #111;
+      position: relative;
+      z-index: 10;
+      @include box-shadow(rgba(0, 0, 0, 0.1) 0 0 5px);
+    }
+    .bubble-title {
+      border: none;
+      //border-top: 1px solid rgba(0, 0, 0, 0.1);
+      //border-right: 1px solid rgba(0, 0, 0, 0.1);
+      font: 24px "futura-pt", sans-serif;
+      height: 24px;
+      line-height: 1;
+      margin: 0;
+      padding: 38px 0;
+      text-align: center;
+      width: auto;
+    }
+  }
+}

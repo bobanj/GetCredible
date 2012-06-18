@@ -252,7 +252,7 @@
                         .prepend(
                         $('<span />', {
                             'class': 'ui-icon ui-icon-close',
-                            'html': '&times;'
+                            'html': 'Do it later.'
                         })
                     );
                 }
