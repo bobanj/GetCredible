@@ -26,26 +26,22 @@
           = link_to root_path, :class => 'logo' do
             %span give
             brand
-        %li#gn-signin
-          = simple_form_for(:user, :url => user_session_path, :namespace => 'sign_in', :html => {:id => 'user_sign_in'}) do |f|
-            %ul
-              %li
-                = f.input :email, :required => false, :autofocus => true, :input_html => { :value => nil }, :placeholder => "Email or Username", :label => "Email or Username"
-                = f.input :remember_me, :as => :boolean
-              %li
-                = f.input :password, :required => false, :input_html => { :value => nil }
-                = link_to "Forgot your password?", "#"
-              %li
-                = f.button :submit, "Sign in", class: 'btn small primary gray'
-              
-        //%li#gn-tour
-        //  = link_to 'Tour', tour_path, :class => (params[:controller] == 'home' && params[:action] == 'tour' ? 'active' : nil)
-        //%li#gn-register
-        //  = link_to "Sign up", new_user_registration_path, :class => (params[:controller] == 'users/registrations' ? 'active' : nil)
-        //%li#gn-login
-        //  = link_to 'Login', new_user_session_path, :class => (params[:controller] == 'users/sessions' ? 'active' : nil)
+        - if params[:controller] == 'home'
+          %li#gn-signin
+            = simple_form_for(:user, :url => user_session_path, :namespace => 'sign_in', :html => {:id => 'user_sign_in'}) do |f|
+              %ul
+                %li
+                  = f.input :email, :required => false, :autofocus => true, :input_html => { :value => nil }, :placeholder => "Email or Username", :label => "Email or Username", :label_html => {:class => 'hidden'}
+                  = f.input :remember_me, :as => :boolean
+                %li
+                  = f.input :password, :required => false, :placeholder => "Password", :input_html => { :value => nil }, :label_html => {:class => 'hidden'}
+                  = link_to "Forgot your password?", new_user_password_path
+                %li
+                  = f.button :submit, "Sign in", class: 'btn small primary gray'
 
-  
-  -# #twitter
-  -#   = link_to image_tag('twitter-icon.png'), 'http://twitter.com/'
-
+          //%li#gn-tour
+          //  = link_to 'Tour', tour_path, :class => (params[:controller] == 'home' && params[:action] == 'tour' ? 'active' : nil)
+          //%li#gn-register
+          //  = link_to "Sign up", new_user_registration_path, :class => (params[:controller] == 'users/registrations' ? 'active' : nil)
+          //%li#gn-login
+          //  = link_to 'Login', new_user_session_path, :class => (params[:controller] == 'users/sessions' ? 'active' : nil)

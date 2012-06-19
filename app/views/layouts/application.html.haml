@@ -27,7 +27,7 @@
         = yield
 
       %footer
-        
+
         = link_to 'Privacy policy', privacy_path
         &bull;
         = link_to 'Terms of use', terms_path
@@ -36,7 +36,8 @@
         %br
         Copyright &copy; GiveBrand 2012
         %br
-        = link_to 'To the top', "#global-header", :class => "to-the-top"
+        - if params[:controller] == 'home'
+          = link_to 'To the top', "#global-header", :class => "to-the-top"
 
       = yield :scripts
       = render 'shared/google_analytics'
