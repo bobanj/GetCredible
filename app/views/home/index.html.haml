@@ -38,43 +38,9 @@
       %p Want to tag someone else as influential in a category you're already dominating? Everything you touch turns to gold! Your tag means that much more as a top dog.
       -#= link_to "Sign up now for free!", new_user_registration_path, :class => "big-signup left"
 
-  -#.cloud
-
-#content.center
-  %section#activity
-    %header#page-header
-      %h1 Recent Activities
-    .feed
-      %ul.list-view.unstyled
-        - @activity_items.each do |activity_item|
-          %li{:class => activity_class(activity_item)}
-            .content
-              .tag-icon
-              .photo
-                = link_to activity_item.user do
-                  = image_tag activity_item.user.avatar.url(:small)
-                  = image_tag activity_item.target.avatar.url(:tiny), :class => 'over'
-              -#.icon
-              %h2= activity_description(activity_item)
-              %time= activity_item.created_at.strftime("%d. %b %Y")
-
-    -#= will_paginate @activity_items
-
--# %aside.benefits
-  -# %ul.unstyled.slim
-  -#   %li
-  -#     //= image_tag 'info.png'
-  -#     %h2 Vouche or Tag
-  -#     %p Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-  -#   %li
-  -#     //= image_tag 'info.png'
-  -#     %h2 Follow Activity
-  -#     %p Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-  -#   %li
-  -#     //= image_tag 'info.png'
-  -#     %h2 Share Progress
-  -#     %p Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-  -#   %li
-  -#     //= image_tag 'info.png'
-  -#     %h2 Get Credible
-  -#     %p Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+#video
+  %h2 Watch our video and find out more
+  %iframe{:allowfullscreen => "", :frameborder => "0", :height => "315", :src => "http://www.youtube.com/embed/He_PWsJqsVY?rel=0", :width => "560"}
+  %p= link_to "You may want to check our illustrated tour.", "#"
+  
+  

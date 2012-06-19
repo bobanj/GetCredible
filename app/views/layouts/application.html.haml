@@ -35,6 +35,8 @@
         = mail_to 'feedback@givebrand.com', 'Send feedback'
         %br
         Copyright &copy; GiveBrand 2012
+        %br
+        = link_to 'To the top', "#global-header", :class => "to-the-top"
 
       = yield :scripts
       = render 'shared/google_analytics'

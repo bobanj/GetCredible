@@ -62,13 +62,14 @@ input[type=checkbox], input[type=radio] {
 input, textarea, select, .uneditable-input {
   background: #f9f9f9;
   border: 1px solid #ccc;
-  display: inline-block;
-  width: 210px;
-  height: $baseline;
-  padding: 4px;
-  font-size: $basefont;
-  line-height: $baseline;
   color: $gray;
+  display: inline-block;
+  font-size: $basefont;  
+  height: $baseline;
+  line-height: $baseline;
+  margin-bottom: 0;
+  padding: 4px;
+  width: 210px;
   @include border-radius(1px);
   &:hover, &:focus {
     border: 1px solid #999;

@@ -57,7 +57,7 @@ input, textarea {
   @include box-shadow(rgba($white, 0.5) 0px 0px 1px 0px inset, rgba($black, 0.38) 0px 1px 3px);
   font-weight: bold;
   @include text-shadow(#fff 0px 1px 0px);
-  @include transition(all 0.1s ease);
+  @include transition(all 0.3s ease);
 
   &:hover {
     @include background-image(linear-gradient(lighten($black, 93%), lighten($black, 74%)));
@@ -73,10 +73,12 @@ input, textarea {
     @include background-image(linear-gradient($green + #090909, $green - #090909));
     filter: none;
     @include text-shadow(rgba(0, 0, 0, 0.2) 0px 1px 0px);
+    @include transition(all 0.3s);
 
     &:hover {
       @include background-image(linear-gradient($green + #191919, $green - #111));
       background-position: 0 0;
+      border: 1px solid $green - #111;
     }
 
   // Active state
@@ -86,7 +88,6 @@ input, textarea {
       @include box-shadow(rgba($black, 0.15) 0px 5px 5px 0px inset, rgba($black, 0.24) 0px 0px 6px inset);
       border: 1px solid #5b7994;
     }
-
   }
 
 
@@ -97,8 +98,17 @@ input, textarea {
     font-size: 14px;
     //margin-top: 5px;
     padding: 11px 30px;
+    @include transition(all 0.3s);
   }
-
+  &.small {
+    font-size: 13px;
+    padding: 6px 15px;
+    @include transition(all 0.3s);
+  }
+  &.gray {
+    border: 1px solid #777;
+    @include background-image(linear-gradient(#999, #888));
+  }
 }
 
 .buttons_left {
@@ -396,11 +406,6 @@ body {
   @include grid(12);
 }
 
-#global-nav {
-  @include grid(9);
-  @include alpha;
-}
-
 #content {
   @include grid(9);
   @include alpha;
@@ -528,8 +533,6 @@ footer {
 // Global navigation
 
 #global-nav {
-
-  //border-right: 1px solid $borderColor;
   margin: 0;
 
   li {
@@ -611,6 +614,31 @@ footer {
   }
   #gn-login, #gn-register, #gn-activity, #gn-tour, #gn-profile, #gn-logout, #gn-tour, #gn-invite {
     float: right;
+  }
+}
+
+#gn-signin {
+  float: right !important;
+  margin-top: 35px;
+  li {
+    margin-left: 5px;
+  }
+  input[type=email], input[type=password] {
+    color: #555;
+    font-size: 11px;
+    height: 20px;
+    margin-bottom: 6px;
+    width: 120px;
+  }
+  a {
+    color: $blue;
+    font: normal 11px/1 open-sans, arial, sans-serif;
+    padding: 0;
+    text-decoration: underline;
+    &:hover, &:focus {
+      background: none;
+      text-decoration: underline;
+    }
   }
 }
 
@@ -706,7 +734,7 @@ footer {
 #featured {
   margin-top: 25px;
   text-align: center;
-  //@include background(radial-gradient(color-stops(rgba(0, 0, 0, 0.03), rgba(255, 255, 255, 0.1) 60%)));
+  @include background(radial-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.03) 100%));
 
   h1 {
     font-size: 78px;
@@ -770,7 +798,7 @@ footer {
   }
   img {
     border: 4px solid #fff;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     position: relative;
     width: 170px;
     z-index: 2;
@@ -780,9 +808,28 @@ footer {
   }
 }
 
-#explain li:hover img {
-  z-index: 3;
-  @include scale(1.2);
+#video {
+  background: rgba(255, 255, 255, 0.3);
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 20px 0;
+  text-align: center;
+  //@include background(radial-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.1) 60%));
+  h2 {
+    font-family: "gnuolane", sans-serif;
+    font-weight: bold;
+  }
+  a {
+    text-decoration: underline;
+  }
+}
+
+#explain {
+  margin-top: 10px;
+  li:hover img {
+    z-index: 3;
+    @include scale(1.15);
+  }
 }
 
 #page-header {
@@ -905,8 +952,8 @@ footer {
   color: #888;
   font-size: 11px;
   margin-top: 0;
-  padding-bottom: 20px;
-  padding-top: 15px;
+  padding-top: 25px;
+  position: relative;
   text-align: center;
 
   a {
@@ -914,6 +961,12 @@ footer {
     display: inline-block;
     padding: 0 3px;
     text-decoration: underline;
+    &.to-the-top {
+      background: #eaeaea;
+      color: $blue;
+      margin-top: 40px;
+      padding: 5px 10px;
+    }
   }
 
 }
