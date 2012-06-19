@@ -7,11 +7,12 @@ describe 'User', type: :request do
     email = 'user@example.com'
 
     visit(root_path)
-    click_link("Sign up")
-    fill_in("Username", with: "pink_panter")
-    fill_in("Email", with: email)
-    fill_in("Password", with: "password")
-    click_button("Sign up")
+    within(".easy-signup") do
+      fill_in("Username", with: "pink_panter")
+      fill_in("Email", with: email)
+      fill_in("Password", with: "password")
+      click_button("Sign up")
+    end
     page.should have_content('Welcome! You have signed up successfully.')
 
     user = User.find_by_email(email)

@@ -8,9 +8,9 @@
   .easy-signup
     = simple_form_for(User.new, :as => :user, :url => registration_path(:user)) do |f|
       %ul
-        %li= f.input :username, :required => false, :autofocus => true, :placeholder => "Username", :label => false
-        %li= f.input :email, :placeholder => "Email", :label => false
-        %li= f.input :password, :placeholder => "Password", :label => false
+        %li= f.input :username, :required => false, :autofocus => true, :placeholder => "Username", :label_html => {:class => 'hidden'}
+        %li= f.input :email, :placeholder => "Email", :label_html => {:class => 'hidden'}
+        %li= f.input :password, :placeholder => "Password", :label_html => {:class => 'hidden'}
         %li.buttons= f.button :submit, "Sign up now for free", class: 'btn large primary'
 
   %br
