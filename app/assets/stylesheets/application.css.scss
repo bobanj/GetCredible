@@ -637,6 +637,13 @@ footer {
       text-decoration: underline;
     }
   }
+  .checkbox {
+    font-size: 11px;
+    padding-top: 0;
+    input {
+      margin-top: 0;
+    }
+  }
 }
 
 #home_index {
@@ -759,7 +766,7 @@ footer {
     background: #e9e9e9;
     border: 1px solid #ddd;
     margin: 20px auto 10px;
-    padding: 2px;
+    padding: 6px 12px 6px 0;
     width: 900px;
     @include pie-clearfix;
     ul {
