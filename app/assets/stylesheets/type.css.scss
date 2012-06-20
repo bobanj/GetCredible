@@ -7,6 +7,8 @@
 // ---------
 p {
   @include shorthand-font(normal,$basefont,$baseline);
+  color: #666;
+  font-family: open-sans, helvetica neue, arial, sans-serif;
   margin-bottom: $baseline / 2;
   small {
     font-size: $basefont - 2;

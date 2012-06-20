@@ -7,6 +7,12 @@
           = link_to activity_path('all'), :class => 'logo' do
             %span give
             brand
+        %li#global-search.right
+          = form_tag users_path, :id => 'g-search', :method => :get do
+            //= label_tag :q, "Search"
+            = text_field_tag :q, '', :id => 'g-searchtext', :placeholder => 'Search people or tag'
+            %button go
+
         %li#gn-logout
           = link_to "Logout", destroy_user_session_path
         %li#gn-profile
@@ -15,12 +21,7 @@
           = link_to 'Tour', tour_path, :class => (params[:controller] == 'home' && params[:action] == 'tour' ? 'active' : nil)
         %li#gn-activity
           = link_to 'Home', activity_path('all'), :class => (params[:controller] == 'activities' ? 'active' : nil)
-        %li#global-search
-          = form_tag users_path, :id => 'g-search', :method => :get do
-            = label_tag :q, "Search"
-            = text_field_tag :q, '', :id => 'g-searchtext', :placeholder => 'Search people or tag'
-            %button go
-
+        
       - else
         %li#gn-logo
           = link_to root_path, :class => 'logo' do

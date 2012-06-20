@@ -55,9 +55,9 @@ input, textarea {
   border: 1px solid lighten($black, 59%);
   @include background-image(linear-gradient(lighten($black, 88%), lighten($black, 69%)));
   @include box-shadow(rgba($white, 0.5) 0px 0px 1px 0px inset, rgba($black, 0.38) 0px 1px 3px);
+  font-family: futura-pt, open-sans, arial, sans-serif;
   font-weight: bold;
   @include text-shadow(#fff 0px 1px 0px);
-  @include transition(all 0.3s ease);
 
   &:hover {
     @include background-image(linear-gradient(lighten($black, 93%), lighten($black, 74%)));
@@ -73,12 +73,13 @@ input, textarea {
     @include background-image(linear-gradient($green + #090909, $green - #090909));
     filter: none;
     @include text-shadow(rgba(0, 0, 0, 0.2) 0px 1px 0px);
-    @include transition(all 0.3s);
 
     &:hover {
       @include background-image(linear-gradient($green + #191919, $green - #111));
       background-position: 0 0;
       border: 1px solid $green - #111;
+      color: #fff;
+      @include text-shadow(rgba(0, 0, 0, 0.2) 0px 1px 0px);
     }
 
   // Active state
@@ -98,16 +99,21 @@ input, textarea {
     font-size: 14px;
     //margin-top: 5px;
     padding: 11px 30px;
-    @include transition(all 0.3s);
   }
   &.small {
     font-size: 13px;
-    padding: 6px 15px;
-    @include transition(all 0.3s);
+    padding: 4px 15px 3px;
   }
   &.gray {
     border: 1px solid #777;
     @include background-image(linear-gradient(#999, #888));
+  }
+  &.light {
+    border: 1px solid #c6c6c6;
+    color: $blue;
+    @include text-shadow(#fff 0 1px 1px);
+    @include background-image(linear-gradient(#fcfcfc, #f3f3f3));
+    @include box-shadow(rgba($white, 0.5) 0px 0px 1px 0px inset, rgba($white, 1) 0px 1px 3px);
   }
 }
 
@@ -581,36 +587,47 @@ footer {
 
 // Logo style
 
-  #gn-logo a {
-    //background: image-url('logo2.png') no-repeat center;
-    color: $blue;
-    font: normal 30px "gnuolane", impact, sans-serif;
-    //height: 63px;
-    letter-spacing: 0.6px;
-    margin: 35px 0 14px;
-    opacity: 0.9;
-    padding: 0;
-    //text-transform: uppercase;
-    //text-indent: -99999px;
-    //width: 150px;
-    @include transition(all .4s);
-    //@include transform(skew(0deg, -6deg));
-    span {
-      color: #444;
-      display: inline;
-      float: left;
-      font-size: 30px;
-      font-weight: normal;
+  #gn-logo {
+    @include background(radial-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.01) 100%));
+    a {
+      //background: image-url('logo2.png') no-repeat center;
+      color: $blue;
+      font: normal 30px "gnuolane", impact, sans-serif;
+      //height: 63px;
+      letter-spacing: 0.6px;
+      margin: 35px 0 14px;
+      opacity: 0.9;
       padding: 0;
-      text-transform: lowercase;
-    }
-    &:hover, &:focus, &:hover span {
-      opacity: 1;
-      @include text-shadow(#fff 0 0 15px);
+      //text-transform: uppercase;
+      //text-indent: -99999px;
+      //width: 150px;
+  
+      @include transition(all .4s);
+      //@include transform(skew(0deg, -6deg));
+      span {
+        color: #444;
+        display: inline;
+        float: left;
+        font-size: 30px;
+        font-weight: normal;
+        padding: 0;
+        text-transform: lowercase;
+      }
+      &:hover, &:focus, &:hover span {
+        opacity: 1;
+        @include text-shadow(#fff 0 0 15px);
+      }
     }
   }
   #gn-login, #gn-register, #gn-activity, #gn-tour, #gn-profile, #gn-logout, #gn-tour, #gn-invite {
     float: right;
+  }
+}
+
+#home_index #gn-logo a {
+  font-size: 36px;
+  span {
+    font-size: 36px;
   }
 }
 
@@ -625,6 +642,7 @@ footer {
     font-size: 11px;
     height: 20px;
     margin-bottom: 6px;
+    padding: 2px 4px;
     width: 120px;
   }
   a {
@@ -644,6 +662,10 @@ footer {
       margin-top: 0;
     }
   }
+  input[type=submit] {
+    position: relative;
+    top: -1px;
+  }
 }
 
 #home_index {
@@ -656,6 +678,7 @@ footer {
 
 #global-search {
   display: inline-block;
+  float: right !important;
   margin-top: 27px;
   padding-left: 10px;
 
@@ -738,19 +761,21 @@ footer {
 #featured {
   margin-top: 25px;
   text-align: center;
-  @include background(radial-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.03) 100%));
+  @include background(radial-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.01) 100%));
 
   h1 {
-    font-size: 78px;
+    font-size: 80px;
     font-weight: bold;
+    line-height: 0.85;
     margin-top: 67px;
-    margin-bottom: 13px;
+    margin-bottom: 0px;
     text-transform: uppercase;
   }
   h2 {
     color: #777;
-    font-family: "gnuolane", impact, sans-serif;
-    font-size: 32px;
+    font-family: "futura-pt", open-sans, sans-serif;
+    font-size: 30px;
+    letter-spacing: -0.3px;
     line-height: 1.5;
   }
   h3 {
@@ -813,15 +838,15 @@ footer {
 }
 
 #video {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.4);
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
-  padding: 20px 0;
+  padding: 30px 0 20px;
   text-align: center;
   //@include background(radial-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.1) 60%));
   h2 {
-    font-family: "gnuolane", sans-serif;
-    font-weight: bold;
+    font: bold 38px/2 "gnuolane", sans-serif;
+    text-transform: uppercase;
   }
   a {
     text-decoration: underline;
@@ -966,10 +991,16 @@ footer {
     padding: 0 3px;
     text-decoration: underline;
     &.to-the-top {
-      background: #eaeaea;
-      color: $blue;
-      margin-top: 40px;
-      padding: 5px 10px;
+      background: #666;
+      color: #fff;
+      margin-top: 10px;
+      padding: 4px 13px 4px;
+      text-decoration: none;
+      @include border-top-radius(2px);
+      @include transition(all .4s);
+      &:hover, &:focus {
+        background: #444;
+      }
     }
   }
 
