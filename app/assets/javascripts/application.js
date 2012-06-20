@@ -716,6 +716,19 @@ $(function () {
       }).qtip('api');
     };
 
+    $('#edit_tag_cloud').click(function (e) {
+      e.preventDefault();
+      var element = $(this);
+      if (element.hasClass('edit')) {
+        element.removeClass('edit').text('Edit');
+        $('#tag-cloud').data("can-delete", false);
+        $.getCredible.updateTagCloud();
+      } else {
+        element.addClass('edit').text('Done');
+        $('#tag-cloud').data("can-delete", true);
+        $.getCredible.updateTagCloud();
+      }
+    });
 
     $.getCredible.showFlashMessages();
     $.getCredible.ajaxPagination();

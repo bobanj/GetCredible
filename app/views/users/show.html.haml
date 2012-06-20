@@ -17,6 +17,8 @@
 
 #content
   %section#profile
+    - if user_signed_in?
+      = link_to 'Edit', edit_user_registration_path
     .details
       .left
         - if user_signed_in? && @user == current_user
