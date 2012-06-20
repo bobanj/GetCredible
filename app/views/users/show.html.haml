@@ -16,9 +16,9 @@
 = render 'shared/guide'
 
 #content
-  %section#profile
+  %section#profile.edit-area
     - if user_signed_in?
-      = link_to 'Edit', edit_user_registration_path
+      = link_to 'Edit', edit_user_registration_path, :class => 'edit-button btn primary small light'
     .details
       .left
         - if user_signed_in? && @user == current_user

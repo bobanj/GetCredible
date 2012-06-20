@@ -86,9 +86,9 @@ li.token-input-token-facebook {
   h1 {
     background: $blue;
     color: #fff;
-    font-size: 18px;
+    font-size: 21px;
     line-height: 2;
-    padding: 0 2% 0 25%;
+    padding: 7px 5% 7px 25%;
     text-align: right;
     @include box-shadow(rgba(0, 0, 0, 0.1) 0 -3px 3px);
   }
@@ -98,6 +98,8 @@ li.token-input-token-facebook {
 }
 .ui-tooltip-light {
   @include border-radius(3px);
+  background: #eee;
+  padding: 15px 0 10px;
   .ui-tooltip-titlebar {
     background: #eee;
     padding-bottom: 10px;
@@ -105,9 +107,9 @@ li.token-input-token-facebook {
   }
 }
 .ui-tooltip-titlebar {
-  font: 16px "futura-pt", sans-serif;
+  font: 15px "futura-pt", sans-serif;
   line-height: 1;
-  padding: 15px 15px 0;
+  padding: 13px 15px 0;
   position: relative;
   z-index: 1;
   //@include box-shadow(rgba(0, 0, 0, 0.1) 0 -3px 3px inset);
@@ -125,7 +127,7 @@ li.token-input-token-facebook {
   background: none;
   border: none;
   color: $red;
-  font: 16px "futura-pt", sans-serif;
+  font: 15px "futura-pt", sans-serif;
   margin-top: 0;
   opacity: .7;
   right: 10px;
@@ -142,10 +144,10 @@ li.token-input-token-facebook {
 
 #bubbles {
   height: 55px;
-  left: 3%;
+  left: 5.5%;
   padding: 0;
   position: absolute;
-  top: 4px;
+  top: 10px;
   width: 30%;
   @include pie-clearfix;
   .bubble {
@@ -155,7 +157,7 @@ li.token-input-token-facebook {
     padding: 0;
     position: relative;
     z-index: 10;
-    width: 21%;
+    width: 27%;
     &.complete {
       background: $blue + #111;
     }
@@ -172,10 +174,10 @@ li.token-input-token-facebook {
     }
     .bubble-title {
       border: none;
-      font: 12px/1 "futura-pt", sans-serif;
+      font: 13px/1 "futura-pt", sans-serif;
       height: 12px;
       margin: 0;
-      padding: 8px 0;
+      padding: 12px 0;
       text-align: center;
       width: auto;
     }

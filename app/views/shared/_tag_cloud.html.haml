@@ -6,7 +6,7 @@
 
         %button.btn.primary.large Tag 'em!
       - if @user == current_user
-        .vouche You can always add more tags in field above
+        .vouche You can always add more tags in field above. Use comma ( , ) for multi-tagging.
       - else
         .vouche ... or <strong>add a tag</strong> below to vouch for it yourself!
     .arrow
@@ -17,19 +17,22 @@
   -#  = render :partial => 'shared/no_tags'
   -#- else current_user
 
-  - if user_signed_in? && @user == current_user
-    = link_to 'Edit', '#', id: 'edit_tag_cloud'
+  
 
-  %p#js_no_tags{:style => (@user.user_tags.blank? ? 'display: none' : nil)} This profile has not been branded yet. Be the first to brand it.
-
-  %div{:id => 'tag-cloud',
-       "data-tag-cloud-path" => user_user_tags_path(@user),
-                  :"data-user-name" => @user.username.to_s,
-                  :"data-logged-in" => user_signed_in?.to_s,
-                  :"data-can-vote" => (@user != current_user).to_s,
-                  :"data-can-tag" => "true",
-                  :"data-can-delete" => 'false',
-                  :"data-user" => {:full_name => @user == current_user ? 'yourself' : @user.full_name}.to_json}
+  .ngo.positioned
+    %p#js_no_tags{:style => (@user.user_tags.blank? ? 'display: none' : nil)} This profile has not been branded yet. Be the first to brand it.
+    
+  .edit-area
+    - if user_signed_in? && @user == current_user
+      = link_to 'Edit', '#', id: 'edit_tag_cloud', :class => 'edit-button btn primary small light'
+    %div{:id => 'tag-cloud',
+         "data-tag-cloud-path" => user_user_tags_path(@user),
+                    :"data-user-name" => @user.username.to_s,
+                    :"data-logged-in" => user_signed_in?.to_s,
+                    :"data-can-vote" => (@user != current_user).to_s,
+                    :"data-can-tag" => "true",
+                    :"data-can-delete" => 'false',
+                    :"data-user" => {:full_name => @user == current_user ? 'yourself' : @user.full_name}.to_json}
   #tag-msg
     %span.icon
     = tag_cloud_summary(@user)

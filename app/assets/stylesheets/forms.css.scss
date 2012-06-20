@@ -511,7 +511,7 @@ ul.inputs {
     padding: 0;
     width: 100%;
     li {
-      padding: 0 5% 10px;
+      padding: 0 0 10px 6%;
       width: 50%;
       &.full {
         width: 90%;
@@ -520,32 +520,29 @@ ul.inputs {
         text-align: center;
       }
       &.avatar {
+        cursor: pointer;
         float: right;
         overflow: hidden;
+        padding-left: 0;
         position: relative;
-        width: 30%;
+        width: 37%;
         input {
           opacity: 0;
           position: relative;
           z-index: 3;
         }
         span {
-          background: #eee;
-          border: 5px solid #fff;
-          display: block;
-          padding: 0;
           position: absolute;
-          text-align: center;
-          top: 20px;
-          width: 70%;
+          top: 18px;
+          width: 65%;
           z-index: 2;
-          @include box-shadow(#ddd 0 0 3px);
         }
       }
       &.buttons {
-        border-top: 1px solid #eee;
-        padding: 15px 5% 10px;
-        width: 90%;
+        border-top: 1px solid #ddd;
+        margin-top: 5px;
+        padding: 15px 0 10px 6%;
+        width: 94%;
       }
     }
   }
