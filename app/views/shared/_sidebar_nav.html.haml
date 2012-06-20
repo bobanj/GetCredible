@@ -6,8 +6,8 @@
     %h3
       = "Welcome #{current_user.short_name}"
     .view
-      = link_to 'Edit', edit_user_registration_path
-      &middot;
+      //= link_to 'Settings', edit_user_registration_path
+      //&middot;
       = link_to 'View My Profile', me_user_path(current_user)
 
 = render 'shared/sidebar_network'

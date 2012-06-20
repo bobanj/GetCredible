@@ -464,8 +464,7 @@ aside {
 }
 
 footer {
-  @include grid(10);
-  @include grid-prefix(1);
+  @include grid(11);
   @include grid-suffix(1);
 }
 
@@ -762,7 +761,7 @@ footer {
   background: #fff;
   @include box-shadow(0 0 2px rgba(0, 0, 0, 0.15));
   @include border-radius(3px);
-  min-height: 200px;
+  min-height: 280px;
   &.center {
     display: block;
     float: none;
@@ -1014,7 +1013,7 @@ footer {
   margin-top: 0;
   padding-top: 25px;
   position: relative;
-  text-align: left;
+  text-align: center;
 
   a {
     color: #888;
@@ -1034,7 +1033,9 @@ footer {
       }
     }
   }
-
+}
+#home_index footer {
+  text-align: center;
 }
 .hidden {
   display: none;
