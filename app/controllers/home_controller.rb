@@ -12,4 +12,7 @@ class HomeController < ApplicationController
 
   def tour
   end
+
+  def press
+  end
 end

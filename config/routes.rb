@@ -26,6 +26,7 @@ GetCredible::Application.routes.draw do
   get '/privacy' => 'home#privacy'
   get '/terms' => 'home#terms'
   get '/tour' => 'home#tour'
+  get '/press' => 'home#press'
 
   namespace :twitter do
     resource :session, :only => [:new, :show, :destroy]
