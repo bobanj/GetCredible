@@ -176,7 +176,7 @@ $(function () {
     $.getCredible.getWordCustomClass = function (userTag) {
         var customClass = "word ";
         customClass += this.tagCloud.data('can-delete') ? 'remove ' : '';
-        if ($.getCredible.tagCloud.data('can-vote')) {
+        if ($.getCredible.tagCloud.data('can-vote') && !this.tagCloud.data('can-delete')) {
             customClass += userTag.voted ? "vouche " : "unvouche ";
         }
         return customClass;
@@ -261,6 +261,11 @@ $(function () {
     $.getCredible.renderTagCloud = function (data, tagCloudCallback) {
         var distributionOptions = $.getCredible.distributionOptions(data);
         var wordList = $.getCredible.createWordList(data, distributionOptions);
+        if (wordList.length > 0) {
+          $('#js_no_tags').hide();
+        } else {
+          $('#js_no_tags').show();
+        }
         $.getCredible.tagCloudLoader.show('fast');
         $.getCredible.tagCloud.html('');
         var growHeight = 250 + (wordList.length * 3);

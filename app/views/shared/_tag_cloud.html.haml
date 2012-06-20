@@ -17,8 +17,10 @@
   -#  = render :partial => 'shared/no_tags'
   -#- else current_user
 
-  - if user_signed_in?
+  - if user_signed_in? && @user == current_user
     = link_to 'Edit', '#', id: 'edit_tag_cloud'
+
+  %p#js_no_tags{:style => (@user.user_tags.blank? ? 'display: none' : nil)} This profile has not been branded yet. Be the first to brand it.
 
   %div{:id => 'tag-cloud',
        "data-tag-cloud-path" => user_user_tags_path(@user),
