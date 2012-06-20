@@ -96,9 +96,13 @@ li.token-input-token-facebook {
 .ui-tooltip, .qtip {
   border: none;
 }
-.ui-tooltip-light .ui-tooltip-titlebar {
-  background: #eee;
-  padding-bottom: 10px;
+.ui-tooltip-light {
+  @include border-radius(3px);
+  .ui-tooltip-titlebar {
+    background: #eee;
+    padding-bottom: 10px;
+    @include border-top-radius(3px);
+  }
 }
 .ui-tooltip-titlebar {
   font: 16px "futura-pt", sans-serif;
@@ -152,15 +156,22 @@ li.token-input-token-facebook {
     position: relative;
     z-index: 10;
     width: 21%;
-    &.active {
+    &.complete {
       background: $blue + #111;
+    }
+    &.active {
+      background: #fff;
+      color: $blue - #111;
+      font-weight: bold;
       z-index: 11;
       @include box-shadow(rgba(0, 0, 0, 0.1) 0 0 5px);
+      .bubble-title {
+        color: $blue - #111;
+        font-weight: bold;
+      }
     }
     .bubble-title {
       border: none;
-      //border-top: 1px solid rgba(0, 0, 0, 0.1);
-      //border-right: 1px solid rgba(0, 0, 0, 0.1);
       font: 12px/1 "futura-pt", sans-serif;
       height: 12px;
       margin: 0;
@@ -169,4 +180,8 @@ li.token-input-token-facebook {
       width: auto;
     }
   }
+}
+.progress-bubbles .bubble {
+  background: $blue + #111;
+  color: #fff;
 }

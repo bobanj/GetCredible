@@ -3,10 +3,10 @@
     #bubbles
     .clear{:style => "clear:both"}
     %ul#steps
+    
       %li#step_1
         = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :remote => true, :html => {:id => 'step_1_form', :multipart => true, :method => :put }) do |f|
-          %h1 Personal Information
-          
+          %h1 Personal Information      
           = hidden_field_tag :current_step, "step_1"
           = hidden_field_tag :next_step, "step_2"
           %ul.inputs-list.left
@@ -17,16 +17,15 @@
             %li= f.input :full_name, :wrapper => false
             %li= f.input :location, :wrapper => false
             %li= f.input :personal_url, :wrapper => false, :label => 'Website'
-            
             %li.buttons
-              = f.button :submit, "Next", id: 'next_step_1', class: 'btn next primary large gray'
+              = f.button :submit, "Next", id: 'next_step_1', class: 'btn next primary medium gray'
+              
       %li#step_2{:style => "display:none"}
-        %h1 Video
-        %ul.inputs-list.left
-          %li.buttons
-            %a{id: 'prev_step_2', class: 'btn primary large'}Previous
-            %a{id: 'next_step_2', class: 'btn primary large'}Next
-      %li#step_3{:style => "display:none"}
+        / %h1 Video
+        / %ul.inputs-list.left
+        /   %li.buttons
+        /     %a{id: 'prev_step_2', class: 'btn primary large'}Previous
+        /     %a{id: 'next_step_2', class: 'btn primary large'}Next
         %h1 Add Tags
         = form_tag user_user_tags_path(current_user), :id => 'step_3_form' do
           = hidden_field_tag :tag_names, '', :id => 'step_3_tags'
@@ -40,14 +39,18 @@
             %li
               = label_tag "tag_3"
               = text_field_tag "tag_3", nil, :placeholder => 'Enter Tag'
-          .clear
-          %a{id: 'prev_step_3', class: 'btn primary large'}Previous
-          = submit_tag "Next", id: 'next_step_3', class: 'btn next primary large'
-
-      %li#step_4{:style => "display:none"}
+            %li= link_to "Watch our video to learn more about tagging."
+            %li.buttons
+              %a{id: 'prev_step_2', class: 'btn primary medium gray'}Previous
+              = submit_tag "Next", id: 'next_step_2', class: 'btn next primary medium gray'
+            
+      %li#step_3{:style => "display:none"}
         %h1 Invite your friends from Twitter
-        =link_to "Invite friends from Twitter", import_twitter_contacts_path, :class => "btn large primary"
-        %br
-        %br
-        %a{id: 'prev_step_4', class: 'btn primary large'}Previous
-        %a{id: 'next_step_4', class: 'btn primary large'}Finish
+        %ul.inputs-list
+          %li.full.center
+            %a{ :href => import_twitter_contacts_path, :class => "twitter-button"}
+              = image_tag "twitter-mascot.png"
+              %span Link with your Twitter account
+          %li.buttons
+            %a{id: 'prev_step_3', class: 'btn primary medium gray'}Previous
+            %a{id: 'next_step_3', class: 'btn primary medium'}Finish

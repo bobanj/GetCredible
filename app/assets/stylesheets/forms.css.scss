@@ -513,9 +513,12 @@ ul.inputs {
     li {
       padding: 0 5% 10px;
       width: 50%;
-      //&:nth-child(4) {
-      //  padding-bottom: 0;
-      //}
+      &.full {
+        width: 90%;
+      }
+      &.center {
+        text-align: center;
+      }
       &.avatar {
         float: right;
         overflow: hidden;
@@ -542,6 +545,7 @@ ul.inputs {
       &.buttons {
         border-top: 1px solid #eee;
         padding: 15px 5% 10px;
+        width: 90%;
       }
     }
   }
