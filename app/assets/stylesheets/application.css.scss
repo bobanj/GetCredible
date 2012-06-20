@@ -467,6 +467,9 @@ footer {
   @include grid(11);
   @include grid-suffix(1);
 }
+#home_index footer {
+  @include grid(12);
+}
 
 #profile,
 #activity,
