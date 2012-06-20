@@ -641,7 +641,7 @@ $(function () {
               id:'twitter_invite_modal',
               text: ' ',
               title:{
-                  text:'Import Twitter Friends',
+                  text:'Ask your friend to tag you',
                   button:true
               }
           },

@@ -3,10 +3,10 @@
     #bubbles
     .clear{:style => "clear:both"}
     %ul#steps
-    
+
       %li#step_1
         = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :remote => true, :html => {:id => 'step_1_form', :multipart => true, :method => :put }) do |f|
-          %h1 Personal Information      
+          %h1 Personal Information
           = hidden_field_tag :current_step, "step_1"
           = hidden_field_tag :next_step, "step_2"
           %ul.inputs-list.left
@@ -19,14 +19,14 @@
             %li= f.input :personal_url, :wrapper => false, :label => 'Website'
             %li.buttons
               = f.button :submit, "Next", id: 'next_step_1', class: 'btn next primary medium gray'
-              
+
       %li#step_2{:style => "display:none"}
         / %h1 Video
         / %ul.inputs-list.left
         /   %li.buttons
         /     %a{id: 'prev_step_2', class: 'btn primary large'}Previous
         /     %a{id: 'next_step_2', class: 'btn primary large'}Next
-        %h1 Add Tags
+        %h1 Brand yourself in few words
         = form_tag user_user_tags_path(current_user), :id => 'step_3_form' do
           = hidden_field_tag :tag_names, '', :id => 'step_3_tags'
           %ul.inputs-list
@@ -43,14 +43,17 @@
             %li.buttons
               %a{id: 'prev_step_2', class: 'btn primary medium gray'}Previous
               = submit_tag "Next", id: 'next_step_2', class: 'btn next primary medium gray'
-            
+
       %li#step_3{:style => "display:none"}
         %h1 Invite your friends from Twitter
         %ul.inputs-list
           %li.full.center
             %a{ :href => import_twitter_contacts_path, :class => "twitter-button"}
               = image_tag "twitter-mascot.png"
-              %span Link with your Twitter account
+              %span
+                Link with your Twitter account
+                %br
+                and import friends
           %li.buttons
             %a{id: 'prev_step_3', class: 'btn primary medium gray'}Previous
             %a{id: 'next_step_3', class: 'btn primary medium'}Finish
