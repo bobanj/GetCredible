@@ -1,5 +1,9 @@
-- if user_signed_in? && (!current_user.user_tags.any? || current_user.sign_in_count <= 1)
+- if user_signed_in? && current_user.sign_in_count <= 1
   #bubbles_container{:style => "display:none"}
+    #guide_title
+      Few moments to set up your account.
+    %a#guide_close{href: '#', style: 'float:right'}
+      Do it later
     #bubbles
     .clear{:style => "clear:both"}
     %ul#steps
@@ -21,14 +25,9 @@
               = f.button :submit, "Next", id: 'next_step_1', class: 'btn next primary medium gray'
 
       %li#step_2{:style => "display:none"}
-        / %h1 Video
-        / %ul.inputs-list.left
-        /   %li.buttons
-        /     %a{id: 'prev_step_2', class: 'btn primary large'}Previous
-        /     %a{id: 'next_step_2', class: 'btn primary large'}Next
         %h1 Brand yourself in few words
-        = form_tag user_user_tags_path(current_user), :id => 'step_3_form' do
-          = hidden_field_tag :tag_names, '', :id => 'step_3_tags'
+        = form_tag user_user_tags_path(current_user), :id => 'step_2_form' do
+          = hidden_field_tag :tag_names, '', :id => 'step_2_tags'
           %ul.inputs-list
             %li
               = label_tag "tag_1"

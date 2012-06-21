@@ -504,10 +504,7 @@ $(function () {
             id:'modal', // Since we're only creating one modal, give it an ID so we can style it
             content:{
                 text:$('#bubbles_container'),
-                title:{
-                    text:'Few moments to set up your account.',
-                    button:true
-                }
+                title: false
             },
             position:{
                 my:'center', // ...at the center of the viewport
@@ -541,15 +538,7 @@ $(function () {
                     });
 
                     $("#next_step_2").click(function () {
-                        $("#step_2").hide('fast',function () {
-                            $('#bubbles').progressBubbles('progress');
-                            $("#step_3").show('fast');
-                        });
-                        return false;
-                    });
-
-                    $("#next_step_3").click(function () {
-                        $("#step_3 form").submit();
+                        $("#step_2 form").submit();
                         return false;
                     });
 
@@ -561,40 +550,32 @@ $(function () {
                         return false;
                     });
 
-                    $("#next_step_4").click(function () {
-                        guideApi.hide();
+                    $("#next_step_3").click(function () {
+                        api.hide();
                         return false;
                     });
 
-                    $("#prev_step_4").click(function () {
-                        $("#step_4").hide('fast',function () {
-                            $('#bubbles').progressBubbles('regress');
-                            $("#step_3").show('fast');
-                        });
-                        return false;
-                    });
-
-                    $("#step_3 form").submit(function (e) {
+                    $("#step_2 form").submit(function (e) {
                         e.preventDefault();
                         var form = $(this);
                         var tagOne = $("#tag_1");
                         var tagTwo = $("#tag_2");
                         var tagThree = $("#tag_3");
-                        var step3TagNames = $("#step_3_tags");
-                        var skipStep3 = function(){
-                            $("#step_3").hide('fast',function () {
+                        var step2TagNames = $("#step_2_tags");
+                        var skipStep2 = function(){
+                            $("#step_2").hide('fast',function () {
                                 $('#bubbles').progressBubbles('progress');
-                                $("#step_4").show('fast');
+                                $("#step_3").show('fast');
                             });
                         }
                         if (tagOne.val() != '' && tagTwo.val() != '' && tagThree.val() != '' && $.getCredible.tagCloud.length > 0) {
-                            step3TagNames.val(tagOne.val() + ',' + tagTwo.val() + ',' + tagThree.val());
+                            step2TagNames.val(tagOne.val() + ',' + tagTwo.val() + ',' + tagThree.val());
                             var selfTag = function () {
                                 $.post($.getCredible.tagCloud.data('tag-cloud-path'),
                                     form.serialize(), function (data) {
-                                        $.getCredible.displayNotification('success', 'You have tagged yourself with ' + step3TagNames);
+                                        $.getCredible.displayNotification('success', 'You have tagged yourself with ' + step2TagNames.val());
                                         $.getCredible.renderTagCloud(data);
-                                        skipStep3();
+                                        skipStep2();
                                     });
                             }
 
@@ -605,14 +586,27 @@ $(function () {
                                 $.getCredible.loginQtipApi.show();
                             }
                         } else {
-                            skipStep3();
+                            skipStep2();
                             //$.getCredible.displayNotification('error', 'Please add tags');
                         }
                         return false;
                     });
+
+                    $("#guide_close").click(function(e){
+                        e.preventDefault();
+                        api.hide();
+                        return false;
+                    })
+
                 }
             }
         }).qtip('api');
+
+    $("#show_guide").click(function(e){
+        e.preventDefault();
+        guideApi.show();
+        return false;
+    })
 
     var invitationExistingTagNames = $('#invite_tag_names');
     var prePopulateInvitationTags = [];

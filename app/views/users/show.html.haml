@@ -17,7 +17,7 @@
 
 #content
   %section#profile.edit-area
-    - if user_signed_in?
+    - if user_signed_in? && current_user == @user
       = link_to 'Edit', edit_user_registration_path, :class => 'edit-button btn primary small light'
     .details
       .left
@@ -58,4 +58,5 @@
   = render :partial => 'shared/tag_cloud', :locals => {:can_delete => false}
 
 %aside
+  = link_to 'Guide Me', nil, id: 'show_guide', class: 'btn primary small light'
   = render 'shared/sidebar_activity', :user => @user
