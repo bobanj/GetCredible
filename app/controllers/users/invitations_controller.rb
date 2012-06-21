@@ -63,7 +63,7 @@ class Users::InvitationsController < Devise::InvitationsController
       set_flash_message :notice, :updated
       sign_in(resource_name, resource)
       #respond_with resource, :location => after_accept_path_for(resource)
-      respond_with resource, :location => me_user_path(resource)
+      respond_with resource, :location => me_user_path(resource, :show_tour => true)
     else
       respond_with_navigational(resource) { render :edit }
     end
