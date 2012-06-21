@@ -24,7 +24,7 @@
       %li= link_to "Disconnect", twitter_session_path, :confirm => "Are you sure", :method => :delete
 
     #js-twitter-contacts-list{:"data-message" => "Help boost my influence at givebrand.to! #{me_user_url(current_user)}"}
-      = render 'contacts', :contacts => @contacts
+      = render 'contacts', :contacts => @contacts, :users => @users
 
 %aside
   = render 'shared/sidebar_nav'

@@ -1,9 +1,12 @@
 %ul
   - contacts.each do |contact|
+    - user = users.detect{ |user| user.twitter_handle == contact.screen_name }
     %li
       = contact.name
       = contact.screen_name
       = image_tag contact.avatar if contact.avatar
+      - if user
+        = link_to "GiveBrand Profile", me_user_path(user)
       %span.status
         - if contact.invited?
           Invited!
