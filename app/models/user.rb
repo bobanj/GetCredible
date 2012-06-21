@@ -171,7 +171,7 @@ class User < ActiveRecord::Base
 
   # Changes error message for attribute if error already exists
   def change_error_message(field, message)
-    if self.errors[field].present?
+    if self.errors[field].include?('has already been taken')
       self.errors[field].clear
       self.errors[field]= message
     end
