@@ -27,6 +27,7 @@ class ApplicationController < ActionController::Base
       self.formats = [:html] # let partials resolve with html not json format
       @user = User.find_by_username!(params[:user_id])
       {
+        :sign_in_count => resource.sign_in_count,
         :success => true,
         :user => resource,
         :header => render_to_string(:layout => false, :partial => 'shared/header.html.haml'),

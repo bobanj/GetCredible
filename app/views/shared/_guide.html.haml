@@ -1,5 +1,5 @@
-- if user_signed_in? && current_user.sign_in_count <= 1
-  #bubbles_container{:style => "display:none"}
+- if user_signed_in?
+  #bubbles_container{:"data-sign_in_count" => current_user.sign_in_count, :style => "display:none"}
     #guide_title
       Few moments to set up your account.
     %a#guide_close{href: '#', style: 'float:right'}

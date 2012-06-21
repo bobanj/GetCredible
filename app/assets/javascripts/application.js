@@ -408,6 +408,9 @@ $(function () {
         var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-name');
         $.post("/users/sign_in.json", params, function (data) {
             if (data.success) {
+                if(data.sign_in_count == 1){
+                    guideApi.show();
+                }
                 $('#global-header').replaceWith(data.header);
                 $('#tags').replaceWith(data.tag_cloud);
                 $.getCredible.init();
@@ -430,6 +433,9 @@ $(function () {
         var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-name');
         $.post("/users.json", params, function (data) {
             if (data.success) {
+                if(data.sign_in_count == 1){
+                    guideApi.show();
+                }
                 $('#global-header').replaceWith(data.header);
                 $('#tags').replaceWith(data.tag_cloud);
                 $.getCredible.init();
@@ -629,7 +635,8 @@ $(function () {
     });
 
     $.getCredible.guide = function(){
-        if ($("#bubbles_container").length > 0) {
+        var bubbleContainer = $("#bubbles_container");
+        if (bubbleContainer.length > 0 && bubbleContainer.data('sign_in_count') == 1) {
             guideApi.show();
         }
     }
