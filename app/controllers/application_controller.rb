@@ -10,14 +10,13 @@ class ApplicationController < ActionController::Base
 
     if location
       location
-    elsif resource.full_name.blank?
-      edit_user_registration_path
     else
+      show_tour = resource.sign_in_count == 1 ? true : nil
+
       if resource.user_tags.exists?
-        activity_path('all')
+        activity_path('all', :show_tour => show_tour)
       else
-        me_user_path(resource)
-        #tour_url
+        me_user_path(resource, :show_tour => show_tour)
       end
     end
   end
@@ -27,7 +26,7 @@ class ApplicationController < ActionController::Base
       self.formats = [:html] # let partials resolve with html not json format
       @user = User.find_by_username!(params[:user_id])
       {
-        :sign_in_count => resource.sign_in_count,
+        :show_tour => resource.sign_in_count == 1,
         :success => true,
         :user => resource,
         :header => render_to_string(:layout => false, :partial => 'shared/header.html.haml'),

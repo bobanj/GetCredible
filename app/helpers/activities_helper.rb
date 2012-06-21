@@ -48,6 +48,8 @@ module ActivitiesHelper
 
     if activity_vote?(activity_item)
       "Check YOU out! #{user_link(user)} vouched for your tag: #{tag_link(item.voteable.tag.name)}".html_safe
+    elsif user == target
+      "Sweet! You tagged yourself: #{tag_link(item.tag.name)}".html_safe
     else
       "Sweet! #{user_link(user)} tagged #{current_user && current_user == target ? "you" : user_link(target) }: #{tag_link(item.tag.name)}".html_safe
     end
