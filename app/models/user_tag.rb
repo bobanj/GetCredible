@@ -44,7 +44,7 @@ class UserTag < ActiveRecord::Base
         user_tag.tag = tag
         user_tag.tagger = tagger
         user_tag.save
-        tagger.activity_items.create(:item => user_tag, :target => user) if tagger != user
+        tagger.activity_items.create(:item => user_tag, :target => user)# if tagger != user
 
         # automatically add vote on tag creation
         tagger != user ? tagger.add_vote(user_tag, false) : user_tag.update_counters

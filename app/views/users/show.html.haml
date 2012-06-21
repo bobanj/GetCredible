@@ -13,13 +13,10 @@
   = hidden_field_tag :word_id_after_login
   = hidden_field_tag :tag_names_after_login
 
-= render 'shared/guide'
-
 #content
   %section#profile.edit-area
     - if user_signed_in? && current_user == @user
       = link_to 'Edit', edit_user_registration_path, :class => 'edit-button btn primary small light'
-      = link_to 'Guide Me', nil, id: 'show_guide', class: 'btn primary small light'
     .details
       .left
         - if user_signed_in? && @user == current_user

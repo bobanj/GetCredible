@@ -32,8 +32,9 @@
             %p
               %span No recent activity
               %br
-              Start tagging or
-              = link_to "invite people."
+              = link_to "Brand Yourself", me_user_path(current_user)
+              or
+              = link_to "invite people.", new_user_invitation_path
     = will_paginate @activity_items
 
 %aside
