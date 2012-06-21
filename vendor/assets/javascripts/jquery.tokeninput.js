@@ -282,7 +282,7 @@
                         }
                         break;
 
-                    case KEY.TAB:
+                    // case KEY.TAB:
                     case KEY.COMMA:
                         if(selected_dropdown_item) {
                             add_token($(selected_dropdown_item).data("tokeninput"));
