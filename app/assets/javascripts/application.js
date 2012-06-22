@@ -39,6 +39,8 @@ $(function () {
 
     $.getCredible = {};
 
+    $.getCredible.guideVideoId = 'He_PWsJqsVY';
+
     $.getCredible.displayNotification = function (type, text) {
         noty({
             text:text,
@@ -504,6 +506,68 @@ $(function () {
             ]
         }
     );
+    var guideVideoApi = $("#guide_video_link").qtip({
+        content:{
+            id:'guide_video_modal',
+            text: $('<div />', { id: $.getCredible.guideVideoId }),
+            title:{
+                text:'Tour Video',
+                button:true
+            }
+        },
+        position:{
+            my:'center', // ...at the center of the viewport
+            at:'center',
+            target: $(window)
+        },
+        show:{
+            ready: false,
+            solo: true, // ...and hide all other tooltips...
+            event: 'click',
+            modal:{
+                on:true,
+                blur:false,
+                escape:true
+            },
+            effect: function() {
+                var style = this[0].style;
+                style.display = 'none';
+                setTimeout(function() { style.display = 'block'; }, 1);
+            }
+        },
+        hide:false,
+        events: {
+            render: function(event,api){
+                new YT.Player($.getCredible.guideVideoId, {
+                    playerVars: {
+                        autoplay: 1,
+                        enablejsapi: 1,
+                        origin: document.location.host
+                    },
+                    origin: document.location.host,
+                    height: 180,
+                    width: 275,
+                    videoId: $.getCredible.guideVideoId, // YouTube ID's are only 11 characters long :)
+                    events: {
+                        'onReady': function(e) {
+                            // Store the player in the API
+                            api.player = e.target;
+                        }
+                    }
+                });
+            },
+            hide: function(event,api){
+                api.player.stopVideo();
+                api.player.clearVideo();
+            },
+            hidden: function(event,api){
+                guideApi.show();
+            }
+        },
+        style: { classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded' }
+    }).click(false).qtip('api');
+
+
 
     var guideApi = $('#steps').qtip(
         {

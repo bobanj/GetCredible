@@ -38,7 +38,7 @@
             %li
               = label_tag "tag_3"
               = text_field_tag "tag_3", nil, :placeholder => 'Enter Tag'
-            %li= link_to "Watch our video to learn more about tagging."
+            %li= link_to "Watch our video to learn more about tagging.", nil, id: 'guide_video_link'
             %li.buttons
               %a{id: 'prev_step_2', class: 'btn primary medium gray'}Previous
               = submit_tag "Next", id: 'next_step_2', class: 'btn next primary medium gray'
