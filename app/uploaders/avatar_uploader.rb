@@ -7,7 +7,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  Rails.env.production? ? storage(:fog) : storage(:file)
+  # Rails.env.production? ? storage(:fog) : storage(:file)
 
   def cache_dir
     "#{Rails.root}/tmp/uploads"
