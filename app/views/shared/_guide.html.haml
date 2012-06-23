@@ -5,7 +5,7 @@
   #bubbles_container{:"data-show_tour" => params[:show_tour], :style => "display:none"}
     #guide_title
       Few moments to set up your account.
-    %a#guide_close{href: '#', style: 'float:right'}
+    %a#guide_close{href: '#'}
       Do it later
     #bubbles
     .clear{:style => "clear:both"}
@@ -33,15 +33,15 @@
           = hidden_field_tag :tag_names, '', :id => 'step_2_tags'
           %ul.inputs-list
             %li
-              = label_tag "tag_1"
-              = text_field_tag "tag_1", nil, :placeholder => 'Enter Tag'
+              //= label_tag "tag_1"
+              = text_field_tag "tag_1", nil, :placeholder => 'First tag'
             %li
-              = label_tag "tag_2"
-              = text_field_tag "tag_2", nil, :placeholder => 'Enter Tag'
+              //= label_tag "tag_2"
+              = text_field_tag "tag_2", nil, :placeholder => 'Second tag'
             %li
-              = label_tag "tag_3"
-              = text_field_tag "tag_3", nil, :placeholder => 'Enter Tag'
-            %li= link_to "Watch our video to learn more about tagging.", nil, id: 'guide_video_link'
+              //= label_tag "tag_3"
+              = text_field_tag "tag_3", nil, :placeholder => 'Third tag'
+            %li= link_to "Watch our video", nil, id: 'guide_video_link'
             %li.buttons
               %a{id: 'prev_step_2', class: 'btn primary medium gray'}Previous
               = submit_tag "Next", id: 'next_step_2', class: 'btn next primary medium gray'

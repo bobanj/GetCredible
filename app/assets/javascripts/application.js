@@ -41,8 +41,8 @@ function onYouTubePlayerAPIReady() {
             origin:document.location.host
         },
         origin:document.location.host,
-        height:180,
-        width:275,
+        height:275,
+        width:400,
         videoId:$.getCredible.guideVideoId,
         events:{
             'onReady':function (e) {

@@ -10,20 +10,23 @@
 
 #content
   %section#twitter_contacts
-    .search_twitter_contacts
+    %header#page-header
+      %h1 Your Network
+      %ul.horizontal.right
+        - if @contacts.empty?
+          %li= link_to "Import", import_twitter_contacts_path, :class => "btn primary small gray"
+        - else
+          %li= link_to "Re-Import", import_twitter_contacts_path, :class => "btn primary small gray"
+          %li= link_to "Disconnect", twitter_session_path, :confirm => "Are you sure", :method => :delete, :class => "btn primary small gray"
+      
+    .search_twitter_contacts.left
       = form_tag twitter_contacts_path, remote: true, method: :get do
         %p
           = text_field_tag :q, params[:q]
           = submit_tag :search, value: "Search", name: nil
 
-    %ul
-    - if @contacts.empty?
-      %li= link_to "Import", import_twitter_contacts_path
-    - else
-      %li= link_to "Re-Import", import_twitter_contacts_path
-      %li= link_to "Disconnect", twitter_session_path, :confirm => "Are you sure", :method => :delete
-
-    #js-twitter-contacts-list{:"data-message" => "Help boost my influence at givebrand.to! #{me_user_url(current_user)}"}
+    %hr.divider
+    #js-twitter-contacts-list.twitter-contacts-list{:"data-message" => "Help boost my influence at givebrand.to! #{me_user_url(current_user)}"}
       = render 'contacts', :contacts => @contacts, :users => @users
 
 %aside
