@@ -34,7 +34,9 @@ Array.prototype.unique = function () {
 $(function () {
     $.notyConf = {
         layout:'topRight',
-        timeout:1000
+        timeout:2500,
+        animateOpen: {opacity: 'show'},
+        animateClose: {opacity: 'hide'}
     };
 
     $.getCredible = {};
@@ -47,6 +49,8 @@ $(function () {
             type:type,
             timeout:$.notyConf.timeout,
             layout:$.notyConf.layout,
+            animateOpen:$.notyConf.animateOpen,
+            animateClose:$.notyConf.animateClose,
             onClose:function () {
             }
         });
