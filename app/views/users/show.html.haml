@@ -5,6 +5,14 @@
   %meta{ :property => "og:site_name", :content => "Give Brand" }
   %meta{ :property => "og:description", :content => "Help boost my influence at givebrand.to!" }
   %meta{ :property => "og:image", :content => user_avatar_url(@user) }
+  - # Google Plus
+  %meta{:content => "Help boost my influence at givebrand.to!", :itemprop => "name"}
+  %meta{:content => "Help boost my influence at givebrand.to!", :itemprop => "description"}/
+  - if @user.avatar
+    %meta{:content => url_for(@user.avatar_url(:thumb)), :itemprop => "image"}/
+
+- content_for :javascripts do
+  = render 'shared/social_networks_scripts'
 
 #login_dialog{style: "display: none", title: ""}
   %p.note Almost there! Sign up to join GiveBrand or login to your account.
@@ -42,17 +50,18 @@
         - unless @user.twitter_handle.blank?
           %li.twitter
             %a.twitter-follow-button{"data-hashtags" => "givebrand", "data-show-count" => "false", :href => "https://twitter.com/#{@user.twitter_handle}"}="Follow @#{@user.twitter_handle}"
-            :javascript
-              !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
   %ul.social_fixed
     %li
       %a.twitter-share-button{'data-count' => "vertical", "data-text" => "Help boost my influence at givebrand.to! #{me_user_url(@user)} #givebrand via @givebrand", :href => "https://twitter.com/share"} Tweet
-      :javascript
-        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
     %li
-      %script{:src => "//platform.linkedin.com/in.js", :type => "text/javascript"}
+      .fb-like{"data-href" => me_user_url(@user), "data-layout" => "box_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "56"}
+    %li
+      %g:plusone{:href => me_user_url(@user), :size => "tall"}
+    %li
       %script{"data-counter" => "top", "data-url" => me_user_url(@user), :type => "IN/Share"}
-
+    %li
+      %a.pin-it-button{"count-layout" => "vertical", :href => "http://pinterest.com/pin/create/button/?url=#{u(me_user_url(@user))}&media=#{request.protocol}#{request.host_with_port}#{asset_path("logo.png")}&description=Description"}
+        %img{:border => "0", :src => "//assets.pinterest.com/images/PinExt.png", :title => "Pin It"}/
   = render :partial => 'shared/tag_cloud', :locals => {:can_delete => false}
 
 %aside

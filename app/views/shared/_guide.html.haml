@@ -1,5 +1,5 @@
 - if user_signed_in?
-  = content_for :scripts do
+  = content_for :javascripts do
     %script{:src => "http://www.youtube.com/player_api", :type => "text/javascript"}
 
   #bubbles_container{:"data-show_tour" => params[:show_tour], :style => "display:none"}
