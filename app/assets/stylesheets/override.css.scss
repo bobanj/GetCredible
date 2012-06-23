@@ -100,7 +100,7 @@ li.token-input-token-facebook {
   border: none;
 }
 
-#ui-tooltip-1 {
+#ui-tooltip-1, #ui-tooltip-0 {
   max-width: 550px;
   min-width: 550px;
   padding-bottom: 0;
@@ -130,7 +130,7 @@ li.token-input-token-facebook {
     margin: 10px 0 0;
     padding: 0;
   }
-  #login_dialog section {
+  #login_dialog section, #twitter_invite section {
     padding: 15px 0 5px 25px;
     &.sign_in {
       margin: 0 0 0 5px;

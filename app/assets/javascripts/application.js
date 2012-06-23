@@ -682,7 +682,7 @@ $(function () {
               id:'twitter_invite_modal',
               text: ' ',
               title:{
-                  text:'Ask your friend to tag you',
+                  text:nil,
                   button:true
               }
           },

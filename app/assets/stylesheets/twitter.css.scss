@@ -24,14 +24,15 @@
   }
   li {
     border-bottom: 1px solid #eee;
-    padding: 0 25px 10px;
+    padding: 5px 25px;
     @include pie-clearfix;
     img {
       padding-right: 5px;
     }
     .name {
       color: #444;
-      font: bold 18px gnuolane, sans-serif;
+      font: bold 20px gnuolane, sans-serif;
+      padding-right: 5px;
     }
     .user {
       font-size: 12px;
@@ -44,6 +45,13 @@
   }
   .pagination {
     padding: 20px 25px;
+  }
+}
+
+#twitter_invite_wrap {
+  padding: 0 25px;
+  h1 {
+    margin-bottom: 0;
   }
 }
 
