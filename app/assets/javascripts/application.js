@@ -30,7 +30,7 @@ Array.prototype.unique = function () {
     return r;
 };
 
-var guideVideoApi={};
+var guideVideoApi;
 // called when YouTube Api is loaded
 
 function onYouTubePlayerAPIReady() {
@@ -48,7 +48,6 @@ function onYouTubePlayerAPIReady() {
             'onReady':function (e) {
                 // Store the player in the API
                 guideVideoApi = e.target;
-                guideVideoApi.playVideo();
             }
         }
     });
