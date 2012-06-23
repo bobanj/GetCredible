@@ -17,11 +17,11 @@
   -#  = render :partial => 'shared/no_tags'
   -#- else current_user
 
-  
+
 
   .ngo.positioned
     %p#js_no_tags{:style => (@user.user_tags.blank? ? 'display: none' : nil)} This profile has not been branded yet. Be the first to brand it.
-    
+
   .edit-area
     - if user_signed_in? && @user == current_user
       = link_to 'Edit', '#', id: 'edit_tag_cloud', :class => 'edit-button btn primary small light'

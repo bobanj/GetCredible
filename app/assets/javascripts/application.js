@@ -259,14 +259,28 @@ $(function () {
         }
         qtipContent = qtipContent + '</div>';
         word.data('qtip-content', qtipContent);
-    }
+    };
+
+    $.getCredible.disableCloudEdit = function () {
+      $('#tag-cloud').data("can-delete", false);
+      $('#edit_tag_cloud').removeClass('edit').text('Edit');
+    };
+
+    $.getCredible.enableCloudEdit = function () {
+      $('#tag-cloud').data("can-delete", true);
+      $('#edit_tag_cloud').addClass('edit').text('Done');
+    };
+
     $.getCredible.renderTagCloud = function (data, tagCloudCallback) {
         var distributionOptions = $.getCredible.distributionOptions(data);
         var wordList = $.getCredible.createWordList(data, distributionOptions);
         if (wordList.length > 0) {
           $('#js_no_tags').hide();
+          $('#edit_tag_cloud').removeClass('hidden');
         } else {
           $('#js_no_tags').show();
+          $('#edit_tag_cloud').addClass('hidden');
+          $.getCredible.disableCloudEdit();
         }
         $.getCredible.tagCloudLoader.show('fast');
         $.getCredible.tagCloud.html('');
@@ -367,7 +381,7 @@ $(function () {
                 $.getCredible.renderTagCloud(data, tagCloudCallback);
             });
         }
-    }
+    };
 
     $.getCredible.ajaxPagination = function () {
         var pagination = $('#main .pagination');
@@ -788,16 +802,12 @@ $(function () {
 
     $('#edit_tag_cloud').click(function (e) {
       e.preventDefault();
-      var element = $(this);
-      if (element.hasClass('edit')) {
-        element.removeClass('edit').text('Edit');
-        $('#tag-cloud').data("can-delete", false);
-        $.getCredible.updateTagCloud();
+      if ($(this).hasClass('edit')) {
+        $.getCredible.disableCloudEdit();
       } else {
-        element.addClass('edit').text('Done');
-        $('#tag-cloud').data("can-delete", true);
-        $.getCredible.updateTagCloud();
+        $.getCredible.enableCloudEdit();
       }
+      $.getCredible.updateTagCloud();
     });
 
     $.getCredible.showFlashMessages();
@@ -807,5 +817,4 @@ $(function () {
     $.getCredible.twitterInvite();
     $.getCredible.loginQtip();
     $.getCredible.guide();
-
 })
