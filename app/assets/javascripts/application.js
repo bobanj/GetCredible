@@ -587,6 +587,10 @@ $(function () {
             events:{
                 show:function (event, api) {
                     // Step 1 is handled with js.erb
+                    $("#avatar_user_guide").change(function(){
+                      console.log("CHANGED");
+                      return false;
+                    });
                     // Step 2 Video
                     $("#prev_step_2").click(function () {
                         $("#step_2").hide('fast',function () {
@@ -681,7 +685,7 @@ $(function () {
               id:'twitter_invite_modal',
               text: ' ',
               title:{
-                  text: 'Send direct message to your friend!',
+                  text: ' ',
                   button:true
               }
           },
@@ -711,9 +715,12 @@ $(function () {
 
       $('#content').delegate('.twitter_contact', 'click', function () {
           var contact = $(this);
+          var twitterUsername = contact.data('screen_name')
           $('#js-twitter-id').val(contact.data('twitter_id'));
-          $('#js-twitter-screen-name').val(contact.data('screen_name'));
+          $('#js-twitter-screen-name').val(twitterUsername);
           $('#js-twitter-message').val(defaultMessage);
+          $("#js-twitter-invite-title").text("Send direct message to @" + twitterUsername);
+          $("#js-twitter-invite-header").text("Ask @" + twitterUsername + ' to tag you');
           $.getCredible.twitterQtipApi.set('content.text', $('#twitter_invite'));
           $.getCredible.twitterQtipApi.show();
       });

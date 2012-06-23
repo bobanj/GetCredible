@@ -519,25 +519,6 @@ ul.inputs {
       &.center {
         text-align: center;
       }
-      &.avatar {
-        cursor: pointer;
-        float: right;
-        overflow: hidden;
-        padding-left: 0;
-        position: relative;
-        width: 37%;
-        input {
-          opacity: 0;
-          position: relative;
-          z-index: 3;
-        }
-        span {
-          position: absolute;
-          top: 18px;
-          width: 65%;
-          z-index: 2;
-        }
-      }
       &.buttons {
         border-top: 1px solid #ddd;
         margin-top: 5px;
@@ -546,7 +527,26 @@ ul.inputs {
       }
     }
   }
-  
+  .avatar {
+    cursor: pointer;
+    float: right;
+    overflow: hidden;
+    padding-left: 0;
+    position: relative;
+    width: 37%;
+    input {
+      opacity: 0;
+      position: relative;
+      z-index: 3;
+    }
+    span {
+      position: absolute;
+      top: 18px;
+      width: 65%;
+      z-index: 2;
+    }
+  }
+
 }
   
 .hint {

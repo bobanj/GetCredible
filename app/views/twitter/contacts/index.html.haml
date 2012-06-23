@@ -1,12 +1,12 @@
 #loading{style: "display: none"} loading...
 #twitter_invite{style: "display: none", title: ""}
-  %p.note Send direct message to your friend!
+  %p.note#js-twitter-invite-title
   #twitter_invite_wrap
     #page-header
-      %h1 Ask your friend to tag you
+      %h1#js-twitter-invite-header
     = form_tag twitter_messages_path, remote: true, id: 'js-twitter-dm-form' do
       %p= hidden_field_tag :twitter_id, "", :id => 'js-twitter-id', :readonly => true
-      %p= text_field_tag :screen_name, "", :id => 'js-twitter-screen-name', :readonly => true
+      %p.hide= text_field_tag :screen_name, "", :id => 'js-twitter-screen-name', :readonly => true
       %p= text_area_tag :message, "", :id => 'js-twitter-message'
       %p= submit_tag :send_dm, value: "Send Direct Message", :class => "btn primary large"
 
