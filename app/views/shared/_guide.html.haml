@@ -1,4 +1,7 @@
 - if user_signed_in?
+  = content_for :scripts do
+    %script{:src => "http://www.youtube.com/player_api", :type => "text/javascript"}
+
   #bubbles_container{:"data-show_tour" => params[:show_tour], :style => "display:none"}
     #guide_title
       Few moments to set up your account.
