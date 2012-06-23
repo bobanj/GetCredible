@@ -1,5 +1,5 @@
 !!!
-%html
+%html{:itemscope => "", :itemtype => "http://#{request.host}:#{request.port.to_s+request.fullpath}"}
   %head
     %title GiveBrand
     = render 'shared/meta_information'
@@ -8,7 +8,6 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
 
-    //- if Rails.env == 'production'
     %script{:src => "http://use.typekit.com/sbg7dmp.js", :type => "text/javascript"}
     :javascript
       try { Typekit.load(); } catch (e) {}
@@ -46,7 +45,7 @@
         - if params[:controller] == 'home'
           = link_to 'To the top', "#global-header", :class => "to-the-top"
 
-      = yield :scripts
+      = yield :javascripts
       = render 'shared/google_analytics'
       = render 'shared/olark'
       = render 'shared/mixpanel'
