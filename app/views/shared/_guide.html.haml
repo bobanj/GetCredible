@@ -42,6 +42,9 @@
             %li.buttons
               %a{id: 'prev_step_2', class: 'btn primary medium gray'}Previous
               = submit_tag "Next", id: 'next_step_2', class: 'btn next primary medium gray'
+        #guide_video_container{style: 'display:none'}
+          #guide_video
+          = link_to "Back to setting up profile", nil, id: 'guide_video_back'
 
       %li#step_3{:style => "display:none"}
         %h1 Invite your friends from Twitter

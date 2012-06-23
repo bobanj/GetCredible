@@ -487,34 +487,26 @@ $(function () {
         return false;
     });
 
-    //disabled qtip atm
-    $('#guide-tip-disabled').qtip({
-        content:{
-            text:$('#guide-tip-content'),
-            title:{
-                text:"You are almost there !!!",
-                button:true
-            }
-        },
-        show:{
-            //event: 'click',
-            ready:false,
-            solo:true
-        },
-        hide:false,
-        position:{
-            my:'top right',
-            at:'bottom left'
-        },
-        style:{
-            width:200,
-            height:80,
-            classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded'
-        }
-    }).click(function (event) {
-            event.preventDefault();
-            return false;
+    var invitationExistingTagNames = $('#invite_tag_names');
+    var prePopulateInvitationTags = [];
+    if (invitationExistingTagNames.length > 0 && invitationExistingTagNames.val() != '') {
+        invitationExistingTagNames = invitationExistingTagNames.val().split(',');
+        $.each(invitationExistingTagNames, function (index, tagName) {
+            prePopulateInvitationTags.push({term:tagName});
         });
+    }
+    $('#invite_tag_names').tokenInput("/tags/search", {
+        method:'POST',
+        queryParam:'term',
+        propertyToSearch:'term',
+        tokenValue:'term',
+        crossDomain:false,
+        theme:"facebook",
+        hintText:'e.g. web design, leadership (comma separated)',
+        minChars:2,
+        prePopulate:prePopulateInvitationTags
+    });
+
 
     $('#bubbles').progressBubbles({
             bubbles:[
@@ -524,68 +516,34 @@ $(function () {
             ]
         }
     );
-    var guideVideoApi = $("#guide_video_link").qtip({
-        content:{
-            id:'guide_video_modal',
-            text: $('<div />', { id: $.getCredible.guideVideoId }),
-            title:{
-                text:'Tour Video',
-                button:true
-            }
+    var guideVideoApi = new YT.Player('guide_video', {
+        playerVars: {
+            autoplay: 0,
+            enablejsapi: 1,
+            origin: document.location.host
         },
-        position:{
-            my:'center', // ...at the center of the viewport
-            at:'center',
-            target: $(window)
-        },
-        show:{
-            ready: false,
-            solo: true, // ...and hide all other tooltips...
-            event: 'click',
-            modal:{
-                on:true,
-                blur:false,
-                escape:true
-            },
-            effect: function() {
-                var style = this[0].style;
-                style.display = 'none';
-                setTimeout(function() { style.display = 'block'; }, 1);
-            }
-        },
-        hide:false,
-        events: {
-            render: function(event,api){
-                new YT.Player($.getCredible.guideVideoId, {
-                    playerVars: {
-                        autoplay: 1,
-                        enablejsapi: 1,
-                        origin: document.location.host
-                    },
-                    origin: document.location.host,
-                    height: 180,
-                    width: 275,
-                    videoId: $.getCredible.guideVideoId, // YouTube ID's are only 11 characters long :)
-                    events: {
-                        'onReady': function(e) {
-                            // Store the player in the API
-                            api.player = e.target;
-                        }
-                    }
-                });
-            },
-            hide: function(event,api){
-                api.player.stopVideo();
-                api.player.clearVideo();
-            },
-            hidden: function(event,api){
-                guideApi.show();
-            }
-        },
-        style: { classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded' }
-    }).click(false).qtip('api');
+        origin: document.location.host,
+        height: 180,
+        width: 275,
+        videoId: $.getCredible.guideVideoId
+    });
 
+    $("#guide_video_link").click(function(e){
+        e.preventDefault();
+        $("#step_2_form").hide('fast');
+        $("#guide_video_container").show('fast');
+        guideVideoApi.playVideo();
+        return false;
+    });
 
+    $("#guide_video_back").click(function(e){
+        e.preventDefault();
+        guideVideoApi.stopVideo();
+        guideVideoApi.clearVideo();
+        $("#guide_video_container").hide('fast');
+        $("#step_2_form").show('fast');
+        return false;
+    });
 
     var guideApi = $('#steps').qtip(
         {
@@ -694,27 +652,8 @@ $(function () {
         e.preventDefault();
         guideApi.show();
         return false;
-    })
-
-    var invitationExistingTagNames = $('#invite_tag_names');
-    var prePopulateInvitationTags = [];
-    if (invitationExistingTagNames.length > 0 && invitationExistingTagNames.val() != '') {
-        invitationExistingTagNames = invitationExistingTagNames.val().split(',');
-        $.each(invitationExistingTagNames, function (index, tagName) {
-            prePopulateInvitationTags.push({term:tagName});
-        });
-    }
-    $('#invite_tag_names').tokenInput("/tags/search", {
-        method:'POST',
-        queryParam:'term',
-        propertyToSearch:'term',
-        tokenValue:'term',
-        crossDomain:false,
-        theme:"facebook",
-        hintText:'e.g. web design, leadership (comma separated)',
-        minChars:2,
-        prePopulate:prePopulateInvitationTags
     });
+
 
     $.getCredible.guide = function(){
         var bubbleContainer = $("#bubbles_container");
