@@ -1,0 +1,122 @@
+.ui-tooltip, .qtip {
+  border: none;
+}
+
+//#ui-tooltip-1, #ui-tooltip-0 {
+//  max-width: 550px;
+//  min-width: 550px;
+//  padding-bottom: 0;
+//  .ui-tooltip-titlebar {
+//    background: transparent;
+//    float: none;
+//    padding: 0;
+//    overflow: visible;
+//    .ui-tooltip-icon .ui-icon {
+//      background: #111;
+//      border: none;
+//      color: #fff;
+//      display: block;
+//      font-size: 15px;
+//      font-weight: bold;
+//      height: 30px;
+//      line-height: 30px;
+//      position: absolute;
+//      right: -21px;
+//      text-align: center;
+//      top: -27px;
+//      width: 30px;
+//      @include border-radius(50%);
+//    }
+//  }
+//  #page-header {
+//    margin: 10px 0 0;
+//    padding: 0;
+//  }
+//  #login_dialog section, #twitter_invite section {
+//    padding: 15px 0 5px 25px;
+//    &.sign_in {
+//      margin: 0 0 0 5px;
+//    }
+//    &.sign_up {
+//      border-left: 1px solid #ddd;
+//      margin-left: 15px;
+//    }
+//  }
+//  .inputs-list {
+//    margin: 0;
+//    padding: 0;
+//  }
+//  .note {
+//    color: #fff;
+//  }
+//  #login_dialog section .buttons_left {
+//    margin-left: 0;
+//  }
+//}
+
+.ui-tooltip-guide {
+  @include border-radius(3px);
+  background: #eee;
+  padding: 15px 0 10px;
+  .ui-tooltip-titlebar {
+    background: #eee;
+    padding-bottom: 10px;
+    @include border-top-radius(3px);
+  }
+  .inputs-list {
+    margin: 0;
+    padding: 0;
+  }
+  .ui-tooltip-content {
+    padding: 0;
+    position: relative;
+    overflow: visible;
+    z-index: 2;
+  }
+
+  #guide_title {
+    float: left;
+    font: 15px "futura-pt", sans-serif;
+    line-height: 1;
+    padding: 13px 15px 12px;
+    position: relative;
+    z-index: 1;
+    //@include box-shadow(rgba(0, 0, 0, 0.1) 0 -3px 3px inset);
+  }
+
+}
+
+
+#guide_video_container {
+  padding: 0 25px;
+}
+
+#guide_video_back {
+  display: block;
+  font-size: 12px;
+  text-decoration: underline;
+}
+#guide_close {
+  background: none;
+  border: none;
+  color: $red;
+  font: 13px "futura-pt", sans-serif;
+  margin-top: 0;
+  opacity: .7;
+  position: absolute;
+  right: 10px;
+  text-decoration: underline;
+  top: 10px;
+  &:hover, &:focus {
+    opacity: 1;
+  }
+  span {
+    font: 14px "futura-pt", sans-serif;
+    text-decoration: underline;
+  }
+}
+
+#guide_video_link {
+  font-size: 12px;
+  text-decoration: underline;
+}

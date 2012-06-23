@@ -561,7 +561,7 @@ $(function () {
 
     var guideApi = $('#steps').qtip(
         {
-            id:'modal', // Since we're only creating one modal, give it an ID so we can style it
+            id:'guide_qtip', // Since we're only creating one modal, give it an ID so we can style it
             content:{
                 text:$('#bubbles_container'),
                 title: false
@@ -583,7 +583,7 @@ $(function () {
             },
             hide:false,
             style:{
-                classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded'
+                classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded ui-tooltip-guide'
             },
             events:{
                 show:function (event, api) {
@@ -682,7 +682,7 @@ $(function () {
               id:'twitter_invite_modal',
               text: ' ',
               title:{
-                  text:nil,
+                  text: 'Send direct message to your friend!',
                   button:true
               }
           },

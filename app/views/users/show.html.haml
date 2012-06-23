@@ -65,4 +65,6 @@
   = render :partial => 'shared/tag_cloud', :locals => {:can_delete => false}
 
 %aside
+  - if user_signed_in? && current_user == @user
+    = render 'shared/sidebar_nav'
   = render 'shared/sidebar_activity', :user => @user
