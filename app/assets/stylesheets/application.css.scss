@@ -903,6 +903,24 @@ footer {
   }
 }
 
+.page-header-tabs {
+  list-style: none;
+  margin: 0;
+  @include pie-clearfix;
+  li {
+    display: inline;
+    float: left;
+  }
+  a {
+    border-top: 1px solid #eee;
+    border-right: 1px solid #eee;
+    border-left: 1px solid #eee;
+    display: block;
+    margin-left: -1px;
+    padding: 10px;
+  }
+}
+
 .benefits ul {
   padding: 25px 0 20px 25px;
   li {
@@ -1110,6 +1128,7 @@ hr.divider {
   border: none;
   clear: both;
   height: 1px;
+  margin: 0;
   width: 100%;
   @include pie-clearfix;
 }

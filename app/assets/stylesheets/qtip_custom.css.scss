@@ -1,60 +1,74 @@
 .ui-tooltip, .qtip {
   border: none;
 }
+.ui-tooltip-login {
+  max-width: 550px;
+  min-width: 550px;
+}
+.ui-tooltip-guide, .ui-tooltip-twitter, .ui-tooltip-login {
+  max-width: 420px;
+  min-width: 420px;
+  padding-bottom: 0;
+  .ui-tooltip-titlebar {
+    background: transparent;
+    float: none;
+    padding: 0;
+    overflow: visible;
+    .ui-tooltip-icon .ui-icon {
+      background: #111;
+      border: none;
+      color: #fff;
+      display: block;
+      font-size: 15px;
+      font-weight: bold;
+      height: 30px;
+      line-height: 30px;
+      position: absolute;
+      right: -21px;
+      text-align: center;
+      top: -21px;
+      width: 30px;
+      @include border-radius(50%);
+    }
+  }
+  #page-header {
+    margin: 10px 0 0;
+    padding: 0;
+  }
+  #login_dialog section, #twitter_invite section {
+    padding: 15px 0 5px 25px;
+    &.sign_in {
+      margin: 0;
+    }
+    &.sign_up {
+      border-left: 1px solid #ddd;
+      margin-left: 20px;
+      padding-left: 20px;
+    }
+  }
+  .inputs-list {
+    margin: 0;
+    padding: 0;
+  }
+  .note {
+    color: #fff !important;
+  }
+  #login_dialog section .buttons_left {
+    margin-left: 0;
+  }
+}
 
-//#ui-tooltip-1, #ui-tooltip-0 {
-//  max-width: 550px;
-//  min-width: 550px;
-//  padding-bottom: 0;
-//  .ui-tooltip-titlebar {
-//    background: transparent;
-//    float: none;
-//    padding: 0;
-//    overflow: visible;
-//    .ui-tooltip-icon .ui-icon {
-//      background: #111;
-//      border: none;
-//      color: #fff;
-//      display: block;
-//      font-size: 15px;
-//      font-weight: bold;
-//      height: 30px;
-//      line-height: 30px;
-//      position: absolute;
-//      right: -21px;
-//      text-align: center;
-//      top: -27px;
-//      width: 30px;
-//      @include border-radius(50%);
-//    }
-//  }
-//  #page-header {
-//    margin: 10px 0 0;
-//    padding: 0;
-//  }
-//  #login_dialog section, #twitter_invite section {
-//    padding: 15px 0 5px 25px;
-//    &.sign_in {
-//      margin: 0 0 0 5px;
-//    }
-//    &.sign_up {
-//      border-left: 1px solid #ddd;
-//      margin-left: 15px;
-//    }
-//  }
-//  .inputs-list {
-//    margin: 0;
-//    padding: 0;
-//  }
-//  .note {
-//    color: #fff;
-//  }
-//  #login_dialog section .buttons_left {
-//    margin-left: 0;
-//  }
-//}
+.ui-tooltip-twitter .ui-tooltip-content {
+  padding: 5px 0 15px;
+  #page-header {
+    border: none;
+  }
+  textarea {
+    width: 97%;
+  }
+}
 
-.ui-tooltip-guide {
+.ui-tooltip-guide, .ui-tooltip-login {
   @include border-radius(3px);
   background: #eee;
   padding: 15px 0 10px;
@@ -73,7 +87,6 @@
     overflow: visible;
     z-index: 2;
   }
-
   #guide_title {
     float: left;
     font: 15px "futura-pt", sans-serif;
@@ -83,9 +96,11 @@
     z-index: 1;
     //@include box-shadow(rgba(0, 0, 0, 0.1) 0 -3px 3px inset);
   }
-
 }
 
+.ui-tooltip-login {
+  padding: 0;
+}
 
 #guide_video_container {
   padding: 0 25px;

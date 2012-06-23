@@ -17,19 +17,20 @@
 
       %h1 Your Network
       %ul.horizontal.right
-        - if @contacts.empty?
-          %li= link_to "Import", import_twitter_contacts_path, :class => "btn primary small gray"
-        - else
-          %li= link_to "Re-Import", import_twitter_contacts_path, :class => "btn primary small gray"
-          %li= link_to "Disconnect", twitter_session_path, :confirm => "Are you sure", :method => :delete, :class => "btn primary small gray"
         - if user_signed_in?
-          %li= link_to "Invite Friends", new_user_invitation_path, :class => "btn primary small"
+          %li= link_to "Send Personal Invites", new_user_invitation_path, :class => "btn primary small"
       
-    .search_twitter_contacts.left
-      = form_tag twitter_contacts_path, remote: true, method: :get do
+    .search_twitter_contacts
+      = form_tag twitter_contacts_path, :class => "left", remote: true, method: :get do
         %p
           = text_field_tag :q, params[:q]
           = submit_tag :search, value: "Search", name: nil
+      %ul.horizontal.right
+        - if @contacts.empty?
+          %li= link_to "Twitter Import", import_twitter_contacts_path, :class => "btn primary small light"
+        - else
+          %li= link_to "Re-Import", import_twitter_contacts_path, :class => "btn primary small light"
+          %li= link_to "Disconnect", twitter_session_path, :confirm => "Are you sure", :method => :delete, :class => "btn primary small light"
 
     %hr.divider
     #js-twitter-contacts-list.twitter-contacts-list{:"data-message" => "Help boost my influence at givebrand.to! #{me_user_url(current_user)}"}

@@ -41,8 +41,8 @@ function onYouTubePlayerAPIReady() {
             origin:document.location.host
         },
         origin:document.location.host,
-        height:275,
-        width:400,
+        height:240,
+        width:370,
         videoId:$.getCredible.guideVideoId,
         events:{
             'onReady':function (e) {
@@ -365,7 +365,7 @@ $(function () {
                             }
                         },
                         style:{
-                            classes:'ui-tooltip-light ui-tooltip-rounded'
+                            classes:'ui-tooltip-light ui-tooltip-rounded ui-tooltip-qtip'
                         }
 
                     }).qtip('api');
@@ -705,7 +705,7 @@ $(function () {
               }
           },
           hide:false,
-          style: { classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded' }
+          style: { classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded ui-tooltip-twitter' }
       }).click(function (event) {
           event.preventDefault();
           return false;
@@ -756,7 +756,7 @@ $(function () {
               }
           },
           hide:false,
-          style: { classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded' }
+          style: { classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded ui-tooltip-login' }
       }).click(function (event) {
           event.preventDefault();
           return false;
