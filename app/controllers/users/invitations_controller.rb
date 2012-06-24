@@ -23,7 +23,6 @@ class Users::InvitationsController < Devise::InvitationsController
       self.resource = resource_class.invite!(params[resource_name], current_inviter)
     end
     if resource.errors.empty?
-      #set_flash_message :notice, :send_instructions, :email => self.resource.email
       set_flash_message :notice, :send_instructions, :email => self.resource.email
       tag_names = TagCleaner.clean(resource.tag_names)
       tag_names.each do |tag_name|
@@ -38,7 +37,7 @@ class Users::InvitationsController < Devise::InvitationsController
       if resource.errors[:email].present?
         if params[resource_name] && params[resource_name][:email].present?
           resource.errors[:email].clear
-          resource.errors[:email] = "A user with this email has already been invited or registered"
+          resource.errors[:email] = "has already been invited or registered"
         end
       end
       respond_with_navigational(resource) { render :new }
