@@ -8,6 +8,7 @@
     = simple_form_for(resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:id => 'invitation_form', :method => :post }) do |f|
       - if @success
         #invitation_status.hide= flash[:invitation_success]
+      %br
       %ul.inputs-list
         %li= f.input :email, :wrapper => false
         %li

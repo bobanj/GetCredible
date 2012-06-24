@@ -1,10 +1,7 @@
 .ui-tooltip, .qtip {
   border: none;
 }
-.ui-tooltip-login {
-  max-width: 550px;
-  min-width: 550px;
-}
+
 .ui-tooltip-guide, .ui-tooltip-twitter, .ui-tooltip-login {
   max-width: 420px;
   min-width: 420px;
@@ -66,6 +63,11 @@
   textarea {
     width: 97%;
   }
+}
+
+.ui-tooltip-login {
+  max-width: 550px;
+  min-width: 550px;
 }
 
 .ui-tooltip-guide, .ui-tooltip-login {
