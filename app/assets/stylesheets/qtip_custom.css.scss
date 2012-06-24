@@ -148,6 +148,12 @@
   position: absolute;
   right: 33px;
   top: 150px;
+  img{
+    display: block;
+    padding: 8px;
+    float: left;
+    @include box-shadow(rgba($black, 0.07) 0px 1px 2px);
+  }
 }
 
 .ui-tooltip-qtip {
