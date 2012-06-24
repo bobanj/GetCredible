@@ -23,7 +23,7 @@ class ScoreCalculator
   def calculate
     start = Time.now
     #ActiveRecord::Base.connection.execute('DELETE FROM "user_tag_results"')
-    Tag.all.each do |tag|
+    Tag.find_each do |tag|
       total_user_tags = tag.user_tags_count
       # Comment set_scale_range to toggle logaritmic score calculation
       scale_max = probability * total_user_tags + (1 - probability)

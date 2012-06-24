@@ -1,4 +1,4 @@
-namespace :get_credible do
+namespace :givebrand do
   # TODO Refactor Bobi
   desc "Populate database with fake data(development only)"
   task :populate => :environment do
