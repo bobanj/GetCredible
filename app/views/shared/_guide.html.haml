@@ -12,15 +12,15 @@
     %ul#steps
 
       %li#step_1
-        %h1 Personal Information
-        .avatar
-          = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :remote => true, :html => {:id => 'user_avatar_form', :multipart => true, :method => :put }) do |f|
-            = f.input :avatar, :as => :file, :wrapper => false, :input_html => {:id => "avatar_user_guide"}
-            = f.hidden_field :avatar_cache
-            %span.btn.primary.medium.light Browse
-          #user_avatar_preview
-        = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :remote => true, :html => {:id => 'step_1_form', :method => :put }) do |f|
+        = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :remote => true, :html => {:id => 'step_1_form', :multipart => true, :method => :put }) do |f|
+          %h1 Personal Information
+          = hidden_field_tag :current_step, "step_1"
+          = hidden_field_tag :next_step, "step_2"
           %ul.inputs-list.left
+            %li.avatar
+              = f.input :avatar, :as => :file, :wrapper => false
+              = f.hidden_field :avatar_cache
+              %span.btn.primary.medium.light Browse
             %li= f.input :full_name, :wrapper => false
             %li= f.input :location, :wrapper => false
             %li= f.input :personal_url, :wrapper => false, :label => 'Website'

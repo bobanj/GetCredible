@@ -41,12 +41,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
         end
         format.js {
           @message = 'You have updated your profile successfully.'
+          @current_step = params[:current_step]
+          @next_step = params[:next_step]
           render :layout => false, :status => :ok
-          if remotipart_submitted?
-            puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2"
-            puts "REMOTIPART"
-            puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2"
-          end
         }
         format.json do
           if current_user.changed?

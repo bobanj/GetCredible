@@ -64,7 +64,7 @@ input, textarea, select, .uneditable-input {
   border: 1px solid #ccc;
   color: $gray;
   display: inline-block;
-  font-size: $basefont;  
+  font-size: $basefont;
   height: $baseline;
   line-height: $baseline;
   margin-bottom: 0;
@@ -305,7 +305,7 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
     position: absolute;
     top: 25px;
   }
-  &.username { 
+  &.username {
     input {
       padding-left: 118px;
       width: 186px !important;
@@ -537,12 +537,13 @@ ul.inputs {
   }
   .avatar {
     cursor: pointer;
+    float: right;
     overflow: hidden;
     padding-left: 0;
-    position: absolute;
-    right: 0;
-    top: 80px;
-    width: 37%;
+    position: relative;
+    width: 20%;
+
+
     label {
       color: #888;
       display: block;
@@ -570,7 +571,7 @@ ul.inputs {
   }
 
 }
-  
+
 .hint {
   clear: left;
   margin-left: 120px;

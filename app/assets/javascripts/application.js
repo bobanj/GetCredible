@@ -587,10 +587,10 @@ $(function () {
             events:{
                 show:function (event, api) {
                     // Step 1 is handled with js.erb
-                    $("#avatar_user_guide").change(function(){
-                      console.log("CHANGED");
-                      return false;
-                    });
+                    // $("#avatar_user_guide").change(function(){
+                    //   console.log("CHANGED");
+                    //   return false;
+                    // });
                     // Step 2 Video
                     $("#prev_step_2").click(function () {
                         $("#step_2").hide('fast',function () {
