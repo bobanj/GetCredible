@@ -27,14 +27,20 @@
           = submit_tag :search, value: "Search", name: nil
       %ul.horizontal.right
         - if @contacts.empty?
-          %li= link_to "Twitter Import", import_twitter_contacts_path, :class => "btn primary small light"
+          %li= link_to "Twitter Import", twitter_contacts_path, :class => "btn primary small light"
         - else
-          %li= link_to "Re-Import", import_twitter_contacts_path, :class => "btn primary small light"
+          %li= link_to "Re-Import", twitter_contacts_path, :class => "btn primary small light"
           %li= link_to "Disconnect", twitter_session_path, :confirm => "Are you sure", :method => :delete, :class => "btn primary small light"
 
     %hr.divider
     #js-twitter-contacts-list.twitter-contacts-list{:"data-message" => "Help boost my influence at givebrand.to! #{me_user_url(current_user)}"}
-      = render 'contacts', :contacts => @contacts, :users => @users
+      - if @contacts.empty?
+        .ngo
+          %p
+            = link_to "Import your Twitter friends", twitter_contacts_path
+            , then send them a direct message to help you boost your influence at GiveBrand.
+      - else
+        = render 'contacts', :contacts => @contacts, :users => @users
 
 %aside
   = render 'shared/sidebar_nav'

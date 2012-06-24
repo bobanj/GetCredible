@@ -29,7 +29,7 @@
           %li#gn-logout
             = link_to "Logout", destroy_user_session_path
           %li#gn-activity
-            = link_to 'Network', @twitter_contacts
+            = link_to 'Network', network_path, :class => ((params[:controller] == 'network') ? 'active' : nil)
           %li#gn-profile
             = link_to 'Profile', me_user_path(current_user), :class => ((params[:controller] == 'users') && params[:action] == 'show' ? 'active' : nil)
           %li#gn-activity

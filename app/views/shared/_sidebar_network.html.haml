@@ -1,9 +1,0 @@
-.sidebar-item#social-network
-  %h2 My Network
-  %ul.list-view.unstyled
-    - if current_user.twitter_contacts.present?
-      %li= link_to "Twitter Friends", twitter_contacts_path
-    - else
-      %li= link_to "Import My Friends from Twitter", import_twitter_contacts_path
-    - if user_signed_in?
-      %li= link_to "Personal Friends", new_user_invitation_path

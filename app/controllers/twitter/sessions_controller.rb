@@ -29,7 +29,7 @@ class Twitter::SessionsController < ApplicationController
     current_user.twitter_contacts.destroy_all
     current_user.update_twitter_oauth(nil, nil)
     flash[:notice] = I18n.t('twitter.contacts.remove')
-    redirect_to edit_user_registration_path
+    redirect_to network_url
   end
 
   private

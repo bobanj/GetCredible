@@ -539,7 +539,7 @@ ul.inputs {
     cursor: pointer;
     float: right;
     margin-right: 20px;
-    overflow: hidden;
+    @include pie-clearfix;
     padding-left: 0;
     position: relative;
     width: 32% !important;
@@ -572,6 +572,9 @@ ul.inputs {
     }
   }
 
+  #step_1_form {
+    float: left;
+  }
 }
 
 .hint {

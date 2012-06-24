@@ -148,11 +148,12 @@ input, textarea {
   @include box-shadow(rgba(0, 0, 0, 0.05) 0 0 5px inset);
   @include transition(all .4s);
   img {
-    display: block;
+    display: inline-block;
     margin-bottom: 10px;
   }
   span {
     clear: both;
+    display: block;
   }
   &:hover, &:focus {
     background: #fafafa;
