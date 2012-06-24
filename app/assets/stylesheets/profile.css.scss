@@ -219,11 +219,12 @@
 ul.social_fixed {
   background: rgba(0, 0, 0, 0.05);
   display: block;
-  opacity: 0.6;
+  opacity: 0.5;
   position: fixed;
   top: 115px;
-  margin: 0 0 0 -71px;
+  margin: 0 0 0 -70px;
   padding: 10px 5px 0px 6px;
+  text-align: center;
   @include box-shadow(rgba(0, 0, 0, 0.2) 0 0 3px inset);
   @include transition(all 0.4s);
   &:hover, &:focus {
