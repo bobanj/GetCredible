@@ -12,15 +12,18 @@
     %ul#steps
 
       %li#step_1
+        %h1 Personal Information
+        = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :remote => true, :html => {:id => 'user_avatar_form', :multipart => true, :method => :put }) do |f|
+          .avatar
+            = f.input :avatar, :as => :file, :wrapper => false, :input_html => {:id => "user_avatar_file"}
+            = f.hidden_field :avatar_cache
+            %span.btn.primary.medium.light Browse
+          %a#user_avatar_preview
+            = image_tag current_user.avatar_url(:thumb)
+          .loading.hide
+            =image_tag 'ajax_loader.gif'
         = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :remote => true, :html => {:id => 'step_1_form', :multipart => true, :method => :put }) do |f|
-          %h1 Personal Information
-          = hidden_field_tag :current_step, "step_1"
-          = hidden_field_tag :next_step, "step_2"
           %ul.inputs-list.left
-            %li.avatar
-              = f.input :avatar, :as => :file, :wrapper => false
-              = f.hidden_field :avatar_cache
-              %span.btn.primary.medium.light Browse
             %li= f.input :full_name, :wrapper => false
             %li= f.input :location, :wrapper => false
             %li= f.input :personal_url, :wrapper => false, :label => 'Website'

@@ -586,12 +586,14 @@ $(function () {
             },
             events:{
                 show:function (event, api) {
-                    // Step 1 is handled with js.erb
-                    // $("#avatar_user_guide").change(function(){
-                    //   console.log("CHANGED");
-                    //   return false;
-                    // });
-                    // Step 2 Video
+                    // Step 1 is handled with update.js.erb
+                    $("#user_avatar_file").change(function(){
+                      $("#user_avatar_form .loading").show();
+                      $("#user_avatar_form").submit();
+                      return false;
+                    });
+
+                  // Step 2 Video
                     $("#prev_step_2").click(function () {
                         $("#step_2").hide('fast',function () {
                             $('#bubbles').progressBubbles('regress');

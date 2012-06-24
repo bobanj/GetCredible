@@ -40,9 +40,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
           redirect_to me_user_path(current_user)
         end
         format.js {
-          @message = 'You have updated your profile successfully.'
-          @current_step = params[:current_step]
-          @next_step = params[:next_step]
+          if remotipart_submitted?
+            @remotipart = true
+          else
+            @remotipart = false
+            @message = 'You have updated your profile successfully.'
+          end
           render :layout => false, :status => :ok
         }
         format.json do

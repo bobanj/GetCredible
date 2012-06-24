@@ -135,7 +135,13 @@
   font-size: 12px;
   text-decoration: underline;
 }
-
+#user_avatar_form{
+  .loading{
+    position: absolute;
+    right: 80px;
+    top: 180px;
+  }
+}
 #user_avatar_preview{
   width: 126px;
   height: 126px;
