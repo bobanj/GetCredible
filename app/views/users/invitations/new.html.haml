@@ -2,6 +2,9 @@
   #invitation_content
     %header#page-header
       %h1 Invite a friend
+      .right
+        %br
+        = link_to 'Back to your Network', network_path, :class => ((params[:controller] == 'network') ? 'active' : nil)
     = simple_form_for(resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:id => 'invitation_form', :method => :post }) do |f|
       - if @success
         #invitation_status.hide= flash[:invitation_success]
