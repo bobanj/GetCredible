@@ -8,7 +8,7 @@
   .easy-signup
     = simple_form_for(User.new, :as => :user, :url => registration_path(:user)) do |f|
       %ul
-        %li= f.input :username, :required => false, :autofocus => true, :placeholder => "Username", :label_html => {:class => 'hidden'}
+        %li= f.input :username, :required => false, :placeholder => "Username", :label_html => {:class => 'hidden'}
         %li= f.input :email, :placeholder => "Email", :label_html => {:class => 'hidden'}
         %li= f.input :password, :placeholder => "Password", :label_html => {:class => 'hidden'}
         %li.buttons= f.button :submit, "Sign up now for free", class: 'btn large primary'
@@ -42,12 +42,12 @@
   %h2 Watch our video and find out more
   %iframe{:allowfullscreen => "", :frameborder => "0", :height => "315", :src => "http://www.youtube.com/embed/He_PWsJqsVY?rel=0", :width => "560"}
   %p= link_to "You may want to check our illustrated tour.", tour_path
-  
+
 .featured
   .easy-signup
     = simple_form_for(User.new, :as => :user, :url => registration_path(:user)) do |f|
       %ul
-        %li= f.input :username, :required => false, :autofocus => true, :placeholder => "Username", :label_html => {:class => 'hidden'}
+        %li= f.input :username, :required => false, :placeholder => "Username", :label_html => {:class => 'hidden'}
         %li= f.input :email, :placeholder => "Email", :label_html => {:class => 'hidden'}
         %li= f.input :password, :placeholder => "Password", :label_html => {:class => 'hidden'}
         %li.buttons= f.button :submit, "Sign up now for free", class: 'btn large primary'
