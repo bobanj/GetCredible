@@ -339,7 +339,7 @@ describe User do
   describe "#full_name" do
     it "returns username when full_name is blank" do
       user = FactoryGirl.build(:user, :full_name => '', :username => 'pink-panter')
-      user.full_name.should == 'pink-panter'
+      user.name.should == 'pink-panter'
     end
 
     it "returns full_name when full_name is present" do

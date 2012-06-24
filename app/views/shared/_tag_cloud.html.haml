@@ -32,7 +32,7 @@
                     :"data-can-vote" => (@user != current_user).to_s,
                     :"data-can-tag" => "true",
                     :"data-can-delete" => 'false',
-                    :"data-user" => {:full_name => @user == current_user ? 'yourself' : @user.full_name}.to_json}
+                    :"data-user" => {:name => @user == current_user ? 'yourself' : @user.name}.to_json}
   #tag-msg
     %span.icon
     = tag_cloud_summary(@user)

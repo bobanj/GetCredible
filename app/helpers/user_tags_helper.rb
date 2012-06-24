@@ -29,7 +29,7 @@ module UserTagsHelper
       rank: tag_scores.revrank(user_tag.id) + 1,
       # TODO: eager load: last_voters
       voters: user_tag.last_voters.all.map{ |voter|
-        { :name => voter.full_name, avatar: user_avatar_url(voter, :small) } },
+        { :name => voter.name, avatar: user_avatar_url(voter, :small) } },
       voters_count: user_tag.incoming.value
     }
   end

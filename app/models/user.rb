@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
     full_name ? full_name.to_s.split(' ').first : username
   end
 
-  def full_name
+  def name
     read_attribute(:full_name).presence || username
   end
 

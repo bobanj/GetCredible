@@ -1,4 +1,4 @@
-- if user_signed_in?
+- if user_signed_in? && show_guide?(current_user)
   = content_for :javascripts do
     %script{:src => "http://www.youtube.com/player_api", :type => "text/javascript"}
 

@@ -114,7 +114,7 @@ $(function () {
                         $.post($.getCredible.tagCloud.data('tag-cloud-path'),
                             form.serialize(), function (data) {
                                 tagNamesTextField.tokenInput("clear");
-                                $.getCredible.displayNotification('success', 'You have tagged ' + $.getCredible.tagCloud.data('user').full_name + ' with ' + tagNames);
+                                $.getCredible.displayNotification('success', 'You have tagged ' + $.getCredible.tagCloud.data('user').name + ' with ' + tagNames);
                                 $.getCredible.renderTagCloud(data);
                             });
                     } else {
@@ -171,9 +171,9 @@ $(function () {
                             });
                         } else {
                             if (word.hasClass('vouche')) {
-                                $.getCredible.displayNotification('success', 'You have unvouched for ' + user.full_name + ' on ' + word.text());
+                                $.getCredible.displayNotification('success', 'You have unvouched for ' + user.name + ' on ' + word.text());
                             } else {
-                                $.getCredible.displayNotification('success', 'You have vouched for ' + user.full_name + ' on ' + word.text());
+                                $.getCredible.displayNotification('success', 'You have vouched for ' + user.name + ' on ' + word.text());
                             }
                         }
                         $('.tag-vote').click(function () {

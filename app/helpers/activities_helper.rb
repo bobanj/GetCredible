@@ -30,7 +30,7 @@ module ActivitiesHelper
   end
 
   def user_link(user)
-    "#{link_to(user.full_name, me_user_path(user))}".html_safe
+    "#{link_to(user.name, me_user_path(user))}".html_safe
   end
 
   def user_short(user)
@@ -38,7 +38,7 @@ module ActivitiesHelper
   end
 
   def user_long(user)
-    user.full_name =~ /s$/i ? "#{user.full_name}'" : "#{user.full_name}'s"
+    user.name =~ /s$/i ? "#{user.name}'" : "#{user.name}'s"
   end
 
   def incoming_activity_description(activity_item)
@@ -61,7 +61,7 @@ module ActivitiesHelper
     user = activity_item.user
 
     if activity_vote?(activity_item)
-      "#{current_user && current_user == user ? "You" : link_to(user.full_name, me_user_path(user)) } vouched for #{user_link(target)}'s tag: #{tag_link(item.voteable.tag.name)}".html_safe
+      "#{current_user && current_user == user ? "You" : link_to(user.name, me_user_path(user)) } vouched for #{user_link(target)}'s tag: #{tag_link(item.voteable.tag.name)}".html_safe
     else
       if user == target
         "#{user_link(user)} tagged themself: #{tag_link(item.tag.name)}".html_safe
@@ -86,21 +86,21 @@ module ActivitiesHelper
       "Nobody tagged or vouched you so far."
     elsif users.length == 1
       tagger = users.pop
-      "#{link_to(tagger.full_name, me_user_path(tagger))} tagged or vouched for #{who?(user)} so far.".html_safe
+      "#{link_to(tagger.name, me_user_path(tagger))} tagged or vouched for #{who?(user)} so far.".html_safe
     elsif users.length == 2
-      "#{users.map{|user| link_to(user.full_name, me_user_path(user))}.join(' and ')} tagged or vouched for #{who?(user)} so far.".html_safe
+      "#{users.map{|user| link_to(user.name, me_user_path(user))}.join(' and ')} tagged or vouched for #{who?(user)} so far.".html_safe
     else
       output = []
       u = users.pop
-      output << link_to(u.full_name, me_user_path(u))
+      output << link_to(u.name, me_user_path(u))
       u = users.pop
-      output << link_to(u.full_name, me_user_path(u))
+      output << link_to(u.name, me_user_path(u))
       output.join(', ').concat(" and #{users.length} other people tagged or vouched for #{who?(user)} so far.").html_safe
     end
 
   end
 
   def who?(user)
-    ((current_user && current_user == user) ? "you" : link_to(user.full_name, me_user_path(user))).html_safe
+    ((current_user && current_user == user) ? "you" : link_to(user.name, me_user_path(user))).html_safe
   end
 end

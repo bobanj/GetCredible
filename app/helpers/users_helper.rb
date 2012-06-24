@@ -4,7 +4,7 @@ module UsersHelper
   end
 
   def profile_title(user)
-    title = link_to(user.full_name, me_user_path(user))
+    title = link_to(user.name, me_user_path(user))
     if user.job_title.present?
       title += ", #{user.job_title}"
     end

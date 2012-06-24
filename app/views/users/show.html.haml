@@ -31,11 +31,11 @@
           .photo
             = link_to image_tag(@user.avatar_url(:thumb)), edit_user_registration_path, :id => "user_avatar_main"
           = link_to edit_user_registration_path, :class => 'no_underline' do
-            %h1= @user.full_name
+            %h1= @user.name
         - else
           .photo
             = image_tag(@user.avatar_url(:thumb))
-          %h1= @user.full_name
+          %h1= @user.name
         %h2= @user.job_title
       %ul.right
         - unless @user.location.blank?
