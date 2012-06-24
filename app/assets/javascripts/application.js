@@ -345,7 +345,7 @@ $(function () {
                             event:'unfocus'
                         },
                         events:{
-                            render:function (event, api) {
+                            show:function (event, api) {
                                 // Update the content of the tooltip on each show
                                 $.getCredible.currentQtipTarget = $(event.originalEvent.target);
                                 if ($.getCredible.currentQtipTarget.length) {
