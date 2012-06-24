@@ -27,7 +27,6 @@
 @import "noty_buttons";
 @import "tour";
 @import "network";
-@import "twitter";
 
 /* COMPONENTS
 -----------------------------------------------------------------------*/
@@ -636,7 +635,7 @@ footer {
       //text-transform: uppercase;
       //text-indent: -99999px;
       //width: 150px;
-  
+
       @include transition(all .4s);
       //@include transform(skew(0deg, -6deg));
       span {
@@ -995,7 +994,7 @@ aside {
       padding-right: 15px;
       position: relative;
     }
-    
+
   }
 
   h2 {
