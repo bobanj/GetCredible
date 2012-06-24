@@ -67,6 +67,13 @@ GetCredible::Application.configure do
 
   # Devise Mailer
   config.action_mailer.default_url_options = { :host => 'givebrand.to' }
+
+  config.middleware.use ExceptionNotifier,
+    :email_prefix => "[GiveBrand Production Error] ",
+    :sender_address => %{"no-reply@givebrand.to"},
+    :exception_recipients => %w{dalibor.nasevic@gmail.com bobanj@gmail.com}
+    # ignore_exceptions: ExceptionNotifier.default_ignore_exceptions # + [RuntimeError]
+
 end
 
 ActionMailer::Base.smtp_settings = {
