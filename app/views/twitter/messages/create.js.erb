@@ -6,4 +6,4 @@ $('#js-twitter-screen-name').val('')
 $('#js-twitter-message').val('')
 $("#js-twitter-invite-title").text("");
 $("#js-twitter-invite-header").text("")
-$('a[data-screen_name="<%= @twitter_contact.screen_name %>"]').replaceWith('Invited!')
+$('a[data-screen_name="<%= @twitter_contact.screen_name %>"]').parents('li').addClass('vouche')
