@@ -20,7 +20,7 @@
 
 
   .ngo.positioned
-    %p#js_no_tags{:style => (@user.user_tags.blank? ? 'display: none' : nil)} This profile has not been branded yet. Be the first to brand it.
+    %p#js_no_tags{:style => (@user.user_tags.present? ? 'display: none' : nil)} This profile has not been branded yet. Be the first to brand it.
 
   .edit-area
     - if user_signed_in? && @user == current_user
