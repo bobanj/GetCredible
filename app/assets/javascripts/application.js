@@ -633,28 +633,31 @@ $(function () {
                                 $("#step_3").show('fast');
                             });
                         }
-                        if (tagOne.val() != '' && tagTwo.val() != '' && tagThree.val() != '' && $.getCredible.tagCloud.length > 0) {
-                            step2TagNames.val(tagOne.val() + ',' + tagTwo.val() + ',' + tagThree.val());
-                            var selfTag = function () {
-                                $.post($.getCredible.tagCloud.data('tag-cloud-path'),
-                                    form.serialize(), function (data) {
-                                        $.getCredible.displayNotification('success', 'You have tagged yourself with ' + step2TagNames.val());
-                                        $.getCredible.renderTagCloud(data);
-                                        skipStep2();
-                                    });
-                            }
-
-                            if ($.getCredible.tagCloud.data('logged-in')) {
-                                selfTag();
-                            } else {
-                                $.getCredible.loginQtipApi.set('content.text', $('#login_dialog'));
-                                $.getCredible.loginQtipApi.show();
-                            }
-                        } else {
-                            skipStep2();
-                            //$.getCredible.displayNotification('error', 'Please add tags');
+                      if (tagOne.val() != '' || tagTwo.val() != '' || tagThree.val() != ''){
+                        var tagNames = [];
+                        if (tagOne.val() != ''){
+                          tagNames.push(tagOne.val());
                         }
-                        return false;
+                        if (tagOne.val() != ''){
+                          tagNames.push(tagTwo.val());
+                        }
+                        if (tagOne.val() != ''){
+                          tagNames.push(tagThree.val());
+                        }
+                        step2TagNames.val(tagNames.join(','));
+                        $.post(form.data('tags-path'),
+                            form.serialize(), function (data){
+                              $.getCredible.displayNotification('success', 'You have tagged yourself with ' + step2TagNames.val());
+                              if($.getCredible.tagCloud.length > 0){
+                                $.getCredible.renderTagCloud(data);
+                              }
+                              skipStep2();
+                            });
+                      } else{
+                        skipStep2();
+                        //$.getCredible.displayNotification('error', 'Please add tags');
+                      }
+                      return false;
                     });
 
                     $("#guide_close").click(function(e){

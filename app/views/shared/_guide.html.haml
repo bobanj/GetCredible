@@ -32,7 +32,7 @@
 
       %li#step_2{:style => "display:none"}
         %h1 Brand yourself in few words
-        = form_tag user_user_tags_path(current_user), :id => 'step_2_form' do
+        = form_tag user_user_tags_path(current_user), :id => 'step_2_form', :'data-tags-path' => user_user_tags_path(current_user) do
           = hidden_field_tag :tag_names, '', :id => 'step_2_tags'
           %ul.inputs-list
             %li
