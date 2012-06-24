@@ -47,6 +47,10 @@ GetCredible::Application.configure do
   #  Bullet.rails_logger = true
   #  Bullet.disable_browser_cache = true
   #end
+
+  # mailcatcher
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
 end
 
 ENV["REDISTOGO_URL"] = 'redis://127.0.0.1:6379'
