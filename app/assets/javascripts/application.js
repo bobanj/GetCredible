@@ -345,7 +345,7 @@ $(function () {
                             event:'unfocus'
                         },
                         events:{
-                            show:function (event, api) {
+                            render:function (event, api) {
                                 // Update the content of the tooltip on each show
                                 $.getCredible.currentQtipTarget = $(event.originalEvent.target);
                                 if ($.getCredible.currentQtipTarget.length) {
@@ -585,7 +585,7 @@ $(function () {
                 classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded ui-tooltip-guide'
             },
             events:{
-                show:function (event, api) {
+                render:function (event, api) {
                     // Step 1 is handled with update.js.erb
                     $("#user_avatar_file").change(function(){
                       $("#user_avatar_form .loading").show();
