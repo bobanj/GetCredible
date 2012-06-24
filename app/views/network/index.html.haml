@@ -23,7 +23,7 @@
           %li= link_to "Send Personal Invites", new_user_invitation_path, :class => "btn primary small"
 
     .search_twitter_contacts
-      = form_tag twitter_contacts_path, :class => "left", remote: true, method: :get do
+      = form_tag network_path, :class => "left", remote: true, method: :get do
         %p
           = text_field_tag :q, params[:q]
           = submit_tag :search, value: "Search", name: nil

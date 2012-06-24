@@ -30,6 +30,6 @@
         - @invited_users.each do |user|
           %li
             = user.email
-            %span.status= (user.invitation_accepted_at || user.sign_in_count > 0) ? "Accepted Your invitation" : "Pending"
+            %span.status= (user.invitation_accepted_at || user.sign_in_count > 0) ? "Accepted" : "Pending"
 %aside
   = render 'shared/sidebar_nav'
