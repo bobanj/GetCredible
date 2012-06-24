@@ -1,5 +1,5 @@
-#loading{style: "display: none"} loading...
-#twitter_invite{style: "display: none", title: ""}
+-# #loading{style: "display: none"} loading...
+#twitter_invite{style: "display: none;", title: ""}
   %p.note#js-twitter-invite-title
   #twitter_invite_wrap
     #page-header
@@ -8,7 +8,9 @@
       = hidden_field_tag :twitter_id, "", :id => 'js-twitter-id', :readonly => true
       = hidden_field_tag :screen_name, "", :id => 'js-twitter-screen-name', :readonly => true
       %p= text_area_tag :message, "", :id => 'js-twitter-message'
-      %p= submit_tag :send_dm, value: "Send Direct Message", :class => "btn primary large"
+      %p
+        = submit_tag :send_dm, value: "Send Direct Message", :class => "btn primary large"
+        #loading{style: "display: none"} loading...
 
 
 #content

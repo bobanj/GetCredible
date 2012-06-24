@@ -107,13 +107,17 @@
   }
 }
 
+#twitter_invite {
+ position: relative;
+}
+
 .twitter_contact {
   display: none !important;
   margin-top: 10px;
 }
 
 #loading {
-  background: rgba(0, 0, 0, 0.1) url(image_path('ajax_loader.gif')) no-repeat center;
+  background: rgba(0, 0, 0, 0.2) url(image_path('ajax_loader.gif')) no-repeat center;
   bottom: 0;
   height: 100%;
   left: 0;
