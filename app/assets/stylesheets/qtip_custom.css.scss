@@ -1,4 +1,4 @@
-.ui-tooltip, .qtip {
+.ui-tooltip-guide, .ui-tooltip-twitter, .ui-tooltip-login, .ui-tooltip-qtip {
   border: none;
 }
 
@@ -102,6 +102,12 @@
 
 .ui-tooltip-login {
   padding: 0;
+}
+
+.ui-tooltip .ui-tooltip-tip {
+  background: image_url('icon-tip.png') no-repeat center bottom;
+  left: 1px !important;
+  width: 10px !important;
 }
 
 #guide_video_container {
