@@ -133,6 +133,11 @@ input, textarea {
     background: $red;
     border: 1px solid $red - #111;
     @include background-image(linear-gradient($red, $red - #111));
+    &:hover, &:focus {
+      background: $red - #111;
+      border: 1px solid $red - #222;
+      @include background-image(linear-gradient($red - #222, $red - #111));
+    }
   }
 }
 
