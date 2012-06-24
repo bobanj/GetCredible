@@ -59,9 +59,9 @@
       %g:plusone{:href => me_user_url(@user), :size => "tall"}
     %li
       %script{"data-counter" => "top", "data-url" => me_user_url(@user), :type => "IN/Share"}
-    %li
-      %a.pin-it-button{"count-layout" => "vertical", :href => "http://pinterest.com/pin/create/button/?url=#{u(me_user_url(@user))}&media=#{request.protocol}#{request.host_with_port}#{asset_path("logo.png")}&description=Description"}
-        %img{:border => "0", :src => "//assets.pinterest.com/images/PinExt.png", :title => "Pin It"}/
+    -# %li
+    -#   %a.pin-it-button{"count-layout" => "vertical", :href => "http://pinterest.com/pin/create/button/?url=#{u(me_user_url(@user))}&media=#{request.protocol}#{request.host_with_port}#{asset_path("logo.png")}&description=Description"}
+    -#     %img{:border => "0", :src => "//assets.pinterest.com/images/PinExt.png", :title => "Pin It"}/
   = render :partial => 'shared/tag_cloud', :locals => {:can_delete => false}
 
 %aside
