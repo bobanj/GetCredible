@@ -143,3 +143,11 @@
   right: 33px;
   top: 150px;
 }
+
+.ui-tooltip-qtip {
+  max-width: 300px;
+  min-width: 300px;
+  .ui-tooltip-content {
+    padding: 0;
+  }
+}

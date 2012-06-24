@@ -270,7 +270,7 @@ $(function () {
         var voucheUnvoucheClass = word.hasClass('vouche') ? 'pink' : 'green';
         var qtipContent = '<div class="tag-wrap">' +
             '<div class="tag-score">' +
-            '<p>score</p>' +
+            '<p class="tag-title">score</p>' +
             '<p class="tag-big">' + word.data('score') + '</p>' +
             '<p class="tag-place">' + rank + ' out of ' + word.data('total') + '</p>' +
             '</div>' +

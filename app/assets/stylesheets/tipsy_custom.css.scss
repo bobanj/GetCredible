@@ -55,6 +55,9 @@
     @include text-shadow(#000 0 1px 0);
   }
 }
+.tag-title {
+  color: #fff;
+}
 .tag-big {
   color: #fff;
   font-family: "gnuolane", impact, sans-serif;
@@ -79,8 +82,8 @@
   border: 1px solid #ddd;
   color: #666;
   float: left;
-  max-width: 200px;
-  //padding: 5px 2% 5px 5%;
+  height: 78px !important;
+  max-width: 230px;
   padding: 5px 3%;
   text-align: left;
   //width: 64%;
