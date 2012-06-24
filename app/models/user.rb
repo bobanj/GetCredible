@@ -61,7 +61,7 @@ class User < ActiveRecord::Base
   end
 
   def short_name
-    full_name ? full_name.to_s.split(' ').first : username
+    name ? name.to_s.split(' ').first : username
   end
 
   def name
