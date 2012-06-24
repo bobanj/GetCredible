@@ -5,8 +5,8 @@
     #page-header
       %h1#js-twitter-invite-header
     = form_tag twitter_messages_path, remote: true, id: 'js-twitter-dm-form' do
-      %p= hidden_field_tag :twitter_id, "", :id => 'js-twitter-id', :readonly => true
-      %p.hide= text_field_tag :screen_name, "", :id => 'js-twitter-screen-name', :readonly => true
+      = hidden_field_tag :twitter_id, "", :id => 'js-twitter-id', :readonly => true
+      = hidden_field_tag :screen_name, "", :id => 'js-twitter-screen-name', :readonly => true
       %p= text_area_tag :message, "", :id => 'js-twitter-message'
       %p= submit_tag :send_dm, value: "Send Direct Message", :class => "btn primary large"
 
@@ -19,7 +19,7 @@
       %ul.horizontal.right
         - if user_signed_in?
           %li= link_to "Send Personal Invites", new_user_invitation_path, :class => "btn primary small"
-      
+
     .search_twitter_contacts
       = form_tag twitter_contacts_path, :class => "left", remote: true, method: :get do
         %p

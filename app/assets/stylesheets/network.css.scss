@@ -14,6 +14,7 @@
     }
     p {
       position: relative;
+      @include pie-clearfix;
     }
     input[type=submit] {
       -moz-border-bottom-colors: none;

@@ -720,7 +720,7 @@ $(function () {
           $('#js-twitter-screen-name').val(twitterUsername);
           $('#js-twitter-message').val(defaultMessage);
           $("#js-twitter-invite-title").text("Send direct message to @" + twitterUsername);
-          $("#js-twitter-invite-header").text("Ask @" + twitterUsername + ' to tag you');
+          $("#js-twitter-invite-header").text("Ask @" + twitterUsername + ' to brand you');
           $.getCredible.twitterQtipApi.set('content.text', $('#twitter_invite'));
           $.getCredible.twitterQtipApi.show();
       });
