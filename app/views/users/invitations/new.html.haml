@@ -9,8 +9,18 @@
       - if @success
         #invitation_status.hide= flash[:invitation_success]
       %ul.inputs-list
-        %li= f.input :tag_names, :label => 'Tags', :input_html => {:id => 'invite_tag_names'}, :placeholder => 'e.g. web design, leadership (comma separated)', :wrapper => false
         %li= f.input :email, :wrapper => false
+        %li
+          = label_tag :tag1, "First tag", :class => 'hidden'
+          = text_field_tag :tag1, params[:tag1], :placeholder => 'First tag'
+          - if resource.errors[:tag_names].present?
+            %span.error add at least one tag
+        %li
+          = label_tag :tag2, "Second tag", :class => 'hidden'
+          = text_field_tag :tag2, params[:tag2], :placeholder => 'Second tag'
+        %li
+          = label_tag :tag3, "Third tag", :class => 'hidden'
+          = text_field_tag :tag3, params[:tag3], :placeholder => 'Third tag'
         %li.buttons
           = f.button :submit, "Invite", class: 'btn primary large'
     %section#invitation_contacts

@@ -13,6 +13,9 @@ class Users::InvitationsController < Devise::InvitationsController
 
   # POST /resource/invitation
   def create
+    params[:user][:tag_names] = [params[:tag1].presence,
+      params[:tag2].presence, params[:tag3].presence].compact
+
     self.resource = build_resource(params[resource_name])
     resource.valid?
     resource.errors.add(:tag_names, 'Please add tags') if resource.tag_names.blank?
@@ -30,13 +33,10 @@ class Users::InvitationsController < Devise::InvitationsController
         user_tag.tagger = current_inviter
         current_inviter.add_vote(user_tag, false) if user_tag.save
       end
-      resource.tag_names = nil
-      resource.email = nil
-      respond_with_navigational(resource) { render :new }
-
+      redirect_to new_user_invitation_path
     else
-      if resource.errors[:email]
-        if params[resource_name] && !params[resource_name][:email].blank?
+      if resource.errors[:email].present?
+        if params[resource_name] && params[resource_name][:email].present?
           resource.errors[:email].clear
           resource.errors[:email] = "A user with this email has already been invited or registered"
         end
