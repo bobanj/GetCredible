@@ -7,7 +7,8 @@
       = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:multipart => true, :method => :put }) do |f|
         %h1 Edit Profile
         %ul.inputs-list.left
-          %li.username
+          %li.username.inner-tag
+            %label Username
             %span http://givebrand.to/
             = f.input :username, :wrapper => false, :label => false
           %li= f.input :avatar, :as => :file, :wrapper => false
@@ -16,7 +17,8 @@
           %li= f.input :job_title, :wrapper => false
           %li= f.input :location, :wrapper => false
           %li= f.input :personal_url, :wrapper => false, :label => 'Website'
-          %li.twitter
+          %li.twitter.inner-tag
+            %label Twitter
             %span @
             = f.input :twitter_handle, :wrapper => false, :label => false
           %li.buttons= f.button :submit, "Save", class: 'btn primary large'

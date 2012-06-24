@@ -297,17 +297,25 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
 }
 
 // Move the URL inside the Input
-.url {
+.inner-tag {
   position: relative;
   span {
     font-size: 12px;
-    left: 29px;
+    left: 9px;
     position: absolute;
-    top: 24px;
+    top: 25px;
   }
-  input {
-    padding-left: 77px;
-    width: 137px;
+  &.username { 
+    input {
+      padding-left: 118px;
+      width: 186px !important;
+    }
+  }
+  &.twitter {
+    input {
+      padding-left: 20px;
+      width: 284px !important;
+    }
   }
 }
 
