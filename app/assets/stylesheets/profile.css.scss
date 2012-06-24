@@ -17,9 +17,14 @@
     //margin-left: -170px;
     margin-right: 20px;
 
-    a { padding: 8px; }
+    img {
+      display: block;
+      padding: 8px;
+      background: #fff;
+      float: left;
+      @include box-shadow(rgba($black, 0.07) 0px 1px 2px);
+    }
   }
-
 
   .details, .actions { float: left;  }
 

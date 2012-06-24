@@ -232,18 +232,6 @@ input, textarea {
   }
 }
 
-// General style for profile photo
-
-.photo a {
-  background: #fff;
-  float: left;
-  @include box-shadow(rgba($black, 0.07) 0px 1px 2px);
-
-  img {
-    display: block;
-  }
-
-}
 
 // Icons
 
