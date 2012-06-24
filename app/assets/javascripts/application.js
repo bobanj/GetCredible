@@ -267,7 +267,7 @@ $(function () {
     $.getCredible.updateQtipContentData = function (word) {
         var rank = word.data('rank') ? '#' + word.data('rank') : 'N/A';
         var voucheUnvouche = word.hasClass('vouche') ? 'Unvouche' : 'Vouche';
-        var voucheUnvoucheClass = word.hasClass('vouche') ? 'pink' : 'green';
+        var voucheUnvoucheClass = word.hasClass('vouche') ? 'btn primary red tiny' : 'btn primary green tiny';
         var qtipContent = '<div class="tag-wrap">' +
             '<div class="tag-score">' +
             '<p class="tag-title">score</p>' +
@@ -281,7 +281,7 @@ $(function () {
             '<p>' + word.data('voters') + '</p>' +
             '</div>';
         if ($.getCredible.tagCloud.data('can-vote')) {
-            qtipContent = qtipContent + '<div><a href="#" class="tag-vote button '+ voucheUnvoucheClass +'">' + voucheUnvouche + '</a></div>'
+            qtipContent = qtipContent + '<div class="tag-action"><a href="#" class="tag-vote button '+ voucheUnvoucheClass +'">' + voucheUnvouche + '</a></div>'
         }
         qtipContent = qtipContent + '</div>';
         word.data('qtip-content', qtipContent);

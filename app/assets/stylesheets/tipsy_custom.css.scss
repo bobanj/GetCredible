@@ -93,7 +93,7 @@
   p {
     font-size: 11px;
     line-height: 1.2;
-    margin: 9px 0 2px;
+    margin: 3px 0 2px;
     padding: 0;
   }
 }
@@ -109,6 +109,13 @@
   right: 0;
   top: 0;
   width: 100%;
+}
+
+.tag-action {
+  bottom: -83px;;
+  position: absolute;
+  right: 8px;
+  z-index: 100;
 }
 
 // Profile guide tipsy
