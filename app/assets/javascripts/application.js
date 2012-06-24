@@ -377,14 +377,14 @@ $(function () {
                         layout:'center',
                         type:'alert',
                         buttons:[
-                            {type:'button green', text:'Ok', click:function () {
+                            {type:'btn primary medium', text:'Ok', click:function () {
                                 if ($.getCredible.tagCloud.data('can-delete')) {
                                     $.post($.getCredible.tagCloudPath + '/' + word.data('user-tag-id'), { _method:'delete' }, function (data) {
                                         $.getCredible.renderTagCloud(data);
                                     });
                                 }
                             } },
-                            {type:'button orange', text:'Cancel', click:function () {
+                            {type:'btn primary medium red', text:'Cancel', click:function () {
 
                             } }
                         ],

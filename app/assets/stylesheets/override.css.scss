@@ -10,8 +10,13 @@ ul.noty_container {
 }
 .noty_bar .noty_message {
   padding: 5px 0px;
+  width: 100%;
 }
-
+.noty_bar .noty_message .noty_buttons {
+  float: none;
+  margin-left: 0;
+  margin-top: 10px;
+}
 .noty_bar.success {
   background: #fff;
   border: 1px solid $green;
@@ -36,12 +41,16 @@ ul.noty_container {
   @include border-radius(1px);
   @include box-shadow(rgba(0, 0, 0, 0.1) 0 0 2px);
 }
-
+.noty_bar.center {
+  background: $blue;
+  left: 50% !important;
+  margin-left: -100px;
+}
 .noty_text {
-  margin: 0 20px 0 15px;
-  font-weight: bold;
-  font-size: 11px;
-  line-height: 1.4;
+  color: #fff;
+  font: bold 18px/1.4 gnuolane, futura-pt, open-sans, sans-serif;
+  margin: 10px 20px 10px 15px;
+  @include text-shadow(rgba(0, 0, 0, 0.3) 0 1px 1px);
 }
 
 li.token-input-token-facebook {
