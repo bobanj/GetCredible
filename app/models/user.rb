@@ -31,6 +31,13 @@ class User < ActiveRecord::Base
   has_many :voters, :through => :user_tags, :uniq => true
   has_many :twitter_contacts, :dependent => :destroy
 
+  # Friendships
+  has_many :friendships, :foreign_key => :follower_id, :dependent => :destroy
+  has_many :reverse_friendships, :foreign_key => :followed_id,
+              :class_name => 'Friendship', :dependent => :destroy
+  has_many :followings, :through => :friendships, :source => :followed
+  has_many :followers, :through => :reverse_friendships, :source => :follower
+
   # Validations
   validates :username, :presence => true,
                :format => { with: /^\w+$/,
@@ -47,6 +54,9 @@ class User < ActiveRecord::Base
 
   # Scopes
   scope :none, where("1 = 0")
+  scope :active, where('invitation_token IS NULL')
+  scope :inactive, where('invitation_token IS NOT NULL')
+  scope :order_by_invitation_time, order("invitation_sent_at desc")
 
   def profile_complete_percent
     empty_count = 0
@@ -71,6 +81,10 @@ class User < ActiveRecord::Base
 
   def friends
     voted_users & voters
+  end
+
+  def active?
+    invitation_token.blank?
   end
 
   def get_rank(rates, user)
@@ -99,8 +113,8 @@ class User < ActiveRecord::Base
     user_tags.joins(:votes).where('votes.voter_id = ?', other_user.id).exists?
   end
 
-  def add_tags(user, tag_names)
-    UserTag.add_tags(self, user, tag_names)
+  def add_tags(user, tag_names, options = {})
+    UserTag.add_tags(self, user, tag_names, options)
   end
 
   def add_vote(user_tag, log_vote_activity = true)
@@ -166,6 +180,14 @@ class User < ActiveRecord::Base
     self.save(validate: false)
   end
 
+  def disconnect_from_twitter!
+    twitter_contacts.destroy_all
+    self.twitter_token  = nil
+    self.twitter_secret = nil
+    self.twitter_id     = nil
+    self.save(validate: false)
+  end
+
   def to_param
     username
   end
@@ -207,6 +229,10 @@ class User < ActiveRecord::Base
     else
       where(conditions).first
     end
+  end
+
+  def self.invited_by(user)
+    where(:invited_by_id => user.id).inactive.order_by_invitation_time
   end
 
   private

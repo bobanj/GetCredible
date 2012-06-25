@@ -1,12 +1,13 @@
 class Gbrand::Twitter::Importer
 
-  attr_accessor :current_user, :client, :contacts
+  attr_accessor :current_user, :client, :users
 
   def self.import(current_user, client)
-    # change current_user's twitter_handle in case he's logged in with other user
-    current_user.update_attribute(:twitter_handle, client.current_user.screen_name)
+    current_user.twitter_handle = client.current_user.screen_name
+    current_user.twitter_id = client.current_user.id
+    current_user.save(validate: false)
 
-    # fetch contacts
+    # fetch users
     importer = new(current_user, client)
     importer.fetch
     importer.save
@@ -15,21 +16,25 @@ class Gbrand::Twitter::Importer
   def initialize(current_user, client)
     @current_user = current_user
     @client       = client
-    @contacts     = []
+    @users        = []
   end
 
   def fetch
     cursor = -1
 
     while cursor != 0 do
-      new_contacts = get_contacts(current_user.twitter_handle, cursor)
-      @contacts    += new_contacts.users
-      cursor       = new_contacts.next_cursor
+      new_users = get_contacts(current_user.twitter_handle, cursor)
+      @users    += new_users.users
+      cursor    = new_users.next_cursor
     end
   end
 
   def save
-    contacts.each { |contact| create_twitter_contact(contact) }
+    users.each do |user|
+      unless current_user.followings.exists?(twitter_id: user.id)
+        create_twitter_contact(user)
+      end
+    end
   end
 
   private

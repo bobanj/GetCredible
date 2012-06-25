@@ -496,7 +496,7 @@ $(function (){
     });
   });
 
-  $('#page').delegate('.js-remote', 'click', function (event){
+  $('body').delegate('.js-remote', 'click', function (event){
     $.ajax({
       url:$(this).attr('href'),
       success:function (data){
@@ -743,15 +743,63 @@ $(function (){
       $('#js-twitter-screen-name').val(twitterUsername);
       $('#js-twitter-message').val(defaultMessage);
       $("#js-twitter-invite-title").text("Send direct message to @" + twitterUsername);
-      $("#js-twitter-invite-header").text("Ask @" + twitterUsername + ' to brand you');
+      $("#js-twitter-invite-header").text("Invite and brand @" + twitterUsername);
       $.getCredible.twitterQtipApi.set('content.text', $('#twitter_invite'));
       $.getCredible.twitterQtipApi.show();
     });
 
-    $('#js-twitter-dm-form').submit(function (e){
-      $('#loading').show();
+    $('#js-twitter-dm-form').live('submit', function (e) {
+      $(this).find('.loading').show();
     });
   };
+
+
+  $.getCredible.emailInvite = function () {
+    $.getCredible.emailQtipApi = $('<div />').qtip({
+        content:{
+            id:'twitter_invite_modal',
+            text: ' ',
+            title:{
+                text: ' ',
+                button:true
+            }
+        },
+        position:{
+            my:'center', // ...at the center of the viewport
+            at:'center',
+            target: $(window)
+        },
+        show:{
+            ready: false,
+            solo: true, // ...and hide all other tooltips...
+            event: 'click',
+            modal:{
+                on:true,
+                blur:false,
+                escape:true
+            }
+        },
+        hide:false,
+        style: { classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded ui-tooltip-twitter' }
+    }).click(function (event) {
+        event.preventDefault();
+        return false;
+    }).qtip('api');
+
+    var defaultMessage = $('#js-twitter-contacts-list').data('message')
+
+    $('#content').delegate('.email_button', 'click', function (e) {
+      console.log($('#email_invite'));
+        e.preventDefault();
+        $.getCredible.emailQtipApi.set('content.text', $('#email_invite'));
+        $.getCredible.emailQtipApi.show();
+    });
+
+    $('#js-email-invitation-form').live('submit', function (e) {
+      $(this).find('.loading').show();
+    });
+  };
+
 
   $.getCredible.loginQtip = function (){
     $.getCredible.loginQtipApi = $('<div />').qtip({
@@ -814,6 +862,7 @@ $(function (){
   $.getCredible.init();
   $.getCredible.updateTagCloud();
   $.getCredible.twitterInvite();
+  $.getCredible.emailInvite();
   $.getCredible.loginQtip();
   $.getCredible.guide();
 })

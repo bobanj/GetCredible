@@ -44,6 +44,10 @@ describe User do
     it { should have_many(:voted_users).through(:votes) }
     it { should have_many(:voters).through(:user_tags) }
     it { should have_many(:twitter_contacts).dependent(:destroy) }
+    it { should have_many(:friendships).dependent(:destroy) }
+    it { should have_many(:reverse_friendships).dependent(:destroy) }
+    it { should have_many(:followings) }
+    it { should have_many(:followers) }
   end
 
   describe "Validations" do

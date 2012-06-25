@@ -57,7 +57,7 @@
     border-bottom: 1px solid #eee;
     font: bold 12px open-sans, sans-serif;
     padding: 10px 25px;
-    span {
+    span.status {
       float: right;
       font-weight: normal;
     }
@@ -100,15 +100,15 @@
   }
 }
 
-#twitter_invite_wrap {
+.invite_wrap {
   padding: 0 25px;
   h1 {
     margin-bottom: 0;
   }
 }
 
-#twitter_invite {
- position: relative;
+.invite_dialog {
+  position: relative;
 }
 
 .twitter_contact {
@@ -116,7 +116,7 @@
   margin-top: 10px;
 }
 
-#loading {
+.loading {
   background: rgba(0, 0, 0, 0.2) url(image_path('ajax_loader.gif')) no-repeat center;
   bottom: 0;
   height: 100%;

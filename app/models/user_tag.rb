@@ -27,7 +27,7 @@ class UserTag < ActiveRecord::Base
     self.outgoing.value = calculate_outgoing
   end
 
-  def self.add_tags(tagger, user, tag_names)
+  def self.add_tags(tagger, user, tag_names, options = {})
     user_tags = user.user_tags
     new_tags  = []
 
@@ -50,8 +50,11 @@ class UserTag < ActiveRecord::Base
         tagger != user ? tagger.add_vote(user_tag, false) : user_tag.update_counters
       end
     end
-    # email user with the new tags
-    UserMailer.tag_email(tagger, user, new_tags).deliver if new_tags.present? && tagger != user
+
+    unless options[:skip_email]
+      # email user with the new tags
+      UserMailer.tag_email(tagger, user, new_tags).deliver if new_tags.present? && tagger != user
+    end
   end
 
   private

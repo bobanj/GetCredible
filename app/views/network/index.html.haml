@@ -1,48 +1,35 @@
--# #loading{style: "display: none"} loading...
-#twitter_invite{style: "display: none;", title: ""}
-  %p.note#js-twitter-invite-title
-  #twitter_invite_wrap
-    #page-header
-      %h1#js-twitter-invite-header
-    = form_tag twitter_messages_path, remote: true, id: 'js-twitter-dm-form' do
-      = hidden_field_tag :twitter_id, "", :id => 'js-twitter-id', :readonly => true
-      = hidden_field_tag :screen_name, "", :id => 'js-twitter-screen-name', :readonly => true
-      %p= text_area_tag :message, "", :id => 'js-twitter-message'
-      %p
-        = submit_tag :send_dm, value: "Send Direct Message", :class => "btn primary large"
-        #loading{style: "display: none"} loading...
-
-
 #content
-  %section#twitter_contacts
+  %section#twitter_contacts.content
     %header#page-header
 
       %h1 Your Network
-      %ul.horizontal.right
-        - if user_signed_in?
-          %li= link_to "Invite by email", new_user_invitation_path, :class => "btn primary small"
 
-    .search_twitter_contacts
-      = form_tag network_path, :class => "left", remote: true, method: :get do
-        %p
-          = text_field_tag :q, params[:q]
-          = submit_tag :search, value: "Search", name: nil
-      %ul.horizontal.right
-        - if @contacts.empty?
-          %li= link_to "Twitter Import", twitter_contacts_path, :class => "btn primary small light"
-        - else
-          %li= link_to "Re-Import", twitter_contacts_path, :class => "btn primary small light"
-          %li= link_to "Disconnect", twitter_session_path, :confirm => "Are you sure", :method => :delete, :class => "btn primary small light"
+      %nav.right
+        %ul.tabs
+          %li.first{:class => network_active_class('index')}
+            = link_to 'Pending', network_path, :class => 'js-remote'
+          %li{:class => network_active_class('tagged')}
+            = link_to 'Tagged', network_tagged_path, :class => 'js-remote'
+          %li.last{:class => network_active_class('tagged_you')}
+            = link_to 'Tagged You', network_tagged_you_path, :class => 'js-remote'
 
-    %hr.divider
-    #js-twitter-contacts-list.twitter-contacts-list{:"data-message" => "Help boost my influence at givebrand.to! #{me_user_url(current_user)}"}
-      - if @contacts.empty?
-        .ngo
-          %p
-            = link_to "Import your Twitter friends", twitter_contacts_path
-            , then send them a direct message to help you boost your influence at GiveBrand.
-      - else
-        = render 'contacts', :contacts => @contacts, :users => @users
+      = link_to "Invite", network_invite_path, :class => "btn primary small"
+
+
+  #invitation_content
+    %section#invitation_contacts.twitter-contacts-list
+      %ul
+        - @users.each do |user|
+          %li
+            - if user.active?
+              = image_tag user.avatar_url(:medium)
+              %span.name= link_to user.name, me_user_path(user)
+
+            - else
+              = user.name.presence || user.email
+              %span.status
+
+    = will_paginate @users
 
 %aside
   = render 'shared/sidebar_nav'

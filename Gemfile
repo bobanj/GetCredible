@@ -49,7 +49,7 @@ group :development do
   gem 'libnotify',  :require => RUBY_PLATFORM.include?('linux')   && 'rb-inotify'
   gem 'rails3-generators'
   gem 'quiet_assets'
-  # gem 'thin'
+  gem 'thin'
   # gem 'rb-readline'
   # gem 'awesome_print'
   # gem 'hirb'

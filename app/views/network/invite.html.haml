@@ -1,0 +1,33 @@
+= render 'twitter_invite'
+= render 'email_invite'
+
+#content
+  %section#twitter_contacts
+    %header#page-header
+
+      %h1 Your Network
+      %ul.horizontal.right
+        - if current_user.twitter_id.blank?
+          %li= link_to "Find your Twitter friends", twitter_contacts_path, :class => "btn primary small light"
+        %li= link_to "Invite by email", new_user_invitation_path, :class => "btn primary small email_button"
+
+    - if @contacts.present?
+      .search_twitter_contacts
+        = form_tag network_invite_path, :class => "left", remote: true, method: :get do
+          %p
+            = text_field_tag :q, params[:q]
+            = submit_tag :search, value: "Search", name: nil
+        %ul.horizontal.right
+          %li= link_to "Refresh Twitter Friends", twitter_contacts_path, :class => "btn primary small light"
+          %li= link_to "Disconnect from Twitter", twitter_session_path, :confirm => "Are you sure", :method => :delete, :class => "btn primary small light"
+
+    %hr.divider
+    #js-twitter-contacts-list.twitter-contacts-list{:"data-message" => "Help boost my influence at givebrand.to!"}
+      - if current_user.twitter_id.blank?
+        .ngo
+          %p== #{link_to "Find your Twitter friends", twitter_contacts_path} and invite them with private message.
+      - else
+        = render 'contacts', :contacts => @contacts, :users => @users
+
+%aside
+  = render 'shared/sidebar_nav'
