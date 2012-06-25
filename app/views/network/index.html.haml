@@ -20,7 +20,7 @@
       %h1 Your Network
       %ul.horizontal.right
         - if user_signed_in?
-          %li= link_to "Send Personal Invites", new_user_invitation_path, :class => "btn primary small"
+          %li= link_to "Invite by email", new_user_invitation_path, :class => "btn primary small"
 
     .search_twitter_contacts
       = form_tag network_path, :class => "left", remote: true, method: :get do
