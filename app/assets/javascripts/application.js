@@ -228,10 +228,10 @@ $(function (){
         weight:parseInt((userTag.score - distributionOptions.min) / distributionOptions.divisor),
         dataAttributes:{ score:userTag.score, 'user-tag-id':userTag.id,
           rank:userTag.rank, total:userTag.total, tagged:userTag.tagged,
-          voters:voters.join(''), voters_count:userTag.voters_count},
-        handlers:{click:function (){
-          $.getCredible.vote(this);
-        }}
+          voters:voters.join(''), voters_count:userTag.voters_count}
+        //handlers:{click:function (){
+        //  $.getCredible.vote(this);
+        //}}
       });
     });
     return wordList;
