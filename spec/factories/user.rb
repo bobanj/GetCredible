@@ -4,6 +4,6 @@ FactoryGirl.define do
     user.password 'password'
     user.sequence(:username) { |i| "user#{i}" }
     user.full_name 'Pink Panter'
-    user.job_title 'Actor'
+    user.short_bio 'Actor, Ninja, Dish Washer, Fighter'
   end
 end

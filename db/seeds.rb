@@ -15,7 +15,7 @@ usernames.each do |username|
     user = User.create :email => email,
                        :username => username,
                        :full_name => "Tester Uzumaki #{username}",
-                       :job_title => "Ninja",
+                       :short_bio => "Ninja",
                        :password => password,
                        :password_confirmation => password
     user.save!

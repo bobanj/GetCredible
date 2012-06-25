@@ -31,6 +31,7 @@
   .details {
     //margin-left: 170px;
     width: 100%;
+
   }
 
   .actions {
@@ -53,9 +54,11 @@
 
   h2 {
     color: #888;
-    font: normal 15px/1.6 "open-sans", arial, sans-serif;
+    font: normal 13px/1.4 "open-sans", arial, sans-serif;
     margin-bottom: $baseline;
     margin-right: 20px;
+    overflow: hidden;
+    word-wrap: break-word;
   }
   .left {
     width: 70%;
@@ -102,6 +105,13 @@
   .inputs-list {
     margin-top: 5px;
     padding-left: 0;
+    .hint{
+      margin-left: 0px;
+    }
+    .short_bio{
+      width: 310px;
+      height: 70px;
+    }
   }
 
   &.edit {

@@ -16,7 +16,7 @@ describe User do
     it { should allow_mass_assignment_of(:remember_me) }
     it { should allow_mass_assignment_of(:username) }
     it { should allow_mass_assignment_of(:full_name) }
-    it { should allow_mass_assignment_of(:job_title) }
+    it { should allow_mass_assignment_of(:short_bio) }
     it { should allow_mass_assignment_of(:location) }
     it { should allow_mass_assignment_of(:personal_url) }
     it { should allow_mass_assignment_of(:twitter_handle) }
@@ -28,7 +28,7 @@ describe User do
     it { should have_db_column(:reset_password_token) }
     it { should have_db_column(:username).of_type(:string) }
     it { should have_db_column(:full_name).of_type(:string) }
-    it { should have_db_column(:job_title).of_type(:string) }
+    it { should have_db_column(:short_bio).of_type(:string) }
     it { should have_db_column(:location).of_type(:string) }
     it { should have_db_column(:twitter_handle).of_type(:string) }
     it { should have_db_column(:personal_url).of_type(:string) }
@@ -51,6 +51,7 @@ describe User do
     it { should validate_presence_of(:username) }
     it { should validate_uniqueness_of(:username) }
     it { should ensure_length_of(:username).is_at_least(3) }
+    it { should ensure_length_of(:short_bio).is_at_most(200) }
 
     it "validates format of username" do
       user = FactoryGirl.build(:user, username: 'invalid username')

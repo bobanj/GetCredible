@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 
   # Attributes
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-    :username, :full_name, :job_title, :location, :twitter_handle,
+    :username, :full_name, :short_bio, :location, :twitter_handle,
     :personal_url, :avatar, :avatar_cache, :tag_names
 
   attr_accessor :tag_names
@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
                :uniqueness => true
   validates :personal_url, :url_format => true, :allow_blank => true
   validate :username_is_not_a_route
+  validates :short_bio, :length => {:maximum => 200}
 
   # Callbacks
   before_validation :add_protocol_to_personal_url

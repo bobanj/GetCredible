@@ -22,6 +22,7 @@
 //= require jquery.qtip
 //= require jquery-progress-bubbles
 //= require jquery.remotipart
+//= require jquery.limit-1.2.source
 
 Array.prototype.unique = function () {
     var o = {}, i, l = this.length, r = [];
@@ -777,6 +778,12 @@ $(function () {
       }
       $.getCredible.updateTagCloud();
     });
+
+    var shortBioTextarea = $('#user_short_bio');
+    if(shortBioTextarea.length > 0){
+      shortBioTextarea.limit('200',$("#short_bio_word_counter"));
+    }
+
 
     $.getCredible.showFlashMessages();
     $.getCredible.ajaxPagination();

@@ -14,7 +14,12 @@
           %li= f.input :avatar, :as => :file, :wrapper => false
           %li= f.hidden_field :avatar_cache
           %li= f.input :full_name, :wrapper => false
-          %li= f.input :job_title, :wrapper => false
+          %li
+            = f.input :short_bio, :as => :text, :wrapper => false, :input_html => {:class => 'short_bio'}
+            %span.hint
+              About you in less than
+              %span#short_bio_word_counter 200
+              characters.
           %li= f.input :location, :wrapper => false
           %li= f.input :personal_url, :wrapper => false, :label => 'Website'
           %li.twitter.inner-tag
