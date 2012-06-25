@@ -10,9 +10,7 @@
   p, a, span, li {
     font-family: "open-sans", arial, sans-serif;
   }
-  
   .photo {
-
     float: left;
     //margin-left: -170px;
     margin-right: 20px;
@@ -24,14 +22,24 @@
       float: left;
       @include box-shadow(rgba($black, 0.07) 0px 1px 2px);
     }
-  }
 
+  }
   .details, .actions { float: left;  }
 
   .details {
     //margin-left: 170px;
     width: 100%;
+    position: relative;
+  }
 
+  #user_edit_avatar_loading{
+    position: absolute;
+    top: 55px;
+    left: -95px;
+    background: transparent;
+    img{
+      background: transparent;
+    }
   }
 
   .actions {

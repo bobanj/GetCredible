@@ -4,8 +4,12 @@ $.getCredible.displayNotification('error', '<%= escape_javascript current_user.f
 
 <% if @remotipart %>
 
-if($("#user_avatar_form .loading").length > 0){
-  $("#user_avatar_form .loading").hide();
+if($("#user_avatar_guide_form .loading").length > 0){
+  $("#user_avatar_guide_form .loading").hide();
+}
+
+if($("#user_edit_avatar_loading").length > 0){
+  $("#user_edit_avatar_loading").hide();
 }
 
 if($("#user_avatar_main").length > 0){

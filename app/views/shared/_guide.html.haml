@@ -13,7 +13,7 @@
 
       %li#step_1
         %h1 Personal Information
-        = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :remote => true, :html => {:id => 'user_avatar_form', :multipart => true, :method => :put }) do |f|
+        = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :remote => true, :html => {:id => 'user_avatar_guide_form', :multipart => true, :method => :put }) do |f|
           .avatar
             = f.input :avatar, :as => :file, :wrapper => false, :input_html => {:id => "user_avatar_file"}
             = f.hidden_field :avatar_cache
