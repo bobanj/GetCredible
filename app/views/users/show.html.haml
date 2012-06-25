@@ -56,9 +56,9 @@
     %li
       .fb-like{"data-href" => me_user_url(@user), "data-layout" => "box_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "56"}
     %li
-      %g:plusone{:href => me_user_url(@user), :size => "tall"}
-    %li
       %script{"data-counter" => "top", "data-url" => me_user_url(@user), :type => "IN/Share"}
+    -#%li
+    -#  %g:plusone{:href => me_user_url(@user), :size => "tall"}
     -# %li
     -#   %a.pin-it-button{"count-layout" => "vertical", :href => "http://pinterest.com/pin/create/button/?url=#{u(me_user_url(@user))}&media=#{request.protocol}#{request.host_with_port}#{asset_path("logo.png")}&description=Description"}
     -#     %img{:border => "0", :src => "//assets.pinterest.com/images/PinExt.png", :title => "Pin It"}/
