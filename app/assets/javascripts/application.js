@@ -337,8 +337,8 @@ $(function (){
               position:{
                 target:'event', // Use the triggering element as the positioning target
                 effect:false, // Disable default 'slide' positioning animation
-                my:'bottom left',
-                at:'top center'
+                my:'center left',
+                at:'center right'
               },
               show:{
                 target:words
