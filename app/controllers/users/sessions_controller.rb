@@ -4,6 +4,7 @@ class Users::SessionsController < Devise::SessionsController
     respond_to do |format|
       format.html do
         super
+        flash.delete(:notice)
       end
       format.json do
         resource = warden.authenticate!(:scope => resource_name,
@@ -17,5 +18,10 @@ class Users::SessionsController < Devise::SessionsController
   def failure
     render :json => { :success => false,
                       :errors => ["Invalid email or password."] }
+  end
+
+  def destroy
+    super
+    flash.delete(:notice)
   end
 end
