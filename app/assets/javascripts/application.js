@@ -63,7 +63,9 @@ $(function (){
   };
 
   $.getCredible = {};
-
+  $.getCredible.guide = {
+    isUpdating: false
+  }
   $.getCredible.guideVideoId = 'He_PWsJqsVY';
 
   $.getCredible.displayNotification = function (type, text){
@@ -588,6 +590,15 @@ $(function (){
         events:{
           render:function (event, api){
             // Step 1 is handled with update.js.erb
+            $("#step_1_form").submit(function(e){
+              if($.getCredible.guide.isUpdating){
+                e.preventDefault();
+                return false;
+              } else {
+                $.getCredible.guide.isUpdating = true;
+              }
+            });
+
             $("#user_avatar_file").change(function (){
               $("#user_avatar_guide_form .loading").show();
               $("#user_avatar_guide_form").submit();
@@ -623,40 +634,45 @@ $(function (){
 
             $("#step_2 form").submit(function (e){
               e.preventDefault();
-              var form = $(this);
-              var tagOne = $("#tag_1");
-              var tagTwo = $("#tag_2");
-              var tagThree = $("#tag_3");
-              var step2TagNames = $("#step_2_tags");
-              var skipStep2 = function (){
-                $("#step_2").hide('fast', function (){
-                  $('#bubbles').progressBubbles('progress');
-                  $("#step_3").show('fast');
-                });
-              }
-              if (tagOne.val() != '' || tagTwo.val() != '' || tagThree.val() != ''){
-                var tagNames = [];
-                if (tagOne.val() != ''){
-                  tagNames.push(tagOne.val());
-                }
-                if (tagOne.val() != ''){
-                  tagNames.push(tagTwo.val());
-                }
-                if (tagOne.val() != ''){
-                  tagNames.push(tagThree.val());
-                }
-                step2TagNames.val(tagNames.join(','));
-                $.post(form.data('tags-path'),
-                    form.serialize(), function (data){
-                      $.getCredible.displayNotification('success', 'You have tagged yourself with ' + step2TagNames.val());
-                      if ($.getCredible.tagCloud.length > 0){
-                        $.getCredible.renderTagCloud(data);
-                      }
-                      skipStep2();
-                    });
+              if ($.getCredible.guide.isUpdating){
+                return false;
               } else{
-                skipStep2();
-                //$.getCredible.displayNotification('error', 'Please add tags');
+                $.getCredible.guide.isUpdating = true;
+                var form = $(this);
+                var tagOne = $("#tag_1");
+                var tagTwo = $("#tag_2");
+                var tagThree = $("#tag_3");
+                var step2TagNames = $("#step_2_tags");
+                var skipStep2 = function (){
+                  $("#step_2").hide('fast', function (){
+                    $('#bubbles').progressBubbles('progress');
+                    $("#step_3").show('fast');
+                  });
+                }
+                if (tagOne.val() != '' || tagTwo.val() != '' || tagThree.val() != ''){
+                  var tagNames = [];
+                  if (tagOne.val() != ''){
+                    tagNames.push(tagOne.val());
+                  }
+                  if (tagOne.val() != ''){
+                    tagNames.push(tagTwo.val());
+                  }
+                  if (tagOne.val() != ''){
+                    tagNames.push(tagThree.val());
+                  }
+                  step2TagNames.val(tagNames.join(','));
+                  $.post(form.data('tags-path'),
+                      form.serialize(), function (data){
+                        $.getCredible.displayNotification('success', 'You have tagged yourself with ' + step2TagNames.val());
+                        if ($.getCredible.tagCloud.length > 0){
+                          $.getCredible.renderTagCloud(data);
+                        }
+                        skipStep2();
+                      });
+                } else{
+                  skipStep2();
+                  //$.getCredible.displayNotification('error', 'Please add tags');
+                }
               }
               return false;
             });
