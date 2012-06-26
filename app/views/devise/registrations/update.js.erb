@@ -1,5 +1,6 @@
+$.getCredible.guide.isUpdating = false;
 <% if current_user.errors.any? %>
-$.getCredible.displayNotification('error', '<%= escape_javascript current_user.full_messages.first %>');
+$.getCredible.displayNotification('error', '<%= @message %>');
 <% else %>
 
 <% if @remotipart %>

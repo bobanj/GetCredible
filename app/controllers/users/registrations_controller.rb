@@ -62,12 +62,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
           render "edit"
         end
         format.js {
-          @message = current_user.errors.full_messages.first
-          @current_step = params[:current_step]
-          @next_step = params[:next_step]
-          #if remotipart_submitted?
-            render :layout => false, :status => :unprocessable_entity
-          #end
+          if remotipart_submitted?
+            @remotipart = true
+          else
+            @remotipart = false
+            @message = current_user.errors.full_messages.first
+          end
         }
         format.json do
           render :json => {:status => 'error', :messages => current_user.errors.full_messages}
