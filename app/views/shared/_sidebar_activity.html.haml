@@ -1,8 +1,10 @@
-- activities = user.all_activities({:page => 1, :per_page => 10})
+- activities = user.all_activities({:page => 1, :per_page => 7})
 - preload_associations(activities)
 
 .sidebar-item#latest-activity
-  %h2== #{user_short(user)} Activity
+  %h2
+    == #{user_short(user)} Activity
+    .view-all= link_to "View More", "#"
   %ul.list-view.unstyled
     - if activities.present?
       - activities.each do |activity_item|

@@ -24,7 +24,7 @@
 
   .edit-area
     - if user_signed_in? && @user == current_user
-      = link_to 'Edit', '#', id: 'edit_tag_cloud', :class => 'edit-button btn primary small light'
+      = link_to 'Edit', '#', id: 'edit_tag_cloud', :class => 'edit-button'
     %div{:id => 'tag-cloud',
          "data-tag-cloud-path" => user_user_tags_path(@user),
                     :"data-user-name" => @user.username.to_s,

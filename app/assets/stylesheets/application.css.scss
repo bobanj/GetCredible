@@ -399,18 +399,20 @@ aside .sidebar-item {
   }
 }
 .sidebar-item {
-  padding: 20px 0 !important;
+  padding: 15px 0 !important;
   h2 {
-    font: 18px "gnuolane", impact, sans-serif;
+    font: bold 20px/2 "gnuolane", impact, sans-serif;
     letter-spacing: 0.5px;
-    padding: 0 20px;
+    margin-bottom: 0;
+    padding: 0 0 0 25px;
   }
   li {
     border-bottom: none;
     border-top: 1px solid #ddd;
+    font: 11px/1 open-sans, Arial, sans-serif;
     line-height: 18px;
     margin-bottom: 0;
-    padding: 5px 10px 7px 20px;
+    padding: 5px 10px 7px 25px;
     .tag-icon {
       left: auto;
       right: -11px;
@@ -448,6 +450,7 @@ body {
 -----------------------------------------------------------------------*/
 #page {
   @include grid-container;
+  @include pie-clearfix;
 }
 
 #global-header {
@@ -467,7 +470,10 @@ body {
 }
 
 aside {
-  width: 239px;
+  width: 260px !important;
+}
+#content {
+  width: 680px;
 }
 
 #main {
@@ -505,7 +511,11 @@ footer {
     padding: 0 25px;
   }
 }
-
+#latest-activity {
+  ul {
+    margin-bottom: 0;
+  }
+}
 #invite {
 
   #page-header {
@@ -725,14 +735,14 @@ footer {
   float: right !important;
   margin-top: 27px;
   padding-left: 10px;
-  width: 230px !important;
+  width: 250px !important;
   form {
     margin: 0 0 0 10px;
     background: #fff;
     border: 4px solid #eee;
     @include box-shadow(rgba($black, 0.2) 0px 1px 3px inset);
     @include border-radius(1px);
-    width: 215px;
+    width: 235px;
     @include clearfix;
   }
 
@@ -741,7 +751,7 @@ footer {
     @include text-shadow(#fff 0 1px 0);
     background: none;
     color: #888;
-    width: 165px;
+    width: 185px;
     border: 0 none;
     float: left;
     font-size: 12px;
@@ -768,6 +778,13 @@ footer {
   //background: rgba(255, 255, 255, 0.3);
   //@include box-shadow(0 1px 2px rgba(0, 0, 0, 0.03) inset);
   //@include border-radius(3px);
+  border-collapse: collapse; 
+  display: table;
+  #content, aside {
+    display: table-cell;
+    float: none;
+    vertical-align: top;
+  }
 }
 
 #content, .inner-page {
@@ -963,7 +980,7 @@ footer {
 
 aside {
   //background: darken($white, 2%);
-
+  
   #profile-nav {
 
     .photo {
@@ -995,7 +1012,7 @@ aside {
     }
     h3 {
       font-family: "gnuolane", impact, sans-serif;
-      font-size: 20px;
+      font-size: 24px;
       font-weight: bold;
       line-height: 1.3;
       padding-right: 15px;
@@ -1009,7 +1026,12 @@ aside {
     line-height: 20px;
     margin-bottom: 10px;
   }
-
+  .view-all {
+    border: none;
+    float: right;
+    font: 10px "open-sans", arial, sans-serif;
+    margin-top: 15px;
+  }
 }
 
 #invite-side, #import {

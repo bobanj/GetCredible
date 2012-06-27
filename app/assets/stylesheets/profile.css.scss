@@ -62,9 +62,10 @@
 
   h2 {
     color: #888;
-    font: normal 13px/1.4 "open-sans", arial, sans-serif;
+    font: normal 13px/1.5 "open-sans", arial, sans-serif;
+    margin-top: 5px;
     margin-bottom: $baseline;
-    margin-right: 20px;
+    margin-right: 30px;
     overflow: hidden;
     word-wrap: break-word;
   }
@@ -296,17 +297,24 @@ ul.social_fixed {
 #friend-nav {
   ul {
     list-style: none;
-    margin: 0;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    @include pie-clearfix;
   }
   li {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    //border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    display: inline;
+    float: left;
+    text-align: center;
+    width: 33%;
   }
   a {
     display: block;
-    font: 13px/2 open-sans, Arial, sans-serif;
-    padding-left: 30px;
+    font: 12px/1 open-sans, Arial, sans-serif;
+    padding: 10px 0;
     span {
-      font: bold 20px/2 "gnuolane", sans-serif;
+      display: block;
+      font: bold 24px/1.5 "gnuolane", sans-serif;
     }
     &:hover, &:focus {
       background: rgba(255, 255, 255, 0.4);
@@ -316,7 +324,7 @@ ul.social_fixed {
 }
 
 #popular-tags {
-  padding-top: 30px;
+  padding-top: 20px;
   h3 {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     font-family: "gnuolane", impact, sans-serif;
@@ -324,15 +332,19 @@ ul.social_fixed {
     font-weight: bold;
     line-height: 2;
     margin-bottom: 10px;
-    padding: 0 15px 0 30px;
+    padding: 0 0 0 25px;
     position: relative;
   }
-  a {
+  ul {
+    margin-bottom: 15px;
+    margin-left: 20px;
+  }
+  ul a {
     background: #fff;
     display: block;
-    font: 12px/2 open-sans, Arial, sans-serif;
+    font: 11px/2 open-sans, Arial, sans-serif;
     margin-bottom: 5px;
-    padding: 2px 10px;
+    padding: 1px 10px;
     position: relative;
     @include border-radius(5px);
     &:hover, &:focus {

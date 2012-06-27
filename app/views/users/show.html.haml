@@ -24,7 +24,7 @@
 #content
   %section#profile.edit-area
     - if user_signed_in? && current_user == @user
-      = link_to 'Edit', edit_user_registration_path, :class => 'edit-button btn primary small light'
+      = link_to 'Edit', edit_user_registration_path, :class => 'edit-button'
     .details
       .left
         - if user_signed_in? && @user == current_user

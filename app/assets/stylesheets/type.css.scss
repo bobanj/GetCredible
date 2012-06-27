@@ -220,20 +220,23 @@ pre {
 
 .edit-area {
   position: relative;
-  &:hover, &:focus {
-    .edit-button {
-      display: block;
-    }
-    .hidden {
-      display: none !important;
-    }
-  }
 }
 .edit-button {
-  display: none;
-  font: 14px "futura-pt", arial, sans-serif !important;
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  display: block;
+  font: 11px "open-sans", arial, sans-serif;
+  padding: 3px 7px;
   position: absolute;
   right: 20px;
   top: 20px;
   z-index: 10;
+  @include border-radius(2px);
+  @include transition(all .4s);
+  &:hover, &:focus {
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    color: #fff;
+    text-decoration: none;
+  }
 }
