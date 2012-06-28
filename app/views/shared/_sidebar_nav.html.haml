@@ -13,16 +13,16 @@
 %nav#friend-nav
   %ul
     %li
-      = link_to "" do
-        %span 137
-        Supporting
+      = link_to people_path do
+        %span= current_user.tagged.count
+        Tagged
     %li
-      = link_to "" do
-        %span 34
-        Supporters
+      = link_to people_tagged_you_path do
+        %span= current_user.tagged_you.count
+        Tagged You
     %li
-      = link_to "" do
-        %span 3
+      = link_to people_pending_path do
+        %span= current_user.pending.count
         Pending
 
 %nav#popular-tags

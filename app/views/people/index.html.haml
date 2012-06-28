@@ -6,12 +6,12 @@
 
       %nav.right
         %ul.tabs
-          %li.first{:class => people_active_class('index')}
-            = link_to 'Pending', people_path, :class => 'js-remote'
-          %li{:class => people_active_class('tagged')}
-            = link_to 'Tagged', people_tagged_path, :class => 'js-remote'
+          %li{:class => people_active_class('index')}
+            = link_to 'Tagged', people_path, :class => 'js-remote'
           %li.last{:class => people_active_class('tagged_you')}
             = link_to 'Tagged You', people_tagged_you_path, :class => 'js-remote'
+          %li.first{:class => people_active_class('pending')}
+            = link_to 'Pending', people_pending_path, :class => 'js-remote'
 
 
   #invitation_content

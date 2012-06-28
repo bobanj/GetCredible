@@ -2,21 +2,21 @@ class PeopleController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @users = User.invited_by(current_user).
-      paginate :per_page => 10, :page => params[:page]
-
-    render :index, layout: (request.xhr? ? false : true)
-  end
-
-  def tagged
-    @users = current_user.voted_users.active.
+    @users = current_user.tagged.
       paginate :per_page => 10, :page => params[:page]
     render :index, layout: (request.xhr? ? false : true)
   end
 
   def tagged_you
-    @users = current_user.voters.active.
+    @users = current_user.tagged_you.
       paginate :per_page => 10, :page => params[:page]
+    render :index, layout: (request.xhr? ? false : true)
+  end
+
+  def pending
+    @users = current_user.pending.
+      paginate :per_page => 10, :page => params[:page]
+
     render :index, layout: (request.xhr? ? false : true)
   end
 

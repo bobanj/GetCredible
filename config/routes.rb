@@ -2,9 +2,9 @@ GetCredible::Application.routes.draw do
 
   post "tags/search"
   get '/people' => 'people#index'
-  get '/people/invite' => 'people#invite'
-  get '/people/tagged' => 'people#tagged'
   get '/people/tagged_you' => 'people#tagged_you'
+  get '/people/pending' => 'people#pending'
+  get '/people/invite' => 'people#invite'
 
   devise_for :users, :controllers => {
     :sessions => "users/sessions",

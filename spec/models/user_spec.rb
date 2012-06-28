@@ -231,6 +231,13 @@ describe User do
       outgoing_activities[0].item.should == vote
       outgoing_activities[1].item.should == user_tag
     end
+
+    it "does not return activities for inactive users" do
+      invited = User.invite!({email: 'invited1@example.com', tag_names: ['tag1']}, tagger)
+      tagger.add_tags(invited, TagCleaner.clean(['tag1']), skip_email: true)
+
+      tagger.outgoing_activities.should be_empty
+    end
   end
 
   describe "#incoming_activities" do
@@ -278,6 +285,13 @@ describe User do
       all_activities.length.should == 2
       all_activities[0].item.should == user_tag
       all_activities[1].item.should == vote
+    end
+
+    it "does not return activities for inactive users" do
+      invited = User.invite!({email: 'invited1@example.com', tag_names: ['tag1']}, user)
+      user.add_tags(invited, TagCleaner.clean(['tag1']), skip_email: true)
+
+      user.all_activities.should be_empty
     end
   end
 

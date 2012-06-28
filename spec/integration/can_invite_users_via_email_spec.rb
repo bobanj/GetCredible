@@ -4,6 +4,8 @@ require_relative 'steps/app_steps'
 describe 'User', type: :request do
 
   it "can invite users via email", js: true do
+    reset_mailer
+
     user = FactoryGirl.create(:user, full_name: "Some Name")
     sign_in_user(user)
     click_link("Invite")

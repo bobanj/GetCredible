@@ -87,6 +87,18 @@ class User < ActiveRecord::Base
     invitation_token.blank?
   end
 
+  def tagged
+    voted_users.active
+  end
+
+  def tagged_you
+    voters.active
+  end
+
+  def pending
+    User.invited_by(self).inactive
+  end
+
   def get_rank(rates, user)
     rank = 1
 
@@ -149,20 +161,24 @@ class User < ActiveRecord::Base
   end
 
   def outgoing_activities
-    activity_items.order('created_at DESC')
+    activity_items.joins(:target).
+      where('users.invitation_token IS NULL').
+      order('created_at DESC')
   end
 
   def all_activities(params = {})
     ActivityItem.paginate_by_sql(["SELECT t.* FROM
                         (
                           SELECT activity_items.* FROM activity_items
+                          INNER JOIN users ON users.id = activity_items.target_id AND users.invitation_token IS NULL
                           WHERE activity_items.user_id = :id
                           UNION
                           SELECT activity_items.* FROM activity_items
+                          INNER JOIN users ON users.id = activity_items.target_id AND users.invitation_token IS NULL
                           WHERE activity_items.user_id IN (:user_ids)
                           UNION
-                          SELECT activity_items.*
-                          FROM activity_items
+                          SELECT activity_items.* FROM activity_items
+                          INNER JOIN users ON users.id = activity_items.target_id AND users.invitation_token IS NULL
                           WHERE activity_items.target_id = :id
                         ) AS t
                         ORDER BY created_at DESC", id: id, user_ids: friends.map(&:id)],
