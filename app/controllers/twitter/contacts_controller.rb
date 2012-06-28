@@ -6,12 +6,12 @@ class Twitter::ContactsController < ApplicationController
 
     Gbrand::Twitter::Importer.import(current_user, client)
     flash[:notice] = I18n.t('twitter.contacts.import')
-    redirect_to people_url
+    redirect_to people_invite_url
 
   rescue Twitter::Error::Unauthorized
     redirect_to new_twitter_session_path(:url => twitter_contacts_url)
   rescue Twitter::Error
     flash[:error] = I18n.t('twitter.errors.unavailable')
-    redirect_to people_url
+    redirect_to people_invite_url
   end
 end

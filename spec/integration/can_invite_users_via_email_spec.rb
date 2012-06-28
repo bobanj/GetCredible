@@ -57,5 +57,3 @@ describe 'User', type: :request do
     find_field("First tag").value.should be_blank
   end
 end
-
-
