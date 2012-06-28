@@ -588,8 +588,14 @@ $(function (){
           classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded ui-tooltip-guide'
         },
         events:{
+          visible: function(){
+            if($(".bubble.active .bubble-title").text() == '1'){
+                $("#step_1_form #user_full_name").focus();
+            }
+          },
           render:function (event, api){
             // Step 1 is handled with update.js.erb
+            // focus on FullName when guide is shown
             $("#step_1_form").submit(function(e){
               if($.getCredible.guide.isUpdating){
                 e.preventDefault();
