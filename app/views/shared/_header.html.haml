@@ -31,7 +31,7 @@
           %li#gn-profile
             = link_to 'Profile', me_user_path(current_user), :class => ((params[:controller] == 'users') && params[:action] == 'show' ? 'active' : nil)
           %li#gn-activity
-            = link_to 'People', network_path, :class => ((params[:controller] == 'network') ? 'active' : nil)
+            = link_to 'People', people_path, :class => ((params[:controller] == 'people') ? 'active' : nil)
           %li#gn-activity
             = link_to 'Activity', activity_path('all'), :class => (params[:controller] == 'activities' ? 'active' : nil)
 

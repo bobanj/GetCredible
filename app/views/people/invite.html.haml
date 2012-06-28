@@ -5,7 +5,7 @@
   %section#twitter_contacts
     %header#page-header
 
-      %h1 Your Network
+      %h1 People
       %ul.horizontal.right
         - if current_user.twitter_id.blank?
           %li= link_to "Find your Twitter friends", twitter_contacts_path, :class => "btn primary small light"
@@ -13,7 +13,7 @@
 
     - if @contacts.present?
       .search_twitter_contacts
-        = form_tag network_invite_path, :class => "left", remote: true, method: :get do
+        = form_tag people_invite_path, :class => "left", remote: true, method: :get do
           %p
             = text_field_tag :q, params[:q]
             = submit_tag :search, value: "Search", name: nil

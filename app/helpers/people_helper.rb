@@ -1,6 +1,6 @@
-module NetworkHelper
+module PeopleHelper
 
-  def network_active_class(name)
+  def people_active_class(name)
     params[:action] == name ? 'active' : nil
   end
 end

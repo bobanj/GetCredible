@@ -2,18 +2,16 @@
   %section#twitter_contacts.content
     %header#page-header
 
-      %h1 Your Network
+      %h1 People
 
       %nav.right
         %ul.tabs
-          %li.first{:class => network_active_class('index')}
-            = link_to 'Pending', network_path, :class => 'js-remote'
-          %li{:class => network_active_class('tagged')}
-            = link_to 'Tagged', network_tagged_path, :class => 'js-remote'
-          %li.last{:class => network_active_class('tagged_you')}
-            = link_to 'Tagged You', network_tagged_you_path, :class => 'js-remote'
-
-      = link_to "Invite", network_invite_path, :class => "btn primary small"
+          %li.first{:class => people_active_class('index')}
+            = link_to 'Pending', people_path, :class => 'js-remote'
+          %li{:class => people_active_class('tagged')}
+            = link_to 'Tagged', people_tagged_path, :class => 'js-remote'
+          %li.last{:class => people_active_class('tagged_you')}
+            = link_to 'Tagged You', people_tagged_you_path, :class => 'js-remote'
 
 
   #invitation_content
