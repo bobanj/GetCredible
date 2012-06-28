@@ -11,12 +11,12 @@ class ApplicationController < ActionController::Base
     if location
       location
     else
-      show_tour = resource.sign_in_count == 1 ? true : nil
+      show_tour = current_user.sign_in_count == 1 ? true : nil
 
-      if resource.user_tags.exists?
+      if current_user.user_tags.exists?
         activity_path('all', :show_tour => show_tour)
       else
-        me_user_path(resource, :show_tour => show_tour)
+        me_user_path(current_user, :show_tour => show_tour)
       end
     end
   end

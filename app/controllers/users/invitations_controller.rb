@@ -4,7 +4,7 @@ class Users::InvitationsController < Devise::InvitationsController
   def create
     @message = EmailMessage.new(params[:email_message])
 
-    if @message.save
+    if @message.save(current_inviter)
       render :create_success
     else
       render :create_error

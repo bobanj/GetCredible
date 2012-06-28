@@ -5,7 +5,7 @@ class EmailMessage
   extend ActiveModel::Naming
 
   # Attributes
-  attr_accessor :email, :tag_names, :tag1, :tag2, :tag3
+  attr_accessor :email, :invited, :tag_names, :tag1, :tag2, :tag3
 
   # Callbacks
   before_validation :set_tag_names
@@ -20,10 +20,12 @@ class EmailMessage
     end
   end
 
-  def save
+  def save(inviter)
     if valid?
-      # tag_names = TagCleaner.clean(resource.tag_names)
-      # current_inviter.add_tags(resource, tag_names, skip_email: true)
+      invited = User.invite!({email: email, tag_names: tag_names}, inviter)
+      inviter.add_tags(invited, TagCleaner.clean(tag_names), skip_email: true)
+      inviter.followings << invited unless inviter.followings.exists?(invited)
+      true
     else
       false
     end
