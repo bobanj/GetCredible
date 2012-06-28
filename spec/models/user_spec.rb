@@ -363,7 +363,7 @@ describe User do
       existing_user = FactoryGirl.build(:user, :email => user.email)
       existing_user.valid?.should be_false
       existing_user.errors[:email].should_not be_empty
-      existing_user.change_error_message(:email,'you shell not pass')
+      existing_user.change_error_message(:email, 'you shell not pass')
       existing_user.errors[:email].should == ['you shell not pass']
     end
   end

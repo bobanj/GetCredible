@@ -6,7 +6,7 @@ describe 'User', type: :request do
   it "can edit their account" do
     user = FactoryGirl.create(:user, full_name: "Some Name")
     sign_in_user(user)
-    click_link("Home")
+    click_link("Activity")
     within ".my-actions" do
       click_link(user.short_name)
     end

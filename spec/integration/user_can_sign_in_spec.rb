@@ -11,9 +11,9 @@ describe 'User', type: :request do
       fill_in("Password", with: user.password)
       click_button("Sign in")
     end
-    page.should have_content("Signed in successfully.")
+    page.should have_content("Logout")
     click_link('Logout')
-    page.should have_content('Signed out successfully.')
+    page.should_not have_content('Logout')
   end
 
   it "can sign in with username" do
@@ -24,7 +24,6 @@ describe 'User', type: :request do
       fill_in("Password", with: user.password)
       click_button("Sign in")
     end
-    page.should have_content("Signed in successfully.")
+    page.should have_content("Logout")
   end
 end
-

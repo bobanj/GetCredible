@@ -21,8 +21,8 @@ describe 'User', type: :request do
     unread_emails_for(email).size.should == parse_email_count(1)
     open_email(email)
     current_email.should have_subject("Welcome to GiveBrand!")
-    current_email.should have_content("Dear pink_panter")
-    current_email.should have_content("Welcome to GiveBrand!")
+    current_email.body.should have_content("Dear pink_panter")
+    current_email.body.should have_content("Welcome to GiveBrand!")
   end
 end
 

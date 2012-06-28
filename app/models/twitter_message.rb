@@ -22,8 +22,8 @@ class TwitterMessage
 
   def save
     if valid?
-      @messanger = Gbrand::Twitter::Messenger.new(current_user, params)
-      @messanger.save
+      # messanger = Gbrand::Twitter::Messenger.new(current_user, params)
+      # messanger.save
     else
       false
     end

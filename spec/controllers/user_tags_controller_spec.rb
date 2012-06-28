@@ -66,7 +66,7 @@ describe UserTagsController do
       unread_emails_for(other_user.email).size.should == parse_email_count(1)
       open_email(other_user.email)
       current_email.should have_subject("Tagged... You're it!")
-      current_email.should have_content("Great news: User added a new tag for you! Here it is: developer, designer")
+      current_email.body.should have_content("Great news: User added a new tag for you! Here it is: developer, designer")
     end
   end
 

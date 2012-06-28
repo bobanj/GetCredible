@@ -22,9 +22,8 @@ class EmailMessage
 
   def save
     if valid?
-      raise 'change me'.to_yaml
-      tag_names = TagCleaner.clean(resource.tag_names)
-      current_inviter.add_tags(resource, tag_names, skip_email: true)
+      # tag_names = TagCleaner.clean(resource.tag_names)
+      # current_inviter.add_tags(resource, tag_names, skip_email: true)
     else
       false
     end

@@ -5,7 +5,7 @@
   %section#twitter_contacts
     %header#page-header
 
-      %h1 People
+      %h1 Invite People
       %ul.horizontal.right
         - if current_user.twitter_id.blank?
           %li= link_to "Find your Twitter friends", twitter_contacts_path, :class => "btn primary small light"

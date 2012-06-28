@@ -7,10 +7,8 @@
   .my-actions
     %h3
       = "Welcome #{link_to(current_user.short_name, edit_user_registration_path)}".html_safe
-    -# .view
-      //= link_to 'Settings', edit_user_registration_path
-      //&middot;
-      -# = link_to 'Edit Profile', edit_user_registration_path
+    .view
+      = link_to 'Invite People', people_invite_path
 
 %nav#friend-nav
   %ul
@@ -26,7 +24,7 @@
       = link_to "" do
         %span 3
         Pending
-        
+
 %nav#popular-tags
   %h3
     Trending Tags

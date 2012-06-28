@@ -5,5 +5,5 @@ def sign_in_user(user)
     fill_in("Password", with: user.password)
     click_button("Sign in")
   end
-  page.should have_content("Signed in successfully.")
+  page.should have_content("Logout")
 end

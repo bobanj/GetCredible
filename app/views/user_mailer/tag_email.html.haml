@@ -1,16 +1,3 @@
-
-
-%p Great news: #{link_to @tagger.name, me_user_url(@tagger)} added a new tag for you! Here it is: #{@tag_names.join(', ')}
-
-%p 
-
-%p 
-
-%p 
-
-= render 'signature'
-
-
 - @link_color = "#137AC2"
 
 !!!
@@ -23,7 +10,7 @@
       %tbody
 
         %tr
-          %td{ :width => "40%", :style=>"padding: 10px 0 5px;vertical-align:middle;"}    
+          %td{ :width => "40%", :style=>"padding: 10px 0 5px;vertical-align:middle;"}
             = link_to "http://hound.cc/", :target => "_blank", :style => "outline:none;color:#582a00;text-decoration:none;font-size:18px;font-weight:bold;" do
               = image_tag"http://givebrand.com/assets/logo.png", :alt => "GiveBrand", :title => "GiveBrand - A new brand of influence"
 
@@ -41,7 +28,7 @@
             %h1{:style => "color:#582a00;margin:10px 0 5px;font-size:24px;"}Hey, #{@tagged.name}.
             %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
               Great news: #{link_to @tagger.name, me_user_url(@tagger)} added a new tag for you! Here it is: #{@tag_names.join(', ')}
-              
+
         %tr
           %td{:colspan => "100"}
             %hr{:style => "background:none;border:none;border-top:1px solid #f8f8f8;"}
@@ -53,14 +40,14 @@
               Not so much? Head to your profile and click the little red "X" to get rid of the tag. (Other people may have their thoughts on what you're best at, but you're the final gatekeeper.)
               %br
               Won't you consider paying it forward? Keep the love flowing... tag one of your contacts. Have a great day!
-              
+
     %table{:style => "background:none;margin: 0 auto;width:600px;"}
       %tbody
 
         %tr
           %td{:style=>"padding-top:15px;text-align: left;"}
             %p{:style => "color:#999;font-style:italic;margin:3px 0 20px;font-size:11px"}
-              © 2012 
+              © 2012
               = link_to "GiveBrand", "http://givebrand.com/", :style => "color: #{@link_color}; font-size:11px;"
 
           %td{:style=>"padding-top:15px;text-align: right;"}
