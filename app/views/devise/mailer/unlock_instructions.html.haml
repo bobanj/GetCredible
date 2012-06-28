@@ -1,5 +1,56 @@
 %p
   Hello #{@resource.email}!
-%p Your account has been locked due to an excessive amount of unsuccessful sign in attempts.
-%p Click the link below to unlock your account:
-%p= link_to 'Unlock my account', unlock_url(@resource, :unlock_token => @resource.unlock_token)
+%p 
+%p 
+%p
+
+
+- @link_color = "#137AC2"
+
+!!!
+%html
+  %head
+    %meta{ 'content' => "text/html; charset=UTF-8", 'http-equiv' => "Content-Type" }
+
+  %body{:style => "background:url(http://givebrand.com/assets/bg2.png) #f6f6f6;font-size:12px;font-family:Helvetica,Arial,sans-serif;margin:0;padding:15px 0 0;line-height:1.4;"}
+    %table{:style => "margin: 0 auto;width:600px;"}
+      %tbody
+
+        %tr
+          %td{ :width => "40%", :style=>"padding: 10px 0 5px;vertical-align:middle;"}    
+            = link_to "http://hound.cc/", :target => "_blank", :style => "outline:none;color:#582a00;text-decoration:none;font-size:18px;font-weight:bold;" do
+              = image_tag"http://givebrand.com/assets/logo.png", :alt => "GiveBrand", :title => "GiveBrand - A new brand of influence"
+
+          %td{ :width => "60%", :style=>"padding:0;vertical-align:middle;", :colspan =>"2"}
+            %p{:style=>"margin:0; text-align:right;"}
+              = link_to "Home", "http://givebrand.com/", :style => "color: #{@link_color}; margin: 0 5px;font-size:11px;"
+              = link_to "Activity", "#", :style => "color: #{@link_color}; margin: 0 5px;font-size:11px;"
+              = link_to "People", "#", :style => "color: #{@link_color}; margin: 0 5px;font-size:11px;"
+
+    %table{:style => "background:#fff;margin: 0 auto;padding:20px;text-align:center;width:600px;"}
+      %tbody
+
+        %tr
+          %td
+            %h1{:style => "color:#582a00;margin:10px 0 5px;font-size:24px;"}Hello #{@resource.email}!
+            %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
+              Your account has been locked due to an excessive amount of unsuccessful sign in attempts.
+              %br
+              Click the link below to unlock your account:
+        %tr
+          %td
+            %p{:style => "margin: 5px 0 10px;text-align:center;"}
+              = link_to 'Unlock my account', unlock_url(@resource, :unlock_token => @resource.unlock_token), :style => "display: inline-block;text-align:center;padding:15px;margin:10 0 20px;background:#fffbef;border:1px solid #ead5c0;color:#6bbd00;font-weight:bold;font-size:13px;width:250px;"
+
+    %table{:style => "background:none;margin: 0 auto;width:600px;"}
+      %tbody
+
+        %tr
+          %td{:style=>"padding-top:15px;text-align: left;"}
+            %p{:style => "color:#999;font-style:italic;margin:3px 0 20px;font-size:11px"}
+              © 2012 
+              = link_to "GiveBrand", "http://givebrand.com/", :style => "color: #{@link_color}; font-size:11px;"
+
+          %td{:style=>"padding-top:15px;text-align: right;"}
+            %p{:style => "color:#999;font-style:italic;margin:3px 0 20px;font-size:11px"}
+              All rights reserved.

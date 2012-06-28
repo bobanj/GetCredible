@@ -1,10 +1,58 @@
-%p
-  Hello #{@resource.email}!
-%p
-  #{@resource.invited_by.name} has invited you to #{root_url}, and tagged you with: #{@resource.tag_names.join(', ')}
-  you can accept it through the link below.
-%p= link_to 'Accept invitation', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token)
-%p
-  If you don't want to accept the invitation, please ignore this email.
-  %br/
-  Your account won't be created until you access the link above and set your password.
+
+- @link_color = "#137AC2"
+
+!!!
+%html
+  %head
+    %meta{ 'content' => "text/html; charset=UTF-8", 'http-equiv' => "Content-Type" }
+
+  %body{:style => "background:url(http://givebrand.com/assets/bg2.png) #f6f6f6;font-size:12px;font-family:Helvetica,Arial,sans-serif;margin:0;padding:15px 0 0;line-height:1.4;"}
+    %table{:style => "margin: 0 auto;width:600px;"}
+      %tbody
+
+        %tr
+          %td{ :width => "40%", :style=>"padding: 10px 0 5px;vertical-align:middle;"}    
+            = link_to "http://hound.cc/", :target => "_blank", :style => "outline:none;color:#582a00;text-decoration:none;font-size:18px;font-weight:bold;" do
+              = image_tag"http://givebrand.com/assets/logo.png", :alt => "GiveBrand", :title => "GiveBrand - A new brand of influence"
+
+          %td{ :width => "60%", :style=>"padding:0;vertical-align:middle;", :colspan =>"2"}
+            %p{:style=>"margin:0; text-align:right;"}
+              = link_to "Home", "http://givebrand.com/", :style => "color: #{@link_color}; margin: 0 5px;font-size:11px;"
+              = link_to "Activity", "#", :style => "color: #{@link_color}; margin: 0 5px;font-size:11px;"
+              = link_to "People", "#", :style => "color: #{@link_color}; margin: 0 5px;font-size:11px;"
+
+    %table{:style => "background:#fff;margin: 0 auto;padding:20px;text-align:center;width:600px;"}
+      %tbody
+
+        %tr
+          %td
+            %h1{:style => "color:#582a00;margin:10px 0 5px;font-size:24px;"}Hello #{@resource.email}!
+            %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
+              #{@resource.invited_by.name} has invited you to #{root_url}, and tagged you with: #{@resource.tag_names.join(', ')}
+              you can accept it through the link below.
+        %tr
+          %td
+            %p{:style => "margin: 5px 0 10px;text-align:center;"}
+              = link_to 'Accept invitation', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token), :style => "display: inline-block;text-align:center;padding:15px;margin:10 0 20px;background:#fffbef;border:1px solid #ead5c0;color:#6bbd00;font-weight:bold;font-size:13px;width:250px;"
+        %tr
+          %td{:colspan => "100"}
+            %hr{:style => "background:none;border:none;border-top:1px solid #f8f8f8;"}
+        %tr
+          %td
+            %p{:style => "font-size:11px;line-height:1.4;color:#444;margin:0 0 15px;"}
+              If you don't want to accept the invitation, please ignore this email.
+              %br
+              Your account won't be created until you access the link above and set your password.
+
+    %table{:style => "background:none;margin: 0 auto;width:600px;"}
+      %tbody
+
+        %tr
+          %td{:style=>"padding-top:15px;text-align: left;"}
+            %p{:style => "color:#999;font-style:italic;margin:3px 0 20px;font-size:11px"}
+              © 2012 
+              = link_to "GiveBrand", "http://givebrand.com/", :style => "color: #{@link_color}; font-size:11px;"
+
+          %td{:style=>"padding-top:15px;text-align: right;"}
+            %p{:style => "color:#999;font-style:italic;margin:3px 0 20px;font-size:11px"}
+              All rights reserved.

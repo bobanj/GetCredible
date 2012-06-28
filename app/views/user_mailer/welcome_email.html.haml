@@ -1,18 +1,70 @@
-%p Dear #{@user.name},
 
-%p Welcome to GiveBrand!
+- @link_color = "#137AC2"
 
-%p We can't wait to watch with you as your influence grows across our site and news of your swagger spreads like wildfire.
+!!!
+%html
+  %head
+    %meta{ 'content' => "text/html; charset=UTF-8", 'http-equiv' => "Content-Type" }
 
-%p Now that you've got your account set up, what's next? We've got a few ideas:
+  %body{:style => "background:url(http://givebrand.com/assets/bg2.png) #f6f6f6;font-size:12px;font-family:Helvetica,Arial,sans-serif;margin:0;padding:15px 0 0;line-height:1.4;"}
+    %table{:style => "margin: 0 auto;width:600px;"}
+      %tbody
 
-%ul
-  %li Flesh out your profile. Add a profile photo and a little personal information.
-  %li Invite your friends and professional contacts to join - cast a wide net!
-  %li Share your profile to your Facebook and Twitter contacts... see what happens.
+        %tr
+          %td{ :width => "40%", :style=>"padding: 10px 0 5px;vertical-align:middle;"}    
+            = link_to "http://hound.cc/", :target => "_blank", :style => "outline:none;color:#582a00;text-decoration:none;font-size:18px;font-weight:bold;" do
+              = image_tag"http://givebrand.com/assets/logo.png", :alt => "GiveBrand", :title => "GiveBrand - A new brand of influence"
 
-%p Thanks again for signing up. If you have any questions, we're always here to answer them. Just jot us a note at russ@givebrand.com
+          %td{ :width => "60%", :style=>"padding:0;vertical-align:middle;", :colspan =>"2"}
+            %p{:style=>"margin:0; text-align:right;"}
+              = link_to "Home", "http://givebrand.com/", :style => "color: #{@link_color}; margin: 0 5px;font-size:11px;"
+              = link_to "Activity", "#", :style => "color: #{@link_color}; margin: 0 5px;font-size:11px;"
+              = link_to "People", "#", :style => "color: #{@link_color}; margin: 0 5px;font-size:11px;"
 
-%p Now get taggin'!
+    %table{:style => "background:#fff;margin: 0 auto;padding:20px;text-align:center;width:600px;"}
+      %tbody
 
-= render 'signature'
+        %tr
+          %td
+            %h1{:style => "color:#582a00;margin:10px 0 5px;font-size:24px;"}Dear #{@user.name},
+            %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
+              Welcome to GiveBrand!
+              %br
+              We can't wait to watch with you as your influence grows across our site and news of your swagger spreads like wildfire.
+
+        %tr
+          %td{:colspan => "100"}
+            %hr{:style => "background:none;border:none;border-top:1px solid #f8f8f8;"}
+        %tr
+          %td
+            %p{:style => "font-size:11px;line-height:1.4;color:#444;margin:0 0 15px;"}
+              Now that you've got your account set up, what's next? We've got a few ideas:
+        %tr
+          %td
+            %ul
+              %li{:style => "font-size:11px;line-height:1.4;color:#666;margin:0 0 5px;"} Flesh out your profile. Add a profile photo and a little personal information.
+              %li{:style => "font-size:11px;line-height:1.4;color:#666;margin:0 0 5px;"} Invite your friends and professional contacts to join - cast a wide net!
+              %li{:style => "font-size:11px;line-height:1.4;color:#666;margin:0 0 5px;"} Share your profile to your Facebook and Twitter contacts... see what happens.
+        
+        %tr
+          %td{:colspan => "100"}
+            %hr{:style => "background:none;border:none;border-top:1px solid #f8f8f8;"}
+        %tr
+          %td
+            %p{:style => "font-size:11px;line-height:1.4;color:#444;margin:0 0 15px;"}
+              Thanks again for signing up. If you have any questions, we're always here to answer them. Just jot us a note at russ@givebrand.com
+              %br
+              Now get taggin'!
+
+    %table{:style => "background:none;margin: 0 auto;width:600px;"}
+      %tbody
+
+        %tr
+          %td{:style=>"padding-top:15px;text-align: left;"}
+            %p{:style => "color:#999;font-style:italic;margin:3px 0 20px;font-size:11px"}
+              © 2012 
+              = link_to "GiveBrand", "http://givebrand.com/", :style => "color: #{@link_color}; font-size:11px;"
+
+          %td{:style=>"padding-top:15px;text-align: right;"}
+            %p{:style => "color:#999;font-style:italic;margin:3px 0 20px;font-size:11px"}
+              All rights reserved.
