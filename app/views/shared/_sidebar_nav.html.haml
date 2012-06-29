@@ -8,22 +8,22 @@
     %h3
       = "Welcome #{link_to(current_user.short_name, edit_user_registration_path)}".html_safe
     .view
-      = link_to 'Invite People', people_invite_path
+      = link_to 'Invite & Tag', people_invite_path
 
 %nav#friend-nav
   %ul
     %li
       = link_to people_path do
         %span= current_user.tagged.count
-        Tagged
+        Tagged me
     %li
       = link_to people_tagged_you_path do
         %span= current_user.tagged_you.count
-        Tagged You
-    %li
-      = link_to people_pending_path do
-        %span= current_user.pending.count
-        Pending
+        I've Tagged
+    //%li
+    //  = link_to people_pending_path do
+    //    %span= current_user.pending.count
+    //    Pending
 
 %nav#popular-tags
   %h3

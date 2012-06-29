@@ -40,7 +40,7 @@
   background: $blue - #111;
   color: #fff;
   float: left;
-  height: 86px !important;
+  height: 93px !important;
   max-width: 100px;
   padding: 2px 0 2px;
   position: relative;
@@ -72,7 +72,7 @@
   font-size: 11px;
   font-weight: bold;
   line-height: 1;
-  padding: 6px 0 !important;
+  padding: 9px 0 !important;
   position: absolute;
   width: 100%;
   @include border-bottom-left-radius(3px);
@@ -82,9 +82,10 @@
   border: 1px solid #ddd;
   color: #666;
   float: left;
-  height: 78px !important;
-  max-width: 230px;
-  padding: 5px 3%;
+  height: 85px !important;
+  max-width: 240px;
+  padding: 5px 3.3%;
+  position: relative;
   text-align: left;
   //width: 64%;
   width: 65%;

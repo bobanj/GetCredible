@@ -8,7 +8,7 @@
 p {
   @include shorthand-font(normal,$basefont,$baseline);
   color: #666;
-  font-family: open-sans, helvetica neue, arial, sans-serif;
+  font-family: "open-sans", helvetica neue, arial, sans-serif;
   margin-bottom: $baseline / 2;
   small {
     font-size: $basefont - 2;
@@ -234,9 +234,9 @@ pre {
   @include border-radius(2px);
   @include transition(all .4s);
   &:hover, &:focus {
-    background: rgba(0, 0, 0, 0.7);
-    border: 1px solid rgba(0, 0, 0, 0.03);
-    color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: #222;
     text-decoration: none;
+    @include box-shadow(rgba(0, 0, 0, 0.1) 0 0 3px inset);
   }
 }

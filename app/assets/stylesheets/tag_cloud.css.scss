@@ -86,7 +86,7 @@
 #tag-msg {
   border-top: 1px solid #e9e9e9;
   color: #888;
-  font-size: 12px;
+  font: 12px "open-sans", sans-serif;
   padding: 18px;
   text-align: center;
 
@@ -97,4 +97,9 @@
     margin-right: 5px;
     margin-left: 10px;
   }
+}
+
+.tag-actions {
+  bottom: 3px;
+  position: absolute;
 }
