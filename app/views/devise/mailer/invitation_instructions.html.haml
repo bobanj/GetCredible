@@ -1,4 +1,3 @@
-
 - @link_color = "#137AC2"
 
 !!!
@@ -28,7 +27,7 @@
           %td
             %h1{:style => "color:#582a00;margin:10px 0 5px;font-size:24px;"}Hello #{@resource.email}!
             %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
-              #{@resource.invited_by.name} has invited you to #{link_to root_url, root_url}, and tagged you with: #{@resource.tag_names.join(', ')}
+              #{@resource.invited_by.name} has invited you to #{link_to root_url, root_url, :style => "color: #{@link_color};"}, and tagged you with: #{@resource.tag_names.join(', ')}
               you can accept it through the link below.
         %tr
           %td
