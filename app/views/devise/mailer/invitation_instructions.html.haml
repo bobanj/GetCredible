@@ -11,7 +11,7 @@
       %tbody
 
         %tr
-          %td{ :width => "40%", :style=>"padding: 10px 0 5px;vertical-align:middle;"}    
+          %td{ :width => "40%", :style=>"padding: 10px 0 5px;vertical-align:middle;"}
             = link_to "http://hound.cc/", :target => "_blank", :style => "outline:none;color:#582a00;text-decoration:none;font-size:18px;font-weight:bold;" do
               = image_tag"http://givebrand.com/assets/logo.png", :alt => "GiveBrand", :title => "GiveBrand - A new brand of influence"
 
@@ -28,7 +28,7 @@
           %td
             %h1{:style => "color:#582a00;margin:10px 0 5px;font-size:24px;"}Hello #{@resource.email}!
             %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
-              #{@resource.invited_by.name} has invited you to #{root_url}, and tagged you with: #{@resource.tag_names.join(', ')}
+              #{@resource.invited_by.name} has invited you to #{link_to root_url, root_url}, and tagged you with: #{@resource.tag_names.join(', ')}
               you can accept it through the link below.
         %tr
           %td
@@ -50,7 +50,7 @@
         %tr
           %td{:style=>"padding-top:15px;text-align: left;"}
             %p{:style => "color:#999;font-style:italic;margin:3px 0 20px;font-size:11px"}
-              © 2012 
+              © 2012
               = link_to "GiveBrand", "http://givebrand.com/", :style => "color: #{@link_color}; font-size:11px;"
 
           %td{:style=>"padding-top:15px;text-align: right;"}

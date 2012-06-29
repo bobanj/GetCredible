@@ -12,4 +12,15 @@
         %li.buttons_left= f.button :submit, "Save", class: 'btn primary large'
     %br
 %aside
-  = render "links"
+  %section.tags
+    %h2 Brand yourself
+    %ul
+      - resource.tags.each do |tag|
+        %li= tag.name
+  %section.followers
+    %h2 Brand your followers
+    %ul
+      - resource.followers.each do |user|
+        %li
+          = image_tag(user.avatar_url(:avatar))
+          %span= user.name
