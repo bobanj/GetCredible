@@ -48,7 +48,6 @@ group :development do
   gem 'libnotify',  :require => RUBY_PLATFORM.include?('linux')   && 'rb-inotify'
   gem 'rails3-generators'
   gem 'quiet_assets'
-  gem 'thin'
 end
 
 group :test do
