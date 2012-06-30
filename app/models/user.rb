@@ -30,6 +30,9 @@ class User < ActiveRecord::Base
   has_many :voted_users, :through => :votes, :uniq => true
   has_many :voters, :through => :user_tags, :uniq => true
   has_many :twitter_contacts, :dependent => :destroy
+  has_many :endorsements, :as => :incoming_endorsements, :through => :user_tags, :dependent => :destroy
+  has_many :incoming_endorsements, :through => :user_tags, :source => :endorsements
+  has_many :outgoing_endorsements, :class_name => 'Endorsement', :foreign_key => :endorsed_by_id, :dependent => :destroy
 
   # Friendships
   has_many :friendships, :foreign_key => :follower_id, :dependent => :destroy

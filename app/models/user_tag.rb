@@ -8,6 +8,8 @@ class UserTag < ActiveRecord::Base
   has_many :activity_items, :as => :item, :dependent => :destroy
   has_many :voters, :through => :votes
   has_many :last_voters, :through => :votes, :source => :voter, :order => 'id DESC', :limit => 5
+  has_many :endorsements, :dependent => :destroy
+  has_many :endorsers, :class_name => 'Endorsement', :primary_key => :user_id, :foreign_key => :endorsed_by_id
 
   # Validations
   validates :user_id, :presence => true

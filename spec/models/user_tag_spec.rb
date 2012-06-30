@@ -18,6 +18,9 @@ describe UserTag do
     it { should have_many(:votes).dependent(:destroy) }
     it { should have_many(:voters).through(:votes) }
     it { should have_many(:last_voters).through(:votes) }
+    it { should have_many(:last_voters).through(:votes) }
+    it { should have_many(:endorsements).dependent(:destroy) }
+    it { should have_many(:endorsers).through(:endorsements) }
   end
 
   describe 'Validations' do

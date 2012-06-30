@@ -48,6 +48,8 @@ describe User do
     it { should have_many(:reverse_friendships).dependent(:destroy) }
     it { should have_many(:followings) }
     it { should have_many(:followers) }
+    it { should have_many(:incoming_endorsements) }
+    it { should have_many(:outgoing_endorsements).dependent(:destory) }
   end
 
   describe "Validations" do
