@@ -15,7 +15,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       UserMailer.welcome_email(resource).deliver
 
       respond_to do |format|
-        format.html { redirect_to after_sign_in_path_for(resource) }
+        format.html { redirect_to sign_in_url }
         format.json { render :json => user_signed_in_content(resource) }
       end
     else

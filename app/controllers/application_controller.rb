@@ -11,13 +11,7 @@ class ApplicationController < ActionController::Base
     if location
       location
     else
-      show_tour = current_user.sign_in_count == 1 ? true : nil
-
-      if current_user.user_tags.exists?
-        activity_path('all', :show_tour => show_tour)
-      else
-        me_user_path(current_user, :show_tour => show_tour)
-      end
+      sign_in_url
     end
   end
 
@@ -32,5 +26,14 @@ class ApplicationController < ActionController::Base
         :header => render_to_string(:layout => false, :partial => 'shared/header.html.haml'),
         :tag_cloud => render_to_string(:layout => false, :partial => 'shared/tag_cloud.html.haml')
       }
+    end
+
+    def sign_in_url
+      show_tour = current_user.sign_in_count == 1 ? true : nil
+      if current_user.user_tags.exists?
+        activity_path('all', :show_tour => show_tour)
+      else
+        me_user_path(current_user, :show_tour => show_tour)
+      end
     end
 end
