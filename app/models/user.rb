@@ -87,11 +87,11 @@ class User < ActiveRecord::Base
     invitation_token.blank?
   end
 
-  def tagged
+  def supported
     voted_users.active
   end
 
-  def tagged_you
+  def supporters
     voters.active
   end
 

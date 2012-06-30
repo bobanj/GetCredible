@@ -2,7 +2,7 @@ GetCredible::Application.routes.draw do
 
   post "tags/search"
   get '/people' => 'people#index'
-  get '/people/tagged_you' => 'people#tagged_you'
+  get '/people/supported' => 'people#supported'
   get '/people/pending' => 'people#pending'
   get '/people/invite' => 'people#invite'
 

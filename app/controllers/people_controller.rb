@@ -2,13 +2,13 @@ class PeopleController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @users = current_user.tagged.
+    @users = current_user.supporters.
       paginate :per_page => 10, :page => params[:page]
     render :index, layout: (request.xhr? ? false : true)
   end
 
-  def tagged_you
-    @users = current_user.tagged_you.
+  def supported
+    @users = current_user.supported.
       paginate :per_page => 10, :page => params[:page]
     render :index, layout: (request.xhr? ? false : true)
   end

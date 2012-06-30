@@ -27,7 +27,7 @@
         = render 'contacts', :contacts => @contacts, :users => @users
       - else
         .ngo
-          %p== #{link_to "Find your Twitter friends", twitter_contacts_path} and invite them with private message.
+          %p== #{link_to "Import your Twitter friends", twitter_contacts_path} to invite them via direct message.
 
 %aside
   = render 'shared/sidebar_nav'

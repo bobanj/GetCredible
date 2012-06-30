@@ -14,16 +14,12 @@
   %ul
     %li
       = link_to people_path do
-        %span= current_user.tagged.count
-        Tagged me
+        %span= current_user.supporters.count
+        Tagged Me
     %li
-      = link_to people_tagged_you_path do
-        %span= current_user.tagged_you.count
+      = link_to people_supported_path do
+        %span= current_user.supported.count
         I've Tagged
-    //%li
-    //  = link_to people_pending_path do
-    //    %span= current_user.pending.count
-    //    Pending
 
 %nav#popular-tags
   %h3
