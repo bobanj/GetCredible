@@ -8,7 +8,6 @@ gem 'devise', '>= 2.0.0'
 gem 'devise_invitable', '= 1.0.1'
 gem "haml", ">= 3.0.0"
 gem "haml-rails"
-gem "sqlite3"
 gem "jquery-rails"
 gem 'simple_form'
 gem 'country_select'
@@ -23,7 +22,7 @@ gem 'bootstrap-sass'
 gem 'compass-rails','~> 1.0.0.rc.3'
 gem 'compass-960-plugin'
 gem 'statistics2'
-#gem 'rankable_graph'
+gem 'rankable_graph'
 gem 'redis-objects'
 gem 'redis-namespace'
 gem 'rails_config'
