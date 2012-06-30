@@ -45,7 +45,8 @@ class User < ActiveRecord::Base
                :format => { with: /^\w+$/,
                             message: "only use letters, numbers and '_'" },
                :length => { minimum: 3 },
-               :uniqueness => true
+               :uniqueness => true,
+               :exclusion => { :in => %w(admin superuser test givebrand) }
   validates :personal_url, :url_format => true, :allow_blank => true
   validate :username_is_not_a_route
   validates :short_bio, :length => {:maximum => 200}

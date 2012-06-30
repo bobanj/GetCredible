@@ -4,9 +4,7 @@ class EndorsementsController < ApplicationController
 
   def create
     @endorsement = Endorsement.new(params[:endorsement])
-    if @endorsement.user_tag.user_id == current_user.id
-      @endorsement.errors.add(:base, "You can't endorse yourself'");
-    end
+    @endorsement.endorser = current_user
 
     respond_to do |format|
       if @endorsement.save
@@ -16,8 +14,6 @@ class EndorsementsController < ApplicationController
         }
       else
         @success = false
-
-        puts @endorsement.errors.full_messages
         format.js {
           render :create
         }
