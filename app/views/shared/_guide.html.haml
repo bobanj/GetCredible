@@ -1,5 +1,5 @@
-- unless Rails.env.test? # stop warnings when running specs
-  - if user_signed_in? && show_guide?(current_user)
+- if user_signed_in? && show_guide?(current_user)
+  - unless Rails.env.test? # stop warnings when running specs
     = content_for :javascripts do
       %script{:src => "http://www.youtube.com/player_api", :type => "text/javascript"}
 
