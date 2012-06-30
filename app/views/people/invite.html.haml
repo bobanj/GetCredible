@@ -2,17 +2,17 @@
 = render 'email_invite'
 
 #content
-  %section#twitter_contacts
+  %section#twitter_contacts.listing-wrap
     %header#page-header
 
-      %h1 Invite People
+      %h1 Invite & Tag
       %ul.horizontal.right
         - if current_user.twitter_id.blank?
           %li= link_to "Find your Twitter friends", twitter_contacts_path, :class => "btn primary small light"
         %li= link_to "Invite by email", new_user_invitation_path, :class => "btn primary small email_button"
 
     - if @contacts.present?
-      .search_twitter_contacts
+      .search_listing
         = form_tag people_invite_path, :class => "left", remote: true, method: :get do
           %p
             = text_field_tag :q, params[:q]
@@ -22,7 +22,7 @@
           %li= link_to "Disconnect from Twitter", twitter_session_path, :confirm => "Are you sure", :method => :delete, :class => "btn primary small light"
 
     %hr.divider
-    .twitter-contacts-list
+    .twitter-contacts-list.listing
       - if @contacts.present?
         = render 'contacts', :contacts => @contacts, :users => @users
       - else

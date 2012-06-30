@@ -36,3 +36,73 @@
   #tag-msg
     %span.icon
     = tag_cloud_summary(@user)
+
+  %hr.divider.strong
+  #tag-listing.listing-wrap
+    #page-header.gray
+      %h1 Tag Breakdown & Endorsements
+      
+      .tag-search.right
+        = form_tag people_invite_path, remote: true, method: :get do
+          %p
+            = text_field_tag :q, params[:q]
+            = submit_tag :search, value: "Search", name: nil
+
+    .listing
+      %ul
+        %li
+          %span.score 2
+          %span.name Design
+          %span.user #5 out of 23
+          %span.endorse
+            = link_to "Endorse this tag", "#", :class => "action"
+        %li
+          %span.score 2
+          %span.name Interface
+          %span.user #5 out of 23
+          %span.endorse
+            = link_to "Endorse this tag", "#", :class => "action"
+            = link_to "Hide 3 endorsements", "#"
+          %ul.tag-endorse
+            %li
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+              %span
+                Written by
+                = link_to "Some User"
+                2 days ago
+            %li
+              Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+              %span
+                Written by
+                = link_to "Some User"
+                2 days ago
+            %li
+              Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+              %span
+                Written by
+                = link_to "Some User"
+                2 days ago
+        %li
+          %span.score 2
+          %span.name Experience
+          %span.user #5 out of 23
+          %span.endorse
+            = link_to "Endorse this tag", "#", :class => "action"
+        %li
+          %span.score 2
+          %span.name HTML5
+          %span.user #5 out of 23
+          %span.endorse
+            = link_to "Endorse this tag", "#", :class => "action"
+        %li
+          %span.score 2
+          %span.name Color Theory
+          %span.user #5 out of 23
+          %span.endorse
+            = link_to "Endorse this tag", "#", :class => "action"
+        %li
+          %span.score 2
+          %span.name Typography
+          %span.user #5 out of 23
+          %span.endorse
+            = link_to "Endorse this tag", "#", :class => "action"

@@ -282,9 +282,6 @@ $(function (){
         (word.data('voters_count') == 1 ? ' person' : ' people') +
         '  vouched for ' + word.text() + '</p>' +
         '<p>' + word.data('voters') + '</p>' +
-        '<div class="tag-actions">' +
-        '<input type="submit" name="Vouche" class="btn primary tiny gray">' +
-        '</div>' +
         '</div>';
     if ($.getCredible.tagCloud.data('can-vote')){
       qtipContent = qtipContent + '<div class="tag-action"><a href="#" class="tag-vote button ' + voucheUnvoucheClass + '">' + voucheUnvouche + '</a></div>'

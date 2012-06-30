@@ -28,12 +28,12 @@
         - if user_signed_in?
           %li#gn-logout
             = link_to "Logout", destroy_user_session_path
-          %li#gn-profile
-            = link_to 'Profile', me_user_path(current_user), :class => ((params[:controller] == 'users') && params[:action] == 'show' ? 'active' : nil)
           %li#gn-activity
             = link_to 'People', people_path, :class => ((params[:controller] == 'people') ? 'active' : nil)
           %li#gn-activity
             = link_to 'Activity', activity_path('all'), :class => (params[:controller] == 'activities' ? 'active' : nil)
+          %li#gn-profile
+            = link_to 'Profile', me_user_path(current_user), :class => ((params[:controller] == 'users') && params[:action] == 'show' ? 'active' : nil)
 
         - else
           %li#gn-tour

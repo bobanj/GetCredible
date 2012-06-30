@@ -47,8 +47,8 @@ ul.noty_container {
   margin-left: -100px;
 }
 .noty_text {
-  color: #fff;
-  font: bold 18px/1.4 gnuolane, futura-pt, open-sans, sans-serif;
+  color: #444;
+  font: bold 11px/1.4 "open-sans", sans-serif;
   margin: 10px 20px 10px 15px;
   @include text-shadow(rgba(0, 0, 0, 0.3) 0 1px 1px);
 }

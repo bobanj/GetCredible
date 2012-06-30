@@ -29,6 +29,14 @@
                 -#.icon
                 %h2
                   = activity_description(activity_item)
+                %br
+                %p.feed-score
+                  Score: 
+                  %span 3, 
+                  Position:
+                  %span #4
+                  out of
+                  %span 102
                 %time= activity_item.created_at.strftime("%d. %b %Y")
         - else
           .ngo

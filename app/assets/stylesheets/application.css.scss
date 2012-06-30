@@ -488,6 +488,12 @@ footer {
   @include grid(12);
 }
 
+.full {
+  float: left;
+  overflow: hidden;
+  width: 100%;
+}
+
 #profile,
 #activity,
 #search,
@@ -1166,6 +1172,9 @@ hr.divider {
   margin: 0;
   width: 100%;
   @include pie-clearfix;
+  &.strong {
+    background: #ddd;
+  }
 }
 
 @import "profile";

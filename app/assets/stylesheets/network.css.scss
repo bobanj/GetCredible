@@ -1,12 +1,15 @@
-#twitter_contacts, #invitation_content {
+.listing-wrap {
   .horizontal {
     //margin: 20px 25px 0 0;
     margin: 0;
   }
-  .search_twitter_contacts {
+  .search_listing {
     background: #f6f6f6;
-    margin: 0;
     padding: 15px 25px 3px;
+  }
+  .search_listing, .tag-search {
+    margin: 0;
+    
     @include pie-clearfix;
     input[type=text] {
       background: #fff;
@@ -45,6 +48,29 @@
       float: left;
       margin-bottom: 4px;
     }
+    &.gray {
+      background: #f9f9f9;
+    }
+  }
+  &.content {
+    padding: 0;
+  }
+}
+
+.tag-endorse li {
+  border-top: 1px solid #eee;
+  border-bottom: none !important;
+  color: #444;
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 5px;
+  padding: 10px 25px 0 60px !important;
+  span {
+    color: #808080;
+    display: block;
+    font-size: 11px;
+    font-style: italic;
+    margin-top: 4px;
   }
 }
 
@@ -64,7 +90,7 @@
   }
 }
 
-.twitter-contacts-list {
+.listing {
   @include pie-clearfix;
   ul {
     list-style: none;
@@ -89,14 +115,59 @@
     .user {
       font-size: 12px;
     }
+    .score {
+      background: #eee;
+      color: $blue;
+      display: inline-block;
+      font: bold 20px/48px gnuolane, sans-serif;
+      height: 48px;
+      margin: 0 10px 0 0;
+      position: relative;
+      text-align: center;
+      vertical-align: middle;
+      min-width: 48px;
+      @include transition(all .4s)
+    }
+    .endorse {
+      display: inline-block;
+      float: right;
+      font-size: 12px;
+      margin-top: 15px;
+      a {
+        margin-left: 7px;
+        &.action {
+          display: none;
+        }
+      }
+    }
     &:hover, &:focus {
       .twitter_contact {
         display: block !important;
+      }
+      .score {
+        background: $blue;
+        color: #fff;
+      }
+      .endorse a.action {
+        display: inline-block;
       }
     }
   }
   .pagination {
     padding: 20px 25px;
+  }
+}
+
+.feed-score {
+  background: image_url("arrow.png") no-repeat 7px center;
+  float: left;
+  font-size: 11px;
+  line-height: 1.6;
+  margin-bottom: 0;
+  padding-left: 20px;
+  span {
+    color: $blue;
+    font-weight: bold;
   }
 }
 

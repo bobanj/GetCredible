@@ -14,8 +14,8 @@
             = link_to 'Pending', people_pending_path, :class => 'js-remote'
 
 
-  #invitation_content
-    %section#invitation_contacts.twitter-contacts-list
+  #invitation_content.listing-wrap
+    %section#invitation_contacts.listing
       %ul
         - @users.each do |user|
           %li
