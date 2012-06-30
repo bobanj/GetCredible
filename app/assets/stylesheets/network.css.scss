@@ -74,6 +74,19 @@
   }
 }
 
+.tag-endorse-text {
+  border-top: 1px solid #eee;
+  margin-top: 5px;
+  padding: 10px 25px 10px 60px !important;
+  p {
+    margin-bottom: 0;
+  }
+  textarea {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+}
+
 #invitation_contacts {
   ul {
     list-style: none;
@@ -135,7 +148,9 @@
       margin-top: 15px;
       a {
         margin-left: 7px;
+        text-decoration: underline;
         &.action {
+          color: $green;
           display: none;
         }
       }

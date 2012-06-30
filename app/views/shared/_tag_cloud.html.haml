@@ -50,18 +50,23 @@
 
     .listing
       %ul
+        
         %li
-          %span.score 2
+          %span.score 21
           %span.name Design
           %span.user #5 out of 23
           %span.endorse
             = link_to "Endorse this tag", "#", :class => "action"
+          .tag-endorse-text
+            %p Write an endorsement:
+            %textarea
+            %input{ :type => "Submit", :class => "btn primary" }
         %li
-          %span.score 2
+          %span.score 18
           %span.name Interface
           %span.user #5 out of 23
           %span.endorse
-            = link_to "Endorse this tag", "#", :class => "action"
+            = link_to "Endorse", "#", :class => "action"
             = link_to "Hide 3 endorsements", "#"
           %ul.tag-endorse
             %li
@@ -83,26 +88,26 @@
                 = link_to "Some User"
                 2 days ago
         %li
-          %span.score 2
+          %span.score 15
           %span.name Experience
           %span.user #5 out of 23
           %span.endorse
-            = link_to "Endorse this tag", "#", :class => "action"
+            = link_to "Endorse", "#", :class => "action"
         %li
-          %span.score 2
+          %span.score 7
           %span.name HTML5
           %span.user #5 out of 23
           %span.endorse
-            = link_to "Endorse this tag", "#", :class => "action"
+            = link_to "Endorse", "#", :class => "action"
         %li
-          %span.score 2
+          %span.score 3
           %span.name Color Theory
           %span.user #5 out of 23
           %span.endorse
-            = link_to "Endorse this tag", "#", :class => "action"
+            = link_to "Endorse", "#", :class => "action"
         %li
           %span.score 2
           %span.name Typography
           %span.user #5 out of 23
           %span.endorse
-            = link_to "Endorse this tag", "#", :class => "action"
+            = link_to "Endorse", "#", :class => "action"
