@@ -44,7 +44,6 @@ describe 'User', type: :request do
     fill_in("Username", with: "twitter_user")
     fill_in("Email", with: "twitter_user@example.com")
     fill_in("Password", with: "password")
-    fill_in("Password confirmation", with: "password")
     click_button("Save")
     page.should have_content("Your have joined GiveBrand!")
   end

@@ -23,6 +23,8 @@ class Twitter::SessionsController < ApplicationController
     session[:url] = nil
 
     redirect_to url
+  rescue OAuth::Unauthorized
+    redirect_to people_invite_url
   end
 
   def destroy
