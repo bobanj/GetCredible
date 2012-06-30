@@ -5,10 +5,7 @@ describe 'User', type: :request do
 
   it "can invite users via twitter", js: true do
     # mock twitter integration
-    messanger = mock('messanger')
-    Gbrand::Twitter::Messenger.should_receive(:new).and_return(messanger)
-    messanger.should_receive(:save).and_return(true)
-
+    TwitterMessage.any_instance.should_receive(:send_twitter_message).and_return(true)
 
     user = FactoryGirl.create(:user, full_name: "Some Name")
     twitter_contact = FactoryGirl.create(:twitter_contact,
@@ -34,5 +31,8 @@ describe 'User', type: :request do
       click_button("Send Direct Message")
     end
     page.should have_content('An invitation message has been sent to @twitter_user.')
+
+    invited = User.find_by_email('twitter_1')
+    user.followings.should include(invited)
   end
 end
