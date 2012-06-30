@@ -484,7 +484,7 @@ footer {
   @include grid(9);
   @include grid-suffix(3);
 }
-#home_index footer {
+#home_index footer, #home_tour footer {
   @include grid(12);
 }
 
@@ -1131,7 +1131,7 @@ footer {
     }
   }
 }
-#home_index footer {
+#home_index footer, #home_tour footer {
   text-align: center;
   span {
     padding: 0;
