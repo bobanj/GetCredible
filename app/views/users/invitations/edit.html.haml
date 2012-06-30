@@ -11,16 +11,17 @@
         %li= f.input :password_confirmation, :wrapper => false, :placeholder => "Password"
         %li.buttons_left= f.button :submit, "Save", class: 'btn primary large'
     %br
-%aside
   %section.tags
-    %h2 Brand yourself
+    %h2 Sign up to change your brands
     %ul
       - resource.tags.each do |tag|
         %li= tag.name
   %section.followers
-    %h2 Brand your followers
+    %h2 Don't forget to brand your followers
     %ul
       - resource.followers.each do |user|
         %li
           = image_tag(user.avatar_url(:avatar))
           %span= user.name
+%aside
+  = render "links"
