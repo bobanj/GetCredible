@@ -104,4 +104,5 @@ describe UserTag do
       user.tags[0].name.should == 'web design'
     end
   end
+
 end

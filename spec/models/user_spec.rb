@@ -49,7 +49,7 @@ describe User do
     it { should have_many(:followings) }
     it { should have_many(:followers) }
     it { should have_many(:incoming_endorsements) }
-    it { should have_many(:outgoing_endorsements).dependent(:destory) }
+    it { should have_many(:outgoing_endorsements) }
   end
 
   describe "Validations" do
@@ -383,4 +383,29 @@ describe User do
       existing_user.errors[:email].should == ['you shell not pass']
     end
   end
+
+  describe 'Endorsments' do
+    it "can endorse tag of other user" do
+      endorser = FactoryGirl.create(:user, full_name: 'Endorser')
+      user_tag.endorsements.count.should == 0
+      endorser.endorse(user_tag, 'this is text with minimum 10 characters')
+      user_tag.reload.endorsements.count.should == 1
+    end
+
+    it "can not endorse tags he owns" do
+      user_tag.endorsements.count.should == 0
+      user.endorse(user_tag,'this is text with minimum 10 characters')
+      user_tag.endorsements.count.should == 0
+    end
+
+    it "destroys endorsments after deleting user" do
+      endorser = FactoryGirl.create(:user, full_name: 'Endorser')
+      user_tag.endorsements.count.should == 0
+      endorser.endorse(user_tag, 'this is text with minimum 10 characters')
+      user_tag.endorsements.count.should == 1
+      endorser.destroy
+      user_tag.endorsements.count.should == 0
+    end
+  end
+
 end

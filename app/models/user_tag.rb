@@ -9,8 +9,7 @@ class UserTag < ActiveRecord::Base
   has_many :voters, :through => :votes
   has_many :last_voters, :through => :votes, :source => :voter, :order => 'id DESC', :limit => 5
   has_many :endorsements, :dependent => :destroy
-  has_many :endorsers, :class_name => 'Endorsement', :primary_key => :user_id, :foreign_key => :endorsed_by_id
-
+  has_many :endorsers, :through => :endorsements, :source => :endorser
   # Validations
   validates :user_id, :presence => true
   validates :tagger_id, :presence => true

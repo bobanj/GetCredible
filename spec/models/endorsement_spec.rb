@@ -17,5 +17,14 @@ describe Endorsement do
   describe "Associations" do
     it { should belong_to(:user_tag) }
     it { should belong_to(:endorser) }
+    it { should allow_mass_assignment_of(:endorser) }
+  end
+
+  describe "Validations" do
+    it { should validate_presence_of(:endorser) }
+    it { should validate_presence_of(:user_tag) }
+    it { should validate_presence_of(:description) }
+    it { should ensure_length_of(:description).is_at_least(10) }
+    it { should ensure_length_of(:description).is_at_most(300) }
   end
 end

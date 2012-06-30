@@ -223,6 +223,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def endorse(user_tag, description)
+    unless user_tag.user_id == self.id
+      user_tag.endorsements.create endorser: self, description: description
+    end
+  end
+
   # Class methods
 
   def self.search(params)
