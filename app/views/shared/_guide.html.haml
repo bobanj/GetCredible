@@ -1,6 +1,7 @@
-- if user_signed_in? && show_guide?(current_user)
-  = content_for :javascripts do
-    %script{:src => "http://www.youtube.com/player_api", :type => "text/javascript"}
+- unless Rails.env.test? # stop warnings when running specs
+  - if user_signed_in? && show_guide?(current_user)
+    = content_for :javascripts do
+      %script{:src => "http://www.youtube.com/player_api", :type => "text/javascript"}
 
   #bubbles_container{:"data-show_tour" => params[:show_tour], :style => "display:none"}
     #guide_title

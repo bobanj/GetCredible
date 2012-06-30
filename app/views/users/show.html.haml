@@ -11,8 +11,9 @@
   - if @user.avatar
     %meta{:content => url_for(@user.avatar_url(:thumb)), :itemprop => "image"}/
 
-- content_for :javascripts do
-  = render 'shared/social_networks_scripts'
+- unless Rails.env.test? # stop warnings when running specs
+  - content_for :javascripts do
+    = render 'shared/social_networks_scripts'
 
 #login_dialog{style: "display: none", title: ""}
   %p.note Almost there! Sign up to join GiveBrand or login to your account.

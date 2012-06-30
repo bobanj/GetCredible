@@ -790,7 +790,6 @@ $(function (){
     }).qtip('api');
 
     $('#content').delegate('.email_button', 'click', function (e) {
-      console.log($('#email_invite'));
         e.preventDefault();
         $.getCredible.emailQtipApi.set('content.text', $('#email_invite'));
         $.getCredible.emailQtipApi.show();
