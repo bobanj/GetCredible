@@ -26,7 +26,7 @@ describe 'User', type: :request do
     open_email("invited1@example.com")
     visit_in_email('Accept invitation')
 
-    within("aside") do
+    within("#content") do
       page.should have_content("tag1")
       page.should have_content("tag2")
       page.should have_content("Some Name")
