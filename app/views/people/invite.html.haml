@@ -22,12 +22,12 @@
           %li= link_to "Disconnect from Twitter", twitter_session_path, :confirm => "Are you sure", :method => :delete, :class => "btn primary small light"
 
     %hr.divider
-    #js-twitter-contacts-list.twitter-contacts-list{:"data-message" => "Help boost my influence at givebrand.to!"}
-      - if current_user.twitter_id.blank?
+    .twitter-contacts-list
+      - if @contacts.present?
+        = render 'contacts', :contacts => @contacts, :users => @users
+      - else
         .ngo
           %p== #{link_to "Find your Twitter friends", twitter_contacts_path} and invite them with private message.
-      - else
-        = render 'contacts', :contacts => @contacts, :users => @users
 
 %aside
   = render 'shared/sidebar_nav'

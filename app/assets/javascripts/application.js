@@ -743,21 +743,18 @@ $(function (){
           return false;
         }).qtip('api');
 
-    var defaultMessage = $('#js-twitter-contacts-list').data('message')
-
     $('#content').delegate('.twitter_contact', 'click', function (){
       var contact = $(this);
-      var twitterUsername = contact.data('screen_name')
-      $('#js-twitter-id').val(contact.data('twitter_id'));
-      $('#js-twitter-screen-name').val(twitterUsername);
-      $('#js-twitter-message').val(defaultMessage);
-      $("#js-twitter-invite-title").text("Send direct message to @" + twitterUsername);
+      var twitterUsername = contact.data('screen_name');
+      var twitterId = contact.data('twitter_id');
+      $('#twitter_message_twitter_id').val(twitterId);
+      $('#twitter_message_screen_name').val(twitterUsername);
       $("#js-twitter-invite-header").text("Invite and brand @" + twitterUsername);
       $.getCredible.twitterQtipApi.set('content.text', $('#twitter_invite'));
       $.getCredible.twitterQtipApi.show();
     });
 
-    $('#js-twitter-dm-form').live('submit', function (e) {
+    $('#js-twitter-invitation-form').live('submit', function (e) {
       $(this).find('.loading').show();
     });
   };
@@ -794,8 +791,6 @@ $(function (){
         event.preventDefault();
         return false;
     }).qtip('api');
-
-    var defaultMessage = $('#js-twitter-contacts-list').data('message')
 
     $('#content').delegate('.email_button', 'click', function (e) {
       console.log($('#email_invite'));

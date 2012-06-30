@@ -17,6 +17,7 @@ describe 'User', type: :request do
       page.should have_content("can't be blank")
       page.should have_content("add at least one tag")
     end
+    page.should have_content('We could not sent your email at this time.')
 
     # invite user
     within("#js-email-invitation-form") do

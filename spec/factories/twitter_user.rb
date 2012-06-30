@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :user do |f|
+  factory :twitter_user do |f|
     f.sequence(:email) { |i| "user#{i}@example.com" }
     f.password 'password'
     f.sequence(:username) { |i| "user#{i}" }

@@ -5,13 +5,13 @@ class EmailMessage
   extend ActiveModel::Naming
 
   # Attributes
-  attr_accessor :email, :invited, :tag_names, :tag1, :tag2, :tag3
+  attr_accessor :inviter, :email, :invited, :tag_names, :tag1, :tag2, :tag3
 
   # Callbacks
   before_validation :set_tag_names
 
   # Validations
-  validates_presence_of :email
+  validates_presence_of :inviter, :email
   validate :validate_at_least_one_tag
 
   def initialize(attributes = {})
@@ -20,7 +20,7 @@ class EmailMessage
     end
   end
 
-  def save(inviter)
+  def save
     if valid?
       invited = User.invite!({email: email, tag_names: tag_names}, inviter)
       inviter.add_tags(invited, TagCleaner.clean(tag_names), skip_email: true)

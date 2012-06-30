@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :tag do |tag|
-    tag.name 'web design'
+  factory :tag do |f|
+    f.name 'web design'
   end
 end

@@ -2,7 +2,8 @@ class Twitter::MessagesController < ApplicationController
   before_filter :authenticate_user!
 
   def create
-    @message = TwitterMessage.new(params[:twitter_message])
+    @message = TwitterMessage.new(params[:twitter_message].merge(inviter: current_user))
+
     if @message.save
       render :create_success
     else

@@ -1,11 +1,11 @@
-$('.loading').hide();
-$.getCredible.displayNotification('success', 'Message was successfully sent.');
+$.getCredible.displayNotification('success', 'An invitation message has been sent to @<%= @message.screen_name %>.');
+
 $.getCredible.twitterQtipApi.hide();
-$('#js-twitter-id').val('');
-$('#js-twitter-screen-name').val('');
-$('#js-twitter-message').val('')
-$("#js-twitter-invite-title").text("");
-$("#js-twitter-invite-header").text("");
-var inviteButton = $('a[data-screen_name="<%= @twitter_message.screen_name %>"]');
+$('.loading').hide();
+$('#twitter_message_twitter_id').val('');
+$('#twitter_message_screen_name').val('');
+$("#js-twitter-invite-header").text('');
+
+var inviteButton = $('a[data-screen_name="<%= @message.screen_name %>"]');
 inviteButton.parents('li').addClass('vouche');
 inviteButton.remove();

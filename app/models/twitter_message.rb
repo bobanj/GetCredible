@@ -5,13 +5,13 @@ class TwitterMessage
   extend ActiveModel::Naming
 
   # Attributes
-  attr_accessor :twitter_id, :screen_name, :tag_names, :tag1, :tag2, :tag3
+  attr_accessor :inviter, :twitter_id, :screen_name, :tag_names, :tag1, :tag2, :tag3
 
   # Callbacks
   before_validation :set_tag_names
 
   # Validations
-  validates_presence_of :twitter_id, :screen_name
+  validates_presence_of :inviter, :twitter_id, :screen_name
   validate :validate_at_least_one_tag
 
   def initialize(attributes = {})
@@ -23,8 +23,8 @@ class TwitterMessage
   def save
     if valid?
       true
-      # messanger = Gbrand::Twitter::Messenger.new(current_user, params)
-      # messanger.save
+      messanger = Gbrand::Twitter::Messenger.new(self, inviter)
+      messanger.save
     else
       false
     end
