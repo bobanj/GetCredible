@@ -51,6 +51,10 @@
         - unless @user.twitter_handle.blank?
           %li.twitter
             %a.twitter-follow-button{"data-hashtags" => "givebrand", "data-show-count" => "false", :href => "https://twitter.com/#{@user.twitter_handle}"}="Follow @#{@user.twitter_handle}"
+
+  = render :partial => 'shared/tag_cloud', :locals => {:can_delete => false}
+  = render :partial => 'shared/endorsements'
+
   %ul.social_fixed
     %li
       %a.twitter-share-button{'data-count' => "vertical", "data-text" => "Help boost my influence at givebrand.to! #{me_user_url(@user)} #givebrand via @givebrand", :href => "https://twitter.com/share"} Tweet
@@ -63,7 +67,6 @@
     -# %li
     -#   %a.pin-it-button{"count-layout" => "vertical", :href => "http://pinterest.com/pin/create/button/?url=#{u(me_user_url(@user))}&media=#{request.protocol}#{request.host_with_port}#{asset_path("logo.png")}&description=Description"}
     -#     %img{:border => "0", :src => "//assets.pinterest.com/images/PinExt.png", :title => "Pin It"}/
-  = render :partial => 'shared/tag_cloud', :locals => {:can_delete => false}
 
 %aside
   - if user_signed_in? && @user == current_user
