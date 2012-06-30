@@ -6,7 +6,7 @@
       = f.error_notification
       = f.input :reset_password_token, :as => :hidden
       = f.full_error :reset_password_token
-      %ul.inputs-list
+      %ul.inputs-list.bg
         %li= f.input :password, :label => "New password", :required => true
         %li= f.input :password_confirmation, :label => "Confirm your new password", :required => true
         %li= f.button :submit, "Change my password", class: 'btn large primary'

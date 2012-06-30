@@ -326,9 +326,9 @@ ul.social_fixed {
   }
 }
 
-#popular-tags {
+.popular-tags {
   padding-top: 10px;
-  h3 {
+  h2, h3 {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     font-family: "gnuolane", impact, sans-serif;
     font-size: 20px;
@@ -342,7 +342,7 @@ ul.social_fixed {
     margin-bottom: 15px;
     margin-left: 20px;
   }
-  ul a {
+  ul a, ul .link {
     background: #fff;
     display: block;
     font: 11px/2 open-sans, Arial, sans-serif;
@@ -378,5 +378,16 @@ ul.social_fixed {
         background: rgba(0, 0, 0, 0.8);
       }
     }
+  }
+  ul .link {
+    background: #eee;
+  }
+  ul .user {
+    img {
+      width: 24px;
+    }
+  }
+  &.followers {
+    padding-top: 0;
   }
 }

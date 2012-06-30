@@ -475,6 +475,9 @@ aside {
 #content {
   width: 690px;
 }
+.half {
+  width: 50%;
+}
 
 #main {
   @include grid(12);
@@ -688,6 +691,10 @@ footer {
   #gn-login, #gn-register, #gn-activity, #gn-tour, #gn-profile, #gn-logout, #gn-tour, #gn-invite {
     float: right;
   }
+}
+
+#gn-logout a {
+  color: #999;
 }
 
 #home_index #gn-logo a {
@@ -1122,6 +1129,7 @@ footer {
     padding: 3px;
   }
   .right {
+    margin-right: 18px;
     a {
       opacity: .4;
       @include transition(all .4s);
@@ -1132,6 +1140,7 @@ footer {
   }
 }
 #home_index footer, #home_tour footer {
+  margin-right: 0;
   text-align: center;
   span {
     padding: 0;

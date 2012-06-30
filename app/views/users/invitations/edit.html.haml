@@ -3,26 +3,32 @@
     %header#page-header
       %h1 Set your profile
 
-    = simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: {method: :put }) do |f|
-      = f.hidden_field :invitation_token
-      %ul.inputs-list
-        %li= f.input :username, required: false, autofocus: true, placeholder: "Username"
-        - if resource.twitter_id? # when invited via twitter, ask for email
-          %li= f.input :email, input_html: { value: ''}, required: false, placeholder: "Email"
-        %li= f.input :password, wrapper: false, placeholder: "Password"
-        %li.buttons_left= f.button :submit, "Save", class: 'btn primary large'
-    %br
-  %section.tags
-    %h2 Sign up to change your brands
-    %ul
-      - resource.tags.each do |tag|
-        %li= tag.name
-  %section.followers
-    %h2 Don't forget to brand your followers
-    %ul
-      - resource.followers.each do |user|
-        %li
-          = image_tag(user.avatar_url(:avatar))
-          %span= user.name
+    .half.left
+      = simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: {method: :put }) do |f|
+        = f.hidden_field :invitation_token
+        %ul.inputs-list
+          %li= f.input :username, required: false, autofocus: true, placeholder: "Username"
+          - if resource.twitter_id? # when invited via twitter, ask for email
+            %li= f.input :email, input_html: { value: ''}, required: false, placeholder: "Email"
+          %li= f.input :password, wrapper: false, placeholder: "Password"
+          %li.buttons_left= f.button :submit, "Save", class: 'btn primary large'
+      %br
+      
+    .half.right
+      %section.tags.popular-tags
+        %h2 Sign up to change your brands
+        %ul.horizontal
+          - resource.tags.each do |tag|
+            %li.link= tag.name
+          
+      %section.followers.popular-tags
+        %h2 Don't forget to brand your followers
+        %ul.horizontal
+          - resource.followers.each do |user|
+            %li.user
+              = image_tag(user.avatar_url(:avatar))
+              //Show as a Tooltip
+              //%span= user.name
+              
 %aside
   = render "links"

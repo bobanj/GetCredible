@@ -5,7 +5,7 @@
     %h1 Sign Up
 
   = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :namespace => 'sign_up', :html => {:id => 'user_sign_up'}) do |f|
-    %ul.inputs-list
+    %ul.inputs-list.bg
       %li= f.input :username, :required => false, :autofocus => true, :placeholder => "Username"
       %li= f.input :email, :placeholder => "Email"
       %li= f.input :password, :placeholder => "Password"
