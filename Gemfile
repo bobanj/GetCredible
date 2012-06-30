@@ -49,11 +49,6 @@ group :development do
   gem 'rails3-generators'
   gem 'quiet_assets'
   gem 'thin'
-  # gem 'rb-readline'
-  # gem 'awesome_print'
-  # gem 'hirb'
-  # gem 'wirble'
-  # gem 'interactive_editor'
 end
 
 group :test do
