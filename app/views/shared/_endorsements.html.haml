@@ -79,3 +79,10 @@
           %span.user #5 out of 23
           %span.endorse
             = link_to "Endorse", "#", :class => "action"
+
+        %li
+          = simple_form_for(Endorsement.new, :url => endorsements_path, html: {class: 'tag-endorse-text'}) do |f|
+            %p Write an endorsement:
+            = f.input :user_tag_id, as: :hidden
+            = f.input :description, input_html: {rows: 2}
+            .buttons= f.button :submit, "Endorse", class: 'btn primary'

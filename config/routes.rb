@@ -1,5 +1,7 @@
 GetCredible::Application.routes.draw do
 
+  get "endorsements/create"
+
   post "tags/search"
   get '/people' => 'people#index'
   get '/people/supported' => 'people#supported'
@@ -22,6 +24,7 @@ GetCredible::Application.routes.draw do
   end
 
   resources :activities, :only => [:show]
+  resources :endorsements, :only => [:create, :show]
 
   namespace :twitter do
     resource :session, :only => [:new, :show, :destroy]
