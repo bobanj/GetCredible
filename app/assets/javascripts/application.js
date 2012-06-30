@@ -453,7 +453,7 @@ $(function (){
     var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-name');
     $.post("/users/sign_in.json", params, function (data){
       if (data.success){
-        if (data.show_tour){
+        if (data.show_guide){
           guideApi.show();
         }
         $('#global-header').replaceWith(data.header);
@@ -478,7 +478,7 @@ $(function (){
     var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-name');
     $.post("/users.json", params, function (data){
       if (data.success){
-        if (data.show_tour){
+        if (data.show_guide){
           guideApi.show();
         }
         $('#global-header').replaceWith(data.header);
@@ -702,7 +702,7 @@ $(function (){
 
   $.getCredible.guide = function (){
     var bubbleContainer = $("#bubbles_container");
-    if (bubbleContainer.length > 0 && bubbleContainer.data('show_tour')){
+    if (bubbleContainer.length > 0 && bubbleContainer.data('show_guide')){
       guideApi.show();
     }
   }

@@ -11,6 +11,6 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def after_accept_path_for(resource)
-    me_user_path(resource, :show_tour => true)
+    sign_in_url
   end
 end

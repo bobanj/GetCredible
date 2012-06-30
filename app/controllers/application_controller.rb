@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
       self.formats = [:html] # let partials resolve with html not json format
       @user = User.find_by_username!(params[:user_id])
       {
-        :show_tour => resource.sign_in_count == 1,
+        :show_guide => resource.sign_in_count == 1,
         :success => true,
         :user => resource,
         :header => render_to_string(:layout => false, :partial => 'shared/header.html.haml'),
@@ -29,11 +29,11 @@ class ApplicationController < ActionController::Base
     end
 
     def sign_in_url
-      show_tour = current_user.sign_in_count == 1 ? true : nil
+      show_guide = current_user.sign_in_count == 1 ? true : nil
       if current_user.user_tags.exists?
-        activity_path('all', :show_tour => show_tour)
+        activity_path('all', :show_guide => show_guide)
       else
-        me_user_path(current_user, :show_tour => show_tour)
+        me_user_path(current_user, :show_guide => show_guide)
       end
     end
 end

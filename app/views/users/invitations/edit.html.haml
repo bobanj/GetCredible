@@ -10,7 +10,6 @@
         - if resource.twitter_id? # when invited via twitter, ask for email
           %li= f.input :email, input_html: { value: ''}, required: false, placeholder: "Email"
         %li= f.input :password, wrapper: false, placeholder: "Password"
-        %li= f.input :password_confirmation, wrapper: false, placeholder: "Password"
         %li.buttons_left= f.button :submit, "Save", class: 'btn primary large'
     %br
   %section.tags

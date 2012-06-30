@@ -1,9 +1,9 @@
-- if user_signed_in? && show_guide?(current_user)
+- if user_signed_in? && show_guide?(current_user, params[:show_guide])
   - unless Rails.env.test? # stop warnings when running specs
     = content_for :javascripts do
       %script{:src => "http://www.youtube.com/player_api", :type => "text/javascript"}
 
-  #bubbles_container{:"data-show_tour" => params[:show_tour], :style => "display:none"}
+  #bubbles_container{:"data-show_guide" => params[:show_guide], :style => "display:none"}
     #guide_title
       Few moments to set up your account.
     %a#guide_close{href: '#'}
