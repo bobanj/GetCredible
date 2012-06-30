@@ -1,0 +1,22 @@
+%footer
+  .right
+    = link_to image_tag("icons/twitter.png"), "http://twitter.com/givebrand/"
+    = link_to image_tag("icons/facebook.png"), "https://www.facebook.com/GiveBrand"
+    = link_to image_tag("icons/googleplus.png"), "#"
+    = link_to image_tag("icons/linkedin.png"), "#"
+    
+  = link_to 'Tour', tour_path
+  &bull;
+  = link_to 'Privacy policy', privacy_path
+  &bull;
+  = link_to 'Terms of use', terms_path
+  &bull;
+  = link_to 'Press', press_path
+  &bull;
+  = mail_to 'feedback@givebrand.com', 'Send feedback'
+  %br
+  %span Copyright &copy; GiveBrand 2012
+  %br
+  %br
+  - if params[:controller] == 'home'
+    = link_to 'To the top', "#global-header", :class => "to-the-top"

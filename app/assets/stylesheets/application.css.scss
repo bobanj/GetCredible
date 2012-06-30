@@ -481,8 +481,8 @@ aside {
 }
 
 footer {
-  @include grid(11);
-  @include grid-suffix(1);
+  @include grid(9);
+  @include grid-suffix(3);
 }
 #home_index footer {
   @include grid(12);
@@ -836,7 +836,7 @@ footer {
   @include background(radial-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.01) 100%));
 
   h1 {
-    font-size: 80px;
+    font-size: 86px;
     font-weight: bold;
     line-height: 0.85;
     margin-top: 67px;
@@ -1121,11 +1121,25 @@ footer {
     display: block;
     padding: 3px;
   }
+  .right {
+    a {
+      opacity: .4;
+      @include transition(all .4s);
+      &:hover, &:focus {
+        opacity: 1;
+      }
+    }
+  }
 }
 #home_index footer {
   text-align: center;
   span {
     padding: 0;
+  }
+  .right {
+    display: block;
+    float: none;
+    margin-bottom: 10px;
   }
 }
 .hidden {
