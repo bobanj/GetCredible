@@ -56,13 +56,17 @@ class TwitterMessage
     fake_email = "twitter_#{twitter_contact.twitter_id}"
     user = User.find_by_email(fake_email)
     unless user
-      user = User.new(email: fake_email, full_name: twitter_contact.name,
+      user = User.new(email: fake_email,
+                      full_name: twitter_contact.name,
+                      tag_names: tag_names,
                       avatar: twitter_contact.avatar)
       user.twitter_id = twitter_contact.twitter_id
       user.invited_by = inviter
       user.skip_invitation = true
       user.invite!
     end
+    inviter.add_tags(user, TagCleaner.clean(tag_names), skip_email: true)
+    inviter.add_following(user)
     user
   end
 
@@ -70,9 +74,10 @@ class TwitterMessage
     message = "I've tagged you with: #{tag_names.first} at GiveBrand!"
     url = view_context.accept_invitation_url(user,
                       :invitation_token => user.invitation_token)
-    dm = "#{message[0..(140-url.length)]} #{url}"
-    raise dm.to_yaml
-    # client.direct_message_create(message.screen_name, dm)
+
+    # make sure user receives invitation URL: 138 + char at 0 + ' ' = 140
+    dm = "#{message[0..(138-url.length)]} #{url}"
+    client.direct_message_create(screen_name, dm)
   end
 
   def client

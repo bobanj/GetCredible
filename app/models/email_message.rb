@@ -24,7 +24,7 @@ class EmailMessage
     if valid?
       invited = User.invite!({email: email, tag_names: tag_names}, inviter)
       inviter.add_tags(invited, TagCleaner.clean(tag_names), skip_email: true)
-      inviter.followings << invited unless inviter.followings.exists?(invited)
+      inviter.add_following(invited)
       true
     else
       false

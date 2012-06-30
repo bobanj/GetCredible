@@ -129,6 +129,10 @@ class User < ActiveRecord::Base
     UserTag.add_tags(self, user, tag_names, options)
   end
 
+  def add_following(invited)
+    followings << invited unless followings.exists?(invited)
+  end
+
   def add_vote(user_tag, log_vote_activity = true)
     if self != user_tag.user
       vote = vote_exclusively_for(user_tag)
