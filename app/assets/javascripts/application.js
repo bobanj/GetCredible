@@ -858,6 +858,28 @@ $(function (){
     return false;
   });
 
+  $("#endorsements").on("click",".js-endorse-tag",function(e){
+    e.preventDefault();
+    var userTagId = $(this).data('user_tag_id');
+    var endorseContainer = $("#endorse_" + userTagId +"_container");
+    var endorsementForm = $(".js-endorsement-form");
+    if(endorseContainer.length > 0 && endorsementForm.length > 0){
+      endorsementForm.show();
+      endorseContainer.find(".tag-endorse").before(endorsementForm);
+      endorsementForm.find("#endorsement_user_tag_id").val(userTagId);
+      endorsementForm.find("#user_tag_id").val(userTagId);
+      var endorsementTextarea = endorsementForm.find("#endorsement_description");
+      if (endorsementTextarea.length > 0){
+        endorsementTextarea.limit('300', $("#endorsement_word_counter"));
+      }
+      endorsementTextarea.focus();
+    }
+  });
+
+  $("#endorsements").on("submit",".js-endorsement-form",function(e){
+    $(this).find('.loader').show();
+  });
+
   $.getCredible.showFlashMessages();
   $.getCredible.ajaxPagination();
   $.getCredible.init();

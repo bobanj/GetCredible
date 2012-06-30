@@ -20,69 +20,10 @@
             - if rank
               %span.user="##{rank} out of #{user_tag.incoming.value}"
             %span.endorse
-              = link_to "Endorse this tag", "#", class: "js-endorse-tag action"
+              - if user_signed_in? && @user != current_user
+                = link_to "Endorse this tag", "#", class: "js-endorse-tag action", :"data-user_tag_id" => user_tag.id
               = link_to "Show 3 endorsements", "#"
-            .tag-endorse-text
-              %p Write an endorsement:
-              %textarea
-              %input{ :type => "Submit", :class => "btn primary" }
-            - if user_tag.endorsements.any?
-              %ul.tag-endorse
-                - user_tag.endorsements.each do |endorsement|
-                  %li
-                    = endorsement.description
-                    %span
-                      Written by
-                      = link_to endorsement.endorser.short_name, endorsement.endorser
-                      = time_ago_in_words(endorsement.created_at)
-
-        %li
-          %span.score 18
-          %span.name Interface
-          %span.user #5 out of 23
-          %span.endorse
-            = link_to "Endorse", "#", :class => "action"
-            = link_to "Hide 3 endorsements", "#"
-            %li
-              Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              %span
-                Written by
-                = link_to "Some User"
-                2 days ago
-            %li
-              Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
-              %span
-                Written by
-                = link_to "Some User"
-                2 days ago
-        %li
-          %span.score 15
-          %span.name Experience
-          %span.user #5 out of 23
-          %span.endorse
-            = link_to "Endorse", "#", :class => "action"
-        %li
-          %span.score 7
-          %span.name HTML5
-          %span.user #5 out of 23
-          %span.endorse
-            = link_to "Endorse", "#", :class => "action"
-        %li
-          %span.score 3
-          %span.name Color Theory
-          %span.user #5 out of 23
-          %span.endorse
-            = link_to "Endorse", "#", :class => "action"
-        %li
-          %span.score 2
-          %span.name Typography
-          %span.user #5 out of 23
-          %span.endorse
-            = link_to "Endorse", "#", :class => "action"
-
-        %li
-          = simple_form_for(Endorsement.new, :url => endorsements_path, html: {class: 'tag-endorse-text'}) do |f|
-            %p Write an endorsement:
-            = f.input :user_tag_id, as: :hidden
-            = f.input :description, input_html: {rows: 2}
-            .buttons= f.button :submit, "Endorse", class: 'btn primary'
+            %ul.tag-endorse
+              = render :partial => 'endorsements/endorsement', :collection => user_tag.endorsements.order("created_at desc");
+  .hide
+    =render :partial => 'endorsements/form'

@@ -1,0 +1,6 @@
+%li
+  = endorsement.description
+  %span
+    Written by
+    = link_to endorsement.endorser.short_name, me_user_path(endorsement.endorser)
+    = time_ago_in_words(endorsement.created_at)
