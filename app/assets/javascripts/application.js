@@ -950,6 +950,18 @@ $(function (){
       });
       return false;
     });
+
+    var endorsementTags = $("#endorsements_list li");
+    $('#endorsement_search').bind('keyup',function(){
+      var searchTerm = $(this).val();
+      endorsementTags.each(function(){
+        var tagName = $(this).find('span.name').text().toString();
+        if (tagName.indexOf(searchTerm)<0)
+          $(this).fadeOut();
+        else
+          $(this).fadeIn();
+      });
+    });
   }
 
   $.getCredible.showFlashMessages();

@@ -6,13 +6,12 @@
         %h1 Tag Breakdown & Endorsements
 
         .tag-search.right
-          = form_tag invite_url, remote: true, method: :get do
-            %p
-              = text_field_tag :q, params[:q]
-              = submit_tag :search, value: "Search", name: nil
+          %p
+            = text_field_tag :endorsement_search, nil
+            = submit_tag :search, value: "Search", name: nil
 
       .listing
-        %ul
+        %ul#endorsements_list
           - @user_tags.each do |user_tag|
             - rank = user_tag.rank.value
             - endorsements = user_tag.endorsements.latest
