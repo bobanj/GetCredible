@@ -373,11 +373,11 @@ input, textarea {
 
 }
 
-.vouche, .tag {
+.vouche, .tag, .endorsement {
   position: relative;
 }
 
-.vouche .tag-icon, .tag .tag-icon {
+.vouche .tag-icon, .tag .tag-icon, .endorsement .tag-icon {
   height: 21px;
   left: -11px;
   position: absolute;
@@ -405,6 +405,17 @@ input, textarea {
   .vouche:hover, .vouche:focus {
     .tag-icon {
       background: image_url('icon-vouche-hover.png') no-repeat center;
+    }
+  }
+}
+.endorsement .tag-icon {
+  background: image_url('icon-endorse.png') no-repeat center;
+}
+
+.list-view {
+  .endorsement:hover, .endorsement:focus {
+    .tag-icon {
+      background: image_url('icon-endorse-hover.png') no-repeat center;
     }
   }
 }
