@@ -793,7 +793,6 @@ $(function (){
         e.preventDefault();
         $.getCredible.emailQtipApi.set('content.text', $('#email_invite'));
         $.getCredible.emailQtipApi.show();
-        $('#email_message_email').focus();
     });
 
     $('#js-email-invitation-form').live('submit', function (e) {
