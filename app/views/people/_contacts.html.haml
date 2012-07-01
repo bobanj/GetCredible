@@ -1,6 +1,6 @@
 %ul
   - contacts.each do |contact|
-    - user = users.detect{ |user| user.twitter_handle == contact.screen_name }
+    - user = users.detect{ |user| user.twitter_id == contact.twitter_id }
     %li{:class => contact.invited? ? 'vouche' : nil}
       .tag-icon
 
