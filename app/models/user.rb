@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   # Attributes
   attr_accessible :email, :password, :password_confirmation, :remember_me,
     :username, :full_name, :short_bio, :location, :twitter_handle,
-    :personal_url, :avatar, :avatar_cache, :tag_names
+    :personal_url, :avatar, :avatar_cache, :tag_names, :remote_avatar_url
 
   attr_accessor :tag_names
 

@@ -57,9 +57,10 @@ class TwitterMessage
     fake_email = "twitter_#{twitter_contact.twitter_id}"
     user = User.find_by_email(fake_email)
     unless user
+      avatar = get_avatar_url(twitter_contact)
       user = User.new(email: fake_email,
                       full_name: twitter_contact.name,
-                      avatar: twitter_contact.avatar)
+                      remote_avatar_url: avatar)
       user.twitter_id = twitter_contact.twitter_id
       user.invited_by = inviter
       user.skip_invitation = true
@@ -89,5 +90,10 @@ class TwitterMessage
     @twitter_contact||= @twitter_contact = inviter.twitter_contacts.
       find_by_twitter_id!(twitter_id)
 
+  end
+
+  def get_avatar_url(twitter_contact)
+    # replace the last '_normal' with ''
+    twitter_contact.avatar.reverse.sub('_normal'.reverse, '').reverse
   end
 end

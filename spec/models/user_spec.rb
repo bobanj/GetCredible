@@ -21,6 +21,7 @@ describe User do
     it { should allow_mass_assignment_of(:location) }
     it { should allow_mass_assignment_of(:personal_url) }
     it { should allow_mass_assignment_of(:twitter_handle) }
+    it { should allow_mass_assignment_of(:remote_avatar_url) }
   end
 
   describe "Database Columns" do
