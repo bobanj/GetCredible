@@ -12,7 +12,6 @@ GetCredible::Application.routes.draw do
     member do
       get :followers
       get :following
-      get :pending
     end
     resources :user_tags, :only => [:index, :create, :destroy], :path => :tags do
       member do

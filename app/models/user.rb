@@ -60,6 +60,7 @@ class User < ActiveRecord::Base
   scope :active, where('invitation_token IS NULL')
   scope :inactive, where('invitation_token IS NOT NULL')
   scope :order_by_invitation_time, order("invitation_sent_at desc")
+  scope :order_by_name, order('full_name ASC, username ASC')
 
   def profile_complete_percent
     empty_count = 0
@@ -90,20 +91,12 @@ class User < ActiveRecord::Base
     invitation_token.blank?
   end
 
-  def supported
-    voted_users.active
+  def voted_count
+    voted_users.count(:distinct => true)
   end
 
-  def supporters
-    voters.active
-  end
-
-  def supported_count
-    supported.count(:distinct => true)
-  end
-
-  def supporters_count
-    supporters.count(:distinct => true)
+  def voters_count
+    voters.count(:distinct => true)
   end
 
   def pending

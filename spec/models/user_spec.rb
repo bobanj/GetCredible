@@ -410,40 +410,19 @@ describe User do
       end
     end
 
-    describe "#supported" do
-      it "returns active supported users" do
-        voter.add_vote(user_tag)
-
-        # inviter user
-        invited = User.invite!({email: 'new_user@example.com', tag_names: ['developer']}, voter)
-        voter.add_tags(invited, ['developer'], skip_email: true)
-
-        voter.supported.should include(user)
-        voter.supported.should_not include(invited)
-      end
-    end
-
-    describe "#supporters" do
-      it "returns supporters" do
-        voter.add_vote(user_tag)
-        user.supporters.should include(voter)
-      end
-    end
-
-    describe "#supported_count" do
+    describe "#voted_count" do
       it "returns number of supported people" do
         voter.add_vote(user_tag)
         voter.add_vote(user_tag2)
-
-        voter.supported_count.should == 1
+        voter.voted_count.should == 1
       end
     end
 
-    describe "#supporters_count" do
+    describe "#voters_count" do
       it "returns number of supporters" do
         voter.add_vote(user_tag)
         voter.add_vote(user_tag2)
-        user.supporters_count.should == 1
+        user.voters_count.should == 1
       end
     end
   end

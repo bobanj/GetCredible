@@ -34,8 +34,8 @@ module ActivitiesHelper
     "#{link_to(user.name, me_user_path(user))}".html_safe
   end
 
-  def user_short(user)
-    user.short_name =~ /s$/i ? "#{user.short_name}'" : "#{user.short_name}'s"
+  def apostrophe(term)
+    term =~ /s$/i ? "'" : "'s"
   end
 
   def user_long(user)

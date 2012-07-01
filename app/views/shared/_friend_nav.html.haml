@@ -1,10 +1,10 @@
 %nav#friend-nav
   %ul
     %li
-      = link_to followers_user_path(user) do
-        %span= user.supporters_count
-        Followers
-    %li
       = link_to following_user_path(user) do
-        %span= user.supported_count
+        %span= user.voted_count
         Following
+    %li
+      = link_to followers_user_path(user) do
+        %span= user.voters_count
+        Followers

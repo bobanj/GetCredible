@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :authenticate_user!, :only => :pending
+  # before_filter :authenticate_user!, :only => [:followers, :following]
   before_filter :load_user, :only => [:show, :followers, :following]
 
   def index
@@ -14,20 +14,13 @@ class UsersController < ApplicationController
   end
 
   def followers
-    @users = @user.supporters.
+    @users = @user.voters.order_by_name.
       paginate :per_page => 10, :page => params[:page]
     render :users, layout: (request.xhr? ? false : true)
   end
 
   def following
-    @users = @user.supported.
-      paginate :per_page => 10, :page => params[:page]
-    render :users, layout: (request.xhr? ? false : true)
-  end
-
-  def pending
-    @user = current_user
-    @users = @user.pending.
+    @users = @user.voted_users.order_by_name.
       paginate :per_page => 10, :page => params[:page]
 
     render :users, layout: (request.xhr? ? false : true)

@@ -31,7 +31,7 @@
           %li#gn-activity
             = link_to 'Invite', invite_path, :class => ((params[:controller] == 'invite') ? 'active' : nil)
           %li#gn-profile
-            = link_to 'Profile', me_user_path(current_user), :class => ((params[:controller] == 'users') && params[:action] == 'show' ? 'active' : nil)
+            = link_to 'Profile', me_user_path(current_user), :class => ((params[:controller] == 'users' && ['show', 'followers', 'following'].include?(params[:action]) && current_user == @user) ? 'active' : nil)
           %li#gn-activity
             = link_to 'Activity', activity_path('all'), :class => (params[:controller] == 'activities' ? 'active' : nil)
 
