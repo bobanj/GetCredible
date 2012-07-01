@@ -11,7 +11,9 @@ describe 'User', type: :request do
       screen_name: 'pink_panter', name: 'Pink Panter', user: user)
 
     sign_in_user(user)
-    click_link("Invite & Tag")
+    within("#global-nav") do
+      click_link("Invite")
+    end
 
     page.should have_content("green_panter")
     page.should have_content("pink_panter")

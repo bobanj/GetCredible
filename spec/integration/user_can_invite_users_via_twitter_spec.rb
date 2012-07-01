@@ -12,7 +12,9 @@ describe 'User', type: :request do
                         :screen_name => 'twitter_user', user: user)
 
     sign_in_user(user)
-    click_link("Invite & Tag")
+    within("#global-nav") do
+      click_link("Invite")
+    end
     within(".twitter-contacts-list") do
       click_link("Invite")
     end
