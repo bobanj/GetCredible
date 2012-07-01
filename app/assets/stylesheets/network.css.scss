@@ -191,9 +191,13 @@
 
 .feed-users {
   float: left;
+  margin-left: 0;
   li {
     border: none !important;
     padding: 0 !important;
+  }
+  img {
+    width: 16px;
   }
 }
 
