@@ -2,16 +2,16 @@
   %section#twitter_contacts.content
     %header#page-header
 
-      %h1 People
+      %h1= current_user.name
 
       %nav.right
         %ul.tabs
-          %li{:class => people_active_class('index')}
-            = link_to 'Tagged Me', people_path, :class => 'js-remote'
-          %li.last{:class => people_active_class('supported')}
-            = link_to "I've Tagged", people_supported_path, :class => 'js-remote'
-          %li.first{:class => people_active_class('pending')}
-            = link_to 'Pending', people_pending_path, :class => 'js-remote'
+          %li{:class => users_active_class('followers')}
+            = link_to 'Followers', followers_user_path(current_user), :class => 'js-remote'
+          %li.last{:class => users_active_class('following')}
+            = link_to "Following", following_user_path(current_user), :class => 'js-remote'
+          %li.first{:class => users_active_class('pending')}
+            = link_to 'Pending', pending_user_path(:current), :class => 'js-remote'
 
 
   #invitation_content.listing-wrap

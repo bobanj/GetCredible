@@ -5,7 +5,7 @@
       %h1 Tag Breakdown & Endorsements
 
       .tag-search.right
-        = form_tag people_invite_path, remote: true, method: :get do
+        = form_tag invite_url, remote: true, method: :get do
           %p
             = text_field_tag :q, params[:q]
             = submit_tag :search, value: "Search", name: nil

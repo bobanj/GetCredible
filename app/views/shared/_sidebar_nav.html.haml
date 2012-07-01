@@ -7,18 +7,16 @@
   .my-actions
     %h3
       = "Welcome #{link_to(current_user.short_name, edit_user_registration_path)}".html_safe
-    .view
-      = link_to 'Invite & Tag', people_invite_path
 
 %nav#friend-nav
   %ul
     %li
-      = link_to people_path do
+      = link_to followers_user_path(current_user) do
         %span= current_user.supporters_count
-        Tagged Me
+        Followers
     %li
-      = link_to people_supported_path do
+      = link_to following_user_path(current_user) do
         %span= current_user.supported_count
-        I've Tagged
+        Following
 
 /= render 'shared/trending_tags'

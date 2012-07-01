@@ -1,7 +1,7 @@
-class PeopleController < ApplicationController
+class InviteController < ApplicationController
   before_filter :authenticate_user!
 
-  def invite
+  def index
     @contacts = current_user.twitter_contacts.search(params)
     @users = User.where(['twitter_id IN (?)', @contacts.map(&:twitter_id)])
     @twitter_message = TwitterMessage.new

@@ -10,4 +10,8 @@ module UsersHelper
     end
     title
   end
+
+  def users_active_class(name)
+    params[:action] == name ? 'active' : nil
+  end
 end

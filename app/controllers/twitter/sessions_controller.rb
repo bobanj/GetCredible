@@ -24,13 +24,13 @@ class Twitter::SessionsController < ApplicationController
 
     redirect_to url
   rescue OAuth::Unauthorized
-    redirect_to people_invite_url
+    redirect_to invite_url
   end
 
   def destroy
     current_user.disconnect_from_twitter!
     flash[:notice] = I18n.t('twitter.contacts.remove')
-    redirect_to people_invite_url
+    redirect_to invite_url
   end
 
   private

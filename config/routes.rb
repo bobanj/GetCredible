@@ -1,9 +1,6 @@
 GetCredible::Application.routes.draw do
   post "tags/search"
-  get '/people' => 'people#index'
-  get '/people/supported' => 'people#supported'
-  get '/people/pending' => 'people#pending'
-  get '/people/invite' => 'people#invite'
+  get '/invite' => 'invite#index'
 
   devise_for :users, :controllers => {
     :sessions => "users/sessions",
@@ -12,6 +9,11 @@ GetCredible::Application.routes.draw do
   }
 
   resources :users, :only => [:index, :show] do
+    member do
+      get :followers
+      get :following
+      get :pending
+    end
     resources :user_tags, :only => [:index, :create, :destroy], :path => :tags do
       member do
         post :vote
