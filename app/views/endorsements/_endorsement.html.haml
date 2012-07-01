@@ -5,4 +5,4 @@
     = link_to endorsement.endorser.short_name, me_user_path(endorsement.endorser)
     = time_ago_in_words(endorsement.created_at)
   - if user_signed_in? && current_user == @user
-    = link_to "Delete", endorsement, class: 'js-endorsement-delete'
+    = link_to "X", endorsement, class: 'js-endorsement-delete endorse-delete'

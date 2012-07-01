@@ -27,6 +27,6 @@
                 = link_to "Show all endorsements", "#", :class => "js-endorsements-toggle #{endorsements.present? ? '' : 'hide'}", :'data-user_tag_id' => user_tag.id
               %ul.tag-endorse.hide{id: "endorsements_#{user_tag.id}_list"}
                 = render :partial => 'endorsements/endorsement', :collection => endorsements
-              = link_to "X", "#", :class => "endorse-delete"
+
     .hide
       =render :partial => 'endorsements/form'
