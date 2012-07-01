@@ -14,6 +14,7 @@
       %ul
         - @user_tags.each do |user_tag|
           - rank = user_tag.rank.value
+          - endorsements = user_tag.endorsements.latest
           %li{id: "endorse_#{user_tag.id}_container"}
             %span.score= user_tag.score.value || 1
             %span.name= user_tag.tag.name
@@ -21,9 +22,10 @@
               %span.user="##{rank} out of #{user_tag.incoming.value}"
             %span.endorse
               - if @user != current_user
-                = link_to "Endorse this tag", "#",id: "endorse_#{user_tag.id}_link", class: "js-endorse-tag action", :"data-user_tag_id" => user_tag.id
-              = link_to "Show 3 endorsements", "#"
-            %ul.tag-endorse
-              = render :partial => 'endorsements/endorsement', :collection => user_tag.endorsements.order("created_at desc");
+                = link_to "Endorse this tag", "#",id: "endorse_#{user_tag.id}_link", class: 'js-endorse-tag action', :'data-user_tag_id' => user_tag.id
+              - if endorsements.present?
+                = link_to "Show all endorsements", "#", :class => 'js-endorsements-toggle', :'data-user_tag_id' => user_tag.id
+            %ul.tag-endorse.hide
+              = render :partial => 'endorsements/endorsement', :collection => endorsements
   .hide
     =render :partial => 'endorsements/form'

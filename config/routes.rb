@@ -1,7 +1,4 @@
 GetCredible::Application.routes.draw do
-
-  get "endorsements/create"
-
   post "tags/search"
   get '/people' => 'people#index'
   get '/people/supported' => 'people#supported'

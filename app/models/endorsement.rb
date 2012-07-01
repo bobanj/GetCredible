@@ -13,6 +13,9 @@ class Endorsement < ActiveRecord::Base
   validates :description, :length => {:minimum => 10, :maximum => 300}
   validate :user_can_not_endorse_himself
 
+  #Scopes
+  scope :latest, order("created_at desc")
+
   private
   def user_can_not_endorse_himself
     if user_tag.try(:user_id) == endorsed_by_id

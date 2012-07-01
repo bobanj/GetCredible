@@ -896,6 +896,28 @@ $(function (){
     $(this).find('.loader').show();
   });
 
+  $('.js-endorsements-toggle').click(function(e){
+    e.preventDefault();
+    var self = $(this);
+    var userTagId = $(this).data('user_tag_id');
+    var endorseContainer = $("#endorse_" + userTagId +"_container");
+    if(endorseContainer.length > 0){
+      var endorsements = endorseContainer.find('.tag-endorse');
+      if(endorsements.hasClass('hide')){
+        self.text("Hide all endorsements");
+        endorsements.slideDown(800, function(){
+          endorsements.removeClass('hide');
+        });
+      } else {
+        self.text("Show all endorsements");
+        endorsements.slideUp(800, function(){
+          endorsements.addClass('hide');
+        });
+      }
+    }
+    return false;
+  })
+
   $.getCredible.showFlashMessages();
   $.getCredible.ajaxPagination();
   $.getCredible.init();
