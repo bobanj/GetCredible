@@ -9,11 +9,11 @@ class EndorsementsController < ApplicationController
       if @endorsement.save
         @endorsement.endorser.activity_items.create(:item => @endorsement, :target_id => @endorsement.user_tag.user_id)
         format.js {
-          render :create
+          render :create_success
         }
       else
         format.js {
-          render :create
+          render :create_failure
         }
       end
     end

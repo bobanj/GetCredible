@@ -1,5 +1,4 @@
 $(".js-endorsement-form .loader").addClass('hide');
-<% unless @endorsement.errors.present? %>
 $("#endorsements_<%=@endorsement.user_tag_id%>_list").prepend('<%=escape_javascript(render :partial => 'endorsements/endorsement', :locals => {:endorsement => @endorsement}) %>');
 $('.js-endorsement-form #endorsement_description').val('');
 $('.js-endorsement-form #endorsement_user_tag_id').val('');
@@ -16,9 +15,3 @@ if($("#endorsements_<%=@endorsement.user_tag_id%>_list").children().length == 1)
     $("#endorsements_<%=@endorsement.user_tag_id%>_list").addClass('hide').slideUp(800);
   }
 }
-<% else %>
-<% if @endorsement.errors[:description].blank? %>
-  $.getCredible.displayNotification('error', 'The user does not own the tag you want to endorse');
-<% end %>
-$(".js-endorsement-form").replaceWith('<%=escape_javascript(render :partial => 'endorsements/form')%>');
-<% end %>
