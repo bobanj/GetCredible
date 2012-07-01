@@ -14,7 +14,7 @@
             %li
               .content
                 .photo
-                  = link_to user do
+                  = link_to me_user_path(user) do
                     = image_tag user.avatar.url(:avatar)
                 %h2= profile_title(user)
                 %br
@@ -27,8 +27,7 @@
                   - top_tags = user.top_tags(3)
                   - if top_tags.present?
                     Top Tags:
-                    =raw top_tags.collect { |top_tag| tag_link(top_tag.name) }.join(", ")
-
+                    = raw top_tags.collect { |top_tag| tag_link(top_tag.name) }.join(", ")
 
       = will_paginate @users
 

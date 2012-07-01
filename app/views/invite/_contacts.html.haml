@@ -4,7 +4,7 @@
     %li{:class => contact.invited? ? 'vouche' : nil}
       .tag-icon
 
-      - if user
+      - if user && user.active?
         = link_to image_tag(contact.avatar), me_user_path(user)
         %span.name= link_to contact.name, me_user_path(user)
       - else

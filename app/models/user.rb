@@ -220,7 +220,7 @@ class User < ActiveRecord::Base
   # Class methods
 
   def self.search(params)
-    scope = scoped
+    scope = active.scoped
     if params[:q].present?
       scope = scope.search_by_name_or_tag(params[:q])
     else
