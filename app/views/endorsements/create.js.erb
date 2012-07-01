@@ -1,4 +1,4 @@
-$(".js-endorsement-form .loader").hide();
+$(".js-endorsement-form .loader").addClass('hide');
 <% if @success %>
 $("#endorsements_<%=@endorsement.user_tag_id%>_list").prepend('<%=escape_javascript(render :partial => 'endorsements/endorsement', :locals => {:endorsement => @endorsement}) %>');
 $('.js-endorsement-form #endorsement_description').val('');

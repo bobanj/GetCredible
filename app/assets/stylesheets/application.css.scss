@@ -1256,7 +1256,12 @@ hr.divider {
     background: #ddd;
   }
 }
-
+.inline{
+  display: inline;
+}
+.hide{
+  display: none;
+}
 @import "profile";
 @import "activity";
 @import "devise";

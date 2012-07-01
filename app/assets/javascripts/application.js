@@ -885,6 +885,7 @@ $(function (){
       var endorseContainer = $("#endorse_" + userTagId + "_container");
       var endorsementForm = $(".js-endorsement-form");
       if (endorseContainer.length > 0 && endorsementForm.length > 0){
+        //endorsementForm.find('#endorsement_description').val('');
         endorsementForm.show();
         endorseContainer.find(".tag-endorse").before(endorsementForm);
         endorsementForm.find("#endorsement_user_tag_id").val(userTagId);
@@ -898,7 +899,7 @@ $(function (){
     });
 
     $("#endorsements").on("submit", ".js-endorsement-form", function (e){
-      $(this).find('.loader').show();
+      $(this).find('.loader').removeClass('hide');
     });
 
     $('.js-endorsements-toggle').click(function (e){
