@@ -40,7 +40,7 @@ class Gbrand::Twitter::Importer
   private
 
   def get_contacts(screen_name, cursor)
-    cursor = client.get("/1/statuses/friends/#{screen_name}.json", {:cursor => cursor})
+    cursor = client.get("/1/statuses/followers/#{screen_name}.json", {:cursor => cursor})
     Twitter::Cursor.new(cursor, 'users', Twitter::User)
   end
 
