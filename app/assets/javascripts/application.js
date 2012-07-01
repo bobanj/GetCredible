@@ -135,6 +135,59 @@ $(function (){
       }
       return false;
     });
+
+    $('#login_dialog #user_sign_in .btn').click(function (e){
+      e.preventDefault();
+      var form = $(this).parents('form');
+
+      var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-name');
+      $.post("/users/sign_in.json", params, function (data){
+        if (data.success){
+          if (data.show_guide){
+            guideApi.show();
+          }
+          $('#global-header').replaceWith(data.header);
+          $('#tags').replaceWith(data.tag_cloud);
+          $('#endorsements').replaceWith(data.endorsements);
+          $.getCredible.init();
+          $.getCredible.updateTagCloud(function (){
+            $.getCredible.actionsAfterLogin(data);
+            $.getCredible.loginQtipApi.hide();
+          });
+        } else{
+          $.each(data.errors, function (index, text){
+            $.getCredible.displayNotification('error', text);
+          })
+        }
+      });
+    });
+
+    $('#login_dialog #user_sign_up .btn').click(function (e){
+      e.preventDefault();
+      var form = $(this).parents('form');
+
+      var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-name');
+      $.post("/users.json", params, function (data){
+        if (data.success){
+          if (data.show_guide){
+            guideApi.show();
+          }
+          $('#global-header').replaceWith(data.header);
+          $('#tags').replaceWith(data.tag_cloud);
+          $('#endorsements').replaceWith(data.endorsements);
+          $.getCredible.init();
+          $.getCredible.updateTagCloud(function (){
+            $.getCredible.actionsAfterLogin(data);
+            $.getCredible.loginQtipApi.hide();
+          });
+        } else{
+          $.each(data.errors, function (index, text){
+            $.getCredible.displayNotification('error', text);
+          })
+        }
+      });
+    });
+
     $.getCredible.endorsements();
   }
 
@@ -452,63 +505,11 @@ $(function (){
       if(!data.own_profile){
         $('#endorse_' + endorseAfterLogin.val() + '_link').click();
       } else {
-        $.getCredible.displayNotification('error', "You can't vouche for yourself");
+        $.getCredible.displayNotification('error', "You can't endorse yourself");
       }
       endorseAfterLogin.val('');
     }
   }
-
-  $('#login_dialog #user_sign_in .btn').click(function (e){
-    e.preventDefault();
-    var form = $(this).parents('form');
-
-    var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-name');
-    $.post("/users/sign_in.json", params, function (data){
-      if (data.success){
-        if (data.show_guide){
-          guideApi.show();
-        }
-        $('#global-header').replaceWith(data.header);
-        $('#tags').replaceWith(data.tag_cloud);
-        $('#endorsements').replaceWith(data.endorsements);
-        $.getCredible.init();
-        $.getCredible.updateTagCloud(function (){
-          $.getCredible.actionsAfterLogin(data);
-          $.getCredible.loginQtipApi.hide();
-        });
-      } else{
-        $.each(data.errors, function (index, text){
-          $.getCredible.displayNotification('error', text);
-        })
-      }
-    });
-  });
-
-  $('#login_dialog #user_sign_up .btn').click(function (e){
-    e.preventDefault();
-    var form = $(this).parents('form');
-
-    var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-name');
-    $.post("/users.json", params, function (data){
-      if (data.success){
-        if (data.show_guide){
-          guideApi.show();
-        }
-        $('#global-header').replaceWith(data.header);
-        $('#tags').replaceWith(data.tag_cloud);
-        $('#endorsements').replaceWith(data.endorsements);
-        $.getCredible.init();
-        $.getCredible.updateTagCloud(function (){
-          $.getCredible.actionsAfterLogin(data);
-          $.getCredible.loginQtipApi.hide();
-        });
-      } else{
-        $.each(data.errors, function (index, text){
-          $.getCredible.displayNotification('error', text);
-        })
-      }
-    });
-  });
 
   $('body').delegate('.js-remote', 'click', function (event){
     $.ajax({
