@@ -21,9 +21,8 @@ class PeopleController < ApplicationController
   end
 
   def invite
-    @users = User.where(:invited_by_id => current_user.id).order("invitation_sent_at desc")
     @contacts = current_user.twitter_contacts.search(params)
-    @users = User.where(['twitter_handle IN (?)', @contacts.map(&:screen_name)])
+    @users = User.where(['twitter_id IN (?)', @contacts.map(&:twitter_id)])
     @twitter_message = TwitterMessage.new
 
     respond_to do |format|

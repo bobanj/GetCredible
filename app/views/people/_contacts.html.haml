@@ -5,10 +5,10 @@
       .tag-icon
 
       - if user
-        = link_to image_tag(contact.avatar), me_user_path(user) if contact.avatar
+        = link_to image_tag(contact.avatar), me_user_path(user)
         %span.name= link_to contact.name, me_user_path(user)
       - else
-        = image_tag contact.avatar if contact.avatar
+        = image_tag contact.avatar
         %span.name= contact.name
       %span.user= link_to "@#{contact.screen_name}", "https://twitter.com/#{contact.screen_name}"
       %span.status
