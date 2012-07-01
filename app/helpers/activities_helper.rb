@@ -6,14 +6,15 @@ module ActivitiesHelper
   def activity_class(activity_item)
     classes = []
 
-    if activity_vote?(activity_item)
-      classes << 'vouche'
-    else
-      classes << 'tag'
+    case activity_item.item
+      when Vote
+        classes << 'vouche'
+      when UserTag
+        classes << 'tag'
+      when Endorsement
+        classes << 'endorsement'
     end
-
     classes << 'you' if outgoing_activity?(activity_item)
-
     classes.join(' ')
   end
 
@@ -46,12 +47,17 @@ module ActivitiesHelper
     item = activity_item.item
     target = activity_item.target
 
-    if activity_vote?(activity_item)
-      "Check YOU out! #{user_link(user)} vouched for your tag: #{tag_link(item.voteable.tag.name)}".html_safe
-    elsif user == target
-      "Sweet! You tagged yourself: #{tag_link(item.tag.name)}".html_safe
-    else
-      "Sweet! #{user_link(user)} tagged #{current_user && current_user == target ? "you" : user_link(target) }: #{tag_link(item.tag.name)}".html_safe
+    case item
+      when Vote
+        "Check YOU out! #{user_link(user)} vouched for your tag: #{tag_link(item.voteable.tag.name)}".html_safe
+      when UserTag
+        if user == target
+          "Sweet! You tagged yourself: #{tag_link(item.tag.name)}".html_safe
+        else
+          "Sweet! #{user_link(user)} tagged #{current_user && current_user == target ? "you" : user_link(target) }: #{tag_link(item.tag.name)}".html_safe
+        end
+      when Endorsement
+        "Cool! #{user_link(user)} endorsed #{current_user && current_user == target ? "you" : user_link(target) }".html_safe
     end
   end
 
@@ -60,14 +66,17 @@ module ActivitiesHelper
     item   = activity_item.item
     user = activity_item.user
 
-    if activity_vote?(activity_item)
-      "#{current_user && current_user == user ? "You" : link_to(user.name, me_user_path(user)) } vouched for #{user_link(target)}'s tag: #{tag_link(item.voteable.tag.name)}".html_safe
-    else
-      if user == target
-        "#{user_link(user)} tagged themself: #{tag_link(item.tag.name)}".html_safe
-      else
-        "#{current_user && current_user == user ? "You" : user_link(user) } tagged #{user_link(target)}: #{tag_link(item.tag.name)}".html_safe
-      end
+    case item
+      when Vote
+        "#{current_user && current_user == user ? "You" : link_to(user.name, me_user_path(user)) } vouched for #{user_link(target)}'s tag: #{tag_link(item.voteable.tag.name)}".html_safe
+      when UserTag
+        if user == target
+          "#{user_link(user)} tagged themself: #{tag_link(item.tag.name)}".html_safe
+        else
+          "#{current_user && current_user == user ? "You" : user_link(user) } tagged #{user_link(target)}: #{tag_link(item.tag.name)}".html_safe
+        end
+      when Endorsement
+        "#{current_user && current_user == user ? "You" : user_link(user) } wrote an endorsement for #{user_link(target)}".html_safe
     end
   end
 

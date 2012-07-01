@@ -1,4 +1,3 @@
-
 class EndorsementsController < ApplicationController
   before_filter :authenticate_user!
 
@@ -8,6 +7,7 @@ class EndorsementsController < ApplicationController
 
     respond_to do |format|
       if @endorsement.save
+        @endorsement.endorser.activity_items.create(:item => @endorsement, :target_id => @endorsement.user_tag.user_id)
         @success = true
         format.js {
           render :create
