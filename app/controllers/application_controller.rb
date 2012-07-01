@@ -19,13 +19,16 @@ class ApplicationController < ActionController::Base
     def user_signed_in_content(resource)
       self.formats = [:html] # let partials resolve with html not json format
       @user = User.find_by_username!(params[:user_id])
+      @user_tags = @user.user_tags.includes(:tag, :endorsements => :endorser).sort_by{|ut| ut.score.value.to_s}
+
       {
         :own_profile => @user == resource,
         :show_guide => resource.sign_in_count == 1,
         :success => true,
         :user => resource,
         :header => render_to_string(:layout => false, :partial => 'shared/header.html.haml'),
-        :tag_cloud => render_to_string(:layout => false, :partial => 'shared/tag_cloud.html.haml')
+        :tag_cloud => render_to_string(:layout => false, :partial => 'shared/tag_cloud.html.haml'),
+        :endorsements => render_to_string(:layout => false, :partial => 'shared/endorsements.html.haml')
       }
     end
 

@@ -1,8 +1,9 @@
 %section#endorsements
-  %hr.divider.strong
-  #tag-listing.listing-wrap
-    #page-header.gray
-      %h1 Tag Breakdown & Endorsements
+  - if @user_tags.present?
+    %hr.divider.strong
+    #tag-listing.listing-wrap
+      #page-header.gray
+        %h1 Tag Breakdown & Endorsements
 
       .tag-search.right
         = form_tag invite_url, remote: true, method: :get do
@@ -10,21 +11,21 @@
             = text_field_tag :q, params[:q]
             = submit_tag :search, value: "Search", name: nil
 
-    .listing
-      %ul
-        - @user_tags.each do |user_tag|
-          - rank = user_tag.rank.value
-          - endorsements = user_tag.endorsements.latest
-          %li{id: "endorse_#{user_tag.id}_container"}
-            %span.score= user_tag.score.value || 1
-            %span.name= user_tag.tag.name
-            - if rank
-              %span.user="##{rank} out of #{user_tag.incoming.value}"
-            %span.endorse
-              - if @user != current_user
-                = link_to "Endorse this tag", "#",id: "endorse_#{user_tag.id}_link", class: 'js-endorse-tag action', :'data-user_tag_id' => user_tag.id
-              = link_to "Show all endorsements", "#", :class => "js-endorsements-toggle #{endorsements.present? ? '' : 'hide'}", :'data-user_tag_id' => user_tag.id
-            %ul.tag-endorse.hide{id: "endorsements_#{user_tag.id}_list"}
-              = render :partial => 'endorsements/endorsement', :collection => endorsements
-  .hide
-    =render :partial => 'endorsements/form'
+      .listing
+        %ul
+          - @user_tags.each do |user_tag|
+            - rank = user_tag.rank.value
+            - endorsements = user_tag.endorsements.latest
+            %li{id: "endorse_#{user_tag.id}_container"}
+              %span.score= user_tag.score.value || 1
+              %span.name= user_tag.tag.name
+              - if rank
+                %span.user="##{rank} out of #{user_tag.incoming.value}"
+              %span.endorse
+                - if @user != current_user
+                  = link_to "Endorse this tag", "#",id: "endorse_#{user_tag.id}_link", class: 'js-endorse-tag action', :'data-user_tag_id' => user_tag.id
+                = link_to "Show all endorsements", "#", :class => "js-endorsements-toggle #{endorsements.present? ? '' : 'hide'}", :'data-user_tag_id' => user_tag.id
+              %ul.tag-endorse.hide{id: "endorsements_#{user_tag.id}_list"}
+                = render :partial => 'endorsements/endorsement', :collection => endorsements
+    .hide
+      =render :partial => 'endorsements/form'

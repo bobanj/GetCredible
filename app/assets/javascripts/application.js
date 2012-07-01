@@ -135,6 +135,7 @@ $(function (){
       }
       return false;
     });
+    $.getCredible.endorsements();
   }
 
   $.getCredible.vote = function (word){
@@ -469,6 +470,7 @@ $(function (){
         }
         $('#global-header').replaceWith(data.header);
         $('#tags').replaceWith(data.tag_cloud);
+        $('#endorsements').replaceWith(data.endorsements);
         $.getCredible.init();
         $.getCredible.updateTagCloud(function (){
           $.getCredible.actionsAfterLogin(data);
@@ -494,6 +496,7 @@ $(function (){
         }
         $('#global-header').replaceWith(data.header);
         $('#tags').replaceWith(data.tag_cloud);
+        $('#endorsements').replaceWith(data.endorsements);
         $.getCredible.init();
         $.getCredible.updateTagCloud(function (){
           $.getCredible.actionsAfterLogin(data);
@@ -868,87 +871,84 @@ $(function (){
     return false;
   });
 
-  $("#endorsements").on("click",".js-endorse-tag",function(e){
-    e.preventDefault();
-    var userTagId = $(this).data('user_tag_id');
-    if (!$.getCredible.tagCloud.data('logged-in')){
-      $("#endorse_after_login").val(userTagId);
-      $.getCredible.loginQtipApi.set('content.text', $('#login_dialog'));
-      $.getCredible.loginQtipApi.show();
-      return false;
-    }
-    var endorseContainer = $("#endorse_" + userTagId +"_container");
-    var endorsementForm = $(".js-endorsement-form");
-    if(endorseContainer.length > 0 && endorsementForm.length > 0){
-      endorsementForm.show();
-      endorseContainer.find(".tag-endorse").before(endorsementForm);
-      endorsementForm.find("#endorsement_user_tag_id").val(userTagId);
-      endorsementForm.find("#user_tag_id").val(userTagId);
-      var endorsementTextarea = endorsementForm.find("#endorsement_description");
-      if (endorsementTextarea.length > 0){
-        endorsementTextarea.limit('300', $("#endorsement_word_counter"));
+  $.getCredible.endorsements = function (){
+    $("#endorsements").on("click", ".js-endorse-tag", function (e){
+      e.preventDefault();
+      var userTagId = $(this).data('user_tag_id');
+      if (!$.getCredible.tagCloud.data('logged-in')){
+        $("#endorse_after_login").val(userTagId);
+        $.getCredible.loginQtipApi.set('content.text', $('#login_dialog'));
+        $.getCredible.loginQtipApi.show();
+        return false;
       }
-      endorsementTextarea.focus();
-    }
-  });
-
-  $("#endorsements").on("submit",".js-endorsement-form",function(e){
-    $(this).find('.loader').show();
-  });
-
-  $('.js-endorsements-toggle').click(function(e){
-    e.preventDefault();
-    var self = $(this);
-    var userTagId = $(this).data('user_tag_id');
-    var endorseContainer = $("#endorse_" + userTagId +"_container");
-    if(endorseContainer.length > 0){
-      var endorsements = endorseContainer.find('.tag-endorse');
-      if(endorsements.hasClass('hide')){
-        self.text("Hide all endorsements");
-        endorsements.slideDown(800, function(){
-          endorsements.removeClass('hide');
-        });
-      } else {
-        self.text("Show all endorsements");
-        endorsements.slideUp(800, function(){
-          endorsements.addClass('hide');
-        });
+      var endorseContainer = $("#endorse_" + userTagId + "_container");
+      var endorsementForm = $(".js-endorsement-form");
+      if (endorseContainer.length > 0 && endorsementForm.length > 0){
+        endorsementForm.show();
+        endorseContainer.find(".tag-endorse").before(endorsementForm);
+        endorsementForm.find("#endorsement_user_tag_id").val(userTagId);
+        endorsementForm.find("#user_tag_id").val(userTagId);
+        var endorsementTextarea = endorsementForm.find("#endorsement_description");
+        if (endorsementTextarea.length > 0){
+          endorsementTextarea.limit('300', $("#endorsement_word_counter"));
+        }
+        endorsementTextarea.focus();
       }
-    }
-    return false;
-  });
-
-  $('.js-endorsement-delete').click(function(e){
-    e.preventDefault();
-    var self = $(this);
-    noty({
-      text:'Are you sure you want to delete this endorsement?',
-      layout:'center',
-      type:'alert',
-      buttons:[
-        {type:'btn primary medium', text:'Ok', click:function (){
-          $.post(self.attr('href'), { _method:'delete' }, function (data){
-            if(data.status == 'ok'){
-              self.parent().remove();
-              var endorsementsList = $('#endorsements_' + data.user_tag_id + '_list');
-              var endorseContainer = $('#endorse_' + data.user_tag_id + '_container');
-              if(endorsementsList.length > 0 && endorsementsList.children().length == 0){
-                endorseContainer.find('.js-endorsements-toggle').addClass('hide');
-              }
-            } else {
-              $.getCredible.displayNotification('error', 'You can only delete your own endorsements');
-            }
-          });
-        } },
-        {type:'btn primary medium red', text:'Cancel', click:function (){
-
-        } }
-      ],
-      closable:false,
-      timeout:false
     });
-    return false;
-  });
+
+    $("#endorsements").on("submit", ".js-endorsement-form", function (e){
+      $(this).find('.loader').show();
+    });
+
+    $('.js-endorsements-toggle').click(function (e){
+      e.preventDefault();
+      var self = $(this);
+      var userTagId = $(this).data('user_tag_id');
+      var endorsements = $('#endorsements_' + userTagId + '_list');
+      if (endorsements.length > 0){
+        if (endorsements.hasClass('hide')){
+          self.text("Hide all endorsements");
+          endorsements.removeClass('hide').slideDown(800);
+        } else{
+          self.text("Show all endorsements");
+          endorsements.addClass('hide').slideUp(800);
+        }
+      }
+      return false;
+    });
+
+    $('.js-endorsement-delete').click(function (e){
+      e.preventDefault();
+      var self = $(this);
+      noty({
+        text:'Are you sure you want to delete this endorsement?',
+        layout:'center',
+        type:'alert',
+        buttons:[
+          {type:'btn primary medium', text:'Ok', click:function (){
+            $.post(self.attr('href'), { _method:'delete' }, function (data){
+              if (data.status == 'ok'){
+                self.parent().remove();
+                var endorsementsList = $('#endorsements_' + data.user_tag_id + '_list');
+                var endorseContainer = $('#endorse_' + data.user_tag_id + '_container');
+                if (endorsementsList.length > 0 && endorsementsList.children().length == 0){
+                  endorseContainer.find('.js-endorsements-toggle').addClass('hide');
+                }
+              } else{
+                $.getCredible.displayNotification('error', 'You can only delete your own endorsements');
+              }
+            });
+          } },
+          {type:'btn primary medium red', text:'Cancel', click:function (){
+
+          } }
+        ],
+        closable:false,
+        timeout:false
+      });
+      return false;
+    });
+  }
 
   $.getCredible.showFlashMessages();
   $.getCredible.ajaxPagination();
