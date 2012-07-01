@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe Endorsement do
   let(:endorsement) { FactoryGirl.create(:endorsement) }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:other_user) { FactoryGirl.create(:user) }
+  let(:tag) { FactoryGirl.create(:tag, name: 'tag1') }
+  let(:user_tag) { FactoryGirl.create(:user_tag, tag: tag, user: user, tagger: other_user) }
 
   describe "Attributes" do
     it { should allow_mass_assignment_of(:user_tag_id) }
@@ -18,6 +22,7 @@ describe Endorsement do
     it { should belong_to(:user_tag) }
     it { should belong_to(:endorser) }
     it { should allow_mass_assignment_of(:endorser) }
+    it { should have_many(:activity_items).dependent(:destroy) }
   end
 
   describe "Validations" do
@@ -26,5 +31,13 @@ describe Endorsement do
     it { should validate_presence_of(:description) }
     it { should ensure_length_of(:description).is_at_least(10) }
     it { should ensure_length_of(:description).is_at_most(300) }
+    it "sets error if user is endorsing himself" do
+      endorsement.endorser = user
+      endorsement.user_tag = user_tag
+      endorsement.description = "This is a valid description bla"
+      endorsement.save.should be_false
+      endorsement.errors.should_not be_empty
+    end
   end
+
 end
