@@ -5,6 +5,7 @@ class Endorsement < ActiveRecord::Base
   # Associations
   belongs_to :user_tag
   belongs_to :endorser, :class_name => 'User', :foreign_key => :endorsed_by_id
+  has_many :activity_items, :as => :item, :dependent => :destroy
 
   # Validations
   validates :endorser, presence: true, :allow_nil => false
