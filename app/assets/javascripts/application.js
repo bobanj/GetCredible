@@ -930,6 +930,11 @@ $(function (){
           $.post(self.attr('href'), { _method:'delete' }, function (data){
             if(data.status == 'ok'){
               self.parent().remove();
+              var endorsementsList = $('#endorsements_' + data.user_tag_id + '_list');
+              var endorseContainer = $('#endorse_' + data.user_tag_id + '_container');
+              if(endorsementsList.length > 0 && endorsementsList.children().length == 0){
+                endorseContainer.find('.js-endorsements-toggle').addClass('hide');
+              }
             } else {
               $.getCredible.displayNotification('error', 'You can only delete your own endorsements');
             }

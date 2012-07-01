@@ -7,7 +7,7 @@ class Endorsement < ActiveRecord::Base
   belongs_to :endorser, :class_name => 'User', :foreign_key => :endorsed_by_id
 
   # Validations
-  validates :endorser, presence: true
+  validates :endorser, presence: true, :allow_nil => false
   validates :user_tag, presence: true, :allow_nil => false
   validates :description, presence: true
   validates :description, :length => {:minimum => 10, :maximum => 300}

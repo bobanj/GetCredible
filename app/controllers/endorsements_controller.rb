@@ -25,9 +25,9 @@ class EndorsementsController < ApplicationController
     @endorsement = current_user.incoming_endorsements.find_by_id(params[:id])
     if @endorsement
       @endorsement.destroy
-      render json: {status: 'ok'}
+      render json: {status: 'ok', user_tag_id: @endorsement.user_tag_id}
     else
-      render json: {status: 'error'}
+      render json: {status: 'error', user_tag_id: @endorsement.user_tag_id}
     end
 
   end
