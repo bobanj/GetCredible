@@ -1,7 +1,8 @@
 class Users::InvitationsController < Devise::InvitationsController
 
   def create
-    @message = EmailMessage.new(params[:email_message].merge(inviter: current_user))
+    @message = EmailMessage.new(params[:email_message].
+                 merge(inviter: current_user, view_context: view_context))
 
     if @message.save
       render :create_success

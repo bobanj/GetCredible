@@ -6,7 +6,8 @@ class TwitterMessage
   include Rails.application.routes.url_helpers
 
   # Attributes
-  attr_accessor :view_context, :inviter, :twitter_id, :screen_name, :tag_names, :tag1, :tag2, :tag3
+  attr_accessor :view_context, :inviter, :twitter_id, :screen_name,
+                :tag_names, :tag1, :tag2, :tag3
 
   # Callbacks
   before_validation :set_tag_names
@@ -45,27 +46,26 @@ class TwitterMessage
 
   def inviter_twitter_user
     User.transaction do
-      invited = create_system_user
+      invited = create_user
       inviter.followings << invited unless inviter.followings.exists?(invited)
       send_twitter_message(invited)
       twitter_contact.destroy
     end
   end
 
-  def create_system_user
+  def create_user
     fake_email = "twitter_#{twitter_contact.twitter_id}"
     user = User.find_by_email(fake_email)
     unless user
       user = User.new(email: fake_email,
                       full_name: twitter_contact.name,
-                      tag_names: tag_names,
                       avatar: twitter_contact.avatar)
       user.twitter_id = twitter_contact.twitter_id
       user.invited_by = inviter
       user.skip_invitation = true
       user.invite!
     end
-    inviter.add_tags(user, TagCleaner.clean(tag_names), skip_email: true)
+    inviter.add_tags(user, TagCleaner.clean(tag_names.join(',')), skip_email: true)
     inviter.add_following(user)
     user
   end

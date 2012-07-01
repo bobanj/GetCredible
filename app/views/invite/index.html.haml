@@ -8,8 +8,8 @@
       %h1 Invite & Tag
       %ul.horizontal.right
         - if current_user.twitter_id.blank?
-          %li= link_to "Import Twitter friends", twitter_contacts_path, :class => "twitter-import"
-        %li= link_to "Invite by email", new_user_invitation_path, :class => "email-invite email_button"
+          %li= link_to "Import Twitter friends", twitter_contacts_path, class: "twitter-import", title: "Import your Twitter friends"
+        %li= link_to "Invite by email", new_user_invitation_path, class: "email-invite email_button", title: "Invite by email"
 
     - if @contacts.present?
       .search_listing
