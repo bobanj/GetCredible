@@ -21,6 +21,7 @@ describe 'User', type: :request do
 
     # invite user
     within("#js-email-invitation-form") do
+      fill_in("Name", with: "Invited 1")
       fill_in("Email", with: "invited1@example.com")
       fill_in("First tag", with: "tag1")
       fill_in("Second tag", with: "tag2")
@@ -42,6 +43,7 @@ describe 'User', type: :request do
 
     # invite another user
     within("#js-email-invitation-form") do
+      fill_in("Name", with: "Invited 2")
       fill_in("Email", with: "invited2@example.com")
       fill_in("First tag", with: "tag1")
       fill_in("Second tag", with: "tag2")
@@ -56,6 +58,7 @@ describe 'User', type: :request do
     current_email.should have_subject("You are invited to GiveBrand!")
     current_email.body.should have_content("#{user.name} has invited you to http://localhost:3000/, and tagged you with: tag1, tag2")
 
+    find_field("Name").value.should be_blank
     find_field("Email").value.should be_blank
     find_field("First tag").value.should be_blank
   end

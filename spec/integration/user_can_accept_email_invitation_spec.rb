@@ -13,6 +13,7 @@ describe 'User', type: :request do
 
     # invite user
     within("#js-email-invitation-form") do
+      fill_in("Name", with: "Invited 1")
       fill_in("Email", with: "invited1@example.com")
       fill_in("First tag", with: "tag1")
       fill_in("Second tag", with: "tag2")

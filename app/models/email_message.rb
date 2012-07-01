@@ -5,14 +5,14 @@ class EmailMessage
   extend ActiveModel::Naming
 
   # Attributes
-  attr_accessor :view_context, :inviter, :email, :invited,
+  attr_accessor :view_context, :inviter, :name, :email, :invited,
                 :tag_names, :tag1, :tag2, :tag3
 
   # Callbacks
   before_validation :set_tag_names
 
   # Validations
-  validates_presence_of :inviter, :email
+  validates_presence_of :inviter, :name, :email
   validate :validate_at_least_one_tag
   validate :validate_user_is_not_already_registered
 
@@ -25,7 +25,7 @@ class EmailMessage
   def save
     if valid?
       # assign tag names to the user, we are using them in the invitation email
-      invited = User.invite!({email: email, tag_names: tag_names}, inviter)
+      invited = User.invite!({email: email, full_name: name, tag_names: tag_names}, inviter)
       inviter.add_tags(invited, TagCleaner.clean(tag_names.join(',')), skip_email: true)
       inviter.add_following(invited)
       true

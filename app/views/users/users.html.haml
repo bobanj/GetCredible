@@ -14,7 +14,7 @@
               - if user.active?
                 %span.name= link_to user.name, me_user_path(user)
               - else
-                %span= user.name.presence || "waiting to accept the invitation #{@user == current_user ? "(#{user.email})" : ""}"
+                %span= user.name.presence || "No name"
       - else
         .ngo
           %p
