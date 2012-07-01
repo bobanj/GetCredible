@@ -24,6 +24,7 @@ module GetCredible
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
     config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += %W(#{config.root}/lib/middleware)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -67,5 +68,7 @@ module GetCredible
     config.assets.version = '1.0'
     # config.assets.precompile << /(^[^_]|\/[^_])[^\/]*/
     config.assets.precompile << ['application.css', 'ie/application.css', 'application.js']
+
+    config.middleware.use "DomainMiddleware"
   end
 end
