@@ -31,6 +31,11 @@ class ApplicationController < ActionController::Base
 
     def sign_in_url
       show_guide = current_user.sign_in_count == 1 ? true : nil
-      me_user_path(current_user, :show_guide => show_guide)
+
+      if show_guide || !current_user.user_tags.exists?
+        me_user_path(current_user, :show_guide => show_guide)
+      else
+        activity_path('all')
+      end
     end
 end
