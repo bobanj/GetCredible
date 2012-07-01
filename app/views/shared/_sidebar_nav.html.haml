@@ -14,11 +14,11 @@
   %ul
     %li
       = link_to people_path do
-        %span= current_user.supporters.count
+        %span= current_user.supporters_count
         Tagged Me
     %li
       = link_to people_supported_path do
-        %span= current_user.supported.count
+        %span= current_user.supported_count
         I've Tagged
 
 %nav.popular-tags

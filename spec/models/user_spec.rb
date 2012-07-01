@@ -5,9 +5,10 @@ describe User do
   let(:tagger) { FactoryGirl.create(:user) }
   let(:other_user) { FactoryGirl.create(:user) }
   let(:voter) { FactoryGirl.create(:user) }
-  let(:tag) { FactoryGirl.create(:tag) }
+  let(:tag) { FactoryGirl.create(:tag, name: 'tag1') }
+  let(:tag2) { FactoryGirl.create(:tag, name: 'tag2') }
   let(:user_tag) { FactoryGirl.create(:user_tag, tag: tag, user: user, tagger: tagger) }
-  let(:user_tag2) { FactoryGirl.create(:user_tag, tag: tag, user: user, tagger: tagger) }
+  let(:user_tag2) { FactoryGirl.create(:user_tag, tag: tag2, user: user, tagger: tagger) }
 
   describe "Attributes" do
     it { should allow_mass_assignment_of(:email) }
@@ -309,28 +310,6 @@ describe User do
     end
   end
 
-  describe "#voters" do
-    it "returns the users that have voted the user" do
-      voter.add_vote(user_tag)
-      user.voters.should include(voter)
-    end
-  end
-
-  describe "#voted_users" do
-    it "returns the users that have been voted by the user" do
-      voter.add_vote(user_tag)
-      voter.voted_users.should include(user)
-    end
-  end
-
-  describe "#friends" do
-    it "returns the users that both interacted with the user" do
-      voter.add_vote(user_tag)
-      user.add_tags(voter, ['development'])
-      user.friends.should include(voter)
-    end
-  end
-
   describe "#search" do
     it "can find users by tag" do
       tagger.add_tags(user, ['development'])
@@ -369,7 +348,7 @@ describe User do
     end
   end
 
-  describe "behaviour" do
+  describe "#change_error_message" do
     it "does not change error message for attribute if no error exist" do
       user.change_error_message(:email, 'you shell not pass')
       user.errors[:email].should be_empty
@@ -408,4 +387,64 @@ describe User do
     end
   end
 
+  describe "user relationships" do
+    describe "#voters" do
+      it "returns the users that have voted the user" do
+        voter.add_vote(user_tag)
+        user.voters.should include(voter)
+      end
+    end
+
+    describe "#voted_users" do
+      it "returns the users that have been voted by the user" do
+        voter.add_vote(user_tag)
+        voter.voted_users.should include(user)
+      end
+    end
+
+    describe "#friends" do
+      it "returns the users that both interacted with the user" do
+        voter.add_vote(user_tag)
+        user.add_tags(voter, ['development'])
+        user.friends.should include(voter)
+      end
+    end
+
+    describe "#supported" do
+      it "returns active supported users" do
+        voter.add_vote(user_tag)
+
+        # inviter user
+        invited = User.invite!({email: 'new_user@example.com', tag_names: ['developer']}, voter)
+        voter.add_tags(invited, ['developer'], skip_email: true)
+
+        voter.supported.should include(user)
+        voter.supported.should_not include(invited)
+      end
+    end
+
+    describe "#supporters" do
+      it "returns supporters" do
+        voter.add_vote(user_tag)
+        user.supporters.should include(voter)
+      end
+    end
+
+    describe "#supported_count" do
+      it "returns number of supported people" do
+        voter.add_vote(user_tag)
+        voter.add_vote(user_tag2)
+
+        voter.supported_count.should == 1
+      end
+    end
+
+    describe "#supporters_count" do
+      it "returns number of supporters" do
+        voter.add_vote(user_tag)
+        voter.add_vote(user_tag2)
+        user.supporters_count.should == 1
+      end
+    end
+  end
 end

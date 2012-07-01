@@ -98,6 +98,14 @@ class User < ActiveRecord::Base
     voters.active
   end
 
+  def supported_count
+    supported.count(:distinct => true)
+  end
+
+  def supporters_count
+    supporters.count(:distinct => true)
+  end
+
   def pending
     User.invited_by(self).inactive
   end
