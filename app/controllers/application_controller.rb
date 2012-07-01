@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
       self.formats = [:html] # let partials resolve with html not json format
       @user = User.find_by_username!(params[:user_id])
       {
+        :own_profile => @user == resource,
         :show_guide => resource.sign_in_count == 1,
         :success => true,
         :user => resource,

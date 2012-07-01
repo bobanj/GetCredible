@@ -434,15 +434,26 @@ $(function (){
     }
   }
 
-  $.getCredible.addTagOrVoteAfterLogin = function (){
-    if ($("#tag_names_after_login").val() != ''){
-      $("#tag_names").val($("#tag_names_after_login").val());
-      $("#tag_names_after_login").val('');
+  $.getCredible.actionsAfterLogin = function (data){
+    var tagNamesAfterLogin = $("#tag_names_after_login");
+    if (tagNamesAfterLogin.val() != ''){
+      $("#tag_names").val(tagNamesAfterLogin.val());
+      tagNamesAfterLogin.val('');
       $("#add-tag form").submit();
     }
-    if ($('#word_id_after_login').val() != ''){
-      $.getCredible.vote($('#word_id_after_login').val());
-      $('#word_id_after_login').val('');
+    var wordIdAfterLogin = $('#word_id_after_login');
+    if (wordIdAfterLogin.val() != ''){
+      $.getCredible.vote(wordIdAfterLogin.val());
+      wordIdAfterLogin.val('');
+    }
+    var endorseAfterLogin = $("#endorse_after_login");
+    if(endorseAfterLogin.val() != ''){
+      if(!data.own_profile){
+        $('#endorse_' + endorseAfterLogin.val() + '_link').click();
+      } else {
+        $.getCredible.displayNotification('error', "You can't vouche for yourself");
+      }
+      endorseAfterLogin.val('');
     }
   }
 
@@ -460,7 +471,7 @@ $(function (){
         $('#tags').replaceWith(data.tag_cloud);
         $.getCredible.init();
         $.getCredible.updateTagCloud(function (){
-          $.getCredible.addTagOrVoteAfterLogin();
+          $.getCredible.actionsAfterLogin(data);
           $.getCredible.loginQtipApi.hide();
         });
       } else{
@@ -485,7 +496,7 @@ $(function (){
         $('#tags').replaceWith(data.tag_cloud);
         $.getCredible.init();
         $.getCredible.updateTagCloud(function (){
-          $.getCredible.addTagOrVoteAfterLogin();
+          $.getCredible.actionsAfterLogin(data);
           $.getCredible.loginQtipApi.hide();
         });
       } else{
@@ -860,6 +871,12 @@ $(function (){
   $("#endorsements").on("click",".js-endorse-tag",function(e){
     e.preventDefault();
     var userTagId = $(this).data('user_tag_id');
+    if (!$.getCredible.tagCloud.data('logged-in')){
+      $("#endorse_after_login").val(userTagId);
+      $.getCredible.loginQtipApi.set('content.text', $('#login_dialog'));
+      $.getCredible.loginQtipApi.show();
+      return false;
+    }
     var endorseContainer = $("#endorse_" + userTagId +"_container");
     var endorsementForm = $(".js-endorsement-form");
     if(endorseContainer.length > 0 && endorsementForm.length > 0){

@@ -20,8 +20,8 @@
             - if rank
               %span.user="##{rank} out of #{user_tag.incoming.value}"
             %span.endorse
-              - if user_signed_in? && @user != current_user
-                = link_to "Endorse this tag", "#", class: "js-endorse-tag action", :"data-user_tag_id" => user_tag.id
+              - if @user != current_user
+                = link_to "Endorse this tag", "#",id: "endorse_#{user_tag.id}_link", class: "js-endorse-tag action", :"data-user_tag_id" => user_tag.id
               = link_to "Show 3 endorsements", "#"
             %ul.tag-endorse
               = render :partial => 'endorsements/endorsement', :collection => user_tag.endorsements.order("created_at desc");
