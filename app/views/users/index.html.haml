@@ -17,6 +17,7 @@
                   = link_to user do
                     = image_tag user.avatar.url(:avatar)
                 %h2= profile_title(user)
+                %br
                 .details
 
                   - if current_user && user.interacted_by(current_user)
