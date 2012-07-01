@@ -38,7 +38,7 @@
                 //  out of
                 //  %span 102
                 %ul.feed-users.horizontal
-                  %li
+                  %li= image_tag activity_item.user.avatar.url(:small)
                 %time= activity_item.created_at.strftime("%d. %b %Y")
         - else
           .ngo

@@ -36,6 +36,7 @@ GetCredible::Application.routes.draw do
   get '/terms' => 'home#terms'
   get '/tour' => 'home#tour'
   get '/press' => 'home#press'
+  get '/team' => 'home#team'
 
   match '/:id' => 'users#show', :as => 'me_user'
 end

@@ -837,6 +837,36 @@ footer {
   }
 }
 
+.team-list {
+  list-style: none;
+  margin-left: 0;
+  li {
+    border-top: 1px solid #eee;
+    padding-bottom: 15px;
+    @include pie-clearfix;
+  }
+  img {
+    float: left;
+    margin: 20px 20px 0 0;
+    width: 100px;
+  }
+  h2 {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.6;
+    margin: 15px 0 5px;
+    span {
+      color: #555;
+      display: block;
+      font-size: 12px;
+      font-style: italic;
+    }
+  }
+  p {
+    padding-left: 120px;
+  }
+}
+
 .featured {
   margin-top: 25px;
   text-align: center;
