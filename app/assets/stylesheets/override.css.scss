@@ -45,6 +45,9 @@ ul.noty_container {
   background: $blue;
   left: 50% !important;
   margin-left: -100px;
+  .noty_text {
+    color: #fff;
+  }
 }
 .noty_text {
   color: #444;

@@ -189,6 +189,14 @@
   }
 }
 
+.feed-users {
+  float: left;
+  li {
+    border: none !important;
+    padding: 0 !important;
+  }
+}
+
 .invite_wrap {
   padding: 0 25px;
   h1 {

@@ -68,6 +68,9 @@
 .ui-tooltip-login {
   max-width: 550px;
   min-width: 550px;
+  .inputs-list.bg {
+    background: none;
+  }
 }
 
 .ui-tooltip-guide, .ui-tooltip-login {
