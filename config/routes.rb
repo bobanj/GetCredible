@@ -21,7 +21,7 @@ GetCredible::Application.routes.draw do
   end
 
   resources :activities, :only => [:show]
-  resources :endorsements, :only => [:create, :show]
+  resources :endorsements, :only => [:create, :destroy]
 
   namespace :twitter do
     resource :session, :only => [:new, :show, :destroy]

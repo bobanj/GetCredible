@@ -21,8 +21,15 @@ class EndorsementsController < ApplicationController
     end
   end
 
-  def new
-    @endorsement = Endorsement.new
+  def destroy
+    @endorsement = current_user.incoming_endorsements.find_by_id(params[:id])
+    if @endorsement
+      @endorsement.destroy
+      render json: {status: 'ok'}
+    else
+      render json: {status: 'error'}
+    end
+
   end
 
 end
