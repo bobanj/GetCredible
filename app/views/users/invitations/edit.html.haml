@@ -13,22 +13,20 @@
           %li= f.input :password, wrapper: false, placeholder: "Password"
           %li.buttons_left= f.button :submit, "Save", class: 'btn primary large'
       %br
-      
+
     .half.right
       %section.tags.popular-tags
         %h2 Sign up to change your brands
         %ul.horizontal
           - resource.tags.each do |tag|
             %li.link= tag.name
-          
+
       %section.followers.popular-tags
         %h2 Don't forget to brand your followers
         %ul.horizontal
           - resource.followers.each do |user|
             %li.user
-              = image_tag(user.avatar_url(:avatar))
-              //Show as a Tooltip
-              //%span= user.name
-              
+              = link_to image_tag(user.avatar_url(:avatar), title: user.name), me_user_path(user)
+
 %aside
   = render "links"

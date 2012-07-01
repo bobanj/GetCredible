@@ -6,7 +6,7 @@
 
 #profile {
   border-bottom: 1px solid #e9e9e9;
-  
+
   p, a, span, li {
     font-family: "open-sans", arial, sans-serif;
   }
@@ -389,5 +389,12 @@ ul.social_fixed {
   }
   &.followers {
     padding-top: 0;
+    a {
+      padding: 0;
+      &:hover, &:focus {
+        text-decoration: none;
+        @include box-shadow(rgba(0, 0, 0, 0.15) 0 0 1px);
+      }
+    }
   }
 }

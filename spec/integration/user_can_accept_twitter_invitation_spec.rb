@@ -33,7 +33,8 @@ describe 'User', type: :request do
     within("#content") do
       page.should have_content("tag1")
       page.should have_content("tag2")
-      page.should have_content("Some Name")
+      # page.should have_content("Some Name")
+      page.should have_xpath("//img[@title=\"Some Name\"]")
     end
 
     click_button("Save")
