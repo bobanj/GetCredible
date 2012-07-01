@@ -1,33 +1,31 @@
 #content
-  %section#twitter_contacts.content
-    %header#page-header
-
-      %h1= current_user.name
-
-      %nav.right
-        %ul.tabs
-          %li{:class => users_active_class('followers')}
-            = link_to 'Followers', followers_user_path(current_user), :class => 'js-remote'
-          %li.last{:class => users_active_class('following')}
-            = link_to "Following", following_user_path(current_user), :class => 'js-remote'
-          %li.first{:class => users_active_class('pending')}
-            = link_to 'Pending', pending_user_path(:current), :class => 'js-remote'
+  - if user_signed_in? && @user == current_user
+    = render 'friends_filter'
+  - else
+    = render 'shared/profile'
 
 
   #invitation_content.listing-wrap
     %section#invitation_contacts.listing
-      %ul
-        - @users.each do |user|
-          %li
-            - if user.active?
-              = image_tag user.avatar_url(:medium)
-              %span.name= link_to user.name, me_user_path(user)
+      - if @users.present?
+        %ul
+          - @users.each do |user|
+            %li
+              - if user.active?
+                = image_tag user.avatar_url(:medium)
+                %span.name= link_to user.name, me_user_path(user)
 
-            - else
-              = user.name.presence || user.email
-              %span.status
+              - else
+                = user.name.presence || user.email
+                %span.status
+      - else
+        %ul
+          %li== No #{params[:action]} present
 
     = will_paginate @users
 
 %aside
-  = render 'shared/sidebar_nav'
+  - if user_signed_in? && @user == current_user
+    = render 'shared/sidebar_nav'
+  = render 'shared/friend_nav', user: @user
+  = render 'shared/sidebar_activity', :user => @user

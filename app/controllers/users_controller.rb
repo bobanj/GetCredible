@@ -26,7 +26,8 @@ class UsersController < ApplicationController
   end
 
   def pending
-    @users = current_user.pending.
+    @user = current_user
+    @users = @user.pending.
       paginate :per_page => 10, :page => params[:page]
 
     render :users, layout: (request.xhr? ? false : true)

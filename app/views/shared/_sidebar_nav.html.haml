@@ -8,15 +8,4 @@
     %h3
       = "Welcome #{link_to(current_user.short_name, edit_user_registration_path)}".html_safe
 
-%nav#friend-nav
-  %ul
-    %li
-      = link_to followers_user_path(current_user) do
-        %span= current_user.supporters_count
-        Followers
-    %li
-      = link_to following_user_path(current_user) do
-        %span= current_user.supported_count
-        Following
-
 /= render 'shared/trending_tags'
