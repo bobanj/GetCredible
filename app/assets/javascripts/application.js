@@ -933,6 +933,8 @@ $(function (){
                 self.parent().remove();
                 var endorsementsList = $('#endorsements_' + data.user_tag_id + '_list');
                 var endorseContainer = $('#endorse_' + data.user_tag_id + '_container');
+                var numEndorsements = endorseContainer.find('span.score');
+                numEndorsements.html(parseInt(numEndorsements.text()) - 1);
                 if (endorsementsList.length > 0 && endorsementsList.children().length == 0){
                   endorseContainer.find('.js-endorsements-toggle').addClass('hide');
                 }
