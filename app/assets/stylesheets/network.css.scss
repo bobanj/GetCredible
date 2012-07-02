@@ -9,7 +9,7 @@
   }
   .search_listing, .tag-search {
     margin: 0;
-    
+
     @include pie-clearfix;
     input[type=text] {
       background: #fff;
@@ -126,7 +126,9 @@
     }
     .name {
       color: #444;
+      display: inline-block;
       font: bold 20px gnuolane, sans-serif;
+      height: 48px;
       padding-right: 8px;
     }
     .user {

@@ -188,6 +188,8 @@ GEM
       activesupport (= 3.2.4)
       bundler (~> 1.0)
       railties (= 3.2.4)
+    rails-footnotes (3.7.8)
+      rails (>= 3.0.0)
     rails3-generators (0.17.4)
       railties (>= 3.0.0)
     rails_config (0.3.0)
@@ -322,6 +324,7 @@ DEPENDENCIES
   pg
   quiet_assets
   rails (= 3.2.4)
+  rails-footnotes (>= 3.7.5.rc4)
   rails3-generators
   rails_config
   random-word

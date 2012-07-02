@@ -14,7 +14,7 @@ describe UsersController do
     it "can respond to show" do
       user = mock_model(User)
       User.should_receive(:find_by_username!).with('some-name').and_return(user)
-      user.stub_chain(:user_tags, :includes).and_return([])
+      user.stub_chain(:user_tags, :includes, :all).and_return([])
       get :show, :id => 'some-name'
       response.should be_success
     end

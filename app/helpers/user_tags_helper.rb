@@ -35,13 +35,17 @@ module UserTagsHelper
   end
 
   def preload_associations(activity_items)
-    vote_activities      = activity_items.select{|i| i.item_type == 'Vote'}
-    user_tag_activities  = activity_items.select{|i| i.item_type == 'UserTag'}
+    vote_activities        = activity_items.select{|i| i.item_type == 'Vote'}
+    user_tag_activities    = activity_items.select{|i| i.item_type == 'UserTag'}
+    endorsement_activities = activity_items.select{|i| i.item_type == 'Endorsement'}
 
     ActiveRecord::Associations::Preloader.
       new(vote_activities, [{:item => {:voteable => :tag}}, :target, :user]).run
 
     ActiveRecord::Associations::Preloader.
       new(user_tag_activities, [{:item => :tag}, :target, :user]).run
+
+    ActiveRecord::Associations::Preloader.
+      new(endorsement_activities, [{:item => :endorser}, :target, :user]).run
   end
 end
