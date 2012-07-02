@@ -20,8 +20,11 @@
               %span.endorse
                 - if @user != current_user
                   = link_to "Endorse this tag", "#",id: "endorse_#{user_tag.id}_link", class: 'js-endorse-tag action', :'data-user_tag_id' => user_tag.id
-                = link_to "Show all endorsements", "#", :class => "js-endorsements-toggle #{endorsements.present? ? '' : 'hide'}", :'data-user_tag_id' => user_tag.id
-              %ul.tag-endorse.hide{id: "endorsements_#{user_tag.id}_list"}
+                - if endorsements.present?
+                  = link_to "Hide all endorsements", "#", :class => "js-endorsements-toggle", :'data-user_tag_id' => user_tag.id
+                - else
+                  = link_to "Show all endorsements", "#", :class => "js-endorsements-toggle hide", :'data-user_tag_id' => user_tag.id
+              %ul.tag-endorse{class: (endorsements.present? ? nil : 'hide'), id: "endorsements_#{user_tag.id}_list"}
                 = render :partial => 'endorsements/endorsement', :collection => endorsements
 
     .hide
