@@ -20,8 +20,6 @@ class UserTag < ActiveRecord::Base
   include Redis::Objects
   value :outgoing
   value :incoming
-  value :score
-  value :rank
 
   # Callbacks
   after_destroy :remove_from_redis
@@ -74,8 +72,6 @@ class UserTag < ActiveRecord::Base
     Redis::SortedSet.new("tag:#{tag_id}:scores").delete(id)
     Redis::Value.new("user_tag:#{id}:incoming").delete
     Redis::Value.new("user_tag:#{id}:outgoing").delete
-    Redis::Value.new("user_tag:#{id}:score").delete
-    Redis::Value.new("user_tag:#{id}:rank").delete
   end
 
 end

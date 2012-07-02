@@ -67,21 +67,17 @@ class ScoreCalculator
         unless scale_range.empty?
           if weight > scale_max
             tag_scores[user_tag_id] = score_max
-            Redis::Value.new("user_tag:#{user_tag_id}:score").value = score_max
           else
             scale_range.each_with_index do |range, index|
               if range.cover?(weight)
                 tag_scores[user_tag_id] = index
-                Redis::Value.new("user_tag:#{user_tag_id}:score").value = index
                 break
               end
             end
           end
         else
           tag_scores[user_tag_id] = weight
-          Redis::Value.new("user_tag:#{user_tag_id}:score").value = weight
         end
-        Redis::Value.new("user_tag:#{user_tag_id}:rank").value = tag_scores.revrank(user_tag_id) + 1
       end
 
     end

@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user_tags = @user.user_tags.includes(:tag, :endorsements => :endorser).sort_by{|ut| ut.score.value.to_s}.reverse
+    @user_tags = @user.user_tags.includes(:tag, :endorsements => :endorser).reverse
     render :layout => false if request.xhr?
   end
 

@@ -3,7 +3,7 @@
     %hr.divider.strong
     #tag-listing.listing-wrap
       #page-header.gray
-        %h1 Tag Breakdown & Endorsements
+        %h1 Endorsements
 
         .tag-search.right
           %p
@@ -13,13 +13,9 @@
       .listing
         %ul#endorsements_list
           - @user_tags.each do |user_tag|
-            - rank = user_tag.rank.value
             - endorsements = user_tag.endorsements.latest
             %li{id: "endorse_#{user_tag.id}_container"}
-              %span.score= user_tag.score.value || 1
               %span.name= user_tag.tag.name
-              - if rank
-                %span.user="##{rank} out of #{user_tag.incoming.value}"
               %span.endorse
                 - if @user != current_user
                   = link_to "Endorse this tag", "#",id: "endorse_#{user_tag.id}_link", class: 'js-endorse-tag action', :'data-user_tag_id' => user_tag.id
