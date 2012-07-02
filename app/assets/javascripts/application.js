@@ -910,10 +910,14 @@ $(function (){
       if (endorsements.length > 0){
         if (endorsements.hasClass('hide')){
           self.text("Hide all endorsements");
-          endorsements.removeClass('hide').slideDown(800);
+          endorsements.slideDown(800, function(){
+            $(this).removeClass('hide');
+          });
         } else{
           self.text("Show all endorsements");
-          endorsements.addClass('hide').slideUp(800);
+          endorsements.slideUp(800, function(){
+            $(this).addClass('hide');
+          });
         }
       }
       return false;
@@ -953,7 +957,7 @@ $(function (){
       return false;
     });
 
-    var endorsementTags = $("#endorsements_list li");
+    var endorsementTags = $("#endorsements_list li.endorsement_li");
     $('#endorsement_search').bind('keyup',function(){
       var searchTerm = $(this).val();
       endorsementTags.each(function(){

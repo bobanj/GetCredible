@@ -14,7 +14,7 @@
         %ul#endorsements_list
           - @user_tags.each do |user_tag|
             - endorsements = user_tag.endorsements.sort_by { |e| e.id }
-            %li{id: "endorse_#{user_tag.id}_container"}
+            %li.endorsement_li{id: "endorse_#{user_tag.id}_container"}
               %span.score= user_tag.endorsements.length
               %span.name= user_tag.tag.name
               %span.endorse
