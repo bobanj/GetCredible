@@ -68,7 +68,5 @@ module GetCredible
     config.assets.version = '1.0'
     # config.assets.precompile << /(^[^_]|\/[^_])[^\/]*/
     config.assets.precompile << ['application.css', 'ie/application.css', 'application.js']
-
-    config.middleware.use "DomainMiddleware"
   end
 end
