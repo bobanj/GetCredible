@@ -6,4 +6,15 @@
     mixpanel.init("<%=ENV['MIXPANEL_TOKEN']%>");
     </script>
     <!-- end Mixpanel -->
+<% else %>
+  <script type="text/javascript">
+    var mixpanel = {
+      track: function(msg){
+        if(console && typeof(console.log === 'function')){
+          console.log("Track: " + msg);
+        }
+      }
+    };
+
+  </script>
 <% end %>

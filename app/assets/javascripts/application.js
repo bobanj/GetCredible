@@ -992,10 +992,9 @@ $(function (){
 
   $.getCredible.trackingPages = function(){
     var pageAction = $('body').attr('id');
-    console.log(pageAction);
     // Landing Page
     switch(pageAction){
-      case 'home_index' :
+      case 'home_index':
         mixpanel.track("Landing page");
         $("#landing_sign_in").click(function(){
           mixpanel.track("Landing page sign in");
