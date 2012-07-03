@@ -4,7 +4,7 @@ $('.js-endorsement-form #endorsement_description').val('');
 $('.js-endorsement-form #endorsement_user_tag_id').val('');
 $('.js-endorsement-form #user_tag_id').val('');
 $(".js-endorsement-form").hide();
-$("#endorse_<%=@endorsement.user_tag_id%>_container span.score").html(parseInt($("#endorse_<%=@endorsement.user_tag_id%>_container span.score").text()) + 1);
+$("#endorse_<%=@endorsement.user_tag_id%>_container span.score").removeClass('nonvisible').html(parseInt($("#endorse_<%=@endorsement.user_tag_id%>_container span.score").text()) + 1);
 
 if($("#endorsements_<%=@endorsement.user_tag_id%>_list").children().length == 1){
   $("#endorse_<%=@endorsement.user_tag_id%>_container .js-endorsements-toggle").removeClass('hide').click();

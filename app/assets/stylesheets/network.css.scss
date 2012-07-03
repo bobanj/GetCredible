@@ -145,7 +145,10 @@
       text-align: center;
       vertical-align: middle;
       min-width: 48px;
-      @include transition(all .4s)
+      @include transition(all .4s);
+      &.nonvisible {
+        visibility: hidden;
+      }
     }
     .endorse {
       display: inline-block;
