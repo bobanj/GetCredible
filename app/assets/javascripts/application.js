@@ -458,7 +458,7 @@ $(function (){
         });
 
         // vote callback after login via modal window
-        if (typeof(tagCloudCallback) === 'function'){
+        if ($.isFunction(tagCloudCallback)){
           tagCloudCallback();
         }
       }});
@@ -576,8 +576,12 @@ $(function (){
 
   $("#guide_video_back").click(function (e){
     e.preventDefault();
-    guideVideoApi.stopVideo();
-    guideVideoApi.clearVideo();
+    if($.isFunction(guideVideoApi.stopVideo)){
+      guideVideoApi.stopVideo();
+    }
+    if($.isFunction(guideVideoApi.clearVideo)){
+      guideVideoApi.clearVideo();
+    }
     $("#guide_video_container").hide('fast');
     $("#step_2_form").show('fast');
     return false;
