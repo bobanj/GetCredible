@@ -119,6 +119,7 @@ $(function (){
                   tagNamesTextField.tokenInput("clear");
                   $.getCredible.displayNotification('success', 'You have tagged ' + $.getCredible.tagCloud.data('user').name + ' with ' + tagNames);
                   $.getCredible.renderTagCloud(data);
+                  mixpanel.track("Tagged user from profile");
                 });
           } else{
             $.getCredible.displayNotification('error', 'You cannot vote for yourself')
@@ -153,6 +154,7 @@ $(function (){
           $.getCredible.updateTagCloud(function (){
             $.getCredible.actionsAfterLogin(data);
             $.getCredible.loginQtipApi.hide();
+            mixpanel.track("Sign in from modal");
           });
         } else{
           $.each(data.errors, function (index, text){
@@ -179,6 +181,7 @@ $(function (){
           $.getCredible.updateTagCloud(function (){
             $.getCredible.actionsAfterLogin(data);
             $.getCredible.loginQtipApi.hide();
+            mixpanel.track("Sign up from modal");
           });
         } else{
           $.each(data.errors, function (index, text){
@@ -229,8 +232,10 @@ $(function (){
             } else{
               if (word.hasClass('vouche')){
                 $.getCredible.displayNotification('success', 'You have unvouched for ' + user.name + ' on ' + word.text());
+                mixpanel.track("User unvouched");
               } else{
                 $.getCredible.displayNotification('success', 'You have vouched for ' + user.name + ' on ' + word.text());
+                mixpanel.track("User vouched");
               }
             }
             $('.tag-vote').click(function (){
@@ -437,7 +442,9 @@ $(function (){
               {type:'btn primary medium', text:'Ok', click:function (){
                 if ($.getCredible.tagCloud.data('can-delete')){
                   $.post($.getCredible.tagCloudPath + '/' + word.data('user-tag-id'), { _method:'delete' }, function (data){
-                    $.getCredible.renderTagCloud(data);
+                    $.getCredible.renderTagCloud(data, function(){
+                      mixpanel.track("User delete tag");
+                    });
                   });
                 }
               } },
@@ -617,6 +624,7 @@ $(function (){
                 return false;
               } else {
                 $.getCredible.guide.isUpdating = true;
+                mixpanel.track("Guide next step 1");
               }
             });
 
@@ -632,11 +640,13 @@ $(function (){
                 $('#bubbles').progressBubbles('regress');
                 $("#step_1").show('fast');
               });
+              mixpanel.track("Guide previous step 2");
               return false;
             });
 
             $("#next_step_2").click(function (){
               $("#step_2 form").submit();
+              mixpanel.track("Guide next step 2");
               return false;
             });
 
@@ -645,11 +655,13 @@ $(function (){
                 $('#bubbles').progressBubbles('regress');
                 $("#step_2").show('fast');
               });
+              mixpanel.track("Guide previous step 3");
               return false;
             });
 
             $("#next_step_3").click(function (){
               api.hide();
+              mixpanel.track("Guide next step 3");
               return false;
             });
 
@@ -689,6 +701,7 @@ $(function (){
                           $.getCredible.renderTagCloud(data);
                         }
                         skipStep2();
+                        mixpanel.track("User tagged himself");
                       });
                 } else{
                   skipStep2();
@@ -701,9 +714,10 @@ $(function (){
             $("#guide_close").click(function (e){
               e.preventDefault();
               api.hide();
+              mixpanel.track("Guide close");
               return false;
-            })
-
+            });
+            mixpanel.track("Guide render");
           }
         }
       }).qtip('api');
@@ -711,6 +725,7 @@ $(function (){
   $("#show_guide").click(function (e){
     e.preventDefault();
     guideApi.show();
+    mixpanel.track("Guide show");
     return false;
   });
 
@@ -719,6 +734,7 @@ $(function (){
     var bubbleContainer = $("#bubbles_container");
     if (bubbleContainer.length > 0 && bubbleContainer.data('show_guide')){
       guideApi.show();
+      mixpanel.track("Guide show");
     }
   }
 
@@ -768,6 +784,7 @@ $(function (){
 
     $('#js-twitter-invitation-form').live('submit', function (e) {
       $(this).find('.loading').show();
+      mixpanel.track("Twitter invitation send");
     });
   };
 
@@ -812,6 +829,7 @@ $(function (){
 
     $('#js-email-invitation-form').live('submit', function (e) {
       $(this).find('.loading').show();
+      mixpanel.track("Email invitation send");
     });
   };
 
@@ -900,6 +918,7 @@ $(function (){
 
     $("#endorsements").on("submit", ".js-endorsement-form", function (e){
       $(this).find('.loader').removeClass('hide');
+      mixpanel.track("Endorsement create");
     });
 
     $('.js-endorsements-toggle').click(function (e){
@@ -942,6 +961,7 @@ $(function (){
                 if (endorsementsList.length > 0 && endorsementsList.children().length == 0){
                   endorseContainer.find('.js-endorsements-toggle').addClass('hide');
                 }
+                mixpanel.track("Endorsement destroy");
               } else{
                 $.getCredible.displayNotification('error', 'You can only delete your own endorsements');
               }
@@ -970,6 +990,59 @@ $(function (){
     });
   }
 
+  $.getCredible.trackingPages = function(){
+    var pageAction = $('body').attr('id');
+    console.log(pageAction);
+    // Landing Page
+    switch(pageAction){
+      case 'home_index' :
+        mixpanel.track("Landing page");
+        $("#landing_sign_in").click(function(){
+          mixpanel.track("Landing page sign in");
+        });
+        $("#landing_sign_up_top").click(function(){
+          mixpanel.track("Landing page sign up top");
+        });
+        $("#landing_sign_up_bottom").click(function(){
+          mixpanel.track("Landing page sign up bottom");
+        });
+      break;
+      case 'users_registrations_create':
+        mixpanel.track("Sign up page");
+        break;
+      case 'users_sessions_new':
+        mixpanel.track("Sign in page");
+        break;
+      case 'devise_passwords_new':
+        mixpanel.track("Forgot password page");
+        break;
+      case 'users_index':
+        mixpanel.track("Search results page");
+        break;
+      case 'activities_show':
+        mixpanel.track("Home page");
+        break;
+      case 'users_following':
+        mixpanel.track("User following page");
+        break;
+      case 'users_followers':
+        mixpanel.track("User followers page");
+        break;
+      case 'users_show':
+        mixpanel.track("User profile page");
+        break;
+      case 'users_registrations_edit':
+        mixpanel.track("User edit profile page");
+        break;
+      case 'invite_index':
+        mixpanel.track("User invite page");
+        break;
+      default:
+        mixpanel.track(pageAction);
+        break;
+    }
+  }
+
   $.getCredible.showFlashMessages();
   $.getCredible.ajaxPagination();
   $.getCredible.init();
@@ -978,4 +1051,5 @@ $(function (){
   $.getCredible.emailInvite();
   $.getCredible.loginQtip();
   $.getCredible.guide();
-})
+  $.getCredible.trackingPages();
+});

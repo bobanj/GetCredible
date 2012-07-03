@@ -54,3 +54,4 @@ GetCredible::Application.configure do
 end
 
 ENV["REDISTOGO_URL"] = 'redis://127.0.0.1:6379'
+ENV['MIXPANEL_TOKEN'] = '5fca63224dffcd62e3f8e58a07b98fa0'

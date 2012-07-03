@@ -87,4 +87,4 @@ ActionMailer::Base.smtp_settings = {
 ActionMailer::Base.delivery_method = :smtp
 
 ENV["REDISTOGO_URL"] = 'redis://redistogo:d41575038160d280d062ddd0d2a1e295@panga.redistogo.com:9392/'
-ENV['MIXPANNEL_TOKEN'] = '5fca63224dffcd62e3f8e58a07b98fa0'
+ENV['MIXPANEL_TOKEN'] = '5fca63224dffcd62e3f8e58a07b98fa0'

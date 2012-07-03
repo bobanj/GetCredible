@@ -17,7 +17,7 @@
                 = f.input :password, :required => false, :placeholder => "Password", :input_html => { :value => nil }, :label_html => {:class => 'hidden'}, :input_html => {:tabindex => 2}
                 = link_to "Forgot your password?", new_user_password_path
               %li
-                = f.button :submit, "Sign in", class: 'btn small primary gray'
+                = f.button :submit, "Sign in", class: 'btn small primary gray', id: 'landing_sign_in'
       - else
         %li#global-search
           = form_tag users_path, :id => 'g-search', :method => :get do

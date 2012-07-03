@@ -11,7 +11,7 @@
         %li= f.input :username, :required => false, :placeholder => "Username", :label_html => {:class => 'hidden'}
         %li= f.input :email, :placeholder => "Email", :label_html => {:class => 'hidden'}
         %li= f.input :password, :placeholder => "Password", :label_html => {:class => 'hidden'}
-        %li.buttons= f.button :submit, "Sign up now for free", class: 'btn large primary'
+        %li.buttons= f.button :submit, "Sign up now for free", class: 'btn large primary', id: 'landing_sign_up_top'
 
   %br
 
@@ -51,6 +51,6 @@
         %li= f.input :username, :required => false, :placeholder => "Username", :label_html => {:class => 'hidden'}
         %li= f.input :email, :placeholder => "Email", :label_html => {:class => 'hidden'}
         %li= f.input :password, :placeholder => "Password", :label_html => {:class => 'hidden'}
-        %li.buttons= f.button :submit, "Sign up now for free", class: 'btn large primary'
+        %li.buttons= f.button :submit, "Sign up now for free", class: 'btn large primary', id: 'landing_sign_up_bottom'
 
 
