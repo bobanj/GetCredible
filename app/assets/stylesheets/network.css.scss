@@ -72,6 +72,11 @@
     font-style: italic;
     margin-top: 4px;
   }
+  &:hover, &:focus {
+    .endorse-delete {
+      display: block;
+    }
+  }
 }
 
 .tag-endorse-text {
@@ -204,9 +209,6 @@
       }
       .endorse a.action {
         display: inline-block;
-      }
-      .endorse-delete {
-        display: block;
       }
     }
   }
