@@ -13,7 +13,7 @@
           = link_to image_tag(@user.avatar_url(:thumb)), me_user_path(@user), :id => "user_avatar_main"
         = link_to me_user_path(@user), :class => 'no_underline' do
           %h1= @user.name
-      %h2= @user.short_bio
+      %h2= auto_link(@user.short_bio, :html => {:target => '_blank'}, :link => :urls)
     %ul.right
       - unless @user.location.blank?
         %li.location

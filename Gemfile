@@ -32,6 +32,7 @@ gem 'remotipart', '~> 1.0'
 gem 'twitter'
 gem 'oauth'
 gem 'exception_notification'
+gem 'rinku', :require => 'rails_rinku'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.2'

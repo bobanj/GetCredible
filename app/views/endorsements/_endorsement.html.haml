@@ -1,5 +1,5 @@
 %li
-  = endorsement.description
+  = auto_link(endorsement.description, :html => {:target => '_blank'}, :link => :urls)
   %span
     Written by
     = link_to endorsement.endorser.short_name, me_user_path(endorsement.endorser)
