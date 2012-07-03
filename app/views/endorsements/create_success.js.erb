@@ -17,3 +17,4 @@ if($("#endorsements_<%=@endorsement.user_tag_id%>_list").children().length == 1)
     //$("#endorsements_<%=@endorsement.user_tag_id%>_list").addClass('hide').slideUp(800);
   }
 }
+mixpanel.track("Endorsement create");

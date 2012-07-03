@@ -788,7 +788,6 @@ $(function (){
 
     $('#js-twitter-invitation-form').live('submit', function (e) {
       $(this).find('.loading').show();
-      mixpanel.track("Twitter invitation send");
     });
   };
 
@@ -922,7 +921,6 @@ $(function (){
 
     $("#endorsements").on("submit", ".js-endorsement-form", function (e){
       $(this).find('.loader').removeClass('hide');
-      mixpanel.track("Endorsement create");
     });
 
     $('.js-endorsements-toggle').click(function (e){
