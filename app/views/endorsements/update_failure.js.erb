@@ -1,0 +1,4 @@
+var currentEndorsement = $("#<%= dom_id @endorsement %>");
+currentEndorsement.find(".js_endorsement").hide();
+currentEndorsement.find('form:first').remove();
+currentEndorsement.append('<%= j(render 'endorsements/form') %>');

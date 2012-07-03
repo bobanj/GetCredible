@@ -905,7 +905,7 @@ $(function (){
         return false;
       }
       var endorseContainer = $("#endorse_" + userTagId + "_container");
-      var endorsementForm = $(".js-endorsement-form");
+      var endorsementForm = $(".js-endorsement-form-new");
       if (endorseContainer.length > 0 && endorsementForm.length > 0){
         //endorsementForm.find('#endorsement_description').val('');
         endorsementForm.show();
@@ -980,6 +980,22 @@ $(function (){
       });
       return false;
     });
+
+    $('.js-cancel-endorsement').live('click', function (e) {
+      e.preventDefault();
+
+      var form = $(this).parents('form');
+      var endorsement = form.parent('li').find('> .js_endorsement');
+
+      console.log(endorsement)
+      if (endorsement.length > 0) {
+        endorsement.show();
+        form.remove();
+      } else {
+        form.hide();
+      }
+    })
+
 
     var endorsementTags = $("#endorsements_list li.endorsement_li");
     $('#endorsement_search').bind('keyup',function(){

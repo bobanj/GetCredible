@@ -1,0 +1,2 @@
+var currentEndorsement = $("#<%= dom_id @endorsement %>");
+currentEndorsement.replaceWith('<%= j(render 'endorsements/endorsement', endorsement: @endorsement) %>')

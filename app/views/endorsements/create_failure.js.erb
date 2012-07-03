@@ -1,5 +1,5 @@
-$(".js-endorsement-form .loader").addClass('hide');
+$(".js-endorsement-form-new .loader").addClass('hide');
 <% if @endorsement.errors[:description].blank? %>
 $.getCredible.displayNotification('error', 'The user does not own the tag you want to endorse');
 <% end %>
-$(".js-endorsement-form").replaceWith('<%=escape_javascript(render :partial => 'endorsements/form')%>');
+$(".js-endorsement-form-new").replaceWith('<%=escape_javascript(render :partial => 'endorsements/form')%>');

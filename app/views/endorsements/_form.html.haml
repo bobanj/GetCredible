@@ -1,5 +1,8 @@
-= simple_form_for(@endorsement || Endorsement.new, url: endorsements_path, remote: true, html: {class: 'js-endorsement-form tag-endorse-text'}) do |f|
-  %p Write an endorsement:
+= simple_form_for(@endorsement, remote: true, html: {class: [(@endorsement.new_record? ? 'js-endorsement-form-new' : 'js-endorsement-form-edit'), 'js-endorsement-form', 'tag-endorse-text'] }) do |f|
+  - if @endorsement.new_record?
+    %p Write an endorsement:
+  - else
+    %p Edit endorsement:
   = hidden_field_tag :user_tag_id, nil
   = f.input :user_tag_id, as: :hidden
   = f.input :description, label: false, input_html: {rows: 2}
@@ -8,6 +11,8 @@
     %span#endorsement_word_counter 300
     characters.
   .buttons
-    = f.button :submit, "Endorse", class: 'btn primary'
+    = f.button :submit, (@endorsement.new_record? ? "Endorse" : "Save"), class: 'btn primary'
+    %span.inline
+      = link_to 'Cancel', '#', class: 'js-cancel-endorsement'
     %span.loader.inline.hide
-      =image_tag 'ajax_loader.gif'
+      = image_tag 'ajax_loader.gif'

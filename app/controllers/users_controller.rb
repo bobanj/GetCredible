@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   def show
     @user_tags = @user.user_tags.includes(:tag, :endorsements => :endorser).all
     @user_tags = @user_tags.sort_by{ |ut| - ut.endorsements.length }
+    @endorsement = Endorsement.new
 
     render :layout => false if request.xhr?
   end

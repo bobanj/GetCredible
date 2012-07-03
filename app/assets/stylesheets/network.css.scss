@@ -65,7 +65,7 @@
   line-height: 1.6;
   margin-top: 5px;
   padding: 10px 25px 0 60px !important;
-  span {
+  span.endorser {
     color: #808080;
     display: block;
     font-size: 11px;
@@ -73,7 +73,7 @@
     margin-top: 4px;
   }
   &:hover, &:focus {
-    .endorse-delete {
+    .endorse-delete, .endorse-edit {
       display: block;
     }
   }
@@ -83,6 +83,10 @@
   border-top: 1px solid #eee;
   margin-top: 5px;
   padding: 10px 25px 10px 60px !important;
+  &.js-endorsement-form-edit {
+    padding: 0 !important;
+    border-top: none;
+  }
   .hint{
     float: right;
   }
@@ -169,7 +173,7 @@
         }
       }
     }
-    .endorse-delete {
+    .endorse-delete, .endorse-edit {
       background: #f9f9f9;
       border: 1px solid #eee;
       border-top: none;
@@ -184,7 +188,12 @@
       text-align: center;
       text-decoration: none;
       top: 0;
+    }
+    .endorse-delete {
       width: 18px;
+    }
+    .endorse-edit {
+      width: 25px;
     }
     .tag-endorse-text .field_with_errors {
       .error {
@@ -193,6 +202,7 @@
         display: block;
         margin-bottom: 7px;
         padding: 2px 5px;
+        margin: 0 0 7px 0;
         width: 100%;
       }
       textarea {

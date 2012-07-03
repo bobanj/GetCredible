@@ -1,0 +1,10 @@
+$('.js-endorsement-form-edit').each(function () {
+  var form = $(this);
+  var endorsement = form.parent('li').find('> .js_endorsement');
+  endorsement.show();
+  form.remove();
+});
+
+var currentEndorsement = $("#<%= dom_id @endorsement %>");
+currentEndorsement.find(".js_endorsement").hide();
+currentEndorsement.append('<%= j(render 'endorsements/form') %>');

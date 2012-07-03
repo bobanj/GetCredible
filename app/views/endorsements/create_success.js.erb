@@ -1,9 +1,9 @@
-$(".js-endorsement-form .loader").addClass('hide');
+$(".js-endorsement-form-new .loader").addClass('hide');
 $("#endorsements_<%=@endorsement.user_tag_id%>_list").prepend('<%=escape_javascript(render :partial => 'endorsements/endorsement', :locals => {:endorsement => @endorsement}) %>');
-$('.js-endorsement-form #endorsement_description').val('');
-$('.js-endorsement-form #endorsement_user_tag_id').val('');
-$('.js-endorsement-form #user_tag_id').val('');
-$(".js-endorsement-form").hide();
+$('.js-endorsement-form-new #endorsement_description').val('');
+$('.js-endorsement-form-new #endorsement_user_tag_id').val('');
+$('.js-endorsement-form-new #user_tag_id').val('');
+$(".js-endorsement-form-new").hide();
 $("#endorse_<%=@endorsement.user_tag_id%>_container span.score").removeClass('nonvisible').html(parseInt($("#endorse_<%=@endorsement.user_tag_id%>_container span.score").text()) + 1);
 
 if($("#endorsements_<%=@endorsement.user_tag_id%>_list").children().length == 1){

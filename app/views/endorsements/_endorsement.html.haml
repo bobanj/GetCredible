@@ -1,8 +1,11 @@
-%li
-  = auto_link(endorsement.description, :html => {:target => '_blank'}, :link => :urls)
-  %span
-    Written by
-    = link_to endorsement.endorser.short_name, me_user_path(endorsement.endorser)
-    = time_ago_in_words(endorsement.created_at)
-  - if user_signed_in? && current_user == @user
-    = link_to "X", endorsement, class: 'js-endorsement-delete endorse-delete'
+%li{id: dom_id(endorsement)}
+  .js_endorsement
+    = auto_link(endorsement.description, :html => {:target => '_blank'}, :link => :urls)
+    %span.endorser
+      Written by
+      = link_to endorsement.endorser.short_name, me_user_path(endorsement.endorser)
+      = time_ago_in_words(endorsement.created_at)
+    - if user_signed_in? && current_user == @user
+      = link_to "X", endorsement, class: 'js-endorsement-delete endorse-delete'
+    - if user_signed_in? && current_user == endorsement.endorser
+      = link_to "edit", edit_endorsement_path(endorsement), remote: true, class: 'js-endorsement-edit endorse-edit'
