@@ -9,20 +9,20 @@ class UserTagsController < ApplicationController
   end
 
   def create
-    #if current_user != @user
     tag_names = TagCleaner.clean(params[:tag_names])
     current_user.add_tags(@user, tag_names)
-    #end
+
     render json: tags_summary(@user, current_user)
   end
 
   def vote
     user_tag = @user.user_tags.find(params[:id])
     vote = current_user.add_vote(user_tag)
+
     if vote
-      render json: tag_summary(user_tag, @user, current_user).merge({:status => 'ok'}).to_json
+      render json: tag_summary(user_tag, @user, current_user).merge({:status => 'ok'})
     else
-      render json: {status: 'error'}.to_json
+      render json: {status: 'error'}
     end
   end
 
@@ -30,15 +30,16 @@ class UserTagsController < ApplicationController
     user_tag = @user.user_tags.find(params[:id])
 
     if user_tag && current_user.remove_vote(user_tag)
-      render json: tag_summary(user_tag, @user, current_user).merge({:status => 'ok'}).to_json
+      render json: tag_summary(user_tag, @user, current_user).merge({:status => 'ok'})
     else
-      render json: {status: 'error'}.to_json
+      render json: {status: 'error'}
     end
   end
 
   def destroy
     user_tag = current_user.user_tags.find_by_id(params[:id])
     user_tag.destroy if user_tag
+
     render json: tags_summary(@user, current_user)
   end
 

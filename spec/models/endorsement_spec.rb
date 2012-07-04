@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Endorsement do
   let(:endorsement) { FactoryGirl.create(:endorsement) }
   let(:user) { FactoryGirl.create(:user) }
+  let(:endorser) { FactoryGirl.create(:user) }
   let(:other_user) { FactoryGirl.create(:user) }
   let(:tag) { FactoryGirl.create(:tag, name: 'tag1') }
   let(:user_tag) { FactoryGirl.create(:user_tag, tag: tag, user: user, tagger: other_user) }
@@ -31,6 +32,7 @@ describe Endorsement do
     it { should validate_presence_of(:description) }
     it { should ensure_length_of(:description).is_at_least(10) }
     it { should ensure_length_of(:description).is_at_most(300) }
+
     it "sets error if user is endorsing himself" do
       endorsement.endorser = user
       endorsement.user_tag = user_tag
@@ -40,4 +42,19 @@ describe Endorsement do
     end
   end
 
+  describe "Endorsement" do
+    it "creates vouch (following association) on endorsement" do
+      FactoryGirl.create(:endorsement, endorser: endorser, user_tag: user_tag)
+      user_tag.reload.votes.length.should == 1
+      endorser.reload.voted_users.should include(user)
+    end
+
+    it "creates vouch (following association) on endorsement" do
+      endorser.add_vote(user_tag, false)
+      user_tag.votes.length.should == 1 # sanity
+      FactoryGirl.create(:endorsement, endorser: endorser, user_tag: user_tag)
+      user_tag.reload.votes.length.should == 1
+      endorser.reload.voted_users.should include(user)
+    end
+  end
 end
