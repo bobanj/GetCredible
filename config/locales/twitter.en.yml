@@ -4,4 +4,4 @@ en:
       unavailable: 'Twitter services are currently unavailable. Try again later.'
     contacts:
       import: 'Your twitter contacts were successfully imported.'
-      remove: 'Your Twitter contacts were successfully removed.'
+      remove: 'Your Twitter account was successfully disconnected.'
