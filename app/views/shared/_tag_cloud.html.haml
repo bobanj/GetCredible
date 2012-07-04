@@ -2,7 +2,7 @@
   #add-tag
     .inner{:class => (false && @user == current_user) ? "cannot_tag" : nil}
       = form_tag user_user_tags_path(@user) do
-        = label_tag :tag_names, 'Tags'
+        = label_tag :tag_names, 'Tags', class: 'hidden'
         = text_field_tag :tag_names, '', :placeholder => 'e.g. web design, leadership (comma separated)', :class => 'large', :id => 'tag_names'
 
         %button.btn.primary.large Tag 'em!
