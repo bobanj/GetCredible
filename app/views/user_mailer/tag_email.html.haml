@@ -27,7 +27,7 @@
           %td
             %h1{:style => "color:#582a00;margin:10px 0 5px;font-size:24px;"}Hey, #{@tagged.name}.
             %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
-              Great news: #{link_to @tagger.name, me_user_url(@tagger), :style => "color: #{@link_color};"} added a new tag for you! Here it is: #{@tag_names.join(', ')}
+              Great news: #{link_to @tagger.name, me_user_url(@tagger), :style => "color: #{@link_color};"} has just tagged you with #{@tag_names.map{|t| "\"#{t}\""}.join(', ')}.
 
         %tr
           %td{:colspan => "100"}
@@ -35,11 +35,13 @@
         %tr
           %td
             %p{:style => "font-size:11px;line-height:1.4;color:#444;margin:0 0 15px;"}
-              Love it? We're humbled just to know you. Rock on!
+              Love it? Rock on!
               %br
-              Not so much? Head to your profile and click the little red "X" to get rid of the tag. (Other people may have their thoughts on what you're best at, but you're the final gatekeeper.)
-              %br
-              Won't you consider paying it forward? Keep the love flowing... tag one of your contacts. Have a great day!
+              Not so much? Head to your #{link_to 'profile', me_user_url(@tagged), :style => "color: #{@link_color};"} and click the X to get rid of it.
+        %tr
+          %td
+            %p{:style => "font-size:11px;line-height:1.4;color:#444;margin:0 0 15px;"}
+              Pay it forward! Head back to GiveBrand and tag some of your #{link_to 'contacts', followers_user_url(@tagged), :style => "color: #{@link_color};"}.
 
     %table{:style => "background:none;margin: 0 auto;width:600px;"}
       %tbody

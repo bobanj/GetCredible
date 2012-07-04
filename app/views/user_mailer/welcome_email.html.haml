@@ -25,11 +25,9 @@
 
         %tr
           %td
-            %h1{:style => "color:#582a00;margin:10px 0 5px;font-size:24px;"}Dear #{@user.name},
+            %h1{:style => "color:#582a00;margin:10px 0 5px;font-size:24px;"} Well, look who it is.
             %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
-              Welcome to GiveBrand!
-              %br
-              We can't wait to watch with you as your influence grows across our site and news of your swagger spreads like wildfire.
+              Welcome, and thanks for joining GiveBrand, <b>#{@user.name}</b>!
 
         %tr
           %td{:colspan => "100"}
@@ -37,13 +35,13 @@
         %tr
           %td
             %p{:style => "font-size:11px;line-height:1.4;color:#444;margin:0 0 15px;"}
-              Now that you've got your account set up, what's next? We've got a few ideas:
+              Now that you've got your account set up, what's next? Here are a few ideas.
         %tr
           %td
-            %ul{:style => "text-align: left;"}
-              %li{:style => "font-size:11px;line-height:1.4;color:#666;margin:0 0 5px;"} Flesh out your profile. Add a profile photo and a little personal information.
-              %li{:style => "font-size:11px;line-height:1.4;color:#666;margin:0 0 5px;"} Invite your friends and professional contacts to join - cast a wide net!
-              %li{:style => "font-size:11px;line-height:1.4;color:#666;margin:0 0 5px;"} Share your profile to your Facebook and Twitter contacts... see what happens.
+            %ol{:style => "text-align: left;"}
+              %li{:style => "font-size:11px;line-height:1.4;color:#666;margin:0 0 5px;"} Flesh out your #{link_to 'profile', me_user_url(@user), :style => "color: #{@link_color};"} with a profile photo and a little personal information.
+              %li{:style => "font-size:11px;line-height:1.4;color:#666;margin:0 0 5px;"} Invite your friends and professional contacts to #{link_to 'join', invite_url, :style => "color: #{@link_color};"} via e-mail or Twitter.
+              %li{:style => "font-size:11px;line-height:1.4;color:#666;margin:0 0 5px;"} Share your profile through your social networks and encourage others to start tagging you.
 
         %tr
           %td{:colspan => "100"}
@@ -51,9 +49,9 @@
         %tr
           %td
             %p{:style => "font-size:11px;line-height:1.4;color:#444;margin:0 0 15px;"}
-              Thanks again for signing up. If you have any questions, we're always here to answer them. Just jot us a note at russ@givebrand.com
+              If you have any questions, we're always here to answer them.
               %br
-              Now get taggin'!
+              Send a quick note to #{mail_to 'russ@givebrand.to', 'russ@givebrand.to', :style => "color: #{@link_color};"}, or tweet us at #{link_to '@GiveBrand', 'https://twitter.com/givebrand', :style => "color: #{@link_color};"}. Now get taggin'!
 
     %table{:style => "background:none;margin: 0 auto;width:600px;"}
       %tbody

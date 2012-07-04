@@ -7,9 +7,7 @@ class InviteController < ApplicationController
     @twitter_message = TwitterMessage.new
 
     respond_to do |format|
-      format.html do
-        render layout: (request.xhr? ? false : true)
-      end
+      format.html { render layout: (request.xhr? ? false : true) }
       format.js
     end
   end

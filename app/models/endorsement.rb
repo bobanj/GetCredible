@@ -14,6 +14,9 @@ class Endorsement < ActiveRecord::Base
   validates :description, :length => {:minimum => 10, :maximum => 300}
   validate :user_can_not_endorse_himself
 
+  # Callbacks
+  before_save :create_vote
+
   #Scopes
   scope :latest, order("created_at desc")
 
@@ -22,5 +25,9 @@ class Endorsement < ActiveRecord::Base
     if user_tag.try(:user_id) == endorsed_by_id
       errors.add(:description, "You can't endorse yourself")
     end
+  end
+
+  def create_vote
+    endorser.add_vote(user_tag, false)
   end
 end

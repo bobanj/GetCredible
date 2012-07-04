@@ -6,9 +6,9 @@
 
         %button.btn.primary.large Tag 'em!
       - if @user == current_user
-        .vouche You can always add more tags in field above. Use comma ( , ) for multi-tagging.
+        .vouch You can always add more tags in field above. Use comma ( , ) for multi-tagging.
       - else
-        .vouche ... or <strong>add a tag</strong> below to vouch for it yourself!
+        .vouch ... or <strong>add a tag</strong> below to vouch for it yourself!
     .arrow
   = image_tag "ajax_loader.gif", :id => 'tag-could-loader', :style => "display:none;"
 
