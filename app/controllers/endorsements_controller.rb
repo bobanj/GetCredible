@@ -12,6 +12,7 @@ class EndorsementsController < ApplicationController
     if @endorsement.save
       @endorsement.endorser.activity_items.create(:item => @endorsement,
                                 :target_id => @endorsement.user_tag.user_id)
+      UserMailer.endorse_email(@endorsement).deliver
       render :create_success
     else
       render :create_failure

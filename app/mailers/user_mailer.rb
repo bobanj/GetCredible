@@ -26,4 +26,11 @@ class UserMailer < ActionMailer::Base
     @user    = user
     mail(to: inviter.email, subject: "Your invitation has been accepted!")
   end
+
+  def endorse_email(endorsement)
+    @endorsement = endorsement
+    @user        = endorsement.user_tag.user
+    @endorser    = endorsement.endorser
+    mail(to: @user.email, subject: "Your have been endorsed!")
+  end
 end
