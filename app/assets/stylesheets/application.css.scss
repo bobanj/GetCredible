@@ -867,10 +867,17 @@ footer {
 .team-list {
   list-style: none;
   margin-left: 0;
+  @include pie-clearfix;
   li {
     border-top: 1px solid #eee;
+    float: left;
+    margin-right: 4%;
     padding-bottom: 15px;
+    width: 48%;
     @include pie-clearfix;
+    &:nth-child(2), &:nth-child(4) {
+      margin-right: 0;
+    }
   }
   img {
     float: left;
