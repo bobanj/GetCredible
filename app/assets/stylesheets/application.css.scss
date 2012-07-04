@@ -869,7 +869,6 @@ footer {
   margin-left: 0;
   @include pie-clearfix;
   li {
-    border-top: 1px solid #eee;
     float: left;
     margin-right: 4%;
     padding-bottom: 15px;
@@ -885,10 +884,10 @@ footer {
     width: 100px;
   }
   h2 {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     line-height: 1.6;
-    margin: 15px 0 5px;
+    margin: 15px 0 8px;
     span {
       color: #555;
       display: block;
@@ -899,7 +898,13 @@ footer {
   p {
     padding-left: 120px;
   }
+  .twitter-url {
+    display: inline-block;
+    margin-top: 10px;
+  }
 }
+
+
 
 .featured {
   margin-top: 25px;

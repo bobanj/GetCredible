@@ -37,6 +37,9 @@ h1 {
   small {
     font-size: 18px;
   }
+  &.border {
+    border-bottom: 1px solid #eee;
+  }
 }
 h2 {
   font-size: 24px;
