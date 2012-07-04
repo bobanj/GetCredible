@@ -4,9 +4,10 @@
     %span.endorser
       Written by
       = link_to endorsement.endorser.short_name, me_user_path(endorsement.endorser)
+      %span ,
       = time_ago_in_words(endorsement.created_at)
-      ago
+      %span ago
     - if user_signed_in? && current_user == @user
       = link_to "X", endorsement, class: 'js-endorsement-delete endorse-delete'
     - if user_signed_in? && current_user == endorsement.endorser
-      = link_to "edit", edit_endorsement_path(endorsement), remote: true, class: 'js-endorsement-edit endorse-edit'
+      = link_to "...", edit_endorsement_path(endorsement), remote: true, class: 'js-endorsement-edit endorse-edit'

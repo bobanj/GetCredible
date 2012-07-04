@@ -56,15 +56,17 @@
     padding: 0;
   }
 }
-
+.tag-endorse {
+  padding-bottom: 10px;
+}
 .tag-endorse li {
-  border-top: 1px solid #eee;
+  border-top: 1px solid #f6f6f6;
   border-bottom: none !important;
   color: #444;
   font-size: 12px;
   line-height: 1.6;
   margin-top: 5px;
-  padding: 10px 25px 0 60px !important;
+  padding: 10px 44px 0 !important;
   span.endorser {
     color: #808080;
     display: block;
@@ -73,6 +75,7 @@
     margin-top: 4px;
   }
   &:hover, &:focus {
+    border-top: 1px solid #ddd;
     .endorse-delete, .endorse-edit {
       display: block;
     }
@@ -129,16 +132,13 @@
     img {
       padding-right: 10px;
     }
-    .name, .user {
-      position: relative;
-      top: 5px;
-    }
     .name {
       color: #444;
       display: inline-block;
-      font: bold 20px gnuolane, sans-serif;
-      height: 48px;
+      font: bold 20px/30px gnuolane, sans-serif;
+      height: 30px;
       padding-right: 8px;
+      vertical-align: middle;
     }
     .user {
       font-size: 12px;
@@ -147,23 +147,30 @@
       background: #eee;
       color: $blue;
       display: inline-block;
-      font: bold 20px/48px gnuolane, sans-serif;
-      height: 48px;
+      font: bold 20px/30px gnuolane, sans-serif;
+      height: 30px;
       margin: 0 10px 0 0;
+      min-width: 30px;
       position: relative;
       text-align: center;
       vertical-align: middle;
-      min-width: 48px;
       @include transition(all .4s);
       &.nonvisible {
         visibility: hidden;
       }
     }
+    .info {
+      border-left: 1px solid #eee;
+      color: #888;
+      font-size: 11px;
+      margin-right: 5px;
+      padding-left: 8px;
+      vertical-align: bottom;
+    }
     .endorse {
       display: inline-block;
       float: right;
       font-size: 12px;
-      margin-top: 15px;
       a {
         margin-left: 7px;
         text-decoration: underline;
@@ -175,7 +182,7 @@
     }
     .endorse-delete, .endorse-edit {
       background: #f9f9f9;
-      border: 1px solid #eee;
+      border: 1px solid #ddd;
       border-top: none;
       color: $red;
       display: none;
@@ -224,6 +231,40 @@
   }
   .pagination {
     padding: 20px 25px;
+  }
+}
+
+#endorsements {
+  .cancel {
+    color: $red;
+    font-size: 11px;
+    margin: 2px 0 0 7px;
+    text-decoration: underline;
+  }
+  .ngo {
+    margin-top: 35px;
+    a {
+      font-size: 12px;
+    }
+  }
+}
+
+#endorsements_list {
+  li {
+    padding: 15px 25px 10px;
+  }
+  b {
+    font-weight: bold;
+    color: #666;
+  }
+}
+
+.add-endorsement {
+  border-bottom: 1px solid #eee;
+  padding: 15px 25px;
+  textarea {
+    margin: 8px 0;
+    width: 98%;
   }
 }
 
