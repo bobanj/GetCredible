@@ -955,7 +955,7 @@ $(function (){
           {type:'btn primary medium', text:'Ok', click:function (){
             $.post(self.attr('href'), { _method:'delete' }, function (data){
               if (data.status == 'ok'){
-                self.parent().remove();
+                self.parent().parent().remove();
                 var endorsementsList = $('#endorsements_' + data.user_tag_id + '_list');
                 var endorseContainer = $('#endorse_' + data.user_tag_id + '_container');
                 var numEndorsements = endorseContainer.find('span.score');
