@@ -10,11 +10,12 @@
   <script type="text/javascript">
     var mixpanel = {
       track: function(msg){
-        if(console && typeof(console.log === 'function')){
-          console.log("Track: " + msg);
-        }
+        <% if Rails.env.development? %>
+          if(console && typeof(console.log === 'function')){
+            console.log("Track: " + msg);
+          }
+        <% end %>
       }
     };
-
   </script>
 <% end %>
