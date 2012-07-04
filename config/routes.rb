@@ -9,10 +9,6 @@ GetCredible::Application.routes.draw do
   }
 
   resources :users, :only => [:index, :show] do
-    member do
-      get :followers
-      get :following
-    end
     resources :user_tags, :only => [:index, :create, :destroy], :path => :tags do
       member do
         post :vote
@@ -40,4 +36,6 @@ GetCredible::Application.routes.draw do
   get '/team' => 'home#team'
 
   match '/:id' => 'users#show', :as => 'me_user'
+  match '/:id/followers' => 'users#show', :as => 'user_followers'
+  match '/:id/following' => 'users#show', :as => 'user_following'
 end

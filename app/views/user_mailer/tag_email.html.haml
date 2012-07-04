@@ -41,7 +41,7 @@
         %tr
           %td
             %p{:style => "font-size:11px;line-height:1.4;color:#444;margin:0 0 15px;"}
-              Pay it forward! Head back to GiveBrand and tag some of your #{link_to 'contacts', followers_user_url(@tagged), :style => "color: #{@link_color};"}.
+              Pay it forward! Head back to GiveBrand and tag some of your #{link_to 'contacts', user_followers_url(@tagged), :style => "color: #{@link_color};"}.
 
     %table{:style => "background:none;margin: 0 auto;width:600px;"}
       %tbody
