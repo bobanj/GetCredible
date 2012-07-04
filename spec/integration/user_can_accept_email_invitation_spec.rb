@@ -38,5 +38,10 @@ describe 'User', type: :request do
     fill_in("Password", with: "password")
     click_button("Save")
     page.should have_content("Your have joined GiveBrand!")
+
+    # invited user
+    open_email(user.email)
+    current_email.should have_subject("Your invitation has been accepted!")
+    current_email.body.should have_content("Great news: Invited 1 has just accepted your invitation and joined GiveBrand.")
   end
 end

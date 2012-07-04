@@ -54,6 +54,7 @@ class User < ActiveRecord::Base
   # Callbacks
   before_validation :add_protocol_to_personal_url
   before_validation :clean_twitter_username
+  after_invitation_accepted :email_followers
 
   # Scopes
   scope :none, where("1 = 0")
@@ -278,6 +279,12 @@ class User < ActiveRecord::Base
     if !(path && path[:controller] == 'users' &&
          path[:action] == 'show' && path[:id] == username)
       errors.add(:username, "is not available")
+    end
+  end
+
+  def email_followers
+    voters.each do |voter|
+      UserMailer.invitation_accepted_email(voter, self).deliver
     end
   end
 end
