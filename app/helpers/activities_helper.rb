@@ -8,7 +8,7 @@ module ActivitiesHelper
 
     case activity_item.item
       when Vote
-        classes << 'vouche'
+        classes << 'vouch'
       when UserTag
         classes << 'tag'
       when Endorsement

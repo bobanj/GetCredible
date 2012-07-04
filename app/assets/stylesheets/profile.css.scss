@@ -180,7 +180,7 @@
     @include clearfix;
     @include box-shadow(rgba(0, 0, 0, 0.03) 0 3px 3px inset);
     border-bottom: 1px solid $borderColor;
-    .vouche {
+    .vouch {
       font: 12px "open-sans", sans-serif;
     }
   }
@@ -221,7 +221,7 @@
     top: 23px;
   }
 
-  .vouche {
+  .vouch {
     font-size: 12px;
     line-height: 1.4;
     padding: 0 15px 10px 15px;

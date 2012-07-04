@@ -23,7 +23,7 @@
     display: inline-block;
     font-family: open-sans, sans-serif;
     padding: 5px 10px;
-    
+
     //text-transform: uppercase;
 
     &.w5 {
@@ -53,13 +53,13 @@
     margin-left: 8px;
   }
 
-  .vouche {
+  .vouch {
     &:hover .icon {
       background-position: 0 -16px;
     }
   }
 
-  .unvouche {
+  .unvouch {
     &:hover .icon {
       background-position: 0 0;
     }

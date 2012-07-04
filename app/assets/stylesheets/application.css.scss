@@ -373,11 +373,11 @@ input, textarea {
 
 }
 
-.vouche, .tag, .endorsement {
+.vouch, .tag, .endorsement {
   position: relative;
 }
 
-.vouche .tag-icon, .tag .tag-icon, .endorsement .tag-icon {
+.vouch .tag-icon, .tag .tag-icon, .endorsement .tag-icon {
   height: 21px;
   left: -11px;
   position: absolute;
@@ -386,8 +386,8 @@ input, textarea {
   @include transition(all .4s);
 }
 
-.vouche .tag-icon {
-  background: image_url('icon-vouche.png') no-repeat center;
+.vouch .tag-icon {
+  background: image_url('icon-vouch.png') no-repeat center;
 }
 
 .tag .tag-icon {
@@ -402,9 +402,9 @@ input, textarea {
   }
 }
 .list-view {
-  .vouche:hover, .vouche:focus {
+  .vouch:hover, .vouch:focus {
     .tag-icon {
-      background: image_url('icon-vouche-hover.png') no-repeat center;
+      background: image_url('icon-vouch-hover.png') no-repeat center;
     }
   }
 }
@@ -824,7 +824,7 @@ footer {
   //background: rgba(255, 255, 255, 0.3);
   //@include box-shadow(0 1px 2px rgba(0, 0, 0, 0.03) inset);
   //@include border-radius(3px);
-  border-collapse: collapse; 
+  border-collapse: collapse;
   display: table;
   #content, aside {
     display: table-cell;
@@ -1056,7 +1056,7 @@ footer {
 
 aside {
   //background: darken($white, 2%);
-  
+
   #profile-nav {
 
     .photo {

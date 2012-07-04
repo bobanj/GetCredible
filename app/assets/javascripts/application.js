@@ -198,7 +198,7 @@ $(function (){
     var word = $(word);
     var voteToggle;
     if (typeof(this.tagCloudPath) == 'string'){
-      voteToggle = word.hasClass('vouche') ? '/unvote.json' : '/vote.json';
+      voteToggle = word.hasClass('vouch') ? '/unvote.json' : '/vote.json';
       if (this.tagCloud.data('logged-in') == false){
         $("#word_id_after_login").val('#' + word.attr('id'));
         $("#tag_names_after_login").val($("#tag_names").val());
@@ -219,8 +219,8 @@ $(function (){
             word.data('total', data.total);
             word.data('voters', voters.join(''));
             word.data('voters_count', data.voters_count);
-            word.removeClass('vouche unvouche');
-            word.addClass(data.voted ? "vouche " : "unvouche");
+            word.removeClass('vouch unvouch');
+            word.addClass(data.voted ? "vouch " : "unvouch");
             $.getCredible.updateQtipContentData(word);
             $.getCredible.tagCloudQtipApi.set('content.text', word.data('qtip-content'));
             if (data.voters_count === null){
@@ -230,11 +230,11 @@ $(function (){
               $.getCredible.updateTagCloud(function (){
               });
             } else{
-              if (word.hasClass('vouche')){
-                $.getCredible.displayNotification('success', 'You have unvouched for ' + user.name + ' on ' + word.text());
-                mixpanel.track("User unvouched");
+              if (word.hasClass('vouch')){
+                $.getCredible.displayNotification('success', 'You have vouched for ' + word.text());
+                mixpanel.track("User vouch remove");
               } else{
-                $.getCredible.displayNotification('success', 'You have vouched for ' + user.name + ' on ' + word.text());
+                $.getCredible.displayNotification('success', 'You have removed vouch for ' + word.text());
                 mixpanel.track("User vouched");
               }
             }
@@ -246,7 +246,7 @@ $(function (){
         });
       } else{
         if (!this.tagCloud.data('can-delete')){
-          $.getCredible.displayNotification('alert', 'You can not vouche for yourself')
+          $.getCredible.displayNotification('alert', 'You can not vouch for yourself')
         }
       }
     } else{
@@ -267,7 +267,7 @@ $(function (){
     var customClass = "word ";
     customClass += this.tagCloud.data('can-delete') ? 'remove ' : '';
     if ($.getCredible.tagCloud.data('can-vote') && !this.tagCloud.data('can-delete')){
-      customClass += userTag.voted ? "vouche " : "unvouche ";
+      customClass += userTag.voted ? "vouch " : "unvouch ";
     }
     return customClass;
   }
@@ -328,8 +328,8 @@ $(function (){
 
   $.getCredible.updateQtipContentData = function (word){
     var rank = word.data('rank') ? '#' + word.data('rank') : 'N/A';
-    var voucheUnvouche = word.hasClass('vouche') ? 'Unvouche' : 'Vouche';
-    var voucheUnvoucheClass = word.hasClass('vouche') ? 'btn primary red tiny' : 'btn primary green tiny';
+    var vouchUnvouch = word.hasClass('vouch') ? 'Remove' : 'Vouch';
+    var vouchUnvouchClass = word.hasClass('vouch') ? 'btn primary red tiny' : 'btn primary green tiny';
     var qtipContent = '<div class="tag-wrap">' +
         '<div class="tag-score">' +
         '<p class="tag-title">score</p>' +
@@ -343,7 +343,7 @@ $(function (){
         '<p>' + word.data('voters') + '</p>' +
         '</div>';
     if ($.getCredible.tagCloud.data('can-vote')){
-      qtipContent = qtipContent + '<div class="tag-action"><a href="#" class="tag-vote button ' + voucheUnvoucheClass + '">' + voucheUnvouche + '</a></div>'
+      qtipContent = qtipContent + '<div class="tag-action"><a href="#" class="tag-vote button ' + vouchUnvouchClass + '">' + vouchUnvouch + '</a></div>'
     }
     qtipContent = qtipContent + '</div>';
     word.data('qtip-content', qtipContent);
