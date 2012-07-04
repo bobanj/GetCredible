@@ -20,9 +20,9 @@ class UserTagsController < ApplicationController
     vote = current_user.add_vote(user_tag)
 
     if vote
-      render json: tag_summary(user_tag, @user, current_user).merge({:status => 'ok'})
+      render json: tag_summary_ok(user_tag, @user, current_user)
     else
-      render json: {status: 'error'}
+      render json: tag_summary_error
     end
   end
 
@@ -30,9 +30,9 @@ class UserTagsController < ApplicationController
     user_tag = @user.user_tags.find(params[:id])
 
     if user_tag && current_user.remove_vote(user_tag)
-      render json: tag_summary(user_tag, @user, current_user).merge({:status => 'ok'})
+      render json: tag_summary_ok(user_tag, @user, current_user)
     else
-      render json: {status: 'error'}
+      render json: tag_summary_error
     end
   end
 
@@ -46,5 +46,13 @@ class UserTagsController < ApplicationController
   private
     def load_user
       @user = User.find_by_username!(params[:user_id])
+    end
+
+    def tag_summary_ok(user_tag, user, current_user)
+      tag_summary(user_tag, user, current_user).merge({:status => 'ok'})
+    end
+
+    def tag_summary_error
+      {status: 'error'}
     end
 end

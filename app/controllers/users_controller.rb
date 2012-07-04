@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
 
-  # before_filter :authenticate_user!, :only => [:followers, :following]
   before_filter :load_user, :only => [:show, :followers, :following]
 
   def index
     @users = User.search(params)
+
     render 'index', layout: (request.xhr? ? false : true)
   end
 
@@ -19,6 +19,7 @@ class UsersController < ApplicationController
   def followers
     @users = @user.voters.order_by_name.
       paginate :per_page => 10, :page => params[:page]
+
     render :users, layout: (request.xhr? ? false : true)
   end
 
