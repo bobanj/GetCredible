@@ -35,7 +35,7 @@ describe 'User', type: :request do
     unread_emails_for(invited1.email).size.should == parse_email_count(1)
     open_email(invited1.email)
     current_email.should have_subject("You are invited to GiveBrand!")
-    current_email.body.should have_content("#{user.name} has invited you to http://localhost:3000/, and tagged you with: tag1, tag2")
+    current_email.body.should have_content("#{user.name} has tagged you with \"tag1\", \"tag2\" invited you to join GiveBrand")
 
 
     find_field("Email").value.should be_blank
@@ -56,7 +56,7 @@ describe 'User', type: :request do
     unread_emails_for(invited2.email).size.should == parse_email_count(1)
     open_email(invited2.email)
     current_email.should have_subject("You are invited to GiveBrand!")
-    current_email.body.should have_content("#{user.name} has invited you to http://localhost:3000/, and tagged you with: tag1, tag2")
+    current_email.body.should have_content("#{user.name} has tagged you with \"tag1\", \"tag2\" invited you to join GiveBrand")
 
     find_field("Name").value.should be_blank
     find_field("Email").value.should be_blank

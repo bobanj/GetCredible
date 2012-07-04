@@ -5,7 +5,7 @@
 
     = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
       %ul.inputs-list.bg
-        %li= f.input :email, :required => true
+        %li= f.input :email, :required => false
         %li.buttons= f.button :submit, "Submit", class: 'btn large primary'
       %br
 %aside
