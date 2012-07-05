@@ -16,6 +16,9 @@ describe TwitterContact do
   describe "Validations" do
     it { should validate_presence_of(:twitter_id) }
     it { should validate_presence_of(:screen_name) }
+    it { should ensure_length_of(:screen_name).is_at_most(255) }
+    it { should ensure_length_of(:name).is_at_most(255) }
+    it { should ensure_length_of(:avatar).is_at_most(255) }
   end
 
   describe "#search" do

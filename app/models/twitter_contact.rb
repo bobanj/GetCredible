@@ -8,7 +8,9 @@ class TwitterContact < ActiveRecord::Base
 
   # Validations
   validates :twitter_id, presence: true
-  validates :screen_name, presence: true
+  validates :screen_name, presence: true, length: {maximum: 255}
+  validates :name, length: {maximum: 255}
+  validates :avatar, length: {maximum: 255}
 
   # Scopes
   scope :ordered, order('name ASC')

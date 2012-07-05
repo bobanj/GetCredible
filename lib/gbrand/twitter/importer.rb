@@ -47,11 +47,11 @@ class Gbrand::Twitter::Importer
   def create_twitter_contact(user)
     twitter_contact = current_user.twitter_contacts.find_or_initialize_by_twitter_id(user.id)
     twitter_contact.attributes = {
-      screen_name: user.screen_name,
-      name: user.name,
-      avatar: user.profile_image_url
+      screen_name: user.screen_name.to_s.first(255),
+      name: user.name.to_s.first(255),
+      avatar: user.profile_image_url.to_s.first(255)
     }
-    twitter_contact.save!
+    twitter_contact.save
   end
 end
 
