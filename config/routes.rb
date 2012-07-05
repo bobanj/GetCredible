@@ -36,6 +36,6 @@ GetCredible::Application.routes.draw do
   get '/team' => 'home#team'
 
   match '/:id' => 'users#show', :as => 'me_user'
-  match '/:id/followers' => 'users#show', :as => 'user_followers'
-  match '/:id/following' => 'users#show', :as => 'user_following'
+  match '/:id/followers' => 'users#followers', :as => 'user_followers'
+  match '/:id/following' => 'users#following', :as => 'user_following'
 end
