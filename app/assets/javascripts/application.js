@@ -1015,7 +1015,9 @@ $(function (){
       $("#write_endorsement_tag_error").text('');
     });
 
-    $("#write_endorsement_description").limit('300', $("#write_endorsement_word_counter"));
+    if($("#write_endorsement_description").length){
+      $("#write_endorsement_description").limit('300', $("#write_endorsement_word_counter"));
+    }
 
     $("#endorsements").on("submit", "#write_endorsement_form", function (e){
       var endorsementDescription = $("#write_endorsement_description");
