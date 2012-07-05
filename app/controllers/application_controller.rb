@@ -28,7 +28,8 @@ class ApplicationController < ActionController::Base
         :user => resource,
         :header => render_to_string(:layout => false, :partial => 'shared/header.html.haml'),
         :tag_cloud => render_to_string(:layout => false, :partial => 'shared/tag_cloud.html.haml'),
-        :endorsements => render_to_string(:layout => false, :partial => 'shared/endorsements.html.haml')
+        :endorsements => render_to_string(:layout => false, :partial => 'shared/endorsements.html.haml'),
+        :guide => resource.sign_in_count == 1 ? render_to_string(:layout => false, :partial => 'shared/guide.html.haml') : ''
       }
     end
 

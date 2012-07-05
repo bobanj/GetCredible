@@ -66,6 +66,7 @@ $(function (){
   $.getCredible.guide = {
     isUpdating: false
   }
+  $.getCredible.guideApi;
   $.getCredible.guideVideoId = 'He_PWsJqsVY';
 
   $.getCredible.displayNotification = function (type, text){
@@ -80,6 +81,15 @@ $(function (){
       }
     });
   };
+
+  $.getCredible.updatePageContent = function(data){
+    $('#global-header').replaceWith(data.header);
+    $('#tags').replaceWith(data.tag_cloud);
+    $('#endorsements').replaceWith(data.endorsements);
+    if(data.show_guide){
+      $("#main").prepend(data.guide);
+    }
+  }
 
   $.getCredible.init = function (){
     $.getCredible.tagCloudPath = null;
@@ -144,12 +154,7 @@ $(function (){
       var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-name');
       $.post("/users/sign_in.json", params, function (data){
         if (data.success){
-          if (data.show_guide){
-            guideApi.show();
-          }
-          $('#global-header').replaceWith(data.header);
-          $('#tags').replaceWith(data.tag_cloud);
-          $('#endorsements').replaceWith(data.endorsements);
+          $.getCredible.updatePageContent(data);
           $.getCredible.init();
           $.getCredible.updateTagCloud(function (){
             $.getCredible.actionsAfterLogin(data);
@@ -171,12 +176,7 @@ $(function (){
       var params = form.serialize() + '&user_id=' + $.getCredible.tagCloud.data('user-name');
       $.post("/users.json", params, function (data){
         if (data.success){
-          if (data.show_guide){
-            guideApi.show();
-          }
-          $('#global-header').replaceWith(data.header);
-          $('#tags').replaceWith(data.tag_cloud);
-          $('#endorsements').replaceWith(data.endorsements);
+          $.getCredible.updatePageContent(data);
           $.getCredible.init();
           $.getCredible.updateTagCloud(function (){
             $.getCredible.actionsAfterLogin(data);
@@ -190,7 +190,7 @@ $(function (){
         }
       });
     });
-
+    $.getCredible.guide();
     $.getCredible.endorsements();
   }
 
@@ -520,6 +520,11 @@ $(function (){
       }
       endorseAfterLogin.val('');
     }
+    if (data.show_guide){
+      if($.isFunction($.getCredible.guideApi.show)){
+        $.getCredible.guideApi.show();
+      }
+    }
   }
 
   $('body').delegate('.js-remote', 'click', function (event){
@@ -558,190 +563,188 @@ $(function (){
     prePopulate:prePopulateInvitationTags
   });
 
+  $.getCredible.guide = function (){
+    $('#bubbles').progressBubbles({
+          bubbles:[
+            {'title':'1'},
+            {'title':'2'},
+            {'title':'3'}
+          ]
+        }
+    );
 
-  $('#bubbles').progressBubbles({
-        bubbles:[
-          {'title':'1'},
-          {'title':'2'},
-          {'title':'3'}
-        ]
+    $("#guide_video_link").click(function (e){
+      e.preventDefault();
+      $("#step_2_form").hide('fast');
+      $("#guide_video_container").show('fast');
+      if ($.isFunction(guideVideoApi.playVideo)){
+        guideVideoApi.playVideo();
       }
-  );
+      return false;
+    });
 
-  $("#guide_video_link").click(function (e){
-    e.preventDefault();
-    $("#step_2_form").hide('fast');
-    $("#guide_video_container").show('fast');
-    if ($.isFunction(guideVideoApi.playVideo)){
-      guideVideoApi.playVideo();
-    }
-    return false;
-  });
+    $("#guide_video_back").click(function (e){
+      e.preventDefault();
+      if($.isFunction(guideVideoApi.stopVideo)){
+        guideVideoApi.stopVideo();
+      }
+      if($.isFunction(guideVideoApi.clearVideo)){
+        guideVideoApi.clearVideo();
+      }
+      $("#guide_video_container").hide('fast');
+      $("#step_2_form").show('fast');
+      return false;
+    });
 
-  $("#guide_video_back").click(function (e){
-    e.preventDefault();
-    if($.isFunction(guideVideoApi.stopVideo)){
-      guideVideoApi.stopVideo();
-    }
-    if($.isFunction(guideVideoApi.clearVideo)){
-      guideVideoApi.clearVideo();
-    }
-    $("#guide_video_container").hide('fast');
-    $("#step_2_form").show('fast');
-    return false;
-  });
-
-  var guideApi = $('#steps').qtip(
-      {
-        id:'guide_qtip', // Since we're only creating one modal, give it an ID so we can style it
-        content:{
-          text:$('#bubbles_container'),
-          title:false
-        },
-        position:{
-          my:'center', // ...at the center of the viewport
-          at:'center',
-          target:$(window)
-        },
-        show:{
-          ready:false,
-          event:'click', // Show it on click...
-          //solo: true, // ...and hide all other tooltips...
-          modal:{
-            on:true,
-            blur:false,
-            escape:true
-          }
-        },
-        hide:false,
-        style:{
-          classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded ui-tooltip-guide'
-        },
-        events:{
-          visible: function(){
-            if($(".bubble.active .bubble-title").text() == '1'){
-                $("#step_1_form #user_full_name").focus();
+    $.getCredible.guideApi = $('#steps').qtip(
+        {
+          id:'guide_qtip', // Since we're only creating one modal, give it an ID so we can style it
+          content:{
+            text:$('#bubbles_container'),
+            title:false
+          },
+          position:{
+            my:'center', // ...at the center of the viewport
+            at:'center',
+            target:$(window)
+          },
+          show:{
+            ready:false,
+            event:'click', // Show it on click...
+            //solo: true, // ...and hide all other tooltips...
+            modal:{
+              on:true,
+              blur:false,
+              escape:true
             }
           },
-          render:function (event, api){
-            // Step 1 is handled with update.js.erb
-            // focus on FullName when guide is shown
-            $("#step_1_form").submit(function(e){
-              if($.getCredible.guide.isUpdating){
+          hide:false,
+          style:{
+            classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded ui-tooltip-guide'
+          },
+          events:{
+            visible: function(){
+              if($(".bubble.active .bubble-title").text() == '1'){
+                $("#step_1_form #user_full_name").focus();
+              }
+            },
+            render:function (event, api){
+              // Step 1 is handled with update.js.erb
+              // focus on FullName when guide is shown
+              $("#step_1_form").submit(function(e){
+                if($.getCredible.guide.isUpdating){
+                  e.preventDefault();
+                  return false;
+                } else {
+                  $.getCredible.guide.isUpdating = true;
+                  mixpanel.track("Guide next step 1");
+                }
+              });
+
+              $("#user_avatar_file").change(function (){
+                $("#user_avatar_guide_form .loading").show();
+                $("#user_avatar_guide_form").submit();
+                return false;
+              });
+
+              // Step 2 Video
+              $("#prev_step_2").click(function (){
+                $("#step_2").hide('fast', function (){
+                  $('#bubbles').progressBubbles('regress');
+                  $("#step_1").show('fast');
+                });
+                mixpanel.track("Guide previous step 2");
+                return false;
+              });
+
+              $("#next_step_2").click(function (){
+                $("#step_2 form").submit();
+                mixpanel.track("Guide next step 2");
+                return false;
+              });
+
+              $("#prev_step_3").click(function (){
+                $("#step_3").hide('fast', function (){
+                  $('#bubbles').progressBubbles('regress');
+                  $("#step_2").show('fast');
+                });
+                mixpanel.track("Guide previous step 3");
+                return false;
+              });
+
+              $("#next_step_3").click(function (){
+                api.hide();
+                mixpanel.track("Guide next step 3");
+                return false;
+              });
+
+              $("#step_2 form").submit(function (e){
                 e.preventDefault();
-                return false;
-              } else {
-                $.getCredible.guide.isUpdating = true;
-                mixpanel.track("Guide next step 1");
-              }
-            });
-
-            $("#user_avatar_file").change(function (){
-              $("#user_avatar_guide_form .loading").show();
-              $("#user_avatar_guide_form").submit();
-              return false;
-            });
-
-            // Step 2 Video
-            $("#prev_step_2").click(function (){
-              $("#step_2").hide('fast', function (){
-                $('#bubbles').progressBubbles('regress');
-                $("#step_1").show('fast');
-              });
-              mixpanel.track("Guide previous step 2");
-              return false;
-            });
-
-            $("#next_step_2").click(function (){
-              $("#step_2 form").submit();
-              mixpanel.track("Guide next step 2");
-              return false;
-            });
-
-            $("#prev_step_3").click(function (){
-              $("#step_3").hide('fast', function (){
-                $('#bubbles').progressBubbles('regress');
-                $("#step_2").show('fast');
-              });
-              mixpanel.track("Guide previous step 3");
-              return false;
-            });
-
-            $("#next_step_3").click(function (){
-              api.hide();
-              mixpanel.track("Guide next step 3");
-              return false;
-            });
-
-            $("#step_2 form").submit(function (e){
-              e.preventDefault();
-              if ($.getCredible.guide.isUpdating){
-                return false;
-              } else{
-                $.getCredible.guide.isUpdating = true;
-                var form = $(this);
-                var tagOne = $("#tag_1");
-                var tagTwo = $("#tag_2");
-                var tagThree = $("#tag_3");
-                var step2TagNames = $("#step_2_tags");
-                var skipStep2 = function (){
-                  $("#step_2").hide('fast', function (){
-                    $('#bubbles').progressBubbles('progress');
-                    $("#step_3").show('fast');
-                  });
-                }
-                if (tagOne.val() != '' || tagTwo.val() != '' || tagThree.val() != ''){
-                  var tagNames = [];
-                  if (tagOne.val() != ''){
-                    tagNames.push(tagOne.val());
-                  }
-                  if (tagOne.val() != ''){
-                    tagNames.push(tagTwo.val());
-                  }
-                  if (tagOne.val() != ''){
-                    tagNames.push(tagThree.val());
-                  }
-                  step2TagNames.val(tagNames.join(','));
-                  $.post(form.data('tags-path'),
-                      form.serialize(), function (data){
-                        $.getCredible.displayNotification('success', 'You have tagged yourself with ' + step2TagNames.val());
-                        if ($.getCredible.tagCloud.length > 0){
-                          $.getCredible.renderTagCloud(data);
-                        }
-                        skipStep2();
-                        mixpanel.track("User tagged himself");
-                      });
+                if ($.getCredible.guide.isUpdating){
+                  return false;
                 } else{
-                  skipStep2();
-                  //$.getCredible.displayNotification('error', 'Please add tags');
+                  $.getCredible.guide.isUpdating = true;
+                  var form = $(this);
+                  var tagOne = $("#tag_1");
+                  var tagTwo = $("#tag_2");
+                  var tagThree = $("#tag_3");
+                  var step2TagNames = $("#step_2_tags");
+                  var skipStep2 = function (){
+                    $("#step_2").hide('fast', function (){
+                      $('#bubbles').progressBubbles('progress');
+                      $("#step_3").show('fast');
+                    });
+                  }
+                  if (tagOne.val() != '' || tagTwo.val() != '' || tagThree.val() != ''){
+                    var tagNames = [];
+                    if (tagOne.val() != ''){
+                      tagNames.push(tagOne.val());
+                    }
+                    if (tagOne.val() != ''){
+                      tagNames.push(tagTwo.val());
+                    }
+                    if (tagOne.val() != ''){
+                      tagNames.push(tagThree.val());
+                    }
+                    step2TagNames.val(tagNames.join(','));
+                    $.post(form.data('tags-path'),
+                        form.serialize(), function (data){
+                          $.getCredible.displayNotification('success', 'You have tagged yourself with ' + step2TagNames.val());
+                          if ($.getCredible.tagCloud.length > 0){
+                            $.getCredible.renderTagCloud(data);
+                          }
+                          skipStep2();
+                          mixpanel.track("User tagged himself");
+                        });
+                  } else{
+                    skipStep2();
+                    //$.getCredible.displayNotification('error', 'Please add tags');
+                  }
                 }
-              }
-              return false;
-            });
+                return false;
+              });
 
-            $("#guide_close").click(function (e){
-              e.preventDefault();
-              api.hide();
-              mixpanel.track("Guide close");
-              return false;
-            });
-            mixpanel.track("Guide render");
+              $("#guide_close").click(function (e){
+                e.preventDefault();
+                api.hide();
+                mixpanel.track("Guide close");
+                return false;
+              });
+              mixpanel.track("Guide render");
+            }
           }
-        }
-      }).qtip('api');
+        }).qtip('api');
 
-  $("#show_guide").click(function (e){
-    e.preventDefault();
-    guideApi.show();
-    mixpanel.track("Guide show");
-    return false;
-  });
+    $("#show_guide").click(function (e){
+      e.preventDefault();
+      $.getCredible.guideApi.show();
+      mixpanel.track("Guide show");
+      return false;
+    });
 
-
-  $.getCredible.guide = function (){
     var bubbleContainer = $("#bubbles_container");
     if (bubbleContainer.length > 0 && bubbleContainer.data('show_guide')){
-      guideApi.show();
+      $.getCredible.guideApi.show();
       mixpanel.track("Guide show");
     }
   }
@@ -1098,6 +1101,5 @@ $(function (){
   $.getCredible.twitterInvite();
   $.getCredible.emailInvite();
   $.getCredible.loginQtip();
-  $.getCredible.guide();
   $.getCredible.trackingPages();
 });
