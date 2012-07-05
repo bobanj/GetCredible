@@ -33,9 +33,11 @@ class UsersController < ApplicationController
     @user_endorsement = Endorsement.new
     @user_endorsement.description = params[:description]
     @user_endorsement.endorsed_by_id = current_user.id
+    tag = @user.tags.find_by_name tag_name
+    @already_has_tag = tag ? true : false
     if tag_name
       current_user.add_tags(@user, tag_name, :skip_email => true)
-      tag = Tag.find_by_name tag_name
+      tag = @user.tags.find_by_name tag_name
       if tag
         @user_tag = @user.user_tags.where(:tag_id => tag.id).first
         @user_endorsement.user_tag_id = @user_tag.id if @user_tag
@@ -46,7 +48,6 @@ class UsersController < ApplicationController
       UserMailer.endorse_email(@user_endorsement).deliver
       render :endorsement_success
     else
-      p @user_endorsement.errors.full_messages
       render :endorsement_failure
     end
   end

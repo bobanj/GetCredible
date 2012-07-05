@@ -13,4 +13,7 @@ if(userTagEndorsementContainer.length){
   $("#endorsements_list").prepend(userTagEndorsement);
 }
 $.getCredible.displayNotification('success', 'You have successfully endorsed <%=escape_javascript @user.short_name %>');
+<% unless @already_has_tag %>
+$.getCredible.updateTagCloud();
+<% end %>
 mixpanel.track("Endorsement create");
