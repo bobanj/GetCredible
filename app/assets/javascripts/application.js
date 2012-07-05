@@ -508,6 +508,10 @@ $(function (){
       wordIdAfterLogin.val('');
     }
     var endorseAfterLogin = $("#endorse_after_login");
+    if(endorseAfterLogin.val() === 'true'){
+      endorseAfterLogin.val('');
+      $("#write_endorsement_form").slideDown();
+    }
     if(endorseAfterLogin.val() != ''){
       if(!data.own_profile){
         $('#endorse_' + endorseAfterLogin.val() + '_link').click();
@@ -992,7 +996,14 @@ $(function (){
     })
     $("#endorsements").on("click","#write_endorsement_button", function(e){
       e.preventDefault();
-      $("#write_endorsement_form").slideToggle();
+      if (!$.getCredible.tagCloud.data('logged-in')){
+        $("#endorse_after_login").val('true');
+        $.getCredible.loginQtipApi.set('content.text', $('#login_dialog'));
+        $.getCredible.loginQtipApi.show();
+      } else {
+        $("#write_endorsement_form").slideToggle();
+      }
+      return false;
     })
     $("#endorsements").on("click","#write_endorsement_cancel", function(e){
       e.preventDefault();

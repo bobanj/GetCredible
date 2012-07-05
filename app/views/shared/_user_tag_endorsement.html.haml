@@ -1,12 +1,6 @@
 %li.endorsement_li{id: "endorse_#{user_tag.id}_container"}
   %span.score{id:"endorse_#{user_tag.id}_score", class: (user_tag.endorsements.length == 0 ? "hide" : nil)}= user_tag.endorsements.length
   %span.name= user_tag.tag.name
-  %span.info
-    Score:
-    %b 3
-  %span.info
-    %b #4
-    out of 7
   %span.endorse
     - if @user != current_user
       = link_to "Endorse this tag", "#",id: "endorse_#{user_tag.id}_link", class: 'js-endorse-tag action', :'data-user_tag_id' => user_tag.id
