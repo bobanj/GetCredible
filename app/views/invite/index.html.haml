@@ -1,5 +1,4 @@
 = render 'twitter_invite'
-= render 'email_invite'
 
 #content
   %section#twitter_contacts.listing-wrap
@@ -9,7 +8,8 @@
       %ul.horizontal.right
         - if current_user.twitter_id.blank?
           %li= link_to "Import Twitter friends", twitter_contacts_path, class: "twitter-import", title: "Import your Twitter friends"
-        %li= link_to "Invite by email", new_user_invitation_path, class: "email-invite email_button", title: "Invite by email"
+
+    = render 'email_invite'
 
     - if @contacts.present?
       .search_listing
@@ -27,7 +27,7 @@
         = render 'contacts', :contacts => @contacts, :users => @users
       - else
         .ngo
-          %p== You can invite your contacts one by one by entering their #{link_to "email", '#', class: "email_button"} addresses, or authorize us to access your #{link_to "Twitter contacts", twitter_contacts_path} and invite more at once.
+          %p== You can invite your contacts one by one by entering their email addresses, or authorize us to access your #{link_to "Twitter contacts", twitter_contacts_path} and invite more at once.
 
 %aside
   = render 'shared/sidebar_nav'
