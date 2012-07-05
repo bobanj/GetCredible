@@ -999,7 +999,7 @@ $(function (){
         form.hide();
       }
     })
-    $("#endorsements").on("click","#write_endorsement_button", function(e){
+    $("#endorsements").on("click","#write_endorsement_button, #write_endorsement_link", function(e){
       e.preventDefault();
       if (!$.getCredible.tagCloud.data('logged-in')){
         $("#endorse_after_login").val('true');

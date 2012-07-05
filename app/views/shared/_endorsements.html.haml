@@ -26,7 +26,7 @@
               %p
                 %span This user has no endorsements.
                 %br
-                = link_to "Write the first one!"
+                = link_to "Write the first one!", nil, id: 'write_endorsement_link'
         - else
           = render :partial => 'shared/user_tag_endorsement', :collection => @user_tags, :as => :user_tag
 
