@@ -87,7 +87,7 @@ $(function (){
     $('#tags').replaceWith(data.tag_cloud);
     $('#endorsements').replaceWith(data.endorsements);
     if(data.show_guide){
-      $("#main").prepend(data.guide);
+      $("#guide").replaceWith(data.guide);
     }
   }
 
@@ -713,11 +713,13 @@ $(function (){
                           if ($.getCredible.tagCloud.length > 0){
                             $.getCredible.renderTagCloud(data);
                           }
+                          $.getCredible.guide.isUpdating = false;
                           skipStep2();
                           mixpanel.track("User tagged himself");
                         });
                   } else{
                     skipStep2();
+                    $.getCredible.guide.isUpdating = false;
                     //$.getCredible.displayNotification('error', 'Please add tags');
                   }
                 }
