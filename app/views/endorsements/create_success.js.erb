@@ -4,17 +4,11 @@ $('.js-endorsement-form-new #endorsement_description').val('');
 $('.js-endorsement-form-new #endorsement_user_tag_id').val('');
 $('.js-endorsement-form-new #user_tag_id').val('');
 $(".js-endorsement-form-new").hide();
-$("#endorse_<%=@endorsement.user_tag_id%>_container span.score").removeClass('nonvisible').html(parseInt($("#endorse_<%=@endorsement.user_tag_id%>_container span.score").text()) + 1);
+var userTagScore = $("#endorse_<%=@endorsement.user_tag_id%>_score");
+userTagScore.removeClass('hide').html(parseInt(userTagScore.text()) + 1);
 
-if($("#endorsements_<%=@endorsement.user_tag_id%>_list").children().length == 1){
-  $("#endorse_<%=@endorsement.user_tag_id%>_container .js-endorsements-toggle").removeClass('hide').click();
-} else {
-  if ($("#endorsements_<%=@endorsement.user_tag_id%>_list").hasClass('hide')){
-    $("#endorse_<%=@endorsement.user_tag_id%>_container .js-endorsements-toggle").text("Hide all endorsements");
-    $("#endorsements_<%=@endorsement.user_tag_id%>_list").removeClass('hide').slideDown(800);
-  } else{
-    $("#endorse_<%=@endorsement.user_tag_id%>_container .js-endorsements-toggle").text("Show all endorsements");
-    //$("#endorsements_<%=@endorsement.user_tag_id%>_list").addClass('hide').slideUp(800);
-  }
+if ($("#endorsements_<%=@endorsement.user_tag_id%>_list").hasClass('hide')){
+  $("#endorse_<%=@endorsement.user_tag_id%>_container .js-endorsements-toggle").text("Hide all endorsements");
+  $("#endorsements_<%=@endorsement.user_tag_id%>_list").removeClass('hide').slideDown(800);
 }
 mixpanel.track("Endorsement create");

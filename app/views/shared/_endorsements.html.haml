@@ -1,53 +1,34 @@
 %section#endorsements
-  - if @user_tags.present?
-    %hr.divider.strong
-    #tag-listing.listing-wrap
-      #page-header.gray
-        %h1 Endorsements
-        
-        = link_to "Write an endorsement", "#", class: "right btn primary small"
-      
-      .add-endorsement
-        %input{ :type => "text", :value => "Enter Tag" }
-        %textarea{ :name => "Write an endorsement"}
-        %span.hint.right
-          %span#endorsement_word_counter 300
-          characters remaining.
-        .buttons
-          %input{ :type => "submit", :value => "Endorse", :class => 'btn primary medium'}
-          %span.inline
-            = link_to 'Cancel', '#', class: 'js-cancel-endorsement cancel'
-          %span.loader.inline.hide
-            = image_tag 'ajax_loader.gif'
-      .listing
-
-        %ul#endorsements_list
-          %li
+  %hr.divider.strong
+  #tag-listing.listing-wrap
+    #page-header.gray
+      %h1 Endorsements
+      = link_to "Write an endorsement", "#", id: 'write_endorsement_button', class: "right btn primary small"
+    = form_tag(endorse_user_path(@user), remote: true, id: 'write_endorsement_form', class: 'add-endorsement hide') do
+      = text_field_tag :tag, params[:tag], id: 'write_endorsement_tag', :placeholder => "Enter Tag"
+      #write_endorsement_tag_error.error
+      = text_area_tag :description, params[:description], id: 'write_endorsement_description', :placeholder => "Write an endorsement", :rows => 2
+      #write_endorsement_description_error.error
+      %span.hint.right
+        %span#write_endorsement_word_counter 300
+        characters remaining.
+      .buttons
+        = submit_tag "Endorse", id: 'write_endorsement_submit', :class => 'btn primary medium'
+        %span.inline
+          = link_to 'Cancel', '#', id: 'write_endorsement_cancel', class: 'cancel'
+        %span.loader.inline.hide
+          = image_tag 'ajax_loader.gif'
+    .listing
+      %ul#endorsements_list
+        - unless @user_tags.present?
+          %li#js-no-endorsements
             .ngo
               %p
                 %span This user has no endorsements.
                 %br
                 = link_to "Write the first one!"
-          - @user_tags.each do |user_tag|
-            - endorsements = user_tag.endorsements.sort_by { |e| e.id }
-            %li.endorsement_li{id: "endorse_#{user_tag.id}_container"}
-              %span.score{class: (user_tag.endorsements.length == 0 ? "nonvisible" : nil)}= user_tag.endorsements.length
-              %span.name= user_tag.tag.name
-              %span.info
-                Score:
-                %b 3
-              %span.info
-                %b #4
-                out of 7
-              %span.endorse
-                - if @user != current_user
-                  = link_to "Endorse this tag", "#",id: "endorse_#{user_tag.id}_link", class: 'js-endorse-tag action', :'data-user_tag_id' => user_tag.id
-                - if endorsements.present?
-                  = link_to "Hide all endorsements", "#", :class => "js-endorsements-toggle", :'data-user_tag_id' => user_tag.id
-                - else
-                  = link_to "Show all endorsements", "#", :class => "js-endorsements-toggle hide", :'data-user_tag_id' => user_tag.id
-              %ul.tag-endorse{class: (endorsements.present? ? nil : 'hide'), id: "endorsements_#{user_tag.id}_list"}
-                = render :partial => 'endorsements/endorsement', :collection => endorsements
+        - else
+          = render :partial => 'shared/user_tag_endorsement', :collection => @user_tags, :as => :user_tag
 
     .hide
       =render :partial => 'endorsements/form'

@@ -1,0 +1,16 @@
+$("#write_endorsement_form .loader").addClass('hide');
+$("#write_endorsement_description").val('');
+$("#write_endorsement_tag").val('');
+var userTagEndorsementContainer = $("#endorse_<%=@user_endorsement.user_tag_id-%>_container");
+var noEndorsements = $("#js-no-endorsements");
+if(noEndorsements.length){
+  noEndorsements.remove();
+}
+var userTagEndorsement = '<%=escape_javascript(render :partial => 'shared/user_tag_endorsement', :locals => {:user_tag => @user_tag}) %>';
+if(userTagEndorsementContainer.length){
+  userTagEndorsement.replaceWith(userTagEndorsement);
+} else {
+  $("#endorsements_list").prepend(userTagEndorsement);
+}
+$.getCredible.displayNotification('success', 'You have successfully endorsed <%=escape_javascript @user.short_name %>');
+mixpanel.track("Endorsement create");

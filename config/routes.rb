@@ -9,6 +9,9 @@ GetCredible::Application.routes.draw do
   }
 
   resources :users, :only => [:index, :show] do
+    member do
+      post :endorse
+    end
     resources :user_tags, :only => [:index, :create, :destroy], :path => :tags do
       member do
         post :vote

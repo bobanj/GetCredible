@@ -1,9 +1,9 @@
+- @endorsement = @endorsement ? @endorsement : Endorsement.new
 = simple_form_for(@endorsement, remote: true, html: {class: [(@endorsement.new_record? ? 'js-endorsement-form-new' : 'js-endorsement-form-edit'), 'js-endorsement-form', 'tag-endorse-text'] }) do |f|
   - if @endorsement.new_record?
     %p Write your endorsement here:
   - else
     %p Edit endorsement:
-  = hidden_field_tag :user_tag_id, nil
   = f.input :user_tag_id, as: :hidden
   = f.input :description, label: false, input_html: {rows: 2}
   %span.hint

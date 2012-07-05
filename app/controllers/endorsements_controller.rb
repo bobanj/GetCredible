@@ -10,7 +10,7 @@ class EndorsementsController < ApplicationController
     @endorsement = current_user.outgoing_endorsements.new(params[:endorsement])
 
     if @endorsement.save
-      @endorsement.endorser.activity_items.create(:item => @endorsement,
+      current_user.activity_items.create(:item => @endorsement,
                                 :target_id => @endorsement.user_tag.user_id)
       UserMailer.endorse_email(@endorsement).deliver
       render :create_success
@@ -33,7 +33,7 @@ class EndorsementsController < ApplicationController
     @endorsement = current_user.incoming_endorsements.find_by_id(params[:id])
 
     if @endorsement
-      @endorsement.destroy
+      #@endorsement.destroy
       render json: {status: 'ok', user_tag_id: @endorsement.user_tag_id}
     else
       render json: {status: 'error', user_tag_id: @endorsement.user_tag_id}

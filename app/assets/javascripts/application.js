@@ -923,7 +923,7 @@ $(function (){
       $(this).find('.loader').removeClass('hide');
     });
 
-    $('.js-endorsements-toggle').click(function (e){
+    $("#endorsements").on("click", ".js-endorsements-toggle", function (e){
       e.preventDefault();
       var self = $(this);
       var userTagId = $(this).data('user_tag_id');
@@ -943,8 +943,7 @@ $(function (){
       }
       return false;
     });
-
-    $('.js-endorsement-delete').click(function (e){
+    $("#endorsements").on("click", ".js-endorsement-delete", function (e){
       e.preventDefault();
       var self = $(this);
       noty({
@@ -979,13 +978,11 @@ $(function (){
       return false;
     });
 
-    $('.js-cancel-endorsement').live('click', function (e) {
+    $("#endorsements").on("click", ".js-cancel-endorsement", function (e){
       e.preventDefault();
 
       var form = $(this).parents('form');
       var endorsement = form.parent('li').find('> .js_endorsement');
-
-      console.log(endorsement)
       if (endorsement.length > 0) {
         endorsement.show();
         form.remove();
@@ -993,19 +990,42 @@ $(function (){
         form.hide();
       }
     })
-
-
-    var endorsementTags = $("#endorsements_list li.endorsement_li");
-    $('#endorsement_search').bind('keyup',function(){
-      var searchTerm = $(this).val();
-      endorsementTags.each(function(){
-        var tagName = $(this).find('span.name').text().toString();
-        if (tagName.indexOf(searchTerm)<0)
-          $(this).fadeOut();
-        else
-          $(this).fadeIn();
-      });
+    $("#endorsements").on("click","#write_endorsement_button", function(e){
+      e.preventDefault();
+      $("#write_endorsement_form").slideToggle();
+    })
+    $("#endorsements").on("click","#write_endorsement_cancel", function(e){
+      e.preventDefault();
+      $("#write_endorsement_form").slideUp();
+      $("#write_endorsement_description_error").text('');
+      $("#write_endorsement_tag_error").text('');
     });
+
+    $("#write_endorsement_description").limit('300', $("#write_endorsement_word_counter"));
+
+    $("#endorsements").on("submit", "#write_endorsement_form", function (e){
+      var endorsementDescription = $("#write_endorsement_description");
+      var err = false;
+      if(endorsementDescription.val() == ''){
+        err = true;
+        $("#write_endorsement_description_error").text("Please insert endorsement");
+      } else {
+        $("#write_endorsement_description_error").text('');
+      }
+      var endorsementTag = $("#write_endorsement_tag");
+      if(endorsementTag.val() == ''){
+        err = true
+        $("#write_endorsement_tag_error").text("Please insert the name of the tag you want to endorse");
+      } else {
+        $("#write_endorsement_tag_error").text('');
+      }
+      if(err){
+        e.preventDefault();
+        return false;
+      }
+      $(this).find('.loader').removeClass('hide');
+    });
+
   }
 
   $.getCredible.trackingPages = function(){
