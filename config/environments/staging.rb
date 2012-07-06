@@ -67,6 +67,7 @@ GetCredible::Application.configure do
 
   # Devise Mailer
   config.action_mailer.default_url_options = { :host => 'staging.givebrand.to' }
+  config.action_mailer.asset_host          = 'staging.givebrand.to'
 
   config.middleware.use ExceptionNotifier,
     :email_prefix => "[GiveBrand Staging Error] ",
