@@ -72,14 +72,9 @@ class TwitterMessage
   end
 
   def send_twitter_message(user)
-    message = "I've tagged you with \"#{tag_names.first}\" on GiveBrand! Start building your profile
-here:"
-    url = view_context.accept_invitation_url(user,
-                      :invitation_token => user.invitation_token)
-
-    # make sure user receives invitation URL: 138 + char at 0 + ' ' = 140
-    dm = "#{message[0..(138-url.length)]} #{url}"
-    client.direct_message_create(screen_name, dm)
+    url = view_context.accept_invitation_url(user, :invitation_token => user.invitation_token)
+    message = "I've tagged you with \"#{tag_names.first}\" on GiveBrand! Start building your profile here: #{url}"
+    client.direct_message_create(screen_name, message)
   end
 
   def client
