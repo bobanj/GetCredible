@@ -1,13 +1,13 @@
 - content_for :meta_tags do
-  %meta{ :property => "og:title", :content => "Help boost my influence at givebrand.to!" }
+  %meta{ :property => "og:title", :content => "Help me boost my credibility on GiveBrand" }
   %meta{ :property => "og:type", :content => "article" }
   %meta{ :property => "og:url", :content => me_user_url(@user) }
   %meta{ :property => "og:site_name", :content => "Give Brand" }
-  %meta{ :property => "og:description", :content => "Help boost my influence at givebrand.to!" }
+  %meta{ :property => "og:description", :content => "I'm building my brand on GiveBrand. Help me boost my credibility... create your own profile and tag me! #{me_user_url(@user)}" }
   %meta{ :property => "og:image", :content => user_avatar_url(@user) }
   - # Google Plus
-  %meta{:content => "Help boost my influence at givebrand.to!", :itemprop => "name"}
-  %meta{:content => "Help boost my influence at givebrand.to!", :itemprop => "description"}/
+  %meta{:content => "Help me boost my credibility on GiveBrand", :itemprop => "name"}
+  %meta{:content => "I'm building my brand on @GiveBrand. Help me boost my credibility... create your own profile and tag me! #{me_user_url(@user)}", :itemprop => "description"}/
   - if @user.avatar
     %meta{:content => url_for(@user.avatar_url(:thumb)), :itemprop => "image"}/
 
@@ -30,7 +30,7 @@
 
   %ul.social_fixed
     %li
-      %a.twitter-share-button{'data-count' => "vertical", "data-text" => "Help boost my influence at givebrand.to! #{me_user_url(@user)} #givebrand via @givebrand", :href => "https://twitter.com/share"} Tweet
+      %a.twitter-share-button{'data-count' => "vertical", "data-text" => "I'm building my brand on @GiveBrand. Help me boost my credibility... create your own profile and tag me! #{me_user_url(@user)}", :href => "https://twitter.com/share"} Tweet
     %li
       .fb-like{"data-href" => me_user_url(@user), "data-layout" => "box_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "56"}
     %li
