@@ -27,8 +27,8 @@ describe 'User', type: :request do
     page.should have_content("Written by Endorser")
 
     open_email(user.email)
-    current_email.should have_subject("Your have been endorsed!")
-    current_email.body.should have_content("Great news: Endorser has endorsed you")
+    current_email.should have_subject("You've received an endorsement!")
+    current_email.body.should have_content("Endorser has just left an endorsement")
     current_email.body.should have_content("Endorsement for my friend")
   end
 end

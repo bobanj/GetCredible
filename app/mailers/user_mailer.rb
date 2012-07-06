@@ -31,6 +31,6 @@ class UserMailer < ActionMailer::Base
     @endorsement = endorsement
     @receiver    = endorsement.user_tag.user
     @endorser    = endorsement.endorser
-    mail(to: @receiver.email, subject: "Your have been endorsed!")
+    mail(to: @receiver.email, subject: "You've received an endorsement!")
   end
 end

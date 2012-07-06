@@ -15,9 +15,11 @@
 
         %tr
           %td
-            %h1{:style => "color:#582a00;margin:10px 0 5px;font-size:24px;"} Hey, #{@receiver.name}.
+            %h1{:style => "color:#582a00;margin:10px 0 5px;font-size:24px;"} You're so popular, #{@receiver.name}.
             %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
-              Great news: #{link_to @user.name, me_user_url(@user), :style => "color: #{@link_color};"} has just accepted your invitation and joined #{link_to 'GiveBrand', root_url, :style => "color: #{@link_color};"}.
+              Great news! #{link_to @user.name, me_user_url(@user), :style => "color: #{@link_color};"} has just accepted your invitation to join GiveBrand!
+              %br
+              Why don't you head over #{link_to @user.name, me_user_url(@user), :style => "color: #{@link_color};"} and help nudge them along with a tag, vouch or endorsement?
 
         %tr
           %td{:colspan => "100"}
@@ -25,8 +27,6 @@
         %tr
           %td
             %p{:style => "font-size:11px;line-height:1.4;color:#444;margin:0 0 15px;"}
-              Love it? Rock on!
-              %br
-              Invite more #{link_to 'friends', invite_url, :style => "color: #{@link_color};"}.
+              Or #{link_to 'invite', invite_url, :style => "color: #{@link_color};"} a few more people while you're at it!
 
     = render 'user_mailer/footer'

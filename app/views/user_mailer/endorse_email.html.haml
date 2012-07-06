@@ -15,9 +15,9 @@
 
         %tr
           %td
-            %h1{:style => "color:#582a00;margin:10px 0 5px;font-size:24px;"} Hey, #{@receiver.name}.
+            %h1{:style => "color:#582a00;margin:10px 0 5px;font-size:24px;"} #{@receiver.name}! Check it OUT!
             %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
-              Great news: #{link_to @endorser.name, me_user_url(@endorser), :style => "color: #{@link_color};"} has endorsed you:
+              #{link_to @endorser.name, me_user_url(@endorser), :style => "color: #{@link_color};"} has just left an endorsement on your GiveBrand profile. Take a look:
             %p{:style => "font-size:12px;font-style:italic;line-height:1.4;color:#444;margin:0 0 15px;"}
               = @endorsement.description
 
@@ -27,8 +27,6 @@
         %tr
           %td
             %p{:style => "font-size:11px;line-height:1.4;color:#444;margin:0 0 15px;"}
-              Love it? Rock on!
-              %br
-              Invite more #{link_to 'friends', invite_url, :style => "color: #{@link_color};"} to receive more endorsements.
+              How nice is that?! Now, why not #{link_to 'invite', invite_url, :style => "color: #{@link_color};"} some more people to GiveBrand and keep this love fest going?
 
     = render 'user_mailer/footer'

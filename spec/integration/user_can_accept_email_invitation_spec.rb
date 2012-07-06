@@ -13,7 +13,7 @@ describe 'User', type: :request do
 
     # invite user
     within("#js-email-invitation-form") do
-      fill_in("Name", with: "Invited 1")
+      fill_in("Name", with: "Invited")
       fill_in("Email", with: "invited1@example.com")
       fill_in("First tag", with: "tag1")
       fill_in("Second tag", with: "tag2")
@@ -42,6 +42,6 @@ describe 'User', type: :request do
     # invited user
     open_email(user.email)
     current_email.should have_subject("Your invitation has been accepted!")
-    current_email.body.should have_content("Great news: Invited 1 has just accepted your invitation and joined GiveBrand.")
+    current_email.body.should have_content("Great news! Invited has just accepted your invitation")
   end
 end
