@@ -1,4 +1,4 @@
-.ui-tooltip-guide, .ui-tooltip-twitter, .ui-tooltip-login, .ui-tooltip-qtip {
+.ui-tooltip-guide, .ui-tooltip-twitter, .ui-tooltip-login{
   border: none;
 }
 
@@ -107,13 +107,6 @@
   padding: 0;
 }
 
-.ui-tooltip .ui-tooltip-tip {
-  background: image_url('icon-tip.png') no-repeat center bottom;
-  left: 50% !important;
-  margin-left: -5px;
-  width: 10px !important;
-}
-
 #guide_video_container {
   padding: 0 25px;
 }
@@ -168,12 +161,19 @@
   }
 }
 
-.ui-tooltip-qtip {
+.ui-tooltip-tag-cloud {
+  border: none;
   background: transparent;
   max-width: 360px;
   min-width: 360px;
   .ui-tooltip-content {
     padding: 0;
     @include box-shadow(rgba(0, 0, 0, 0.1) 0 0 5px);
+  }
+  .ui-tooltip-tip {
+    background: image_url('icon-tip.png') no-repeat center bottom;
+    left: 50% !important;
+    margin-left: -5px;
+    width: 10px !important;
   }
 }

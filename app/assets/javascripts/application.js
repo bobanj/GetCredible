@@ -427,7 +427,7 @@ $(function (){
                 }
               },
               style:{
-                classes:'ui-tooltip-light ui-tooltip-rounded ui-tooltip-qtip'
+                classes:'ui-tooltip-light ui-tooltip-rounded ui-tooltip-tag-cloud'
               }
 
             }).qtip('api');
