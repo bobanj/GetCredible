@@ -72,7 +72,8 @@ class TwitterMessage
   end
 
   def send_twitter_message(user)
-    message = "I've tagged you with: #{tag_names.first} at GiveBrand!"
+    message = "I've tagged you with \"#{tag_names.first}\" on GiveBrand! Start building your profile
+here:"
     url = view_context.accept_invitation_url(user,
                       :invitation_token => user.invitation_token)
 
