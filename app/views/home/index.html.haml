@@ -3,8 +3,8 @@
   //%h2 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
   //= link_to "Sign up now for free!", new_user_registration_path, :class => "big-signup"
 
-  %h1 A new brand of influence
-  %h2 Let the people who know you best tell the rest of the world what you do best.
+  %h1 Tag. Be tagged. Get credible.
+  %h2 Build your brand with the help of friends, colleagues and people who know you.
   .easy-signup
     = simple_form_for(User.new, :as => :user, :url => registration_path(:user)) do |f|
       %ul
@@ -19,23 +19,18 @@
   %ul#explain.unstyled.slim
     %li
       = image_tag 'screen1.png'
-      %h3 Spread some love
-      %p Assign influence tags to your contacts — or build them up by vouching for a tag they've already been given — then keep an eye on their burgeoning empires as more people pitch in to tag them.
+      %h3 Simple
+      %p GiveBrand is powered by people, not algorithms: The more people tag you, the higher your credibility.
       -#= link_to "Sign up now for free!", new_user_registration_path, :class => "big-signup left"
     %li
       = image_tag 'screen2.png'
-      %h3 Get tagged back
-      %p Keep doing what you do best…and share your GiveBrand page throughout your social networks. Start building that tag cloud, and watch your own personal brand start to blow up.
-      -#= link_to "Sign up now for free!", new_user_registration_path, :class => "big-signup left"
-    %li
-      = image_tag 'screen3.png'
-      %h3 Get cred... organically
-      %p GiveBrand doesn't use some mysterious algorithm. Our formula's simple: The more you've been tagged, the bigger your influence (you rock star, you).
+      %h3 Social
+      %p Invite contacts one by one, via email, or connect your Twitter account â go straight to the people who know you best.
       -#= link_to "Sign up now for free!", new_user_registration_path, :class => "big-signup left"
     %li
       = image_tag 'screen4.png'
-      %h3 Use your Midas touch
-      %p Want to tag someone else as influential in a category you're already dominating? Everything you touch turns to gold! Your tag means that much more as a top dog.
+      %h3 Streamlined
+      %p Share your profile with headhunters, hiring managers, references and clients to give them a clear, simple view of your skills and personality.
       -#= link_to "Sign up now for free!", new_user_registration_path, :class => "big-signup left"
 
 #video
