@@ -20,11 +20,11 @@ describe 'User', type: :request do
     current_email.should have_subject("Tagged... You're it!")
 
     reset_mailer
-    click_link("Endorse this tag")
-    fill_in("endorsement_description", with: "Endorsement for my friend")
+    fill_in("write_endorsement_tag", with: "rails")
+    fill_in("write_endorsement_description", with: "Endorsement for my friend")
     click_button("Endorse")
     page.should have_content("Endorsement for my friend")
-    page.should have_content("Written by Endorser less than a minute")
+    page.should have_content("Written by Endorser")
 
     open_email(user.email)
     current_email.should have_subject("Your have been endorsed!")

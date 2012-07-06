@@ -9,8 +9,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user_tags = @user.user_tags.joins(:endorsements).group(UserTag.column_names.map{|cn| "user_tags.#{cn}"}.join(',')).includes(:tag, :endorsements => :endorser)
-    #@user_tags = @user_tags.sort_by{ |ut| - ut.endorsements.length }
+    @user_tag_endorsements = @user.incoming_endorsements.
+      includes([:user_tag, :tag, :endorser]).
+      group_by{|e| e.user_tag}.
+      sort{|e1, e2| e2[1].length <=> e1[1].length}
     render :layout => false if request.xhr?
   end
 

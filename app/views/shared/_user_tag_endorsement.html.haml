@@ -1,5 +1,5 @@
 %li.endorsement_li{id: "endorse_#{user_tag.id}_container"}
-  %span.score{id:"endorse_#{user_tag.id}_score", class: (user_tag.endorsements.length == 0 ? "hide" : nil)}= user_tag.endorsements.length
+  %span.score{id:"endorse_#{user_tag.id}_score", class: (endorsements.length == 0 ? "hide" : nil)}= endorsements.length
   %span.name= user_tag.tag.name
   %span.endorse
     - if @user != current_user
@@ -7,4 +7,4 @@
     = link_to "Hide all endorsements", "#", :class => "js-endorsements-toggle", :'data-user_tag_id' => user_tag.id
     = link_to "Show all endorsements", "#", :class => "js-endorsements-toggle hide", :'data-user_tag_id' => user_tag.id
   %ul.tag-endorse{id: "endorsements_#{user_tag.id}_list"}
-    = render :partial => 'endorsements/endorsement', :collection => user_tag.endorsements.latest
+    = render :partial => 'endorsements/endorsement', :collection => endorsements.sort{|e| e.created_at.to_i }

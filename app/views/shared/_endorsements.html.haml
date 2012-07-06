@@ -20,15 +20,16 @@
           = image_tag 'ajax_loader.gif'
     .listing
       %ul#endorsements_list
-        - unless @user_tags.present?
+        - if @user_tag_endorsements.present?
+          - @user_tag_endorsements.each do |user_tag, endorsements|
+            = render 'shared/user_tag_endorsement', user_tag: user_tag, endorsements: endorsements
+        - else
           %li#js-no-endorsements
             .ngo
               %p
                 %span This user has no endorsements.
                 %br
                 = link_to "Write the first one!", nil, id: 'write_endorsement_link'
-        - else
-          = render :partial => 'shared/user_tag_endorsement', :collection => @user_tags, :as => :user_tag
 
     .hide
       =render :partial => 'endorsements/form'

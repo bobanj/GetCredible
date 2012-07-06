@@ -6,7 +6,7 @@ if(noEndorsements.length){
   noEndorsements.remove();
 }
 var userTagEndorsementContainer = $("#endorse_<%=@user_endorsement.user_tag_id-%>_container");
-var userTagEndorsement = '<%=escape_javascript(render :partial => 'shared/user_tag_endorsement', :locals => {:user_tag => @user_tag}) %>';
+var userTagEndorsement = '<%=escape_javascript(render 'shared/user_tag_endorsement', user_tag: @user_tag, endorsements: @user_tag.endorsements.latest) %>';
 if(userTagEndorsementContainer.length){
   userTagEndorsementContainer.replaceWith(userTagEndorsement);
 } else {
