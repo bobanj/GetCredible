@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user_tags = @user.user_tags.joins(:tag, :endorsements => :endorser).group("user_tags.id")
+    @user_tags = @user.user_tags.joins(:endorsements).group(UserTag.column_names.map{|cn| "user_tags.#{cn}"}.join(',')).includes(:tag, :endorsements => :endorser)
     #@user_tags = @user_tags.sort_by{ |ut| - ut.endorsements.length }
     render :layout => false if request.xhr?
   end

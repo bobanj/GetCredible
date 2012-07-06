@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     def user_signed_in_content(resource)
       self.formats = [:html] # let partials resolve with html not json format
       @user = User.find_by_username!(params[:user_id])
-      @user.user_tags.joins(:tag, :endorsements => :endorser).group("user_tags.id")
+      @user_tags = @user.user_tags.joins(:endorsements).group(UserTag.column_names.map{|cn| "user_tags.#{cn}"}.join(',')).includes(:tag, :endorsements => :endorser)
 
       {
         :own_profile => @user == resource,
