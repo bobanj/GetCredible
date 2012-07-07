@@ -172,9 +172,9 @@
   }
   .ui-tooltip-tip {
     background: image_url('icon-tip.png') no-repeat center bottom;
-    left: 50% !important;
+    left: 0% !important;
     margin-left: -5px;
-    width: 10px !important;
+    width: 100% !important;
   }
   .add-endorsement {
     background: #fff;

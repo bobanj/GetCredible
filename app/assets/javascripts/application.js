@@ -343,8 +343,8 @@ $(function (){
         '<p>' + word.data('voters') + '</p>' +
         '</div>';
     if ($.getCredible.tagCloud.data('can-vote')){
-      qtipContent = qtipContent + '<div class="tag-action"><a href="#" class="tag-vote button ' + vouchUnvouchClass + '">' + vouchUnvouch + '</a></div>'
-      qtipContent = qtipContent + '<a href="#" class="js-tag-endorse button" style="position: absolute;right: 10px;top:55px;">Endorse</a>';
+      qtipContent = qtipContent + '<div class="tag-action"><a href="#" class="tag-vote button ' + vouchUnvouchClass + '">' + vouchUnvouch + '</a><a href="#" class="js-tag-endorse button btn primary white tiny">Endorse</a></div>'
+
     }
     qtipContent = qtipContent + '</div>';
     word.data('qtip-content', qtipContent);

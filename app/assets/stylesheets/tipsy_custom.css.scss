@@ -40,7 +40,7 @@
   background: $blue - #111;
   color: #fff;
   float: left;
-  height: 93px !important;
+  height: 98px !important;
   max-width: 100px;
   padding: 2px 0 2px;
   position: relative;
@@ -82,7 +82,7 @@
   border: 1px solid #ddd;
   color: #666;
   float: left;
-  height: 85px !important;
+  height: 90px !important;
   max-width: 240px;
   padding: 5px 3.3%;
   position: relative;
@@ -116,11 +116,14 @@
 }
 
 .tag-action {
-  bottom: -83px;;
+  bottom: -93px;
   position: absolute;
   //right: 12px;
   left: 110px;
   z-index: 100;
+  .btn {
+    margin-right: 5px;
+  }
 }
 
 // Profile guide tipsy
