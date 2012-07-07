@@ -4,6 +4,8 @@
     #page-header.gray
       %h1 Endorsements
       = link_to "Write an endorsement", "#", id: 'write_endorsement_button', class: "right btn primary small"
+      
+    %p.info.block If one word or phrase isn't enough, offer a little insight into why you tagged this person the way you did.
     = form_tag(endorse_user_path(@user), remote: true, id: 'write_endorsement_form', class: 'add-endorsement hide') do
       = text_field_tag :tag, params[:tag], id: 'write_endorsement_tag', :placeholder => "Enter Tag"
       #write_endorsement_tag_error.error
