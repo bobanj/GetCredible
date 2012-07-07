@@ -917,16 +917,17 @@ footer {
     font-size: 65px;
     font-weight: bold;
     line-height: 0.85;
-    margin-top: 67px;
+    margin-top: 70px;
     margin-bottom: 0px;
     text-transform: uppercase;
   }
   h2 {
     color: #777;
     font-family: "futura-pt", open-sans, sans-serif;
-    font-size: 26px;
+    font-size: 24px;
     letter-spacing: -0.3px;
-    line-height: 1.5;
+    line-height: 1.4;
+    margin-top: 12px;
   }
   h3 {
     color: $blue;
@@ -963,7 +964,7 @@ footer {
     }
   }
   ul.slim {
-    padding: 0 5%;
+    padding: 0 7%;
   }
   li {
     display: inline;
