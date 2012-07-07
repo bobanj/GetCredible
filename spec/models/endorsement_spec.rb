@@ -29,10 +29,9 @@ describe Endorsement do
   end
 
   describe "Validations" do
-    it { should validate_presence_of(:tag_name) }
     it { should validate_presence_of(:endorser) }
     it { should validate_presence_of(:endorser) }
-    it { should validate_presence_of(:user_tag) }
+    it { should validate_presence_of(:user_tag_id) }
     it { should validate_presence_of(:description) }
     it { should ensure_length_of(:description).is_at_least(10) }
     it { should ensure_length_of(:description).is_at_most(300) }
