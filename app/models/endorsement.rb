@@ -20,7 +20,6 @@ class Endorsement < ActiveRecord::Base
   validate :user_can_not_endorse_himself
 
   # Callbacks
-  after_validation :set_user_tag, if: lambda { |e| e.user_tag_id.blank? && !e.errors.present? }
   before_save :create_vote
 
   #Scopes
@@ -28,7 +27,7 @@ class Endorsement < ActiveRecord::Base
 
   private
   def user_can_not_endorse_himself
-    if user_user && user_tag.user_id == endorsed_by_id
+    if user_tag && user_tag.user_id == endorsed_by_id
       errors.add(:description, "You can't endorse yourself")
     end
   end

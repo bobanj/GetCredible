@@ -9,6 +9,7 @@ GetCredible::Application.routes.draw do
   }
 
   resources :users, :only => [:index, :show] do
+    resources :endorsements, :only => [:create, :edit, :update, :destroy]
     resources :user_tags, :only => [:index, :create, :destroy], :path => :tags do
       member do
         post :vote
@@ -18,7 +19,6 @@ GetCredible::Application.routes.draw do
   end
 
   resources :activities, :only => [:show]
-  resources :endorsements, :only => [:create, :edit, :update, :destroy]
 
   namespace :twitter do
     resource :session, :only => [:new, :show, :destroy]

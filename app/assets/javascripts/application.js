@@ -85,7 +85,6 @@ $(function (){
   $.getCredible.updatePageContent = function(data){
     $('#global-header').replaceWith(data.header);
     $('#tags').replaceWith(data.tag_cloud);
-    $('#endorsements').replaceWith(data.endorsements);
     if(data.show_guide){
       $("#guide").replaceWith(data.guide);
     }
@@ -523,19 +522,6 @@ $(function (){
     if (wordIdAfterLogin.val() != ''){
       $.getCredible.vote(wordIdAfterLogin.val());
       wordIdAfterLogin.val('');
-    }
-    var endorseAfterLogin = $("#endorse_after_login");
-    if(endorseAfterLogin.val() === 'true'){
-      endorseAfterLogin.val('');
-      $("#write_endorsement_form").slideDown();
-    }
-    if(endorseAfterLogin.val() != ''){
-      if(!data.own_profile){
-        $('#endorse_' + endorseAfterLogin.val() + '_link').click();
-      } else {
-        $.getCredible.displayNotification('error', "You can't endorse yourself");
-      }
-      endorseAfterLogin.val('');
     }
     if (data.show_guide){
       if($.isFunction($.getCredible.guideApi.show)){
@@ -1044,25 +1030,6 @@ $(function (){
     }
 
     $("#endorsements").on("submit", "#write_endorsement_form", function (e){
-      var endorsementDescription = $("#write_endorsement_description");
-      var err = false;
-      if(endorsementDescription.val() == ''){
-        err = true;
-        $("#write_endorsement_description_error").text("Please insert endorsement");
-      } else {
-        $("#write_endorsement_description_error").text('');
-      }
-      var endorsementTag = $("#write_endorsement_tag");
-      if(endorsementTag.val() == ''){
-        err = true
-        $("#write_endorsement_tag_error").text("Please insert the name of the tag you want to endorse");
-      } else {
-        $("#write_endorsement_tag_error").text('');
-      }
-      if(err){
-        e.preventDefault();
-        return false;
-      }
       $(this).find('.loader').removeClass('hide');
     });
 

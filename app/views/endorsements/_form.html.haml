@@ -1,5 +1,5 @@
 - @endorsement = @endorsement ? @endorsement : Endorsement.new
-= simple_form_for(@endorsement, remote: true, html: {class: [(@endorsement.new_record? ? 'js-endorsement-form-new' : 'js-endorsement-form-edit'), 'js-endorsement-form', 'tag-endorse-text'] }) do |f|
+= simple_form_for([@user, @endorsement], remote: true, html: {class: [(@endorsement.new_record? ? 'js-endorsement-form-new' : 'js-endorsement-form-edit'), 'js-endorsement-form', 'tag-endorse-text'] }) do |f|
   - if @endorsement.new_record?
     %p Write your endorsement here:
   - else

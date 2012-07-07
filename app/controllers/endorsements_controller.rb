@@ -1,6 +1,7 @@
 class EndorsementsController < ApplicationController
 
   before_filter :authenticate_user!
+  before_filter :load_user
 
   def edit
     @endorsement = current_user.outgoing_endorsements.find(params[:id])
@@ -11,7 +12,7 @@ class EndorsementsController < ApplicationController
 
     if @endorsement.save
       current_user.activity_items.create(:item => @endorsement,
-                                :target_id => @endorsement.user_tag.user_id)
+                                :target_id => @user.id)
       UserMailer.endorse_email(@endorsement).deliver
       render :create_success
     else
@@ -39,4 +40,10 @@ class EndorsementsController < ApplicationController
       render json: {status: 'error', user_tag_id: @endorsement.user_tag_id}
     end
   end
+
+  private
+  def load_user
+    @user = User.find_by_username!(params[:id])
+  end
+
 end

@@ -29,4 +29,5 @@ module ApplicationHelper
     return true if overide
     user.full_name.present? && user.user_tags.any? ? false : true
   end
+
 end

@@ -6,18 +6,7 @@
       - if @user != current_user
         = link_to "Write an endorsement", "#", id: 'write_endorsement_button', class: "right btn primary small"
 
-    = simple_form_for(Endorsement.new, remote: true, html: {id: 'write_endorsement_form', class:'add-endorsement hide' }) do |f|
-      = f.input :user_tag_id, as: :select, collection: @user.user_tags.includes(:tag).map{|ut| [ut.tag.name, ut.id]}, label: false, input_html:{id: 'write_endorsement_user_tag_id', :'data-placeholder' => "Choose a tag to endorse"}
-      = f.input :description, label: false, input_html:{placeholder: "Write an endorsement", rows: 2}
-      %span.hint.right
-        %span#write_endorsement_word_counter 300
-        characters remaining.
-      .buttons
-        = f.button :submit, "Endorse", class: 'btn primary small'
-        %span.inline
-          = link_to 'Cancel', '#', id: 'write_endorsement_cancel', class: 'cancel'
-        %span.loader.inline.hide
-          = image_tag 'ajax_loader.gif'
+    = render 'endorsements/write_endorsement_form'
     .listing
       %ul#endorsements_list
         - if @user_tag_endorsements.present?
