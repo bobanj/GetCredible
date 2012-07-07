@@ -957,17 +957,17 @@ $(function (){
         form.hide();
       }
     })
-    $("#endorsements").on("click","#write_endorsement_button, #write_endorsement_link", function(e){
-      e.preventDefault();
-      if (!$.getCredible.tagCloud.data('logged-in')){
-        $("#endorse_after_login").val('true');
-        $.getCredible.loginQtipApi.set('content.text', $('#login_dialog'));
-        $.getCredible.loginQtipApi.show();
-      } else {
-        $("#write_endorsement_form").slideToggle();
-      }
-      return false;
-    })
+//    $("#endorsements").on("click","#write_endorsement_button, #write_endorsement_link", function(e){
+//      e.preventDefault();
+//      if (!$.getCredible.tagCloud.data('logged-in')){
+//        $("#endorse_after_login").val('true');
+//        $.getCredible.loginQtipApi.set('content.text', $('#login_dialog'));
+//        $.getCredible.loginQtipApi.show();
+//      } else {
+//        $("#write_endorsement_form").slideToggle();
+//      }
+//      return false;
+//    })
 
     $("#endorsements").on("click","#write_endorsement_cancel", function(e){
       e.preventDefault();

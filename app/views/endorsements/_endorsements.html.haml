@@ -4,10 +4,10 @@
     #tag-listing.listing-wrap
       #page-header.gray
         %h1 Endorsements
-        - if user_signed_in? && @user != current_user
-          = link_to "Write an endorsement", "#", id: 'write_endorsement_button', class: "right btn primary small"
+        -#- if user_signed_in? && @user != current_user
+        -#  = link_to "Write an endorsement", "#", id: 'write_endorsement_button', class: "right btn primary small"
 
-      = render 'endorsements/write_endorsement_form', hide: true, endorsement: Endorsement.new
+      = render 'endorsements/write_endorsement_form', hide: false, endorsement: Endorsement.new
       .listing
         %ul#endorsements_list
           - if @user_tag_endorsements.present?
@@ -18,12 +18,7 @@
               .ngo
                 %p
                   %span
-                    - if @user == current_user
-                      No one has endorsed you yet.
-                    - else
-                      = "#{@user.short_name} has no endorsements"
-                      %br
-                      = link_to "Write the first one!", nil, id: 'write_endorsement_link'
+                    Write the first endorsement in the form above
 
       #endorsements_form_keeper.hide
         =render 'endorsements/form', endorsement: Endorsement.new
