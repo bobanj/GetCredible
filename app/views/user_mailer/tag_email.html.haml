@@ -10,27 +10,27 @@
       %tbody
         = render 'user_mailer/header'
 
-    %table{:style => "background:#fff;margin: 0 auto;padding:20px;text-align:center;width:600px;"}
+    %table{:style => "background:#fff;margin: 0 auto;padding:20px;text-align:left;width:600px;"}
       %tbody
 
         %tr
           %td
-            %h1{:style => "color:#582a00;margin:10px 0 5px;font-size:24px;"}Hey, #{@receiver.name}.
-            %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
+            %h1{:style => "color:#444444;margin:10px 0 5px;font-size:16px;font-weight:normal;"}Hey, #{@receiver.name}.
+            %h2{:style => "font-size:22px;font-weight:normal;line-height:1.4;color:#444;margin:0 0 15px;"}
               Great news: #{link_to @tagger.name, me_user_url(@tagger), :style => "color: #{@link_color};"} has just tagged you with #{@tag_names.map{|t| "\"#{t}\""}.join(', ')}.
 
         %tr
           %td{:colspan => "100"}
-            %hr{:style => "background:none;border:none;border-top:1px solid #f8f8f8;"}
+            %hr{:style => "background:none;border:none;border-top:1px solid #eee;"}
         %tr
           %td
-            %p{:style => "font-size:11px;line-height:1.4;color:#444;margin:0 0 15px;"}
+            %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
               Love it? Rock on!
               %br
               Not so much? Head to your #{link_to 'profile', me_user_url(@receiver), :style => "color: #{@link_color};"} and click the X to get rid of it.
         %tr
           %td
-            %p{:style => "font-size:11px;line-height:1.4;color:#444;margin:0 0 15px;"}
+            %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
               Pay it forward! Head back to GiveBrand and tag some of your #{link_to 'contacts', user_followers_url(@receiver), :style => "color: #{@link_color};"}.
 
     = render 'user_mailer/footer'

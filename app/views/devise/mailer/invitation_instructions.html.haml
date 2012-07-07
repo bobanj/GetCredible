@@ -16,7 +16,7 @@
 
         %tr
           %td
-            %h1{:style => "color:#582a00;margin:10px 0 5px;font-size:24px;"} Well hey there, #{@resource.name}!
+            %h1{:style => "color:#444444;margin:10px 0 5px;font-size:24px;"} Well hey there, #{@resource.name}!
             %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
               #{@resource.invited_by.name} has tagged you with #{@resource.tag_names.map{|t| "\"#{t}\""}.join(', ')} invited you to join #{link_to 'GiveBrand', root_url, :style => "color: #{@link_color};"}, a website that helps you build your online brand and boost your credibility with tags and endorsements from people you know and trust. Accept #{@resource.invited_by.name}#{@resource.invited_by.name =~ /s$/i ? "'" : "'s"} invitation and join the GiveBrand network today!
         %tr
