@@ -914,7 +914,7 @@ footer {
   @include background(radial-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.01) 100%));
 
   h1 {
-    font-size: 65px;
+    font-size: 66px;
     font-weight: bold;
     line-height: 0.85;
     margin-top: 70px;
@@ -923,11 +923,10 @@ footer {
   }
   h2 {
     color: #777;
-    font-family: "futura-pt", open-sans, sans-serif;
-    font-size: 24px;
-    letter-spacing: -0.3px;
-    line-height: 1.4;
-    margin-top: 12px;
+    font-family: open-sans, sans-serif;
+    font-size: 19px;
+    line-height: 1.5;
+    margin-top: 14px;
   }
   h3 {
     color: $blue;
