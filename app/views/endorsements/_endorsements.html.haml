@@ -1,24 +1,23 @@
-%section#endorsements
-  - if @user.user_tags.present?
-    %hr.divider.strong
-    #tag-listing.listing-wrap
-      #page-header.gray
-        %h1 Endorsements
-        -#- if user_signed_in? && @user != current_user
-        -#  = link_to "Write an endorsement", "#", id: 'write_endorsement_button', class: "right btn primary small"
+%section#endorsements{class: @user.user_tags.present? ? nil : 'hide'}
+  %hr.divider.strong
+  #tag-listing.listing-wrap
+    #page-header.gray
+      %h1 Endorsements
+      -#- if user_signed_in? && @user != current_user
+      -#  = link_to "Write an endorsement", "#", id: 'write_endorsement_button', class: "right btn primary small"
 
-      = render 'endorsements/write_endorsement_form', hide: false, endorsement: Endorsement.new
-      .listing
-        %ul#endorsements_list
-          - if @user_tag_endorsements.present?
-            - @user_tag_endorsements.each do |user_tag, endorsements|
-              = render 'endorsements/user_tag_endorsements', user_tag: user_tag, endorsements: endorsements
-          - else
-            %li#js-no-endorsements
-              .ngo
-                %p
-                  %span
-                    Write the first endorsement in the form above
+    = render 'endorsements/write_endorsement_form', hide: false, endorsement: Endorsement.new
+    .listing
+      %ul#endorsements_list
+        - if @user_tag_endorsements.present?
+          - @user_tag_endorsements.each do |user_tag, endorsements|
+            = render 'endorsements/user_tag_endorsements', user_tag: user_tag, endorsements: endorsements
+        - else
+          %li#js-no-endorsements
+            .ngo
+              %p
+                %span
+                  Write the first endorsement in the form above
 
-      #endorsements_form_keeper.hide
-        =render 'endorsements/form', endorsement: Endorsement.new
+    #endorsements_form_keeper.hide
+      =render 'endorsements/form', endorsement: Endorsement.new

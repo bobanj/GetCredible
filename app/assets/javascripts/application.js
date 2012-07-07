@@ -273,11 +273,19 @@ $(function (){
 
   $.getCredible.createWordList = function (data, distributionOptions){
     var wordList = [];
-
+    var writeEndorsementSelect = $("#write_endorsement_user_tag_id");
+    writeEndorsementSelect.html('<option value=""></option>');
     if (data.length == 0){
+      writeEndorsementSelect.trigger("liszt:updated");
+      $("#endorsements").addClass('hide');
       return wordList;
+    } else {
+      $("#endorsements").removeClass('hide');
     }
     $.each(data, function (i, userTag){
+      writeEndorsementSelect.append(
+          $('<option></option>').val(userTag.id).html(userTag.name)
+      );
       var voters = $.getCredible.voterImages(userTag.voters);
       wordList.push({
         text:userTag.name,
@@ -294,6 +302,7 @@ $(function (){
         //}}
       });
     });
+    writeEndorsementSelect.trigger("liszt:updated");
     return wordList;
   }
 
