@@ -848,6 +848,7 @@ footer {
 
 .inner-page {
   padding: 30px 40px;
+  @include pie-clearfix;
   h1 {
     margin-bottom: 15px;
   }
