@@ -238,10 +238,10 @@ $(function (){
                 mixpanel.track("User vouched");
               }
             }
-//            $('.tag-vote').click(function (){
-//              $.getCredible.vote($.getCredible.currentQtipTarget);
-//              return false;
-//            });
+            //$('.tag-vote').click(function (){
+              //$.getCredible.vote($.getCredible.currentQtipTarget);
+              //return false;
+            //});
           }
         });
       } else{
@@ -343,8 +343,8 @@ $(function (){
         '<p>' + word.data('voters') + '</p>' +
         '</div>';
     if ($.getCredible.tagCloud.data('can-vote')){
-      qtipContent = qtipContent + '<div class="tag-action"><a href="#" class="tag-vote button ' + vouchUnvouchClass + '">' + vouchUnvouch + '</a><a href="#" class="js-tag-endorse button btn primary white tiny">Endorse</a></div>'
-
+      //qtipContent = qtipContent + '<div class="tag-action"><a href="#" class="tag-vote button ' + vouchUnvouchClass + '">' + vouchUnvouch + '</a><a href="#" class="js-tag-endorse button btn primary white tiny">Endorse</a></div>'
+      qtipContent = qtipContent + '<div class="tag-action"><a href="#" class="tag-vote button ' + vouchUnvouchClass + '">' + vouchUnvouch + '</a></div>'
     }
     qtipContent = qtipContent + '</div>';
     word.data('qtip-content', qtipContent);
@@ -359,7 +359,7 @@ $(function (){
     $('#tag-cloud').data("can-delete", true);
     $('#edit_tag_cloud').addClass('edit').text('Done');
   };
-  $.getCredible.endorsementForm = $('#write_endorsement_form');
+  //$.getCredible.endorsementForm = $('#write_endorsement_form');
   $.getCredible.renderTagCloud = function (data, tagCloudCallback){
     var distributionOptions = $.getCredible.distributionOptions(data);
     var wordList = $.getCredible.createWordList(data, distributionOptions);
@@ -413,27 +413,26 @@ $(function (){
                   $.getCredible.currentQtipTarget = $(event.originalEvent.target);
                   if ($.getCredible.currentQtipTarget.length){
                     api.set('content.text', $.getCredible.currentQtipTarget.data('qtip-content'));
-                    $('.tag-vote').unbind('click');
-                    $('.tag-vote').click(function (){
+                    $('.tag-vote').unbind('click').click(function (){
                       $.getCredible.vote($.getCredible.currentQtipTarget);
                       return false;
                     });
-                    $('.tag-vote').unbind('click');
-                    var tooltip = api.elements.tooltip;
-                    var endorsementButton = tooltip.find('.js-tag-endorse');
-                    if(endorsementButton.length){
-                     endorsementButton.unbind('click');
-                     endorsementButton.click(function(e){
-                       e.preventDefault();
-                       api.set('content.text',$.getCredible.endorsementForm );
-                       tooltip = api.elements.tooltip;
-                       var endorsementDescription = tooltip.find("#endorsement_description");
-                       if(endorsementDescription.length){
-                         endorsementDescription.limit('300', tooltip.find("#write_endorsement_word_counter"));
-                       }
-                       return false
-                     });
-                   }
+                    // Behaviour for endorsement in tooltip
+                    //var tooltip = api.elements.tooltip;
+                    //var endorsementButton = tooltip.find('.js-tag-endorse');
+                    //if(endorsementButton.length){
+                      //endorsementButton.unbind('click');
+                      //endorsementButton.click(function(e){
+                        //e.preventDefault();
+                        //api.set('content.text',$.getCredible.endorsementForm );
+                        //tooltip = api.elements.tooltip;
+                        //var endorsementDescription = tooltip.find("#endorsement_description");
+                        //if(endorsementDescription.length){
+                          //endorsementDescription.limit('300', tooltip.find("#write_endorsement_word_counter"));
+                        //}
+                        //return false
+                      //});
+                    //}
                   }
                 },
                 hide:function (event, api){
