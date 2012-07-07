@@ -1,6 +1,7 @@
 GetCredible::Application.routes.draw do
   post "tags/search"
   get '/invite' => 'invite#index'
+  get '/sitemap.:format' => 'home#sitemap', :as => :sitemap
 
   devise_for :users, :controllers => {
     :sessions => "users/sessions",

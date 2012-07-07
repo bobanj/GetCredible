@@ -15,10 +15,13 @@ class HomeController < ApplicationController
 
   def press
   end
-  
+
   def team
   end
-  
+
   def about
+  end
+
+  def sitemap
   end
 end
