@@ -4,7 +4,7 @@
     #tag-listing.listing-wrap
       #page-header.gray
         %h1 Endorsements
-        - if @user != current_user
+        - if user_signed_in? && @user != current_user
           = link_to "Write an endorsement", "#", id: 'write_endorsement_button', class: "right btn primary small"
 
       = render 'endorsements/write_endorsement_form', hide: true, endorsement: Endorsement.new
@@ -25,5 +25,5 @@
                       %br
                       = link_to "Write the first one!", nil, id: 'write_endorsement_link'
 
-      .hide
-        =render :partial => 'endorsements/form'
+      #endorsements_form_keeper.hide
+        =render 'endorsements/form', endorsement: Endorsement.new

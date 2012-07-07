@@ -1,2 +1,3 @@
 var currentEndorsement = $("#<%= dom_id @endorsement %>");
 currentEndorsement.replaceWith('<%= j(render 'endorsements/endorsement', endorsement: @endorsement) %>')
+$("#endorsements_form_keeper").html('<%= j(render 'endorsements/form', endorsement: Endorsement.new)%>');

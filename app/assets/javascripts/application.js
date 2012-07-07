@@ -909,26 +909,14 @@ $(function (){
     $("#endorsements").on("click", ".js-endorse-tag", function (e){
       e.preventDefault();
       var userTagId = $(this).data('user_tag_id');
-      if (!$.getCredible.tagCloud.data('logged-in')){
-        $("#endorse_after_login").val(userTagId);
-        $.getCredible.loginQtipApi.set('content.text', $('#login_dialog'));
-        $.getCredible.loginQtipApi.show();
-        return false;
-      }
       var endorseContainer = $("#endorse_" + userTagId + "_container");
-      var endorsementForm = $(".js-endorsement-form-new");
-      if (endorseContainer.length > 0 && endorsementForm.length > 0){
-        //endorsementForm.find('#endorsement_description').val('');
-        endorsementForm.show();
-        endorseContainer.find(".tag-endorse").before(endorsementForm);
-        endorsementForm.find("#endorsement_user_tag_id").val(userTagId);
-        endorsementForm.find("#user_tag_id").val(userTagId);
-        var endorsementTextarea = endorsementForm.find("#endorsement_description");
-        if (endorsementTextarea.length > 0){
-          endorsementTextarea.limit('300', $("#endorsement_word_counter"));
-        }
-        endorsementTextarea.focus();
-      }
+      var endorsementForm = $("#js-endorsement-form");
+      endorsementForm.show();
+      endorseContainer.find(".tag-endorse").before(endorsementForm);
+      endorsementForm.find("#endorsement_user_tag_id").val(userTagId);
+      var endorsementTextarea = endorsementForm.find("#endorsement_description");
+      endorsementTextarea.limit('300', $("#endorsement_word_counter"));
+      endorsementTextarea.focus();
     });
 
     $("#endorsements").on("submit", ".js-endorsement-form", function (e){

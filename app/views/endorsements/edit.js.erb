@@ -1,10 +1,11 @@
-$('.js-endorsement-form-edit').each(function () {
-  var form = $(this);
-  var endorsement = form.parent('li').find('> .js_endorsement');
-  endorsement.show();
-  form.remove();
-});
-
+//$('.js-endorsement-form-edit').each(function () {
+//  var form = $(this);
+//  var endorsement = form.parent('li').find('> .js_endorsement');
+//  endorsement.show();
+//  form.remove();
+//});
+$("#js-endorsement-form").remove();
+$("#endorsements_form_keeper").html('<%= j(render 'endorsements/form', endorsement: @endorsement)%>');
 var currentEndorsement = $("#<%= dom_id @endorsement %>");
 currentEndorsement.find(".js_endorsement").hide();
-currentEndorsement.append('<%= j(render 'endorsements/form') %>');
+currentEndorsement.prepend($("#js-endorsement-form"));
