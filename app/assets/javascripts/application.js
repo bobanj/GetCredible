@@ -346,7 +346,8 @@ $(function (){
       qtipContent = qtipContent + '<div class="tag-action"><a href="#" class="tag-vote button ' + vouchUnvouchClass + '">' + vouchUnvouch + '</a></div>'
     }
     qtipContent = qtipContent + '</div>';
-    word.data('qtip-content', qtipContent);
+    word.data('qtip-content', $("#write_endorsement_form"));
+    //word.data('qtip-content', qtipContent);
   };
 
   $.getCredible.disableCloudEdit = function (){

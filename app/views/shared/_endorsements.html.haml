@@ -6,7 +6,7 @@
       = link_to "Write an endorsement", "#", id: 'write_endorsement_button', class: "right btn primary small"
 
     = simple_form_for(Endorsement.new, remote: true, html: {id: 'write_endorsement_form', class:'add-endorsement hide' }) do |f|
-      = f.input :tag_name, label: false, input_html:{placeholder: "Enter Tag"}
+      -#= f.input :tag_name, label: false, input_html:{placeholder: "Enter Tag"}
       = f.input :user_id, as: :hidden, input_html:{value: @user.id}
       = f.input :description, label: false, input_html:{placeholder: "Write an endorsement", rows: 2}
       %span.hint.right
