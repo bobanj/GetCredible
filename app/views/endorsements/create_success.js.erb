@@ -1,14 +1,14 @@
-$(".js-endorsement-form-new .loader").addClass('hide');
-$("#endorsements_<%=@endorsement.user_tag_id%>_list").prepend('<%=escape_javascript(render :partial => 'endorsements/endorsement', :locals => {:endorsement => @endorsement}) %>');
-$('.js-endorsement-form-new #endorsement_description').val('');
-$('.js-endorsement-form-new #endorsement_user_tag_id').val('');
-$('.js-endorsement-form-new #user_tag_id').val('');
-$(".js-endorsement-form-new").hide();
-var userTagScore = $("#endorse_<%=@endorsement.user_tag_id%>_score");
-userTagScore.removeClass('hide').html(parseInt(userTagScore.text()) + 1);
+$("#write_endorsement_form .loader").addClass('hide');
+$("#write_endorsement_description").val('');
+$("#write_endorsement_user_tag_id").val('').trigger("liszt:updated");
 
-if ($("#endorsements_<%=@endorsement.user_tag_id%>_list").hasClass('hide')){
-  $("#endorse_<%=@endorsement.user_tag_id%>_container .js-endorsements-toggle").text("Hide all endorsements");
-  $("#endorsements_<%=@endorsement.user_tag_id%>_list").removeClass('hide').slideDown(800);
+$("#js-no-endorsements").remove();
+
+var userTagEndorsementContainer = $("#endorse_<%=@endorsement.user_tag_id-%>_container");
+var userTagEndorsement = '<%=j(render 'shared/user_tag_endorsement',sad ) %>';
+if(userTagEndorsementContainer.length){
+  userTagEndorsementContainer.replaceWith(userTagEndorsement);
+} else {
+  $("#endorsements_list").prepend(userTagEndorsement);
 }
-mixpanel.track("Endorsement create");
+

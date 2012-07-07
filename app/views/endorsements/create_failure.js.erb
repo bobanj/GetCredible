@@ -1,3 +1,4 @@
 var writeEndorsementForm = $("#write_endorsement_form");
 writeEndorsementForm.find(".loader").addClass('hide');
 writeEndorsementForm.replaceWith('<%=j(render 'endorsements/write_endorsement_form', hide: false)%>');
+$("#write_endorsement_user_tag_id").chosen();
