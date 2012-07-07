@@ -712,7 +712,7 @@ $(function (){
                     step2TagNames.val(tagNames.join(','));
                     $.post(form.data('tags-path'),
                         form.serialize(), function (data){
-                          $.getCredible.displayNotification('success', 'You have tagged yourself with ' + step2TagNames.val());
+                          //$.getCredible.displayNotification('success', 'You have tagged yourself successfully');
                           if ($.getCredible.tagCloud.length > 0){
                             $.getCredible.renderTagCloud(data);
                           }

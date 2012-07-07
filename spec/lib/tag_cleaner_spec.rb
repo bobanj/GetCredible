@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'spec_helper'
 
 describe TagCleaner do
@@ -24,6 +25,14 @@ describe TagCleaner do
 
   it "can add tags with speacial characters" do
     TagCleaner.clean("C++, C#").should == ["c++", "c#"]
+  end
+
+  it "cleans cyrillic characters" do
+    TagCleaner.clean("Какао, Кафе, Пелистерка").should == []
+  end
+
+  it "cleans special characters" do
+    TagCleaner.clean("%ninja, !manga, $shishe").should == ["ninja","manga","shishe"]
   end
 
 end
