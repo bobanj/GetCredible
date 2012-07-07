@@ -1,5 +1,4 @@
-- @endorsement = @endorsement ? @endorsement : Endorsement.new
-= simple_form_for([@user, @endorsement], remote: true, html: {id: 'write_endorsement_form', class:"add-endorsement #{hide ? 'hide' : '' }" }) do |f|
+= simple_form_for([@user, endorsement], remote: true, html: {id: 'write_endorsement_form', class:"add-endorsement #{hide ? 'hide' : '' }" }) do |f|
   = f.input :user_tag_id, as: :select, collection: load_user_tags(@user), label: false, input_html:{id: 'write_endorsement_user_tag_id', :'data-placeholder' => "Choose a tag to endorse"}
   = f.input :description, label: false, input_html:{id: 'write_endorsement_description', placeholder: "Write an endorsement", rows: 2}
   %span.hint.right

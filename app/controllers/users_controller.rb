@@ -9,10 +9,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user_tag_endorsements = @user.incoming_endorsements.
+    @user_tag_endorsements = @user.incoming_endorsements.latest.
       includes([:user_tag, :tag, :endorser]).
-      group_by{|e| e.user_tag}.
-      sort{|e1, e2| e2[1].length <=> e1[1].length}
+      group_by{|e| e.user_tag}
     render :layout => false if request.xhr?
   end
 

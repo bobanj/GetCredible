@@ -1,14 +1,15 @@
-$("#write_endorsement_form .loader").addClass('hide');
-$("#write_endorsement_description").val('');
-$("#write_endorsement_user_tag_id").val('').trigger("liszt:updated");
+$("#write_endorsement_form").replaceWith('<%=j(render 'endorsements/write_endorsement_form', hide: false, endorsement: Endorsement.new)%>');
+$("#write_endorsement_user_tag_id").chosen();
+$("#write_endorsement_description").limit('300', $("#write_endorsement_word_counter"));
 
 $("#js-no-endorsements").remove();
 
 var userTagEndorsementContainer = $("#endorse_<%=@endorsement.user_tag_id-%>_container");
-var userTagEndorsement = '<%=j(render 'shared/user_tag_endorsement',sad ) %>';
+var userTagEndorsements = '<%=j(render 'shared/user_tag_endorsements', user_tag: @endorsement.user_tag, endorsements: @endorsement.user_tag.endorsements.latest ) %>';
 if(userTagEndorsementContainer.length){
-  userTagEndorsementContainer.replaceWith(userTagEndorsement);
+  userTagEndorsementContainer.replaceWith(userTagEndorsements);
 } else {
-  $("#endorsements_list").prepend(userTagEndorsement);
+  $("#endorsements_list").prepend(userTagEndorsements);
 }
+
 
