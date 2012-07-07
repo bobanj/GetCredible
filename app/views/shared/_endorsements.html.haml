@@ -3,10 +3,11 @@
   #tag-listing.listing-wrap
     #page-header.gray
       %h1 Endorsements
-      = link_to "Write an endorsement", "#", id: 'write_endorsement_button', class: "right btn primary small"
+      - if @user != current_user
+        = link_to "Write an endorsement", "#", id: 'write_endorsement_button', class: "right btn primary small"
 
     = simple_form_for(Endorsement.new, remote: true, html: {id: 'write_endorsement_form', class:'add-endorsement hide' }) do |f|
-      = f.input :tag_name, label: false, input_html:{placeholder: "Enter Tag"}
+      = f.input :user_tag, as: :select, collection: @user.user_tags.includes(:tag).map{|ut| [ut.tag.name, ut.id]}, label: false, input_html:{:'data-placeholder' => "Choose a tag to endorse"}
       = f.input :user_id, as: :hidden, input_html:{value: @user.id}
       = f.input :description, label: false, input_html:{placeholder: "Write an endorsement", rows: 2}
       %span.hint.right
@@ -27,9 +28,13 @@
           %li#js-no-endorsements
             .ngo
               %p
-                %span This user has no endorsements.
-                %br
-                = link_to "Write the first one!", nil, id: 'write_endorsement_link'
+                %span
+                  - if @user == current_user
+                    No one has endorsed you yet.
+                  - else
+                    = "#{@user.short_name} has no endorsements"
+                    %br
+                    = link_to "Write the first one!", nil, id: 'write_endorsement_link'
 
     .hide
       =render :partial => 'endorsements/form'
