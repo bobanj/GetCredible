@@ -20,6 +20,8 @@ describe Endorsement do
   end
 
   describe "Associations" do
+    it { should have_one(:tag) }
+    it { should have_one(:user) }
     it { should belong_to(:user_tag) }
     it { should belong_to(:endorser) }
     it { should allow_mass_assignment_of(:endorser) }
@@ -27,6 +29,8 @@ describe Endorsement do
   end
 
   describe "Validations" do
+    it { should validate_presence_of(:tag_name) }
+    it { should validate_presence_of(:endorser) }
     it { should validate_presence_of(:endorser) }
     it { should validate_presence_of(:user_tag) }
     it { should validate_presence_of(:description) }
@@ -56,5 +60,39 @@ describe Endorsement do
       user_tag.reload.votes.length.should == 1
       endorser.reload.voted_users.should include(user)
     end
+  end
+
+  describe "Endorsement without user_tag_id" do
+    it "creates a user_tag from user_id and tag_name" do
+      endorsement = FactoryGirl.build(:endorsement)
+      endorsement.user_tag_id = nil
+      endorsement.user_id = user.id
+      endorsement.tag_name = "Naruto"
+      endorsement.endorser = endorser
+      endorsement.valid?
+      endorsement.save.should be_true
+      endorsement.tag.name.should == "naruto"
+      unread_emails_for(user.email).size.should == parse_email_count(0)
+    end
+
+    it "validates tag_name and user_id when no user_tag is present" do
+      endorsement = FactoryGirl.build(:endorsement)
+      endorsement.user_tag_id = nil
+      endorsement.endorser = endorser
+      endorsement.valid?
+      endorsement.save.should be_false
+      endorsement.errors[:user_id].should be_present
+      endorsement.errors[:tag_name].should be_present
+    end
+
+    it "does not validates tag_name and user_id when user_tag is present" do
+      endorsement = FactoryGirl.build(:endorsement)
+      endorsement.user_tag = user_tag
+      endorsement.endorser = endorser
+      endorsement.valid?.should be_true
+      endorsement.errors[:user_id].should_not be_present
+      endorsement.errors[:tag_name].should_not be_present
+    end
+
   end
 end

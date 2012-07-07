@@ -4,18 +4,16 @@
     #page-header.gray
       %h1 Endorsements
       = link_to "Write an endorsement", "#", id: 'write_endorsement_button', class: "right btn primary small"
-      
-    %p.info.block If one word or phrase isn't enough, offer a little insight into why you tagged this person the way you did.
-    = form_tag(endorse_user_path(@user), remote: true, id: 'write_endorsement_form', class: 'add-endorsement hide') do
-      = text_field_tag :tag, params[:tag], id: 'write_endorsement_tag', :placeholder => "Enter Tag"
-      #write_endorsement_tag_error.error
-      = text_area_tag :description, params[:description], id: 'write_endorsement_description', :placeholder => "Write an endorsement", :rows => 2
-      #write_endorsement_description_error.error
+
+    = simple_form_for(Endorsement.new, remote: true, html: {id: 'write_endorsement_form', class:'add-endorsement hide' }) do |f|
+      = f.input :tag_name, label: false, input_html:{placeholder: "Enter Tag"}
+      = f.input :user_id, as: :hidden, input_html:{value: @user.id}
+      = f.input :description, label: false, input_html:{placeholder: "Write an endorsement", rows: 2}
       %span.hint.right
         %span#write_endorsement_word_counter 300
         characters remaining.
       .buttons
-        = submit_tag "Endorse", id: 'write_endorsement_submit', :class => 'btn primary medium'
+        = f.button :submit, "Endorse", class: 'btn primary medium'
         %span.inline
           = link_to 'Cancel', '#', id: 'write_endorsement_cancel', class: 'cancel'
         %span.loader.inline.hide
