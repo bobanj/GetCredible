@@ -148,11 +148,20 @@ input, textarea {
 }
 
 .twitter-import {
-  background: image_url("icons/twitter500.png") no-repeat center;
+  border: 1px solid #c6c6c6;
+  color: $blue;
   display: block;
-  height: 25px;
-  text-indent: -9999px;
-  width: 25px;
+  font: 11px/2 "open sans", sans-serif;
+  padding: 4px 15px 4px 40px;
+  @include border-radius(2px);
+  @include text-shadow(#fff 0 1px 1px);
+  @include background(image_url("icons/twitter500.png") no-repeat 10px center, linear-gradient(#fcfcfc, #f3f3f3));
+  @include box-shadow(rgba($white, 0.5) 0px 0px 1px 0px inset, rgba($white, 1) 0px 1px 3px);
+  &:hover, &:focus {
+    border-color: $blue;
+    color: #333;
+    text-decoration: none;
+  }
 }
 .email-invite {
   background: image_url("icons/email500.png") no-repeat center;
