@@ -12,7 +12,7 @@
         %ul#endorsements_list
           - if @user_tag_endorsements.present?
             - @user_tag_endorsements.each do |user_tag, endorsements|
-              = render 'shared/user_tag_endorsements', user_tag: user_tag, endorsements: endorsements
+              = render 'endorsements/user_tag_endorsements', user_tag: user_tag, endorsements: endorsements
           - else
             %li#js-no-endorsements
               .ngo
