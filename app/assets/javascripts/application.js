@@ -428,9 +428,7 @@ $(function (){
                        api.set('content.text',$.getCredible.endorsementForm );
                        tooltip = api.elements.tooltip;
                        var endorsementDescription = tooltip.find("#endorsement_description");
-                       console.log(endorsementDescription);
                        if(endorsementDescription.length){
-                         console.log(tooltip.find("#write_endorsement_word_counter"));
                          endorsementDescription.limit('300', tooltip.find("#write_endorsement_word_counter"));
                        }
                        return false
