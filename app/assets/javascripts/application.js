@@ -238,10 +238,10 @@ $(function (){
                 mixpanel.track("User vouched");
               }
             }
-            $('.tag-vote').click(function (){
-              $.getCredible.vote($.getCredible.currentQtipTarget);
-              return false;
-            });
+//            $('.tag-vote').click(function (){
+//              $.getCredible.vote($.getCredible.currentQtipTarget);
+//              return false;
+//            });
           }
         });
       } else{
@@ -344,10 +344,10 @@ $(function (){
         '</div>';
     if ($.getCredible.tagCloud.data('can-vote')){
       qtipContent = qtipContent + '<div class="tag-action"><a href="#" class="tag-vote button ' + vouchUnvouchClass + '">' + vouchUnvouch + '</a></div>'
+      qtipContent = qtipContent + '<a href="#" class="js-tag-endorse button" style="position: absolute;right: 10px;top:55px;">Endorse</a>';
     }
     qtipContent = qtipContent + '</div>';
-    word.data('qtip-content', $("#write_endorsement_form"));
-    //word.data('qtip-content', qtipContent);
+    word.data('qtip-content', qtipContent);
   };
 
   $.getCredible.disableCloudEdit = function (){
@@ -359,7 +359,7 @@ $(function (){
     $('#tag-cloud').data("can-delete", true);
     $('#edit_tag_cloud').addClass('edit').text('Done');
   };
-
+  $.getCredible.endorsementForm = $('#write_endorsement_form');
   $.getCredible.renderTagCloud = function (data, tagCloudCallback){
     var distributionOptions = $.getCredible.distributionOptions(data);
     var wordList = $.getCredible.createWordList(data, distributionOptions);
@@ -416,6 +416,11 @@ $(function (){
                     $('.tag-vote').click(function (){
                       $.getCredible.vote($.getCredible.currentQtipTarget);
                       return false;
+                    });
+                    $('.js-tag-endorse').click(function(e){
+                      e.preventDefault();
+                      $.getCredible.tagCloudQtipApi.set('content.text',$.getCredible.endorsementForm );
+                      return false
                     });
                   }
                 },
