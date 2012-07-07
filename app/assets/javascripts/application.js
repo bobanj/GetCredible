@@ -413,15 +413,29 @@ $(function (){
                   $.getCredible.currentQtipTarget = $(event.originalEvent.target);
                   if ($.getCredible.currentQtipTarget.length){
                     api.set('content.text', $.getCredible.currentQtipTarget.data('qtip-content'));
+                    $('.tag-vote').unbind('click');
                     $('.tag-vote').click(function (){
                       $.getCredible.vote($.getCredible.currentQtipTarget);
                       return false;
                     });
-                    $('.js-tag-endorse').click(function(e){
-                      e.preventDefault();
-                      $.getCredible.tagCloudQtipApi.set('content.text',$.getCredible.endorsementForm );
-                      return false
-                    });
+                    $('.tag-vote').unbind('click');
+                    var tooltip = api.elements.tooltip;
+                    var endorsementButton = tooltip.find('.js-tag-endorse');
+                    if(endorsementButton.length){
+                     endorsementButton.unbind('click');
+                     endorsementButton.click(function(e){
+                       e.preventDefault();
+                       api.set('content.text',$.getCredible.endorsementForm );
+                       tooltip = api.elements.tooltip;
+                       var endorsementDescription = tooltip.find("#endorsement_description");
+                       console.log(endorsementDescription);
+                       if(endorsementDescription.length){
+                         console.log(tooltip.find("#write_endorsement_word_counter"));
+                         endorsementDescription.limit('300', tooltip.find("#write_endorsement_word_counter"));
+                       }
+                       return false
+                     });
+                   }
                   }
                 },
                 hide:function (event, api){
