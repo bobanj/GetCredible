@@ -7,8 +7,7 @@
         = link_to "Write an endorsement", "#", id: 'write_endorsement_button', class: "right btn primary small"
 
     = simple_form_for(Endorsement.new, remote: true, html: {id: 'write_endorsement_form', class:'add-endorsement hide' }) do |f|
-      = f.input :user_tag, as: :select, collection: @user.user_tags.includes(:tag).map{|ut| [ut.tag.name, ut.id]}, label: false, input_html:{:'data-placeholder' => "Choose a tag to endorse"}
-      = f.input :user_id, as: :hidden, input_html:{value: @user.id}
+      = f.input :user_tag_id, as: :select, collection: @user.user_tags.includes(:tag).map{|ut| [ut.tag.name, ut.id]}, label: false, input_html:{id: 'write_endorsement_user_tag_id', :'data-placeholder' => "Choose a tag to endorse"}
       = f.input :description, label: false, input_html:{placeholder: "Write an endorsement", rows: 2}
       %span.hint.right
         %span#write_endorsement_word_counter 300

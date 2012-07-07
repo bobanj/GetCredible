@@ -30,30 +30,6 @@ class UsersController < ApplicationController
     render :users, layout: (request.xhr? ? false : true)
   end
 
-  def endorse
-    tag_name = TagCleaner.clean(params[:tag])
-    @user_endorsement = Endorsement.new
-    @user_endorsement.description = params[:description]
-    @user_endorsement.endorsed_by_id = current_user.id
-    tag = @user.tags.find_by_name tag_name
-    @already_has_tag = tag ? true : false
-    if tag_name
-      current_user.add_tags(@user, tag_name, :skip_email => true)
-      tag = @user.tags.find_by_name tag_name
-      if tag
-        @user_tag = @user.user_tags.where(:tag_id => tag.id).first
-        @user_endorsement.user_tag_id = @user_tag.id if @user_tag
-      end
-    end
-    if @user_endorsement.save
-      current_user.activity_items.create(:item => @user_endorsement, :target_id => @user.id)
-      UserMailer.endorse_email(@user_endorsement).deliver
-      render :endorsement_success
-    else
-      render :endorsement_failure
-    end
-  end
-
   private
   def load_user
     @user = User.find_by_username!(params[:id])

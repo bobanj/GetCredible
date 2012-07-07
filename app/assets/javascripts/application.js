@@ -1027,6 +1027,7 @@ $(function (){
       }
       return false;
     })
+
     $("#endorsements").on("click","#write_endorsement_cancel", function(e){
       e.preventDefault();
       $("#write_endorsement_form").slideUp();
@@ -1036,6 +1037,10 @@ $(function (){
 
     if($("#write_endorsement_description").length){
       $("#write_endorsement_description").limit('300', $("#write_endorsement_word_counter"));
+    }
+
+    if($("#write_endorsement_user_tag_id").length){
+      $("#write_endorsement_user_tag_id").chosen();
     }
 
     $("#endorsements").on("submit", "#write_endorsement_form", function (e){
