@@ -8,9 +8,7 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require tipsy
  *= require_self
- *= require simplemodal
  *
 */
 
@@ -1299,13 +1297,16 @@ hr.divider {
 @import "activity";
 @import "devise";
 @import "tag_cloud";
-@import "tipsy_custom";
-@import "pagination";
+//@import "tipsy_custom";
 //@import "rhinoslider";
 //@import "rhino_override";
+//@import "tipsy";
+//@import "simplemodal";
+@import "pagination";
 @import "qtip";
 @import "qtip_custom";
 @import "progress-bubbles";
 @import "tokeninput_facebook";
+@import "chosen";
 @import "override";
 

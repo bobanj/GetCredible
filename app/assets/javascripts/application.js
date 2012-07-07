@@ -17,12 +17,12 @@
 //= require jquery_ujs
 //= require jqcloud
 //= require jquery.noty
-//= require jquery.simplemodal
 //= require jquery.tokeninput
 //= require jquery.qtip
 //= require jquery-progress-bubbles
 //= require jquery.remotipart
 //= require jquery.limit-1.2.source
+//= require chosen.jquery
 
 Array.prototype.unique = function (){
   var o = {}, i, l = this.length, r = [];
