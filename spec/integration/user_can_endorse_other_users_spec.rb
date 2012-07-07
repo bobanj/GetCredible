@@ -14,15 +14,18 @@ describe 'User', type: :request do
     fill_in('token-input-tag_names', with: 'ruby, rails')
     click_button("Tag 'em!")
 
-
     visit me_user_path(user) # needed to receive email and then read it
     open_email(user.email)
     current_email.should have_subject("Tagged... You're it!")
 
     reset_mailer
-    fill_in("write_endorsement_tag", with: "rails")
-    fill_in("write_endorsement_description", with: "Endorsement for my friend")
-    click_button("Endorse")
+
+    within(".add-endorsement") do
+      select("ruby", from: "write_endorsement_user_tag_id")
+      fill_in("write_endorsement_description", with: "Endorsement for my friend")
+      click_button("Endorse")
+    end
+
     page.should have_content("Endorsement for my friend")
     page.should have_content("Written by Endorser")
 
