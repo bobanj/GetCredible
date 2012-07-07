@@ -1,0 +1,9 @@
+$("#<%=dom_id(@endorsement)%>").remove();
+var endorseContainer = $('#endorse_<%= @endorsement.user_tag_id %>_container');
+var numEndorsements = endorseContainer.find('span.score');
+numEndorsements.html(parseInt(numEndorsements.text()) - 1);
+var endorsementsList = $('#endorsements_<%= @endorsement.user_tag_id %>_list');
+if (endorsementsList.length > 0 && endorsementsList.children().length == 0){
+  endorseContainer.remove();
+}
+mixpanel.track("Endorsement destroy");

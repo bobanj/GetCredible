@@ -31,14 +31,8 @@ class EndorsementsController < ApplicationController
   end
 
   def destroy
-    @endorsement = current_user.incoming_endorsements.find_by_id(params[:id])
-
-    if @endorsement
-      #@endorsement.destroy
-      render json: {status: 'ok', user_tag_id: @endorsement.user_tag_id}
-    else
-      render json: {status: 'error', user_tag_id: @endorsement.user_tag_id}
-    end
+    @endorsement = current_user.incoming_endorsements.find(params[:id])
+    #@endorsement.destroy
   end
 
   private

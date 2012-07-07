@@ -1,28 +1,29 @@
 %section#endorsements
-  %hr.divider.strong
-  #tag-listing.listing-wrap
-    #page-header.gray
-      %h1 Endorsements
-      - if @user != current_user
-        = link_to "Write an endorsement", "#", id: 'write_endorsement_button', class: "right btn primary small"
+  - if @user.user_tags.present?
+    %hr.divider.strong
+    #tag-listing.listing-wrap
+      #page-header.gray
+        %h1 Endorsements
+        - if @user != current_user
+          = link_to "Write an endorsement", "#", id: 'write_endorsement_button', class: "right btn primary small"
 
-    = render 'endorsements/write_endorsement_form', hide: true, endorsement: Endorsement.new
-    .listing
-      %ul#endorsements_list
-        - if @user_tag_endorsements.present?
-          - @user_tag_endorsements.each do |user_tag, endorsements|
-            = render 'shared/user_tag_endorsements', user_tag: user_tag, endorsements: endorsements
-        - else
-          %li#js-no-endorsements
-            .ngo
-              %p
-                %span
-                  - if @user == current_user
-                    No one has endorsed you yet.
-                  - else
-                    = "#{@user.short_name} has no endorsements"
-                    %br
-                    = link_to "Write the first one!", nil, id: 'write_endorsement_link'
+      = render 'endorsements/write_endorsement_form', hide: true, endorsement: Endorsement.new
+      .listing
+        %ul#endorsements_list
+          - if @user_tag_endorsements.present?
+            - @user_tag_endorsements.each do |user_tag, endorsements|
+              = render 'shared/user_tag_endorsements', user_tag: user_tag, endorsements: endorsements
+          - else
+            %li#js-no-endorsements
+              .ngo
+                %p
+                  %span
+                    - if @user == current_user
+                      No one has endorsed you yet.
+                    - else
+                      = "#{@user.short_name} has no endorsements"
+                      %br
+                      = link_to "Write the first one!", nil, id: 'write_endorsement_link'
 
-    .hide
-      =render :partial => 'endorsements/form'
+      .hide
+        =render :partial => 'endorsements/form'

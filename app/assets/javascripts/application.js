@@ -955,40 +955,7 @@ $(function (){
       }
       return false;
     });
-    $("#endorsements").on("click", ".js-endorsement-delete", function (e){
-      e.preventDefault();
-      var self = $(this);
-      noty({
-        text:'Are you sure you want to delete this endorsement?',
-        layout:'center',
-        type:'alert',
-        buttons:[
-          {type:'btn primary medium', text:'Ok', click:function (){
-            $.post(self.attr('href'), { _method:'delete' }, function (data){
-              if (data.status == 'ok'){
-                self.parent().parent().remove();
-                var endorsementsList = $('#endorsements_' + data.user_tag_id + '_list');
-                var endorseContainer = $('#endorse_' + data.user_tag_id + '_container');
-                var numEndorsements = endorseContainer.find('span.score');
-                numEndorsements.html(parseInt(numEndorsements.text()) - 1);
-                if (endorsementsList.length > 0 && endorsementsList.children().length == 0){
-                  endorseContainer.find('.js-endorsements-toggle').addClass('hide');
-                }
-                mixpanel.track("Endorsement destroy");
-              } else{
-                $.getCredible.displayNotification('error', 'You can only delete your own endorsements');
-              }
-            });
-          } },
-          {type:'btn primary medium red', text:'Cancel', click:function (){
 
-          } }
-        ],
-        closable:false,
-        timeout:false
-      });
-      return false;
-    });
 
     $("#endorsements").on("click", ".js-cancel-endorsement", function (e){
       e.preventDefault();

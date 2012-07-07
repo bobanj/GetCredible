@@ -8,6 +8,6 @@
       = time_ago_in_words(endorsement.created_at)
       %span ago
     - if user_signed_in? && current_user == @user
-      = link_to "X", endorsement, class: 'js-endorsement-delete endorse-delete'
+      = link_to "X", user_endorsement_path(endorsement.endorser, endorsement), remote: true, method: :delete, confirm: 'Are you sure you want to delete this endorsement?', class: 'js-endorsement-delete endorse-delete'
     - if user_signed_in? && current_user == endorsement.endorser
-      = link_to "edit", edit_endorsement_path(endorsement), remote: true, class: 'js-endorsement-edit endorse-edit'
+      = link_to "edit", edit_user_endorsement_path(endorsement.endorser, endorsement), remote: true, class: 'js-endorsement-edit endorse-edit'
