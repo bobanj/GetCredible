@@ -1,3 +1,3 @@
 var writeEndorsementForm = $("#write_endorsement_form");
 writeEndorsementForm.find(".loader").addClass('hide');
-writeEndorsementForm.replaceWith('<%=j(render 'endorsements/write_endorsement_form')%>');
+writeEndorsementForm.replaceWith('<%=j(render 'endorsements/write_endorsement_form', hide: false)%>');

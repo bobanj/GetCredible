@@ -14,7 +14,7 @@ class Endorsement < ActiveRecord::Base
 
   # Validations
   validates :endorser, presence: true, :allow_nil => false
-  validates :user_tag, presence: true, :allow_nil => false
+  validates :user_tag_id, presence: true, :allow_nil => false
   validates :description, presence: true
   validates :description, :length => {:minimum => 10, :maximum => 300}
   validate :user_can_not_endorse_himself

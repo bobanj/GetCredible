@@ -6,7 +6,7 @@
       - if @user != current_user
         = link_to "Write an endorsement", "#", id: 'write_endorsement_button', class: "right btn primary small"
 
-    = render 'endorsements/write_endorsement_form'
+    = render 'endorsements/write_endorsement_form', hide: true
     .listing
       %ul#endorsements_list
         - if @user_tag_endorsements.present?

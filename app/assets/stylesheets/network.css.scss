@@ -202,20 +202,6 @@
     .endorse-edit {
       width: 25px;
     }
-    .tag-endorse-text .field_with_errors {
-      .error {
-        background: #f5f5f5;
-        color: $red;
-        display: block;
-        margin-bottom: 7px;
-        padding: 2px 5px;
-        margin: 0 0 7px 0;
-        width: 100%;
-      }
-      textarea {
-        margin-bottom: 0;
-      }
-    }
     &:hover, &:focus {
       .twitter_contact {
         display: block !important;
@@ -231,6 +217,20 @@
   }
   .pagination {
     padding: 20px 25px;
+  }
+}
+.tag-endorse-text .field_with_errors {
+  .error {
+    background: #f5f5f5;
+    color: $red;
+    display: block;
+    margin-bottom: 7px;
+    padding: 2px 5px;
+    margin: 0 0 7px 0;
+    width: 100%;
+  }
+  textarea {
+    margin-bottom: 0;
   }
 }
 

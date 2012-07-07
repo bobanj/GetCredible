@@ -43,7 +43,7 @@ class EndorsementsController < ApplicationController
 
   private
   def load_user
-    @user = User.find_by_username!(params[:id])
+    @user = User.find_by_username!(params[:user_id])
   end
 
 end
