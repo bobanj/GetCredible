@@ -9,7 +9,7 @@
         - if current_user.twitter_id.blank?
           %li= link_to "Import Twitter friends", twitter_contacts_path, class: "twitter-import", title: "Import your Twitter friends"
 
-    %p You can invite your contacts one by one by entering their email addresses, or authorize us to access your Twitter contacts and invite more at once.
+    %p.info You can invite your contacts one by one by entering their email addresses, or authorize us to access your Twitter contacts and invite more at once.
 
     = render 'email_invite'
 

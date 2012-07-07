@@ -1,10 +1,19 @@
 = simple_form_for(message, url: user_invitation_path, remote: true, html: {id: 'js-email-invitation-form', method: :post }) do |f|
   %ul.inputs-list
-    %li= f.input :name, placeholder: "Name", label_html: {class: 'hidden'}
-    %li= f.input :email, placeholder: "Email", label_html: {class: 'hidden'}
-    %li= f.input :tag1, placeholder: "First tag", label: "First tag", label_html: {class: 'hidden'}
-    %li= f.input :tag2, placeholder: "Second tag", label: "Second tag", label_html: {class: 'hidden'}
-    %li= f.input :tag3, placeholder: "Third tag", label: "Third tag", label_html: {class: 'hidden'}
-    %li.buttons
-      = f.button :submit, "Send Email", class: 'btn primary large'
-      .loading{style: "display: none"} loading...
+  
+    %li
+      %ul.rows
+        %li= f.input :name, placeholder: "Name", label_html: {class: 'hidden'}
+        %li= f.input :email, placeholder: "Email", label_html: {class: 'hidden'}
+        
+    %li
+      %ul.rows
+        %li= f.input :tag1, placeholder: "First tag", label: "First tag", label_html: {class: 'hidden'}
+        %li= f.input :tag2, placeholder: "Second tag", label: "Second tag", label_html: {class: 'hidden'}
+        %li= f.input :tag3, placeholder: "Third tag", label: "Third tag", label_html: {class: 'hidden'}
+        
+    %li
+      %ul.rows
+        %li.buttons
+          = f.button :submit, "Send Email", class: 'btn primary medium'
+          .loading{style: "display: none"} loading...

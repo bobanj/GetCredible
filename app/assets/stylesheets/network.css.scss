@@ -321,3 +321,23 @@
   width: 100%;
   z-index: 10000;
 }
+
+#email_invite {
+  h2 {
+    font-size: 18px;
+    padding: 0 25px;
+  }
+  .rows {
+    margin: 0;
+    @include pie-clearfix;
+    li {
+      display: inline;
+      float: left;
+      padding: 0;
+      width: 33%;
+      input {
+        width: 92%;
+      }
+    }
+  }
+}
