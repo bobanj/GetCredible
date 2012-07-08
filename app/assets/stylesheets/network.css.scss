@@ -104,10 +104,15 @@
 
 .add-endorsement {
   border-bottom: 1px solid #eee;
-  padding: 15px 25px;
+  padding: 0 25px 15px 25px;
   textarea {
     margin: 8px 0;
     width: 98%;
+  }
+  p.info {
+    background: url(image_path('icons/info.png')) no-repeat 0px center;
+    padding: 10px 25px 10px 35px;
+    margin-bottom: 5px;
   }
 }
 

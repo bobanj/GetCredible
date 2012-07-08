@@ -1,5 +1,5 @@
 = simple_form_for([@user, endorsement], remote: true, html: {id: 'write_endorsement_form', class:"add-endorsement #{hide ? 'hide' : '' }" }) do |f|
-  %p.info If one word or phrase isn't enough, offer a little insight into why you tagged #{@user.name} the way you did.
+  %p.info If one word or phrase isn't enough, offer a little insight into why you tagged this profile the way you did.
   = f.input :user_tag_id, as: :select, collection: load_user_tags(@user), label: false, input_html:{id: 'write_endorsement_user_tag_id', :'data-placeholder' => "Choose a tag to endorse"}
   = f.input :description, label: false, input_html:{id: 'write_endorsement_description', placeholder: "Write your endorsement here", rows: 2}
   = hidden_field_tag :write_endorsement, true
