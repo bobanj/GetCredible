@@ -1050,6 +1050,9 @@ $(function (){
       case 'invite_index':
         mixpanel.track("User invite page");
         break;
+      case 'users_invitations_edit':
+        mixpanel.track("User accepted invitation");
+        break;
       default:
         mixpanel.track(pageAction);
         break;
