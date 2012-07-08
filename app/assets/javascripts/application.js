@@ -537,6 +537,9 @@ $(function (){
         $.getCredible.guideApi.show();
       }
     }
+    if(!data.own_profile){
+      $("#write_endorsement_form").removeClass('hide');
+    }
   }
 
   $('body').delegate('.js-remote', 'click', function (event){
