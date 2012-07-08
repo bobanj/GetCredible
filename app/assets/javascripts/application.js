@@ -802,7 +802,9 @@ $(function (){
       var twitterId = contact.data('twitter_id');
       $('#twitter_message_twitter_id').val(twitterId);
       $('#twitter_message_screen_name').val(twitterUsername);
-      $("#js-twitter-invite-header").html("Brand and invite <strong>@" + twitterUsername + "</strong>");
+      $("#js-twitter-invite-header").html("Invite <strong>@" + twitterUsername + "</strong>");
+      $("#js-twitter-invite-note").html("Suggest three tags you think describe " + twitterUsername + ".");
+
       $.getCredible.twitterQtipApi.set('content.text', $('#twitter_invite'));
       $.getCredible.twitterQtipApi.show();
     });

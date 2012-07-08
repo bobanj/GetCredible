@@ -6,7 +6,7 @@
       -#- if user_signed_in? && @user != current_user
       -#  = link_to "Write an endorsement", "#", id: 'write_endorsement_button', class: "right btn primary small"
 
-    %p.info If one word or phrase isn't enough, offer a little insight into why you tagged this person the way you did.
+    %p.info If one word or phrase isn't enough, offer a little insight into why you tagged #{@user.name} the way you did.
 
     = render 'endorsements/write_endorsement_form', hide: false, endorsement: Endorsement.new
     .listing

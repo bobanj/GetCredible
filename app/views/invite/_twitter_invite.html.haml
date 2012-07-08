@@ -2,5 +2,5 @@
 #twitter_invite.invite_dialog{style: "display: none;", title: ""}
   %p.note#js-twitter-invite-header
   .invite_wrap
-    #page-header
+    %p#js-twitter-invite-note
     = render 'twitter/messages/form', message: TwitterMessage.new, remote: true
