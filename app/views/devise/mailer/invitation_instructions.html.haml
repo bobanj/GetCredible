@@ -1,0 +1,36 @@
+- @link_color = "#137AC2"
+
+!!!
+%html
+  %head
+    %meta{ 'content' => "text/html; charset=UTF-8", 'http-equiv' => "Content-Type" }
+
+  %body{:style => "background:url(http://givebrand.to/assets/bg2.png) #f6f6f6;font-size:12px;font-family:Helvetica,Arial,sans-serif;margin:0;padding:15px 0 0;line-height:1.4;"}
+    %table{:style => "margin: 0 auto;width:600px;"}
+      %tbody
+        - @receiver = @resource
+        = render 'user_mailer/header'
+
+    %table{:style => "background:#fff;margin: 0 auto;padding:20px;text-align:center;width:600px;"}
+      %tbody
+
+        %tr
+          %td
+            %h1{:style => "color:#444444;margin:10px 0 5px;font-size:24px;"} Well hey there, #{@resource.name}!
+            %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
+              #{@resource.invited_by.name} has tagged you with #{@resource.tag_names.map{|t| "\"#{t}\""}.join(', ')} invited you to join #{link_to 'GiveBrand', root_url, :style => "color: #{@link_color};"}, a website that helps you build your online brand and boost your credibility with tags and endorsements from people you know and trust. Accept #{@resource.invited_by.name}#{@resource.invited_by.name =~ /s$/i ? "'" : "'s"} invitation and join the GiveBrand network today!
+        %tr
+          %td
+            %p{:style => "margin: 5px 0 10px;text-align:center;"}
+              = link_to 'Accept invitation', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token), :style => "display: inline-block;text-align:center;padding:15px;margin:10 0 20px;background:#fffbef;border:1px solid #ead5c0;color:#6bbd00;font-weight:bold;font-size:13px;width:250px;"
+        %tr
+          %td{:colspan => "100"}
+            %hr{:style => "background:none;border:none;border-top:1px solid #f8f8f8;"}
+        %tr
+          %td
+            %p{:style => "font-size:11px;line-height:1.4;color:#444;margin:0 0 15px;"}
+              Not interested? Just ignore this email.
+              %br
+              We won't do anything until you click the link above, create your profile and set your password.
+
+    = render 'user_mailer/footer'

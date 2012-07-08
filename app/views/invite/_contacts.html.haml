@@ -1,0 +1,18 @@
+%ul
+  - contacts.each do |contact|
+    - user = users.detect{ |user| user.twitter_id == contact.twitter_id }
+    %li{:class => contact.invited? ? 'vouch' : nil}
+      .tag-icon
+
+      - if user && user.active?
+        = link_to image_tag(contact.avatar), me_user_path(user)
+        %span.name= link_to contact.name, me_user_path(user)
+      - else
+        = image_tag contact.avatar
+        %span.name= contact.name
+      %span.user= link_to "@#{contact.screen_name}", "https://twitter.com/#{contact.screen_name}"
+      %span.status
+        - unless contact.invited?
+          = link_to "Invite", "#", :class => 'twitter_contact btn primary small light right', :"data-twitter_id" => contact.twitter_id, :"data-screen_name" => contact.screen_name
+
+= will_paginate @contacts

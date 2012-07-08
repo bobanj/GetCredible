@@ -1,0 +1,3 @@
+$('.loading').hide();
+$('#js-email-invitation-form').replaceWith('<%= j(render 'form', message: EmailMessage.new) %>');
+$.getCredible.displayNotification('success', '<%= j I18n.t('devise.invitations.send_instructions', email: @message.email) %>');

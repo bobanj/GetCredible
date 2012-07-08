@@ -15,7 +15,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       UserMailer.welcome_email(resource).deliver
 
       respond_to do |format|
-        format.html { redirect_to after_sign_in_path_for(resource) }
+        format.html { redirect_to sign_in_url }
         format.json { render :json => user_signed_in_content(resource) }
       end
     else
@@ -31,14 +31,48 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def update
-    @user = User.find(current_user.id)
-    if @user.update_attributes(params[:user])
-      flash[:notice] = "You have updated your profile successfully."
-      # Sign in the user by passing validation in case his password changed
-      sign_in @user, :bypass => true
-      redirect_to me_user_path(@user)
+    if current_user.update_attributes(params[:user])
+      respond_to do |format|
+        format.html do
+          flash[:notice] = 'You have updated your profile successfully.'
+          # Sign in the user by passing validation in case his password changed
+          sign_in current_user, :bypass => true
+          redirect_to me_user_path(current_user)
+        end
+        format.js {
+          if remotipart_submitted?
+            @remotipart = true
+          else
+            @remotipart = false
+            @message = 'You have updated your profile successfully.'
+          end
+          render :layout => false, :status => :ok
+        }
+        format.json do
+          if current_user.changed?
+            render :json => {:status => 'ok', :messages => ['You have updated your profile successfully.']}
+          else
+            render :json => {:status => "same", :messages => ['No changes']}
+          end
+        end
+      end
     else
-      render "edit"
+      respond_to do |format|
+        format.html do
+          render "edit"
+        end
+        format.js {
+          if remotipart_submitted?
+            @remotipart = true
+          else
+            @remotipart = false
+            @message = current_user.errors.full_messages.first
+          end
+        }
+        format.json do
+          render :json => {:status => 'error', :messages => current_user.errors.full_messages}
+        end
+      end
     end
   end
 end

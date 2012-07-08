@@ -1,0 +1,69 @@
+%section#guide
+  - if user_signed_in? && show_guide?(current_user, params[:show_guide])
+    - unless Rails.env.test? # stop warnings when running specs
+      = content_for :javascripts do
+        %script{:src => "http://www.youtube.com/player_api", :type => "text/javascript"}
+
+    #bubbles_container{:"data-show_guide" => params[:show_guide], :style => "display:none"}
+      #guide_title
+        Few moments to set up your account.
+      %a#guide_close{href: '#'}
+        Do it later
+      #bubbles
+      .clear{:style => "clear:both"}
+      %ul#steps
+
+        %li#step_1
+          %h1 Personal Information
+          = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :remote => true, :html => {:id => 'user_avatar_guide_form', :multipart => true, :method => :put }) do |f|
+            .avatar
+              = f.input :avatar, :as => :file, :wrapper => false, :input_html => {:id => "user_avatar_file"}
+              = f.hidden_field :avatar_cache
+              %span.btn.primary.medium.light Browse
+            %a#user_avatar_preview
+              = image_tag current_user.avatar_url(:thumb)
+            .loading.hide
+              =image_tag 'ajax_loader.gif'
+          = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :remote => true, :html => {:id => 'step_1_form', :multipart => true, :method => :put }) do |f|
+            %ul.inputs-list.left
+              %li= f.input :full_name, :wrapper => false
+              %li= f.input :location, :wrapper => false
+              %li= f.input :personal_url, :wrapper => false, :label => 'Website'
+              %li.buttons
+                = f.button :submit, "Next", id: 'next_step_1', class: 'btn next primary medium gray'
+
+        %li#step_2{:style => "display:none"}
+          %h1 Brand yourself in few words
+          = form_tag user_user_tags_path(current_user), :id => 'step_2_form', :'data-tags-path' => user_user_tags_path(current_user) do
+            = hidden_field_tag :tag_names, '', :id => 'step_2_tags'
+            %ul.inputs-list
+              %li
+                //= label_tag "tag_1"
+                = text_field_tag "tag_1", nil, :placeholder => 'First tag'
+              %li
+                //= label_tag "tag_2"
+                = text_field_tag "tag_2", nil, :placeholder => 'Second tag'
+              %li
+                //= label_tag "tag_3"
+                = text_field_tag "tag_3", nil, :placeholder => 'Third tag'
+              %li= link_to "Watch our video", nil, id: 'guide_video_link'
+              %li.buttons
+                %a{id: 'prev_step_2', class: 'btn primary medium gray'}Previous
+                = submit_tag "Next", id: 'next_step_2', class: 'btn next primary medium gray'
+          #guide_video_container{style: 'display:none'}
+            #guide_video
+            = link_to "Back to setting up profile", nil, id: 'guide_video_back'
+
+        %li#step_3{:style => "display:none"}
+          %h1 Invite your friends from Twitter
+          %ul.inputs-list
+            %li.full.center
+              %a{ :href => twitter_contacts_path, :class => "twitter-button"}
+                = image_tag "twitter-mascot.png"
+                %span
+                  Link with your Twitter account
+                  %br
+                  and invite friends to boost your influence
+            %li.buttons
+              %a{id: 'prev_step_3', class: 'btn primary medium gray'}Previous
+              %a{id: 'next_step_3', class: 'btn primary medium'}Finish

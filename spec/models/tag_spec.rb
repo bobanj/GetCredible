@@ -6,7 +6,7 @@ describe Tag do
   end
 
   describe 'Validations' do
-    subject { Factory(:tag) }
+    subject { FactoryGirl.create(:tag) }
     it { should validate_presence_of(:name) }
     it { should validate_uniqueness_of(:name) }
   end
@@ -19,7 +19,7 @@ describe Tag do
   end
 
   describe 'Create' do
-    let(:tag) { Factory(:tag) }
+    let(:tag) { FactoryGirl.create(:tag) }
     it "loads into soulmate for autocomplete after save" do
       Tag.search(tag.name).should_not be_empty
     end
@@ -27,8 +27,8 @@ describe Tag do
 
   describe 'Destroy' do
     it "removes user tags and votes after deletion" do
-      user   = Factory(:user)
-      tagger = Factory(:user)
+      user   = FactoryGirl.create(:user)
+      tagger = FactoryGirl.create(:user)
       tagger.add_tags(user, ['design'])
       Vote.count.should == 1
 
@@ -38,20 +38,20 @@ describe Tag do
     end
 
     it "is unloaded from soulmate after destroy" do
-      tag  = Factory(:tag)
+      tag  = FactoryGirl.create(:tag)
       tag = tag.destroy
       Tag.search(tag.name).detect{|t| t["id"] == tag.id && t["term"] == tag.name}.should be_nil
     end
   end
 
   describe "user tags counter cache" do
-    let(:tag) { Factory(:tag) }
+    let(:tag) { FactoryGirl.create(:tag) }
 
     it "should be increased when a user tag is created" do
       tag.user_tags_count.should == 0
-      user   = Factory(:user)
-      tagger = Factory(:user)
-      Factory(:user_tag, :tag => tag, :tagger => tagger, :user => user)
+      user   = FactoryGirl.create(:user)
+      tagger = FactoryGirl.create(:user)
+      tagger.add_tags(user, [tag.name])
       tag.reload.user_tags_count.should == 1
     end
   end

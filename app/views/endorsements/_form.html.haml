@@ -1,0 +1,16 @@
+= simple_form_for([@user, endorsement], remote: true, html: {id: 'js-endorsement-form', class: "#{endorsement.new_record? ? '' : 'js-endorsement-form-edit'} tag-endorse-text" }) do |f|
+  - if endorsement.new_record?
+    %p Write your endorsement here:
+  - else
+    %p Edit your endorsement:
+  = f.input :user_tag_id, as: :hidden
+  = f.input :description, label: false, input_html: {rows: 2}
+  %span.hint
+    %span#endorsement_word_counter 300
+    characters remaining
+  .buttons
+    = f.button :submit, (endorsement.new_record? ? "Endorse" : "Save"), class: 'btn primary'
+    %span.inline
+      = link_to 'Cancel', '#', class: 'js-cancel-endorsement'
+    %span.loader.inline.hide
+      = image_tag 'ajax_loader.gif'

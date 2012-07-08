@@ -1,0 +1,38 @@
+$.getCredible.guide.isUpdating = false;
+<% if current_user.errors.any? %>
+$.getCredible.displayNotification('error', '<%= @message %>');
+<% else %>
+
+<% if @remotipart %>
+
+if($("#user_avatar_guide_form .loading").length > 0){
+  $("#user_avatar_guide_form .loading").hide();
+}
+
+if($("#user_edit_avatar_loading").length > 0){
+  $("#user_edit_avatar_loading").hide();
+}
+
+if($("#user_avatar_main").length > 0){
+  $("#user_avatar_main").html('<%= image_tag(@user.avatar_url(:thumb)) %>');
+}
+
+if($("#user_avatar_sidebar").length > 0){
+  $("#user_avatar_sidebar").html('<%= image_tag(@user.avatar_url(:avatar)) %>');
+}
+
+if($("#user_avatar_preview").length > 0){
+  $("#user_avatar_preview").html('<%=image_tag(@user.avatar_url(:thumb)) %>');
+}
+
+<% else %>
+$.getCredible.displayNotification('success', '<%= escape_javascript @message %>');
+$("#step_1").hide('fast',function () {
+  $('#bubbles').progressBubbles('progress');
+  $("#step_2").show('fast');
+});
+
+<% end %>
+
+<% end %>
+

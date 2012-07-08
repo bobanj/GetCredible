@@ -10,26 +10,33 @@ class ApplicationController < ActionController::Base
 
     if location
       location
-    elsif resource.full_name.blank?
-      edit_user_registration_path
     else
-      if current_user.user_tags.exists?
-        activity_path('all')
-      else
-        tour_url
-      end
+      sign_in_url
     end
   end
 
   private
     def user_signed_in_content(resource)
       self.formats = [:html] # let partials resolve with html not json format
-      @user = User.find(params[:user_id])
+      @user = User.find_by_username!(params[:user_id])
       {
+        :own_profile => @user == resource,
+        :show_guide => resource.sign_in_count == 1,
         :success => true,
         :user => resource,
         :header => render_to_string(:layout => false, :partial => 'shared/header.html.haml'),
-        :tag_cloud => render_to_string(:layout => false, :partial => 'shared/tag_cloud.html.haml')
+        :tag_cloud => render_to_string(:layout => false, :partial => 'shared/tag_cloud.html.haml'),
+        :guide => resource.sign_in_count == 1 ? render_to_string(:layout => false, :partial => 'shared/guide.html.haml') : ''
       }
+    end
+
+    def sign_in_url
+      show_guide = current_user.sign_in_count == 1 ? true : nil
+
+      if show_guide || !current_user.user_tags.exists?
+        me_user_path(current_user, :show_guide => show_guide)
+      else
+        activity_path('all')
+      end
     end
 end

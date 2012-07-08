@@ -1,24 +1,38 @@
 #content
   %section#profile.edit
     .details
-      .photo
+      .photo#user_avatar_main
         = image_tag current_user.avatar_url(:thumb)
-        
-      = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:multipart => true, :method => :put }) do |f|
-        %h1 Edit your profile
+      #user_edit_avatar_loading.hide
+        =image_tag 'ajax_loader.gif'
+
+      %h1 Edit Profile
+      = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :remote => true, :html => {:multipart => true, :method => :put, :id => 'user_edit_avatar_form' }) do |f|
+        .avatar
+          = f.input :avatar, :as => :file, :wrapper => false, :input_html => {:id => "user_edit_avatar_file"}
+          = f.hidden_field :avatar_cache
+
+      = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => :put }) do |f|
         %ul.inputs-list.left
-          %li= f.input :full_name, :wrapper => false
-          %li= f.input :avatar, :as => :file, :wrapper => false
+          %li.username.inner-tag
+            %label Username
+            %span http://givebrand.to/
+            = f.input :username, :wrapper => false, :label => false
           %li= f.hidden_field :avatar_cache
-          %li= f.input :job_title, :wrapper => false
-          -#%li= f.input :country, :wrapper => false
-          %li= f.input :city, :wrapper => false, :label => 'Location'
+          %li= f.input :full_name, :wrapper => false
+          %li
+            = f.input :short_bio, :as => :text, :wrapper => false, :input_html => {:class => 'short_bio'}
+            %span.hint
+              About you in less than
+              %span#short_bio_word_counter 200
+              characters.
+          %li= f.input :location, :wrapper => false
           %li= f.input :personal_url, :wrapper => false, :label => 'Website'
-          %li= f.input :twitter_handle, :wrapper => false, :label => 'Twitter Username'
+          %li.twitter.inner-tag
+            %label Twitter
+            %span @
+            = f.input :twitter_handle, :wrapper => false, :label => false
           %li.buttons= f.button :submit, "Save", class: 'btn primary large'
-  - if current_user.user_tags.count > 0
-    = render :partial => 'shared/tag_cloud', :locals => {:can_delete => true}
 
 %aside
-  = render :partial => 'shared/sidebar_nav', :locals => { :user => current_user }
-  = render :partial => 'shared/sidebar_activity', :locals => { :user => current_user }
+  = render 'shared/sidebar_nav'

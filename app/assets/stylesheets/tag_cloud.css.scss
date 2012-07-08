@@ -1,12 +1,11 @@
 
 // jqcloud
 #tag-cloud {
-
   min-height: 250px;
   line-height: normal;
   overflow: hidden;
   position: relative;
-  width: 700px;
+  width: 680px;
 
   a {
     color: inherit;
@@ -19,48 +18,48 @@
       color: #0cf; } }
 
   > span {
-
+    border: 1px solid transparent;
     cursor: pointer;
     display: inline-block;
-    font-family: 'franklin-gothic-urw-cond';
-    padding: 0 20px 0 0;
-    text-transform: uppercase;
+    font-family: open-sans, sans-serif;
+    padding: 5px 10px;
+
+    //text-transform: uppercase;
 
     &.w5 {
-      font-size: 50px;
+      font: 60px gnuolane, impact, sans-serif;
       color: #222;
     }
     &.w4 {
-      font-size: 42px;
+      font: 48px gnuolane, impact, sans-serif;
       color: #555;
     }
     &.w3 {
-      font-size: 32px;
-      color: $blue;
+      font: 36px futura-pt, sans-serif;
+      color: $blue - #111;
     }
     &.w2 {
-      font-size: 24px;
-      color: $blue + #222;
+      font: 24px museo, sans-serif;
+      color: $blue + #191919;
     }
     &.w1 {
-      font-size: 18px;
+      font: 18px open-sans, sans-serif;
       color: $blue + #444;
     }
   }
 
   .icon {
     display: inline-block;
-    margin-left: 5px;
-    margin-right: 10px;
+    margin-left: 8px;
   }
 
-  .vouche {
+  .vouch {
     &:hover .icon {
       background-position: 0 -16px;
     }
   }
 
-  .unvouche {
+  .unvouch {
     &:hover .icon {
       background-position: 0 0;
     }
@@ -71,18 +70,22 @@
   .remove .icon { background-position: 0 -128px; }
 
   .word {
-    font-family: 'franklin-gothic-urw-cond';
+    //font-family: 'franklin-gothic-urw-cond';
     &:hover, &:focus {
+      background: #eee;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      color: #111;
       position: relative;
       z-index: 99999999;
+      @include border-radius(3px);
+      @include box-shadow(rgba(0, 0, 0, 0.1) 0 0 3px inset);
     }
   }
 }
 
 #tag-msg {
-  border-top: 1px solid #e9e9e9;
   color: #888;
-  font-size: 12px;
+  font: 12px "open-sans", sans-serif;
   padding: 18px;
   text-align: center;
 
@@ -93,4 +96,9 @@
     margin-right: 5px;
     margin-left: 10px;
   }
+}
+
+.tag-actions {
+  bottom: 3px;
+  position: absolute;
 }

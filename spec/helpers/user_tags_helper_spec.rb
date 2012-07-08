@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe UserTagsHelper do
-  let(:user) { Factory(:user) }
-  let(:tagger) { Factory(:user) }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:tagger) { FactoryGirl.create(:user) }
 
   describe "#tags_summary" do
     it "is empty when no user tags" do

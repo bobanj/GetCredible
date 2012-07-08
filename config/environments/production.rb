@@ -67,6 +67,14 @@ GetCredible::Application.configure do
 
   # Devise Mailer
   config.action_mailer.default_url_options = { :host => 'givebrand.to' }
+  config.action_mailer.asset_host          = 'givebrand.to'
+
+  config.middleware.use ExceptionNotifier,
+    :email_prefix => "[GiveBrand Production Error] ",
+    :sender_address => %{"no-reply@givebrand.to"},
+    :exception_recipients => %w{dalibor.nasevic@gmail.com bobanj@gmail.com}
+    # ignore_exceptions: ExceptionNotifier.default_ignore_exceptions # + [RuntimeError]
+
 end
 
 ActionMailer::Base.smtp_settings = {
@@ -78,5 +86,3 @@ ActionMailer::Base.smtp_settings = {
   :domain         => 'heroku.com'
 }
 ActionMailer::Base.delivery_method = :smtp
-
-ENV["REDISTOGO_URL"] = 'redis://redistogo:9883ab2d8a51f29a335f3256ac4a9c1d@drum.redistogo.com:9223/'

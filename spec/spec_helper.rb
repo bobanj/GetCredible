@@ -35,7 +35,18 @@ Spork.prefork do
     # If you're not using ActiveRecord, or you'd prefer not to run each of your
     # examples within a transaction, remove the following line or assign false
     # instead of true.
-    config.use_transactional_fixtures = true
+    # config.use_transactional_fixtures = true
+    config.use_transactional_fixtures = false
+
+    config.before(:suite) do
+      DatabaseCleaner.strategy = :truncation
+    end
+    config.before :each do
+      DatabaseCleaner.clean
+    end
+
+    # Capybara driver
+    Capybara.javascript_driver = :webkit
 
     # If true, the base class of anonymous controllers will be inferred
     # automatically. This will be the default behavior in future versions of
@@ -65,9 +76,6 @@ Spork.each_run do
 
   # factories reload
   FactoryGirl.reload
-
-  # models reload
-  Dir["#{Rails.root}/app/models/**/*.rb"].each { |model| load model }
 
   load "Sporkfile.rb" if File.exists?("Sporkfile.rb")
 end

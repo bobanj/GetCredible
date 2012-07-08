@@ -37,6 +37,7 @@ GetCredible::Application.configure do
 
   # Devise Mailer
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.asset_host          = 'localhost:3000'
 
   #config.after_initialize do
   #  Bullet.enable = true
@@ -47,6 +48,8 @@ GetCredible::Application.configure do
   #  Bullet.rails_logger = true
   #  Bullet.disable_browser_cache = true
   #end
-end
 
-ENV["REDISTOGO_URL"] = 'redis://127.0.0.1:6379'
+  # mailcatcher
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
+end

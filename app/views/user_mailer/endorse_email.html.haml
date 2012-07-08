@@ -1,0 +1,32 @@
+- @link_color = "#137AC2"
+
+!!!
+%html
+  %head
+    %meta{ 'content' => "text/html; charset=UTF-8", 'http-equiv' => "Content-Type" }
+
+  %body{:style => "background:url(http://givebrand.to/assets/bg2.png) #f6f6f6;font-size:12px;font-family:Helvetica,Arial,sans-serif;margin:0;padding:15px 0 0;line-height:1.4;"}
+    %table{:style => "margin: 0 auto;width:600px;"}
+      %tbody
+        = render 'user_mailer/header'
+
+    %table{:style => "background:#fff;margin: 0 auto;padding:20px;text-align:left;width:600px;"}
+      %tbody
+
+        %tr
+          %td
+            %h1{:style => "color:#444444;margin:10px 0 5px;font-size:16px;font-weight:normal;"} #{@receiver.name}! Check it OUT!
+            %h2{:style => "font-size:22px;font-weight:normal;line-height:1.4;color:#444;margin:0 0 15px;"}
+              #{link_to @endorser.name, me_user_url(@endorser), :style => "color: #{@link_color};"} has just left an endorsement on your GiveBrand #{link_to 'profile', me_user_url(@receiver), :style => "color: #{@link_color}"}. Take a look:
+            %p{:style => "font-size:12px;font-style:italic;line-height:1.4;color:#444;margin:0 0 15px;"}
+              = @endorsement.description
+
+        %tr
+          %td{:colspan => "100"}
+            %hr{:style => "background:none;border:none;border-top:1px solid #eee;"}
+        %tr
+          %td
+            %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
+              How nice is that?! Now, why not #{link_to 'invite', invite_url, :style => "color: #{@link_color};"} some more people to GiveBrand and keep this love fest going?
+
+    = render 'user_mailer/footer'

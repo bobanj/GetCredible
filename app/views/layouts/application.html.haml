@@ -1,5 +1,5 @@
 !!!
-%html
+%html{:itemscope => "", :itemtype => "http://#{request.host}:#{request.port.to_s+request.fullpath}"}
   %head
     %title GiveBrand
     = render 'shared/meta_information'
@@ -8,7 +8,6 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
 
-    //- if Rails.env == 'production'
     %script{:src => "http://use.typekit.com/sbg7dmp.js", :type => "text/javascript"}
     :javascript
       try { Typekit.load(); } catch (e) {}
@@ -22,20 +21,15 @@
       = render :partial => 'shared/header'
 
       #main
+        = render 'shared/guide'
+
         - #TODO Style flash messages
         = flash_messages
         = yield
 
-      %footer
-        
-        = link_to 'Privacy policy', privacy_path
-        &bull;
-        = link_to 'Terms of use', terms_path
-        &bull;
-        = mail_to 'feedback@givebrand.com', 'Send feedback'
-        %br
-        Copyright &copy; GiveBrand 2012
+      = render 'shared/footer'
 
-      = yield :scripts
+      = yield :javascripts
       = render 'shared/google_analytics'
       = render 'shared/olark'
+      = render 'shared/mixpanel'

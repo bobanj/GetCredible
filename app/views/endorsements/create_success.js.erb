@@ -1,0 +1,18 @@
+<% if params[:write_endorsement].present? %>
+$("#write_endorsement_form").replaceWith('<%=j(render 'write_endorsement_form', hide: false, endorsement: Endorsement.new)%>');
+$("#write_endorsement_user_tag_id").chosen();
+$("#write_endorsement_description").limit('300', $("#write_endorsement_word_counter"));
+<% end %>
+$("#js-no-endorsements").remove();
+$("#js-endorsement-form").remove();
+
+var userTagEndorsementContainer = $("#endorse_<%=@endorsement.user_tag_id-%>_container");
+var userTagEndorsements = '<%=j(render 'user_tag_endorsements', user_tag: @endorsement.user_tag, endorsements: @endorsement.user_tag.endorsements.latest ) %>';
+if(userTagEndorsementContainer.length){
+  userTagEndorsementContainer.replaceWith(userTagEndorsements);
+} else {
+  $("#endorsements_list").prepend(userTagEndorsements);
+}
+$("#endorsements_form_keeper").html('<%= j(render 'endorsements/form', endorsement: Endorsement.new)%>');
+mixpanel.track("Endorsement create");
+

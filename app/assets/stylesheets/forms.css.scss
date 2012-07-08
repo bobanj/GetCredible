@@ -62,13 +62,14 @@ input[type=checkbox], input[type=radio] {
 input, textarea, select, .uneditable-input {
   background: #f9f9f9;
   border: 1px solid #ccc;
-  display: inline-block;
-  width: 210px;
-  height: $baseline;
-  padding: 4px;
-  font-size: $basefont;
-  line-height: $baseline;
   color: $gray;
+  display: inline-block;
+  font-size: $basefont;
+  height: $baseline;
+  line-height: $baseline;
+  margin-bottom: 0;
+  padding: 4px;
+  width: 210px;
   @include border-radius(1px);
   &:hover, &:focus {
     border: 1px solid #999;
@@ -295,6 +296,32 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
   }
 }
 
+// Move the URL inside the Input
+.inner-tag {
+  position: relative;
+  span {
+    font-size: 12px;
+    left: 9px;
+    position: absolute;
+    top: 23px;
+  }
+  &.username {
+    input {
+      padding-left: 118px;
+      width: 186px !important;
+    }
+  }
+  &.twitter {
+    input {
+      padding-left: 20px;
+      width: 284px !important;
+    }
+    span {
+      top: 25px;
+    }
+  }
+}
+
 // Allow us to put symbols and text within the input field for a cleaner look
 .input-prepend, .input-append {
   input {
@@ -367,6 +394,7 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
     width: auto;
     padding: 0;
     margin-left: 0;
+    margin-bottom: 2px;
     line-height: 1.5;
     text-align: left;
     white-space: normal;
@@ -398,11 +426,12 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
     padding-top: 10px;
   }
   .error{
-    background: #f5f5f5;
+    background: #f9f9f9;
     color: $red;
     display: inline-block;
     font-size: 11px;
-    padding: 2px 8px;
+    letter-spacing: 0.3px;
+    padding: 0 8px;
   }
 }
 
@@ -485,6 +514,70 @@ ul.inputs {
     float: left;
     margin-left: 111px;
     margin-right: 30px;
+  }
+}
+
+#steps {
+  .inputs-list {
+    padding: 0;
+    width: 100%;
+    li {
+      padding: 0 0 10px 6%;
+      width: 50%;
+      &.full {
+        width: 90%;
+      }
+      &.center {
+        text-align: center;
+      }
+      &.buttons {
+        border-top: 1px solid #ddd;
+        margin-top: 5px;
+        padding: 15px 0 10px 6%;
+        width: 94%;
+      }
+    }
+  }
+  .avatar {
+    cursor: pointer;
+    float: right;
+    margin-right: 20px;
+    @include pie-clearfix;
+    padding-left: 0;
+    position: relative;
+    width: 32% !important;
+
+
+    label {
+      color: #888;
+      display: block;
+      float: none;
+      font-size: 11px;
+      width: auto;
+      padding: 0;
+      margin-left: 0;
+      margin-bottom: 2px;
+      line-height: 1.5;
+      text-align: left;
+      white-space: normal;
+    }
+    input {
+      float: right;
+      opacity: 0;
+      position: relative;
+      z-index: 3;
+      width: 100%;
+    }
+    span {
+      position: absolute;
+      top: 18px;
+      width: 65%;
+      z-index: 2;
+    }
+  }
+
+  #step_1_form {
+    float: left;
   }
 }
 

@@ -1,11 +1,36 @@
-%p Hey, #{@tagged.full_name}.
+- @link_color = "#137AC2"
 
-%p Great news: #{link_to @tagger.full_name, me_user_url(@tagger)} added a new tag for you! Here it is: #{@tag_names.join(', ')}
+!!!
+%html
+  %head
+    %meta{ 'content' => "text/html; charset=UTF-8", 'http-equiv' => "Content-Type" }
 
-%p Love it? We're humbled just to know you. Rock on!
+  %body{:style => "background:url(http://givebrand.to/assets/bg2.png) #f6f6f6;font-size:12px;font-family:Helvetica,Arial,sans-serif;margin:0;padding:15px 0 0;line-height:1.4;"}
+    %table{:style => "margin: 0 auto;width:600px;"}
+      %tbody
+        = render 'user_mailer/header'
 
-%p Not so much? Head to your profile and click the little red "X" to get rid of the tag. (Other people may have their thoughts on what you're best at, but you're the final gatekeeper.)
+    %table{:style => "background:#fff;margin: 0 auto;padding:20px;text-align:left;width:600px;"}
+      %tbody
 
-%p Won't you consider paying it forward? Keep the love flowing... tag one of your contacts. Have a great day!
+        %tr
+          %td
+            %h1{:style => "color:#444444;margin:10px 0 5px;font-size:16px;font-weight:normal;"}Hey, #{@receiver.name}.
+            %h2{:style => "font-size:22px;font-weight:normal;line-height:1.4;color:#444;margin:0 0 15px;"}
+              Great news: #{link_to @tagger.name, me_user_url(@tagger), :style => "color: #{@link_color};"} has just tagged you with #{@tag_names.map{|t| "\"#{t}\""}.join(', ')}.
 
-= render 'signature'
+        %tr
+          %td{:colspan => "100"}
+            %hr{:style => "background:none;border:none;border-top:1px solid #eee;"}
+        %tr
+          %td
+            %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
+              Love it? Rock on!
+              %br
+              Not so much? Head to your #{link_to 'profile', me_user_url(@receiver), :style => "color: #{@link_color};"} and click the X to get rid of it.
+        %tr
+          %td
+            %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
+              Pay it forward! Head back to GiveBrand and tag some of your #{link_to 'contacts', user_followers_url(@receiver), :style => "color: #{@link_color};"}.
+
+    = render 'user_mailer/footer'

@@ -1,0 +1,30 @@
+%section#profile.edit-area
+  - if user_signed_in? && current_user == @user
+    = link_to 'Edit', edit_user_registration_path, :class => 'edit-button'
+  .details
+    .left
+      - if user_signed_in? && @user == current_user
+        .photo
+          = link_to image_tag(@user.avatar_url(:thumb)), edit_user_registration_path, :id => "user_avatar_main"
+        = link_to edit_user_registration_path, :class => 'no_underline' do
+          %h1= @user.name
+      - else
+        .photo
+          = link_to image_tag(@user.avatar_url(:thumb)), me_user_path(@user), :id => "user_avatar_main"
+        = link_to me_user_path(@user), :class => 'no_underline' do
+          %h1= @user.name
+      %h2= auto_link(@user.short_bio, :html => {:target => '_blank'}, :link => :urls)
+    %ul.right
+      - unless @user.location.blank?
+        %li.location
+          %span.icon
+          = @user.location
+      - unless @user.personal_url.blank?
+        %li.web
+          %span.icon
+          - #TODO create url for given addr ex google.com
+          = link_to @user.personal_url, @user.personal_url, :target => '_blank'
+      - unless @user.twitter_handle.blank?
+        %li.twitter
+          %a.twitter-follow-button{"data-hashtags" => "givebrand", "data-show-count" => "false", :href => "https://twitter.com/#{@user.twitter_handle}"}="Follow @#{@user.twitter_handle}"
+

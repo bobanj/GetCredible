@@ -1,0 +1,13 @@
+<% if params[:write_endorsement].present? %>
+var writeEndorsementForm = $("#write_endorsement_form");
+writeEndorsementForm.find(".loader").addClass('hide');
+writeEndorsementForm.replaceWith('<%=j(render 'endorsements/write_endorsement_form', hide: false, endorsement: @endorsement)%>');
+$("#write_endorsement_user_tag_id").chosen();
+$("#write_endorsement_description").limit('300', $("#write_endorsement_word_counter"));
+<% else %>
+$("#js-endorsement-form").replaceWith('<%= j(render 'endorsements/form', endorsement: @endorsement)%>');
+var endorsementTextarea = $("#js-endorsement-form").find("#endorsement_description");
+endorsementTextarea.limit('300', $("#endorsement_word_counter"));
+endorsementTextarea.focus();
+<% end %>
+

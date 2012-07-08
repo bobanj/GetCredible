@@ -1,0 +1,4 @@
+$.getCredible.displayNotification('error', 'We could not sent your message at this time.');
+
+$('.loading').hide();
+$('#js-twitter-invitation-form').replaceWith('<%= j(render 'form', message: @message) %>');

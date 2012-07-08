@@ -7,8 +7,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  # storage :file
-  # storage :fog
+  # Rails.env.production? ? storage(:fog) : storage(:file)
 
   def cache_dir
     "#{Rails.root}/tmp/uploads"
@@ -35,23 +34,23 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :thumb do
-     process :resize_to_limit => [126, 126]
+     process :resize_to_fit => [126, 126]
   end
 
   version :avatar do
-     process :resize_to_limit => [60, 60]
+     process :resize_to_fit => [60, 60]
   end
 
   version :medium do
-     process :resize_to_limit => [40, 40]
+     process :resize_to_fit => [40, 40]
   end
 
   version :small do
-     process :resize_to_limit => [28, 28]
+     process :resize_to_fit => [28, 28]
   end
 
   version :tiny do
-     process :resize_to_limit => [24, 24]
+     process :resize_to_fit => [24, 24]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

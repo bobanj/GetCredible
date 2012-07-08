@@ -6,14 +6,15 @@ module ActivitiesHelper
   def activity_class(activity_item)
     classes = []
 
-    if activity_vote?(activity_item)
-      classes << 'vouche'
-    else
-      classes << 'tag'
+    case activity_item.item
+      when Vote
+        classes << 'vouch'
+      when UserTag
+        classes << 'tag'
+      when Endorsement
+        classes << 'endorsement'
     end
-
     classes << 'you' if outgoing_activity?(activity_item)
-
     classes.join(' ')
   end
 
@@ -30,15 +31,15 @@ module ActivitiesHelper
   end
 
   def user_link(user)
-    "#{link_to(user.full_name, me_user_path(user))}".html_safe
+    "#{link_to(user.name, me_user_path(user))}".html_safe
   end
 
-  def user_short(user)
-    user.short_name =~ /s$/i ? "#{user.short_name}'" : "#{user.short_name}'s"
+  def apostrophe(term)
+    term =~ /s$/i ? "'" : "'s"
   end
 
   def user_long(user)
-    user.full_name =~ /s$/i ? "#{user.full_name}'" : "#{user.full_name}'s"
+    user.name =~ /s$/i ? "#{user.name}'" : "#{user.name}'s"
   end
 
   def incoming_activity_description(activity_item)
@@ -46,10 +47,17 @@ module ActivitiesHelper
     item = activity_item.item
     target = activity_item.target
 
-    if activity_vote?(activity_item)
-      "Check YOU out! #{user_link(user)} vouched for your tag: #{tag_link(item.voteable.tag.name)}".html_safe
-    else
-      "Sweet! #{user_link(user)} tagged #{current_user && current_user == target ? "you" : user_link(target) }: #{tag_link(item.tag.name)}".html_safe
+    case item
+      when Vote
+        "Check YOU out! #{user_link(user)} vouched for your tag: #{tag_link(item.voteable.tag.name)}".html_safe
+      when UserTag
+        if user == target
+          "Sweet! You tagged yourself: #{tag_link(item.tag.name)}".html_safe
+        else
+          "Sweet! #{user_link(user)} tagged #{current_user && current_user == target ? "you" : user_link(target) }: #{tag_link(item.tag.name)}".html_safe
+        end
+      when Endorsement
+        "Cool! #{user_link(user)} endorsed #{current_user && current_user == target ? "you" : user_link(target) }".html_safe
     end
   end
 
@@ -58,10 +66,17 @@ module ActivitiesHelper
     item   = activity_item.item
     user = activity_item.user
 
-    if activity_vote?(activity_item)
-      "#{current_user && current_user == user ? "You" : link_to(user.full_name, me_user_path(user)) } vouched for #{user_link(target)}'s tag: #{tag_link(item.voteable.tag.name)}".html_safe
-    else
-      "#{current_user && current_user == user ? "You" : user_link(user) } tagged #{user_link(target)}: #{tag_link(item.tag.name)}".html_safe
+    case item
+      when Vote
+        "#{current_user && current_user == user ? "You" : link_to(user.name, me_user_path(user)) } vouched for #{user_link(target)}'s tag: #{tag_link(item.voteable.tag.name)}".html_safe
+      when UserTag
+        if user == target
+          "#{user_link(user)} tagged themself: #{tag_link(item.tag.name)}".html_safe
+        else
+          "#{current_user && current_user == user ? "You" : user_link(user) } tagged #{user_link(target)}: #{tag_link(item.tag.name)}".html_safe
+        end
+      when Endorsement
+        "#{current_user && current_user == user ? "You" : user_link(user) } wrote an endorsement for #{user_link(target)}".html_safe
     end
   end
 
@@ -74,27 +89,30 @@ module ActivitiesHelper
   end
 
   def tag_cloud_summary(user)
-    users = user.incoming_activities.includes(:user).map{|a| a.user}.uniq
-
+    users = user.incoming_activities.includes(:user).map { |a| a.user }.uniq
     if users.length == 0
-      "Nobody tagged or vouched you so far."
+      "Nobody tagged or vouched for #{who?(user)} so far.".html_safe
     elsif users.length == 1
       tagger = users.pop
-      "#{link_to(tagger.full_name, me_user_path(tagger))} tagged or vouched for #{who?(user)} so far.".html_safe
+      "Only #{who?(tagger)} tagged or vouched for #{who?(user)} so far.".html_safe
     elsif users.length == 2
-      "#{users.map{|user| link_to(user.full_name, me_user_path(user))}.join(' and ')} tagged or vouched for #{who?(user)} so far.".html_safe
+      "#{users.map { |user| yourself?(user)}.join(' and ')} tagged or vouched for #{who?(user)} so far.".html_safe
     else
       output = []
       u = users.pop
-      output << link_to(u.full_name, me_user_path(u))
+      output << yourself?(u)
       u = users.pop
-      output << link_to(u.full_name, me_user_path(u))
+      output << yourself?(u)
       output.join(', ').concat(" and #{users.length} other people tagged or vouched for #{who?(user)} so far.").html_safe
     end
 
   end
 
+  def yourself?(user)
+    ((current_user && current_user == user) ? "yourself" : link_to(user.name, me_user_path(user))).html_safe
+  end
+
   def who?(user)
-    ((current_user && current_user == user) ? "you" : link_to(user.full_name, me_user_path(user))).html_safe
+    ((current_user && current_user == user) ? "you" : link_to(user.name, me_user_path(user))).html_safe
   end
 end

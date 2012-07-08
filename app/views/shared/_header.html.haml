@@ -1,38 +1,47 @@
-
 %header#global-header
   %nav
     %ul#global-nav
-      - if user_signed_in?
-        %li#gn-logo
-          = link_to activity_path('all'), :class => 'logo' do
-            %span give
-            brand
-        %li#gn-logout
-          = link_to "Logout", destroy_user_session_path
-        %li#gn-profile
-          = link_to 'Profile', me_user_path(current_user), :class => ((params[:controller] == 'users' && params[:action] == 'show') || (params[:controller] == 'users/registrations') ? 'active' : nil)
-        %li#gn-activity
-          = link_to 'Tour', tour_path, :class => (params[:controller] == 'home' && params[:action] == 'tour' ? 'active' : nil)
-        %li#gn-activity
-          = link_to 'Home', activity_path('all'), :class => (params[:controller] == 'activities' ? 'active' : nil)
+      %li#gn-logo
+        = link_to root_path, :class => 'logo' do
+          %span give
+          brand
+
+      - if !user_signed_in? && params[:controller] == 'home' && params[:action] == 'index'
+        %li#gn-signin
+          = simple_form_for(:user, :url => user_session_path, :namespace => 'sign_in', :html => {:id => 'user_sign_in'}) do |f|
+            %ul
+              %li
+                = f.input :email, :required => false, :autofocus => true, :input_html => { :value => nil }, :placeholder => "Email or Username", :label => "Email or Username", :label_html => {:class => 'hidden'}, :input_html => {:tabindex => 1}
+                = f.input :remember_me, :as => :boolean, :input_html => {:tabindex => 3}
+              %li
+                = f.input :password, :required => false, :placeholder => "Password", :input_html => { :value => nil }, :label_html => {:class => 'hidden'}, :input_html => {:tabindex => 2}
+                = link_to "Forgot your password?", new_user_password_path
+              %li
+                = f.button :submit, "Sign in", class: 'btn small primary gray', id: 'landing_sign_in'
       - else
-        %li#gn-logo
-          = link_to root_path, :class => 'logo' do
-            %span give
-            brand
-          //= link_to image_tag('give_brand_logo.png'), root_path, :class => 'logo'
-        %li#gn-tour
-          = link_to 'Tour', tour_path, :class => (params[:controller] == 'home' && params[:action] == 'tour' ? 'active' : nil)
-        %li#gn-register
-          = link_to "Sign up", new_user_registration_path, :class => (params[:controller] == 'users/registrations' ? 'active' : nil)
-        %li#gn-login
-          = link_to 'Login', new_user_session_path, :class => (params[:controller] == 'users/sessions' ? 'active' : nil)
+        %li#global-search
+          = form_tag users_path, :id => 'g-search', :method => :get do
+            //= label_tag :q, "Search"
+            = text_field_tag :q, '', :id => 'g-searchtext', :placeholder => 'Search people or tag'
+            %button go
 
-  #global-search
-    = form_tag users_path, :id => 'g-search', :method => :get do
-      = label_tag :q, "Search"
-      = text_field_tag :q, '', :id => 'g-searchtext', :placeholder => 'Search people or tag'
-      %button go
-  -# #twitter
-  -#   = link_to image_tag('twitter-icon.png'), 'http://twitter.com/'
+        - if user_signed_in?
+          %li#gn-logout
+            = link_to "Logout", destroy_user_session_path
+          %li#gn-activity
+            = link_to 'Invite', invite_path, :class => ((params[:controller] == 'invite') ? 'active' : nil)
+          %li#gn-profile
+            = link_to 'Profile', me_user_path(current_user), :class => ((params[:controller] == 'users' && ['show', 'followers', 'following'].include?(params[:action]) && current_user == @user) ? 'active' : nil)
+          %li#gn-activity
+            = link_to 'Activity', activity_path('all'), :class => (params[:controller] == 'activities' ? 'active' : nil)
+          - if user_signed_in? && params[:controller] == 'home'
+            %li#gn-tour
+              = link_to 'Tour', tour_path, :class => (params[:controller] == 'home' && params[:action] == 'tour' ? 'active' : nil)
 
+        - else
+          %li#gn-tour
+            = link_to 'Tour', tour_path, :class => (params[:controller] == 'home' && params[:action] == 'tour' ? 'active' : nil)
+          %li#gn-register
+            = link_to "Sign up", new_user_registration_path, :class => (params[:controller] == 'users/registrations' ? 'active' : nil)
+          %li#gn-login
+            = link_to 'Sign in', new_user_session_path, :class => (params[:controller] == 'users/sessions' ? 'active' : nil)

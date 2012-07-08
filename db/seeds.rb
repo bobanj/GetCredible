@@ -8,13 +8,14 @@
 usernames = ["test","voter"]
 password = "asdfasdf"
 usernames.each do |username|
-  email = "#{username}@test.com"
+  email = "#{username}@givebrand.to"
   user = User.find_by_email email
   unless user
     puts "Setting up Test user with: #{email} / #{password}"
     user = User.create :email => email,
+                       :username => username,
                        :full_name => "Tester Uzumaki #{username}",
-                       :job_title => "Ninja",
+                       :short_bio => "Ninja",
                        :password => password,
                        :password_confirmation => password
     user.save!

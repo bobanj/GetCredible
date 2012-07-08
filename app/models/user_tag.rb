@@ -8,6 +8,8 @@ class UserTag < ActiveRecord::Base
   has_many :activity_items, :as => :item, :dependent => :destroy
   has_many :voters, :through => :votes
   has_many :last_voters, :through => :votes, :source => :voter, :order => 'id DESC', :limit => 5
+  has_many :endorsements, :dependent => :destroy
+  has_many :endorsers, :through => :endorsements, :source => :endorser
 
   # Validations
   validates :user_id, :presence => true
@@ -27,7 +29,7 @@ class UserTag < ActiveRecord::Base
     self.outgoing.value = calculate_outgoing
   end
 
-  def self.add_tags(tagger, user, tag_names)
+  def self.add_tags(tagger, user, tag_names, options = {})
     user_tags = user.user_tags
     new_tags  = []
 
@@ -37,22 +39,25 @@ class UserTag < ActiveRecord::Base
 
       if user_tag
         # just add vote if tag already exists
-        tagger.add_vote(user_tag)
+        tagger != user ? tagger.add_vote(user_tag) : user_tag.update_counters
       else
         new_tags << tag.name
         user_tag = user.user_tags.new
         user_tag.tag = tag
         user_tag.tagger = tagger
         user_tag.save
-        tagger.activity_items.create(:item => user_tag, :target => user)
-
+        unless options[:skip_activity_item]
+          tagger.activity_items.create(:item => user_tag, :target => user)# if tagger != user
+        end
         # automatically add vote on tag creation
-        tagger.add_vote(user_tag, false)
+        tagger != user ? tagger.add_vote(user_tag, false) : user_tag.update_counters
       end
     end
 
-    # email user with the new tags
-    UserMailer.tag_email(tagger, user, new_tags).deliver if new_tags.present?
+    unless options[:skip_email]
+      # email user with the new tags
+      UserMailer.tag_email(tagger, user, new_tags).deliver if new_tags.present? && tagger != user
+    end
   end
 
   private

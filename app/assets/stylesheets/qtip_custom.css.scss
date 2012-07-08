@@ -1,0 +1,186 @@
+.ui-tooltip-guide, .ui-tooltip-twitter, .ui-tooltip-login{
+  border: none;
+}
+
+.ui-tooltip-guide, .ui-tooltip-twitter, .ui-tooltip-login {
+  max-width: 420px;
+  min-width: 420px;
+  padding-bottom: 0;
+  .ui-tooltip-titlebar {
+    background: transparent;
+    float: none;
+    padding: 0;
+    overflow: visible;
+    .ui-tooltip-icon .ui-icon {
+      background: #111;
+      border: none;
+      color: #fff;
+      display: block;
+      font-size: 15px;
+      font-weight: bold;
+      height: 30px;
+      line-height: 30px;
+      position: absolute;
+      right: -21px;
+      text-align: center;
+      top: -21px;
+      width: 30px;
+      @include border-radius(50%);
+    }
+  }
+  #page-header {
+    margin: 10px 0 0;
+    padding: 0;
+  }
+  #login_dialog section, .invite_dialog section {
+    padding: 15px 0 5px 25px;
+    &.sign_in {
+      margin: 0;
+    }
+    &.sign_up {
+      border-left: 1px solid #ddd;
+      margin-left: 20px;
+      padding-left: 20px;
+    }
+  }
+  .inputs-list {
+    margin: 0;
+    padding: 0;
+  }
+  .note {
+    color: #fff !important;
+    font-size: 15px;
+  }
+  #login_dialog section .buttons_left {
+    margin-left: 0;
+  }
+}
+
+.ui-tooltip-twitter .ui-tooltip-content {
+  padding: 5px 0 15px;
+  #page-header {
+    border: none;
+  }
+  textarea {
+    width: 97%;
+  }
+}
+
+.ui-tooltip-login {
+  max-width: 550px;
+  min-width: 550px;
+  .inputs-list.bg {
+    background: none;
+  }
+}
+
+.ui-tooltip-guide, .ui-tooltip-login {
+  @include border-radius(3px);
+  background: #eee;
+  padding: 15px 0 10px;
+  .ui-tooltip-titlebar {
+    background: #eee;
+    padding-bottom: 10px;
+    @include border-top-radius(3px);
+  }
+  .inputs-list {
+    margin: 0;
+    padding: 0;
+  }
+  .ui-tooltip-content {
+    padding: 0;
+    position: relative;
+    overflow: visible;
+    z-index: 2;
+  }
+  #guide_title {
+    float: left;
+    font: 15px "futura-pt", sans-serif;
+    line-height: 1;
+    padding: 13px 15px 12px;
+    position: relative;
+    z-index: 1;
+    //@include box-shadow(rgba(0, 0, 0, 0.1) 0 -3px 3px inset);
+  }
+}
+
+.ui-tooltip-login {
+  padding: 0;
+}
+
+#guide_video_container {
+  padding: 0 25px;
+}
+
+#guide_video_back {
+  display: block;
+  font-size: 12px;
+  text-decoration: underline;
+}
+#guide_close {
+  background: none;
+  border: none;
+  color: $red;
+  font: 13px "futura-pt", sans-serif;
+  margin-top: 0;
+  opacity: .7;
+  position: absolute;
+  right: 10px;
+  text-decoration: underline;
+  top: 10px;
+  &:hover, &:focus {
+    opacity: 1;
+  }
+  span {
+    font: 14px "futura-pt", sans-serif;
+    text-decoration: underline;
+  }
+}
+
+#guide_video_link {
+  font-size: 12px;
+  text-decoration: underline;
+}
+#user_avatar_guide_form{
+  .loading{
+    position: absolute;
+    right: 80px;
+    top: 180px;
+  }
+}
+#user_avatar_preview{
+  width: 126px;
+  height: 126px;
+  position: absolute;
+  right: 33px;
+  top: 150px;
+  img{
+    display: block;
+    padding: 8px;
+    float: left;
+    @include box-shadow(rgba($black, 0.07) 0px 1px 2px);
+  }
+}
+
+.ui-tooltip-tag-cloud {
+  border: none;
+  background: transparent;
+  max-width: 360px;
+  min-width: 360px;
+  .ui-tooltip-content {
+    padding: 0;
+    @include box-shadow(rgba(0, 0, 0, 0.1) 0 0 5px);
+  }
+  .ui-tooltip-tip {
+    background: image_url('icon-tip.png') no-repeat center bottom;
+    left: 0% !important;
+    margin-left: -5px;
+    width: 100% !important;
+  }
+  .add-endorsement {
+    background: #fff;
+  }
+  .hint {
+    margin-left: 0;
+  }
+}

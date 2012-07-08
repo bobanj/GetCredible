@@ -4,10 +4,17 @@ module UsersHelper
   end
 
   def profile_title(user)
-    title = link_to(user.full_name, me_user_path(user))
-    if user.job_title.present?
-      title += ", #{user.job_title}"
+    if user.active?
+      title = link_to(user.name, me_user_path(user))
+    else
+      title = user.name
     end
+
+    title += ", #{user.short_bio}" if user.short_bio.present?
     title
+  end
+
+  def users_active_class(name)
+    params[:action] == name ? 'active' : nil
   end
 end

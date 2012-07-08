@@ -89,8 +89,10 @@ div.noty_modal {
     margin-left: 5px; }
   .noty_close {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    //top: 10px;
+    top: 0px;
+    //right: 10px;
+    right: 0px;
     background-image: image-url("closelabel.png");
     width: 20px;
     height: 20px;
@@ -129,7 +131,8 @@ div.noty_modal {
       border-radius: 4px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); }
     .noty_close {
-      top: 50%;
+      //top: 50%;
+      top: 0px;
       margin-top: -10px;
       border-radius: 10px;
       right: -10px; }
@@ -187,7 +190,8 @@ div.noty_modal {
       position: absolute;
       background: image-url("mitgux/close.png") no-repeat;
       right: -8px;
-      top: 50%;
+      //top: 50%;
+      top: 0px;
       margin-top: -10px;
       box-shadow: 0 0 3px #3C3C3C;
       border-radius: 10px;

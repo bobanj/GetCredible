@@ -1,10 +1,19 @@
 - content_for :meta_tags do
-  %meta{ :property => "og:title", :content => "Help boost my influence at givebrand.to!" }
+  %meta{ :property => "og:title", :content => "Help me boost my credibility on GiveBrand" }
   %meta{ :property => "og:type", :content => "article" }
   %meta{ :property => "og:url", :content => me_user_url(@user) }
   %meta{ :property => "og:site_name", :content => "Give Brand" }
-  %meta{ :property => "og:description", :content => "Help boost my influence at givebrand.to!" }
+  %meta{ :property => "og:description", :content => "I'm building my brand on GiveBrand. Help me boost my credibility... create your own profile and tag me! #{me_user_url(@user)}" }
   %meta{ :property => "og:image", :content => user_avatar_url(@user) }
+  - # Google Plus
+  %meta{:content => "Help me boost my credibility on GiveBrand", :itemprop => "name"}
+  %meta{:content => "I'm building my brand on @GiveBrand. Help me boost my credibility... create your own profile and tag me! #{me_user_url(@user)}", :itemprop => "description"}/
+  - if @user.avatar
+    %meta{:content => url_for(@user.avatar_url(:thumb)), :itemprop => "image"}/
+
+- unless Rails.env.test? # stop warnings when running specs
+  - content_for :javascripts do
+    = render 'shared/social_networks_scripts'
 
 #login_dialog{style: "display: none", title: ""}
   %p.note Almost there! Sign up to join GiveBrand or login to your account.
@@ -12,42 +21,32 @@
   = render 'shared/sign_up', :resource => User.new, :resource_name => :user
   = hidden_field_tag :word_id_after_login
   = hidden_field_tag :tag_names_after_login
+  = hidden_field_tag :endorse_after_login
 
 #content
-  %section#profile
-    .details
-      .left
-        .photo
-          = image_tag @user.avatar_url(:thumb)
-        %h1= @user.full_name
-        %h2= @user.job_title
-      %ul.right
-        - unless @user.city.blank?
-          %li.location
-            %span.icon
-            = @user.city
-        - unless @user.personal_url.blank?
-          %li.web
-            %span.icon
-            - #TODO create url for given addr ex google.com
-            = link_to @user.personal_url, @user.personal_url, :target => '_blank'
-        - unless @user.twitter_handle.blank?
-          %li.twitter
-            %a.twitter-follow-button{"data-hashtags" => "givebrand", "data-show-count" => "false", :href => "https://twitter.com/#{@user.twitter_handle}"}="Follow @#{@user.twitter_handle}"
-            :javascript
-              !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+  = render 'shared/profile'
+  = render 'shared/tag_cloud', can_delete: false
+  = render 'endorsements/endorsements'
+
   %ul.social_fixed
     %li
-      %a.twitter-share-button{'data-count' => "vertical", "data-text" => "Help boost my influence at givebrand.to! #{me_user_url(@user)} #givebrand via @givebrand", :href => "https://twitter.com/share"} Tweet
-      :javascript
-        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+      - if user_signed_in? && current_user == @user
+        - twitter_msg = "I'm building my brand on @GiveBrand. Help me boost my credibility... create your own profile and tag me!"
+      - else
+        - twitter_msg = "Help me boost #{apostrophe(@user.name)} credibility... create your own profile and tag back!"
+      %a.twitter-share-button{'data-count' => "vertical", "data-related" => "givebrand", "data-text" => twitter_msg, "data-url" => me_user_url(@user), :href => "https://twitter.com/share"} Tweet
     %li
-      %script{:src => "//platform.linkedin.com/in.js", :type => "text/javascript"}
+      .fb-like{"data-href" => me_user_url(@user), "data-layout" => "box_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "56"}
+    %li
       %script{"data-counter" => "top", "data-url" => me_user_url(@user), :type => "IN/Share"}
-
-  = render :partial => 'shared/tag_cloud'
+    %li
+      %g:plusone{:href => me_user_url(@user), :size => "tall"}
+    -# %li
+    -#   %a.pin-it-button{"count-layout" => "vertical", :href => "http://pinterest.com/pin/create/button/?url=#{u(me_user_url(@user))}&media=#{request.protocol}#{request.host_with_port}#{asset_path("logo.png")}&description=Description"}
+    -#     %img{:border => "0", :src => "//assets.pinterest.com/images/PinExt.png", :title => "Pin It"}/
 
 %aside
-  - if current_user
-    = render :partial => 'shared/sidebar_nav', :locals => { :user => current_user }
-  = render :partial => 'shared/sidebar_activity', :locals => { :user => @user }
+  - if user_signed_in? && @user == current_user
+    = render 'shared/sidebar_nav'
+  = render 'shared/friend_nav', user: @user
+  = render 'shared/sidebar_activity', :user => @user

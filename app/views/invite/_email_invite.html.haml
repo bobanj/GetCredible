@@ -1,0 +1,4 @@
+#email_invite
+  %h2 Send email invitation
+  %p Enter your contact's name and email address, then get them started by suggesting three tags you think describe them.
+  = render 'users/invitations/form', message: EmailMessage.new

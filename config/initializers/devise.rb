@@ -11,7 +11,7 @@ Devise.setup do |config|
   # config.mailer = "Devise::Mailer"
 
   # Automatically apply schema changes in tableless databases
-  config.apply_schema = false
+  #config.apply_schema = false  DEPRICATED
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -88,6 +88,26 @@ Devise.setup do |config|
   # Setup a pepper to generate the encrypted password.
   # config.pepper = "3e1e9c8a385238386920c7550d9ffb67be4b0ee467fbbcdd28b8083393d3e30c449bdff22eda3b82bf850b4b702bfd4a5cb634439e714e20d8b6816a484e9e84"
 
+  # ==> Configuration for :invitable
+  # The period the generated invitation token is valid, after
+  # this period, the invited resource won't be able to accept the invitation.
+  # When invite_for is 0 (the default), the invitation won't expire.
+  config.invite_for = 2.weeks
+  
+  # Number of invitations users can send.
+  # If invitation_limit is nil, users can send unlimited invitations.
+  # If invitation_limit is 0, users can't send invitations.
+  # If invitation_limit n > 0, users can send n invitations.
+  # Default: nil
+  # config.invitation_limit = 5
+  
+  # The key to be used to check existing users when sending an invitation
+  config.invite_key = :email
+  
+  # Flag that force a record to be valid before being actually invited 
+  # Default: false
+  # config.validate_on_invite = true
+
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
   # confirming his account. For instance, if set to 2.days, the user will be
@@ -114,7 +134,7 @@ Devise.setup do |config|
 
   # If true, uses the password salt as remember token. This should be turned
   # to false if you are not using database authenticatable.
-  config.use_salt_as_remember_token = true
+  #config.use_salt_as_remember_token = true DEPRICATED
 
   # Options to be passed to the created cookie. For instance, you can set
   # :secure => true in order to force SSL only cookies.

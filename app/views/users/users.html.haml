@@ -1,0 +1,30 @@
+#content
+  %section#twitter_contacts.content
+    %header#page-header
+      %h1
+        = params[:action].capitalize
+
+  #invitation_content.listing-wrap
+    %section#invitation_contacts.listing
+      - if @users.present?
+        %ul
+          - @users.each do |user|
+            %li
+              = image_tag user.avatar_url(:medium)
+              - if user.active?
+                %span.name= link_to user.name, me_user_path(user)
+              - else
+                %span= user.name.presence || "No name"
+      - else
+        .ngo
+          %p
+            %span== No #{params[:action]} present.
+            %br
+
+    = will_paginate @users
+
+%aside
+  - if user_signed_in? && @user == current_user
+    = render 'shared/sidebar_nav'
+  = render 'shared/friend_nav', user: @user
+  = render 'shared/sidebar_activity', :user => @user

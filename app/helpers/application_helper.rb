@@ -24,4 +24,10 @@ module ApplicationHelper
       when Vote then "vouch"
     end
   end
+
+  def show_guide?(user, overide=false)
+    return true if overide
+    user.full_name.present? && user.user_tags.any? ? false : true
+  end
+
 end

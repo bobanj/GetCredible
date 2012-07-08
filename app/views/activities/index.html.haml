@@ -1,5 +1,5 @@
 #content
-  %section#activity
+  %section.content
     %header#page-header
       %h1 Recent Activity
       %nav.right
@@ -13,21 +13,45 @@
 
     .feed
       %ul.list-view.unstyled
-        - @activity_items.each do |activity_item|
-          %li{:class => activity_class(activity_item)}
-            .content
-              .tag-icon
-              .photo
-                = link_to activity_item.user do
-                  = image_tag activity_item.user.avatar.url(:small)
-                  = image_tag activity_item.target.avatar.url(:tiny), :class => 'over'
-              -#.icon
-              %h2
-                = activity_description(activity_item)
-              %time= activity_item.created_at.strftime("%d. %b %Y")
 
+        - if @activity_items.present?
+          - @activity_items.each do |activity_item|
+            %li{:class => activity_class(activity_item)}
+              .content
+                .tag-icon
+                .photo
+                  = link_to activity_item.user do
+                    - if activity_item.user_id == activity_item.target_id
+                      = image_tag activity_item.user.avatar.url(:medium), class: 'self-tag'
+                    - else
+                      = image_tag activity_item.user.avatar.url(:small)
+                      = image_tag activity_item.target.avatar.url(:tiny), :class => 'over'
+                -#.icon
+                %h2
+                  = activity_description(activity_item)
+                %br
+                //%p.feed-score
+                //  Score:
+                //  %span 3,
+                //  Position:
+                //  %span #4
+                //  out of
+                //  %span 102
+                -# %ul.feed-users.horizontal
+                -#   %li Other users:
+                -#   %li= link_to image_tag activity_item.user.avatar.url(:small)
+                -#   %li= link_to image_tag activity_item.user.avatar.url(:small)
+                -#   %li= link_to image_tag activity_item.user.avatar.url(:small)
+
+                %time= activity_item.created_at.strftime("%d. %b %Y")
+        - else
+          .ngo
+            %p
+              %span No recent activity
+              %br
+              == #{link_to "Brand Yourself", me_user_path(current_user)} or #{link_to "invite people", new_user_invitation_path}.
     = will_paginate @activity_items
 
 %aside
-  - if current_user
-    = render :partial => 'shared/sidebar_nav', :locals => { :user => current_user }
+  = render 'shared/sidebar_nav'
+  = render 'shared/friend_nav', user: current_user

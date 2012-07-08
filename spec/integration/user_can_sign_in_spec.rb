@@ -3,12 +3,27 @@ require_relative 'steps/app_steps'
 
 describe 'User', type: :request do
 
-  it "can sign in and sign out" do
-    user = Factory :user, full_name: "Some Name"
-    sign_in_user(user)
-    # current_path.should == activity_path('all')
+  it "can sign in with email and sign out" do
+    user = FactoryGirl.create(:user)
+    visit root_path
+    within("#gn-signin") do
+      fill_in("Email or Username", with: user.email)
+      fill_in("Password", with: user.password)
+      click_button("Sign in")
+    end
+    page.should have_content("Logout")
     click_link('Logout')
-    page.should have_content('Signed out successfully.')
+    page.should_not have_content('Logout')
+  end
+
+  it "can sign in with username" do
+    user = FactoryGirl.create(:user)
+    visit root_path
+    within("#gn-signin") do
+      fill_in("Email or Username", with: user.username)
+      fill_in("Password", with: user.password)
+      click_button("Sign in")
+    end
+    page.should have_content("Logout")
   end
 end
-

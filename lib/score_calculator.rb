@@ -23,7 +23,7 @@ class ScoreCalculator
   def calculate
     start = Time.now
     #ActiveRecord::Base.connection.execute('DELETE FROM "user_tag_results"')
-    Tag.all.each do |tag|
+    Tag.where("user_tags_count > 0").find_each do |tag|
       total_user_tags = tag.user_tags_count
       # Comment set_scale_range to toggle logaritmic score calculation
       scale_max = probability * total_user_tags + (1 - probability)
@@ -33,7 +33,7 @@ class ScoreCalculator
       rankable_graph = RankableGraph.new
       tag_scores = Redis::SortedSet.new("tag:#{tag.id}:scores")
 
-      tag.user_tags.includes(:votes => {:voter => :user_tags}).each do |user_tag|
+      tag.user_tags.includes(:votes => {:voter => :user_tags}).order('created_at asc').each do |user_tag|
         user_tag.votes.each do |vote|
           findit = vote.voter.user_tags.detect { |vut| vut.tag_id == user_tag.tag_id }
           if findit
@@ -82,7 +82,10 @@ class ScoreCalculator
 
     end
 
-    puts (Time.now - start).to_s
+    # List of the last 10 timings (how much time does it take for the calculate_score task to run)
+    how_long_list = Redis::List.new('calculate_score_timings')
+    how_long_list.shift if how_long_list.size == 10
+    how_long_list << seconds_to_units(Time.now - start)
   end
 
   private
@@ -97,6 +100,15 @@ class ScoreCalculator
     pom = pom.first < pom.last ? pom.first : pom.last
     scale_range << Range.new(0, pom)
     scale_range.reverse
+  end
+
+  def seconds_to_units(seconds)
+    '%d days, %d hours, %d minutes, %d seconds' %
+        # the .reverse lets us put the larger units first for readability
+        [24,60,60].reverse.inject([seconds]) {|result, unitsize|
+          result[0,0] = result.shift.divmod(unitsize)
+          result
+        }
   end
 
 end

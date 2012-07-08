@@ -1,13 +1,15 @@
-- if user
-  - incoming_activities =  user.incoming_activities.limit(5)
-  - preload_associations(incoming_activities)
-  #latest-activity
-    %h2== #{user_short(user)} Activity
-    %ul.list-view.unstyled
-      - if incoming_activities.present?
-        - incoming_activities.each do |activity_item|
-          %li{:class => activity_class(activity_item)}
-            .tag-icon
-            = activity_description(activity_item)
-      - else
-        %li No recent activity
+- activities = user.all_activities({:page => 1, :per_page => 7})
+- preload_associations(activities)
+
+.sidebar-item#latest-activity
+  %h2
+    == #{link_to(user.short_name, me_user_path(user))}#{apostrophe(user.short_name)} Activity
+    /.view-all= link_to "View profile", '#'
+  %ul.list-view.unstyled
+    - if activities.present?
+      - activities.each do |activity_item|
+        %li{:class => activity_class(activity_item)}
+          .tag-icon
+          = activity_description(activity_item)
+    - else
+      %li No recent activity

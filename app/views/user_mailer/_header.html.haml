@@ -1,0 +1,14 @@
+%tr
+  %td{ :width => "40%", :style=>"padding: 10px 0 5px;vertical-align:middle;"}
+    = link_to root_url, :target => "_blank", :style => "outline:none;color:#444444;text-decoration:none;font-size:18px;font-weight:bold;" do
+      = image_tag "logo.png", alt: "GiveBrand", title: "GiveBrand - A new brand of influence", width: "140px"
+
+  %td{ :width => "60%", :style=>"padding:0;vertical-align:middle;", :colspan =>"2"}
+    %p{:style=>"margin:0; text-align:right;"}
+      - if @receiver.active?
+        = link_to "Home", root_url, :style => "color: #{@link_color}; margin: 0 5px;font-size:12px;"
+        = link_to "Activity", activity_url('all'), :style => "color: #{@link_color}; margin: 0 5px;font-size:12px;"
+        = link_to "Profile", me_user_url(@receiver), :style => "color: #{@link_color}; margin: 0 5px;font-size:12px;"
+      - else @receiver.active?
+        = link_to "Home", root_url, :style => "color: #{@link_color}; margin: 0 5px;font-size:12px;"
+        = link_to "Tour", tour_url, :style => "color: #{@link_color}; margin: 0 5px;font-size:12px;"

@@ -1,35 +1,36 @@
 #content
   %section#search
-    %header#page-header
-      %h1
-        Search results for
-        %em
-          = "'#{params[:q]}'"
+    .content
+      %header#page-header
+        %h1
+          Search results for
+          %em
+            = "'#{params[:q]}'"
 
-    .feed
-      %ul.list-view.unstyled
+      .feed
+        %ul.list-view.unstyled
 
-        - @users.each do |user|
-          %li
-            .content
-              .photo
-                = link_to user do
-                  = image_tag user.avatar.url(:avatar)
-              %h2= profile_title(user)
-              .details
+          - @users.each do |user|
+            %li
+              .content
+                .photo
+                  - if user.active?
+                    = link_to image_tag(user.avatar.url(:avatar)), me_user_path(user)
+                  - else
+                    = image_tag(user.avatar.url(:avatar))
+                %h2= profile_title(user)
+                %br
+                .details
 
-                - if current_user && user.interacted_by(current_user)
+                  - if current_user && user.interacted_by(current_user)
 
-                  = "You interacted with #{user.full_name}’s profile."
+                    = "You interacted with #{user.name}’s profile."
 
-                - top_tags = user.top_tags(3)
-                - if top_tags.present?
-                  Top Tags:
-                  =raw top_tags.collect { |top_tag| tag_link(top_tag.name) }.join(", ")
+                  - top_tags = user.top_tags(3)
+                  - if top_tags.present?
+                    Top Tags:
+                    = raw top_tags.collect { |top_tag| tag_link(top_tag.name) }.join(", ")
 
-
-    = will_paginate @users
+      = will_paginate @users
 
 %aside
-  = render :partial => 'shared/sidebar_nav', :locals => { :user => current_user }
-  = render :partial => 'shared/sidebar_activity', :locals => { :user => current_user }

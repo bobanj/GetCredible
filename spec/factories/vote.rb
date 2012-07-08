@@ -1,3 +1,5 @@
-Factory.define :vote do |f|
-  f.vote  true
+FactoryGirl.define do
+  factory :vote do |f|
+    f.vote true
+  end
 end
