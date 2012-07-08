@@ -1,7 +1,6 @@
 -# #loading{style: "display: none"} loading...
 #twitter_invite.invite_dialog{style: "display: none;", title: ""}
-  %p.note Send direct message
+  %p.note#js-twitter-invite-header
   .invite_wrap
     #page-header
-      %h1#js-twitter-invite-header
     = render 'twitter/messages/form', message: TwitterMessage.new, remote: true
