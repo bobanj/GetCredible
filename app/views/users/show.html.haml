@@ -30,7 +30,11 @@
 
   %ul.social_fixed
     %li
-      %a.twitter-share-button{'data-count' => "vertical", "data-text" => "I'm building my brand on @GiveBrand. Help me boost my credibility... create your own profile and tag me! #{me_user_url(@user)}", :href => "https://twitter.com/share"} Tweet
+      - if user_signed_in? && current_user == @user
+        - twitter_msg = "I'm building my brand on @GiveBrand. Help me boost my credibility... create your own profile and tag me!"
+      - else
+        - twitter_msg = "Help me boost #{@user.name} credibility... create your own profile and tag back! #{me_user_url(@user)}"
+      %a.twitter-share-button{'data-count' => "vertical", "data-related" => "givebrand", "data-via" => "#{@user.twitter_handle}", "data-text" => twitter_msg, "data-url" => me_user_url(@user), :href => "https://twitter.com/share"} Tweet
     %li
       .fb-like{"data-href" => me_user_url(@user), "data-layout" => "box_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "56"}
     %li
