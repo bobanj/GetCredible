@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
 
   def index
-    redirect_to activity_path('all') if user_signed_in?
+    #redirect_to activity_path('all') if user_signed_in?
   end
 
   def privacy

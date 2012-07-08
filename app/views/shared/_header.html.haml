@@ -2,11 +2,11 @@
   %nav
     %ul#global-nav
       %li#gn-logo
-        = link_to (user_signed_in? ? activity_path('all') : root_path), :class => 'logo' do
+        = link_to root_path, :class => 'logo' do
           %span give
           brand
 
-      - if params[:controller] == 'home' && params[:action] == 'index'
+      - if !user_signed_in? && params[:controller] == 'home' && params[:action] == 'index'
         %li#gn-signin
           = simple_form_for(:user, :url => user_session_path, :namespace => 'sign_in', :html => {:id => 'user_sign_in'}) do |f|
             %ul
