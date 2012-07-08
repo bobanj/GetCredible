@@ -1,6 +1,6 @@
-- incoming_activities = user.incoming_activities.paginate({:page => 1, :per_page => 7})
-- outgoing_activities = user.outgoing_activities.paginate({:page => 1, :per_page => 7})
-- activities = (incoming_activities + outgoing_activities).sort{|a| a.created_at.to_i}.first(7)
+- incoming_activities = user.incoming_activities.first(7)
+- outgoing_activities = user.outgoing_activities.first(7)
+- activities = (incoming_activities + outgoing_activities).sort{|a, b| b.created_at <=> a.created_at }.first(7)
 - preload_associations(activities)
 
 .sidebar-item#latest-activity
