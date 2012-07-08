@@ -4,7 +4,8 @@
   //= link_to "Sign up now for free!", new_user_registration_path, :class => "big-signup"
 
   %h1 Your resume, amplified by your network
-  %h2 Instantly show hiring managers and potential clients your best skills and traits — chosen and vouched for by your friends and colleagues — and land your dream gig.
+  %h2 Instantly show recruiters, hiring managers and potential clients your best skills and traits — chosen and vouched for by your friends and colleagues — and land your dream gig.
+
   - unless user_signed_in?
     .easy-signup
       = simple_form_for(User.new, :as => :user, :url => registration_path(:user)) do |f|
