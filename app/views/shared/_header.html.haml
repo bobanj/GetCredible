@@ -34,6 +34,9 @@
             = link_to 'Profile', me_user_path(current_user), :class => ((params[:controller] == 'users' && ['show', 'followers', 'following'].include?(params[:action]) && current_user == @user) ? 'active' : nil)
           %li#gn-activity
             = link_to 'Activity', activity_path('all'), :class => (params[:controller] == 'activities' ? 'active' : nil)
+          - if user_signed_in? && params[:controller] == 'home'
+            %li#gn-tour
+              = link_to 'Tour', tour_path, :class => (params[:controller] == 'home' && params[:action] == 'tour' ? 'active' : nil)
 
         - else
           %li#gn-tour
