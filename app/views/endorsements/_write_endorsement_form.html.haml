@@ -1,10 +1,10 @@
 = simple_form_for([@user, endorsement], remote: true, html: {id: 'write_endorsement_form', class:"add-endorsement #{hide ? 'hide' : '' }" }) do |f|
   = f.input :user_tag_id, as: :select, collection: load_user_tags(@user), label: false, input_html:{id: 'write_endorsement_user_tag_id', :'data-placeholder' => "Choose a tag to endorse"}
-  = f.input :description, label: false, input_html:{id: 'write_endorsement_description', placeholder: "Write an endorsement", rows: 2}
+  = f.input :description, label: false, input_html:{id: 'write_endorsement_description', placeholder: "Write your endorsement here", rows: 2}
   = hidden_field_tag :write_endorsement, true
   %span.hint.right
     %span#write_endorsement_word_counter 300
-    characters remaining.
+    characters remaining
   .buttons
     = f.button :submit, "Endorse", class: 'btn primary small'
     -#%span.inline
