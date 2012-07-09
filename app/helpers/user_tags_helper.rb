@@ -18,7 +18,8 @@ module UserTagsHelper
     tag        = user_tag.tag
     tag_scores = Redis::SortedSet.new("tag:#{tag.id}:scores")
     score = tag_scores.score(user_tag.id).round
-    score = 1 if score == 0
+    last_voters = user_tag.last_voters.all
+    score = 1 if score == 0 || (score == 100 && last_voters.size == 1)
     {
       id: user_tag.id,
       name: tag.name,
@@ -28,7 +29,7 @@ module UserTagsHelper
       total: tag.user_tags_count,
       rank: tag_scores.revrank(user_tag.id) + 1,
       # TODO: eager load: last_voters
-      voters: user_tag.last_voters.all.map{ |voter|
+      voters: last_voters.map{ |voter|
         { :name => voter.name, avatar: user_avatar_url(voter, :small), url: me_user_path(voter) } },
       voters_count: user_tag.incoming.value
     }
