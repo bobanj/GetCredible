@@ -16,15 +16,19 @@ class UsersController < ApplicationController
   end
 
   def followers
+    users_count = @user.voters.count
     @users = @user.voters.order_by_name.
       paginate :per_page => 10, :page => params[:page]
+    @users.instance_variable_set '@total_entries', users_count
 
     render :users, layout: (request.xhr? ? false : true)
   end
 
   def following
+    users_count = @user.voted_users.count
     @users = @user.voted_users.order_by_name.
       paginate :per_page => 10, :page => params[:page]
+    @users.instance_variable_set '@total_entries', users_count
 
     render :users, layout: (request.xhr? ? false : true)
   end
