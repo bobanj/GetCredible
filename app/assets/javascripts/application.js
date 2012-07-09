@@ -381,7 +381,7 @@ $(function (){
     }
     $.getCredible.tagCloudLoader.show('fast');
     $.getCredible.tagCloud.html('');
-    var growHeight = 270 + (wordList.length * 3);
+    var growHeight = 110 + (wordList.length * wordList.length);
     $.getCredible.tagCloud.css('height', growHeight + 'px');
     $.getCredible.tagCloud.jQCloud(wordList, {
       width:700,
