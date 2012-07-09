@@ -256,7 +256,7 @@ $(function (){
   $.getCredible.voterImages = function (voters){
     var votersImages = [];
     $.each(voters, function (index, voter){
-      votersImages.push('<img src=' + voter.avatar + ' title=' + voter.name + ' alt=' + voter.name + '/>')
+      votersImages.push('<a rel="nofollow" href="' + voter.url +'"><img src=' + voter.avatar + ' title=' + voter.name + ' alt=' + voter.name + '/></a>')
     });
 
     return votersImages;
