@@ -25,7 +25,7 @@ describe ActivitiesController do
     end
 
     it "can return incoming activities" do
-      user.stub_chain(:incoming_activities, :paginate).and_return([activity_item])
+      user.stub_chain(:incoming_activities_for_others, :paginate).and_return([activity_item])
 
       get :show, :id => 'incoming'
       assigns(:activity_items).should == [activity_item]

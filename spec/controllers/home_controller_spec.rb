@@ -9,13 +9,12 @@ describe HomeController do
       response.should render_template('index')
     end
 
-    it "redirect to root path if user is logged in" do
+    it "redirect to all_activities path if user is logged in" do
       user = FactoryGirl.create(:user)
       sign_in(user)
 
       get :index
-      #response.should redirect_to(activity_path('all'))
-      response.should render_template('index')
+      response.should redirect_to(activity_path('all'))
     end
   end
 
