@@ -7,12 +7,12 @@
   %h2 Instantly show recruiters, hiring managers and potential clients your best skills and traits — chosen and vouched for by your friends and colleagues — and land your dream gig.
 
   .easy-signup
-    = simple_form_for(User.new, :as => :user, :url => registration_path(:user)) do |f|
+    = simple_form_for(User.new, :as => :user, :url => registration_path(:user), :html => {:id => 'landing_sign_up_top'} ) do |f|
       %ul
         %li= f.input :username, :required => false, :placeholder => "Username", :label_html => {:class => 'hidden'}
         %li= f.input :email, :placeholder => "Email", :label_html => {:class => 'hidden'}
         %li= f.input :password, :placeholder => "Password", :label_html => {:class => 'hidden'}
-        %li.buttons= f.button :submit, "Sign up now for free", class: 'btn large primary', id: 'landing_sign_up_top'
+        %li.buttons= f.button :submit, "Sign up now for free", class: 'btn large primary'
 
   %br
 
@@ -42,7 +42,7 @@
 
 .featured
   .easy-signup
-    = simple_form_for(User.new, :as => :user, :url => registration_path(:user)) do |f|
+    = simple_form_for(User.new, :as => :user, :url => registration_path(:user), :html => {:id => 'landing_sign_up_bottom'}) do |f|
       %ul
         %li= f.input :username, :required => false, :placeholder => "Username", :label_html => {:class => 'hidden'}
         %li= f.input :email, :placeholder => "Email", :label_html => {:class => 'hidden'}

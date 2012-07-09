@@ -1010,13 +1010,13 @@ $(function (){
     switch(pageAction){
       case 'home_index':
         mixpanel.track("Landing page");
-        $("#landing_sign_in").click(function(){
+        $("#user_sign_in").submit(function(){
           mixpanel.track("Landing page sign in");
         });
-        $("#landing_sign_up_top").click(function(){
+        $("#landing_sign_up_top").submit(function(){
           mixpanel.track("Landing page sign up top");
         });
-        $("#landing_sign_up_bottom").click(function(){
+        $("#landing_sign_up_bottom").submit(function(){
           mixpanel.track("Landing page sign up bottom");
         });
       break;
