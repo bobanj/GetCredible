@@ -14,7 +14,7 @@ class ActivitiesController < ApplicationController
     def load_activity_items
       case params[:id]
       when 'incoming'
-        current_user.incoming_activities.paginate(paginate_options)
+        current_user.incoming_activities_for_others.paginate(paginate_options)
       when 'outgoing'
         current_user.outgoing_activities.paginate(paginate_options)
       when 'all'

@@ -156,9 +156,19 @@ class User < ActiveRecord::Base
     end
   end
 
+  def incoming_activities_for_others
+    incoming_activities.where('activity_items.user_id != activity_items.target_id')
+  end
+
   def outgoing_activities
     activity_items.joins(:target).
       where('users.invitation_token IS NULL').
+      order('created_at DESC')
+  end
+
+  def outgoing_activities_for_others
+    activity_items.joins(:target).
+      where('users.invitation_token IS NULL AND activity_items.user_id != activity_items.target_id').
       order('created_at DESC')
   end
 

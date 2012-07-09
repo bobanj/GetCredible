@@ -1,5 +1,5 @@
 - incoming_activities = user.incoming_activities.first(7)
-- outgoing_activities = user.outgoing_activities.first(7)
+- outgoing_activities = user.outgoing_activities_for_others.first(7)
 - activities = (incoming_activities + outgoing_activities).sort{|a, b| b.created_at <=> a.created_at }.first(7)
 - preload_associations(activities)
 
