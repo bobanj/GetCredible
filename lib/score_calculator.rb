@@ -35,8 +35,8 @@ class ScoreCalculator
 
       tag.user_tags.includes(:votes => {:voter => :user_tags}).order('created_at asc').each do |user_tag|
         user_tag.votes.each do |vote|
-          findit = vote.voter.user_tags.detect { |vut| vut.tag_id == user_tag.tag_id }
           rankable_graph.link(vote.voteable_id, user_tag.id)
+          # findit = vote.voter.user_tags.detect { |vut| vut.tag_id == user_tag.tag_id }
           # if findit
             # rankable_graph.link(findit.id, user_tag.id)
           # end
