@@ -820,49 +820,48 @@ $(function (){
 
 
   $.getCredible.emailInvite = function () {
-    $.getCredible.emailQtipApi = $('<div />').qtip({
-        content:{
-            id:'twitter_invite_modal',
-            text: ' ',
-            title:{
-                text: ' ',
-                button:true
-            }
-        },
-        position:{
-            my:'center', // ...at the center of the viewport
-            at:'center',
-            target: $(window)
-        },
-        show:{
-            ready: false,
-            solo: true, // ...and hide all other tooltips...
-            event: 'click',
-            modal:{
-                on:true,
-                blur:false,
-                escape:true
-            }
-        },
-        hide:false,
-        style: { classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded ui-tooltip-twitter' }
-    }).click(function (event) {
-        event.preventDefault();
-        return false;
-    }).qtip('api');
-
-    $('#content').delegate('.email_button', 'click', function (e) {
-        e.preventDefault();
-        $.getCredible.emailQtipApi.set('content.text', $('#email_invite'));
-        $.getCredible.emailQtipApi.show();
-    });
-
     $('#js-email-invitation-form').live('submit', function (e) {
       $(this).find('.loading').show();
       mixpanel.track("Email invitation send");
     });
   };
 
+  $.getCredible.emailPreviewQtipApi = $('<div />').qtip({
+      content:{
+          id:'email_preview',
+          text: ' ',
+          title:{
+              text: ' ',
+              button:true
+          }
+      },
+      position:{
+          my:'center', // ...at the center of the viewport
+          at:'center',
+          target: $(window)
+      },
+      show:{
+          ready: false,
+          solo: true, // ...and hide all other tooltips...
+          event: 'click',
+          modal:{
+              on:true,
+              blur:false,
+              escape:true
+          }
+      },
+      hide:false,
+      style: { classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded ui-tooltip-twitter email' }
+  }).click(function (event) {
+      event.preventDefault();
+      return false;
+  }).qtip('api');
+
+  $('#content').delegate('#preview_email_sample', 'click', function (e) {
+      e.preventDefault();
+      $.getCredible.emailPreviewQtipApi.set('content.text', $('#email_preview'));
+      $.getCredible.emailPreviewQtipApi.show();
+  });
 
   $.getCredible.loginQtip = function (){
     $.getCredible.loginQtipApi = $('<div />').qtip({

@@ -1,4 +1,9 @@
+#email_preview.invite_dialog{style: "display: none;", title: ""}
+  = image_tag "email_preview.png"
+
 #email_invite
   %h2 Send email invitation
-  %p Enter your contact's name and email address, then get them started by suggesting three tags you think describe them.
+  %p
+    Enter your contact's name and email address, then get them started by suggesting three tags you think describe them.
+    = link_to "Preview sample email.", '#', id: 'preview_email_sample'
   = render 'users/invitations/form', message: EmailMessage.new

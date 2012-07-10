@@ -54,6 +54,10 @@
   #login_dialog section .buttons_left {
     margin-left: 0;
   }
+
+  &.email {
+    max-width: 600px;
+  }
 }
 
 .ui-tooltip-twitter .ui-tooltip-content {
