@@ -799,7 +799,8 @@ $(function (){
           return false;
         }).qtip('api');
 
-    $('#content').delegate('.twitter_contact', 'click', function (){
+    $('#content').delegate('.twitter_contact', 'click', function (e) {
+      e.preventDefault();
       var contact = $(this);
       var twitterUsername = contact.data('screen_name');
       var twitterId = contact.data('twitter_id');
