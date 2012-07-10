@@ -67,7 +67,7 @@ $(function (){
     isUpdating: false
   }
   $.getCredible.guideApi;
-  $.getCredible.guideVideoId = 'He_PWsJqsVY';
+  $.getCredible.guideVideoId = '1yGSIHcAPqs';
 
   $.getCredible.displayNotification = function (type, text){
     noty({
