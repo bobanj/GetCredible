@@ -128,7 +128,7 @@ $(function (){
                   tagNamesTextField.tokenInput("clear");
                   $.getCredible.displayNotification('success', 'You have tagged ' + $.getCredible.tagCloud.data('user').name + ' with ' + tagNames);
                   $.getCredible.renderTagCloud(data);
-                  mixpanel.track("Tagged user from profile");
+                  mixpanel.track("Tag");
                 });
           } else{
             $.getCredible.displayNotification('error', 'You cannot vote for yourself')
@@ -158,7 +158,7 @@ $(function (){
           $.getCredible.updateTagCloud(function (){
             $.getCredible.actionsAfterLogin(data);
             $.getCredible.loginQtipApi.hide();
-            mixpanel.track("Sign in from modal");
+            mixpanel.track("Activity Page");
           });
         } else{
           $.each(data.errors, function (index, text){
@@ -180,7 +180,7 @@ $(function (){
           $.getCredible.updateTagCloud(function (){
             $.getCredible.actionsAfterLogin(data);
             $.getCredible.loginQtipApi.hide();
-            mixpanel.track("Sign up from modal");
+            mixpanel.track("Activity Page");
           });
         } else{
           $.each(data.errors, function (index, text){
@@ -231,10 +231,9 @@ $(function (){
             } else{
               if (word.hasClass('vouch')){
                 $.getCredible.displayNotification('success', 'You have vouched for ' + word.text());
-                mixpanel.track("User vouch remove");
               } else{
+                mixpanel.track("Tag");
                 $.getCredible.displayNotification('success', 'You have removed vouch for ' + word.text());
-                mixpanel.track("User vouched");
               }
             }
             //$('.tag-vote').click(function (){
@@ -468,7 +467,7 @@ $(function (){
                 if ($.getCredible.tagCloud.data('can-delete')){
                   $.post($.getCredible.tagCloudPath + '/' + word.data('user-tag-id'), { _method:'delete' }, function (data){
                     $.getCredible.renderTagCloud(data, function(){
-                      mixpanel.track("User delete tag");
+
                     });
                   });
                 }
@@ -730,7 +729,7 @@ $(function (){
                           }
                           $.getCredible.guide.isUpdating = false;
                           skipStep2();
-                          mixpanel.track("User tagged himself");
+                          mixpanel.track("Tag");
                         });
                   } else{
                     skipStep2();
@@ -747,10 +746,9 @@ $(function (){
                 if($.isFunction(guideVideoApi.stopVideo)){
                   guideVideoApi.stopVideo();
                 }
-                mixpanel.track("Guide close");
                 return false;
               });
-              mixpanel.track("Guide render");
+              mixpanel.track("Guide show");
             }
           }
         }).qtip('api');
@@ -765,7 +763,6 @@ $(function (){
     var bubbleContainer = $("#bubbles_container");
     if (bubbleContainer.length > 0 && bubbleContainer.data('show_guide')){
       $.getCredible.guideApi.show();
-      mixpanel.track("Guide show");
     }
   }
 
@@ -802,7 +799,7 @@ $(function (){
           return false;
         }).qtip('api');
 
-    $('#content').delegate('.twitter_contact', 'click', function (e) {
+    $('#main').delegate('.twitter_contact', 'click', function (e) {
       e.preventDefault();
       var contact = $(this);
       var twitterUsername = contact.data('screen_name');
@@ -824,8 +821,8 @@ $(function (){
 
   $.getCredible.emailInvite = function () {
     $('#js-email-invitation-form').live('submit', function (e) {
+      mixpanel.track("Invitation");
       $(this).find('.loading').show();
-      mixpanel.track("Email invitation send");
     });
   };
 
@@ -1014,50 +1011,49 @@ $(function (){
       case 'home_index':
         mixpanel.track("Landing page");
         $("#user_sign_in").submit(function(){
-          mixpanel.track("Landing page sign in");
+          mixpanel.track("Activity Page");
         });
         $("#landing_sign_up_top").submit(function(){
-          mixpanel.track("Landing page sign up top");
+          mixpanel.track("Landing page");
         });
         $("#landing_sign_up_bottom").submit(function(){
-          mixpanel.track("Landing page sign up bottom");
+          mixpanel.track("Landing page");
         });
       break;
       case 'users_registrations_create':
-        mixpanel.track("Sign up page");
+        mixpanel.track("Landing page");
         break;
       case 'users_sessions_new':
-        mixpanel.track("Sign in page");
+        mixpanel.track("Landing page");
         break;
       case 'devise_passwords_new':
-        mixpanel.track("Forgot password page");
         break;
       case 'users_index':
         mixpanel.track("Search results page");
         break;
       case 'activities_show':
-        mixpanel.track("Home page");
+        mixpanel.track("Activity Page");
         break;
       case 'users_following':
-        mixpanel.track("User following page");
+        //mixpanel.track("User following page");
         break;
       case 'users_followers':
-        mixpanel.track("User followers page");
+        //mixpanel.track("User followers page");
         break;
       case 'users_show':
-        mixpanel.track("User profile page");
+        //mixpanel.track("Profile page");
         break;
       case 'users_registrations_edit':
-        mixpanel.track("User edit profile page");
+        //mixpanel.track("Profile page");
         break;
       case 'invite_index':
-        mixpanel.track("User invite page");
+        //mixpanel.track("User invite page");
         break;
       case 'users_invitations_edit':
         mixpanel.track("User accepted invitation");
         break;
       default:
-        mixpanel.track(pageAction);
+        //mixpanel.track(pageAction);
         break;
     }
   }

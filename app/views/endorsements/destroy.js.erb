@@ -6,4 +6,3 @@ var endorsementsList = $('#endorsements_<%= @endorsement.user_tag_id %>_list');
 if (endorsementsList.length > 0 && endorsementsList.children().length == 0){
   endorseContainer.remove();
 }
-mixpanel.track("Endorsement destroy");

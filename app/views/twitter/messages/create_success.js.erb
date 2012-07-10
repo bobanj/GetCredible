@@ -12,4 +12,4 @@ $('#twitter_message_tag3').val('');
 var inviteButton = $('a[data-screen_name="<%= @message.screen_name %>"]');
 inviteButton.parents('li').addClass('vouch');
 inviteButton.remove();
-mixpanel.track("Twitter invitation send");
+mixpanel.track("Invitation");

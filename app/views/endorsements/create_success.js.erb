@@ -14,5 +14,5 @@ if(userTagEndorsementContainer.length){
   $("#endorsements_list").prepend(userTagEndorsements);
 }
 $("#endorsements_form_keeper").html('<%= j(render 'endorsements/form', endorsement: Endorsement.new)%>');
-mixpanel.track("Endorsement create");
+mixpanel.track("Endorsement");
 
