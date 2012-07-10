@@ -946,7 +946,7 @@ footer {
   }
   h3 {
     color: $blue;
-    font: bold 24px "gnuolane", impact, sans-serif;
+    font: bold 28px "gnuolane", impact, sans-serif;
     line-height: 1.5;
     margin-bottom: 4px;
   }
@@ -979,7 +979,7 @@ footer {
     }
   }
   ul.slim {
-    padding: 0 7%;
+    padding: 0 4%;
   }
   li {
     display: inline;
@@ -995,9 +995,9 @@ footer {
     border: 4px solid #fff;
     margin-bottom: 12px;
     position: relative;
-    width: 200px;
+    width: 220px;
     z-index: 2;
-    @include border-radius(100px);
+    @include border-radius(50%);
     @include box-shadow(rgba(0, 0, 0, 0.05) 0 1px 2px);
     @include transition(all .5s);
   }
@@ -1023,7 +1023,8 @@ footer {
   margin-top: 10px;
   li:hover img {
     z-index: 3;
-    @include scale(1.15);
+    //@include scale(1.15);
+    //@include border-radius(0);
   }
   li {
     width: 30%;
