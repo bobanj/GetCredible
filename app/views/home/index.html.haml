@@ -30,11 +30,10 @@
       = image_tag 'screen4.png'
       %h3 Get hired
       %p Give recruiters, hiring managers and clients an instant snapshot of your skills and personality by sharing your GiveBrand profile.
-
 #video
   %h2 Watch our video and find out more
-  -# - unless Rails.env.test? # stop warnings when running specs
-  -#   %iframe{:allowfullscreen => "", :frameborder => "0", :height => "315", :src => "http://www.youtube.com/embed/He_PWsJqsVY?rel=0", :width => "560"}
+  - unless Rails.env.test? # stop warnings when running specs
+    %iframe{ width: "560", height: "315", src: "http://www.youtube.com/embed/1yGSIHcAPqs", frameborder: "0", allowfullscreen: ''}
   %p= link_to "You may want to check our illustrated tour.", tour_path
 
 .featured
