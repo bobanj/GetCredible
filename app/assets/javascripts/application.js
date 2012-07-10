@@ -744,6 +744,9 @@ $(function (){
               $("#guide_close").click(function (e){
                 e.preventDefault();
                 api.hide();
+                if($.isFunction(guideVideoApi.stopVideo)){
+                  guideVideoApi.stopVideo();
+                }
                 mixpanel.track("Guide close");
                 return false;
               });
