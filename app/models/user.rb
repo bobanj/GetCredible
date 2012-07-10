@@ -233,7 +233,7 @@ class User < ActiveRecord::Base
   def self.search(params)
     scope = scoped
     if params[:q].to_s.length >= 2
-      scope = scope.search_by_name_or_tag(params[:q])
+      scope = scope.active.search_by_name_or_tag(params[:q])
     else
       scope = scope.none
     end
