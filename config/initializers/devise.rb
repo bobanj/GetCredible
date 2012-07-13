@@ -236,6 +236,9 @@ Devise.setup do |config|
   #config.omniauth :twitter, '1e36emiqpYKPPq2KTsQ3Q', 'KrlqbW22NCt1I1e0tpZUxs3mFBHJnOjm2LuaPHK8',
   #                {:scope => 'email, offline_access', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
 
+  #config.omniauth :facebook, "KEY", "SECRET"
+  config.omniauth :twitter, ENV['TWITTER_CONSUMER_KEY'], ENV['TWITTER_CONSUMER_SECRET']
+  config.omniauth :linked_in, ENV['LINKEDIN_CONSUMER_KEY'], ENV['LINKEDIN_CONSUMER_SECRET']
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
