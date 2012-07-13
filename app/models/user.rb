@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable #, :omniauthable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   # Additions
   mount_uploader :avatar, AvatarUploader
@@ -149,6 +149,7 @@ class User < ActiveRecord::Base
       vote ? vote.destroy : false
     end
   end
+
   def apply_omniauth(omniauth)
     unless omniauth['credentials'].blank?
       authentications.build(:provider => omniauth['provider'],

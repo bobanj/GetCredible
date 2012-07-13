@@ -6,7 +6,8 @@ GetCredible::Application.routes.draw do
   devise_for :users, :controllers => {
     :sessions => "users/sessions",
     :registrations => "users/registrations",
-    :invitations => 'users/invitations'
+    :invitations => 'users/invitations',
+    :omniauth_callbacks => "users/omniauth_callbacks"
   }
 
   resources :users, :only => [:index, :show] do
