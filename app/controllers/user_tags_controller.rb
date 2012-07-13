@@ -20,6 +20,7 @@ class UserTagsController < ApplicationController
     vote = current_user.add_vote(user_tag)
 
     if vote
+      UserMailer.vote_email(current_user, @user, user_tag.tag.name).deliver
       render json: tag_summary_ok(user_tag, @user, current_user)
     else
       render json: tag_summary_error
