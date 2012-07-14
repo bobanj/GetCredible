@@ -2,11 +2,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   before_filter :check_current_user
 
   def twitter
-    oauthorize :twitter
+    oauthorize
   end
 
   def linkedin
-    oauthorize :linkedin
+    oauthorize
   end
 
   def failure
@@ -16,20 +16,22 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   private
 
-  def oauthorize(provider)
-    case provider
-      when :twitter
-        omniauth = env["omniauth.auth"]
-        authentication = current_user.authentications.find_by_uid(omniauth["uid"]) || current_user.create_omniauth(omniauth)
-        authentication.import_contacts
-        redirect_to invite_path
-      when :linkedin
-      else
-      raise 'Provider #{provider} not handled'
-    end
+  def oauthorize
+    omniauth = env["omniauth.auth"]
+    authentication = current_user.authentications.find_by_provider_and_uid(omniauth['provider'], omniauth['uid']) ||
+        current_user.create_authentication(auth_attributes(omniauth))
+    authentication.import_contacts
+    redirect_to invite_path
   end
 
   def check_current_user
     redirect_to root_path unless current_user
+  end
+
+  def auth_attributes(omniauth)
+    {:provider => omniauth['provider'],
+    :uid => omniauth['uid'],
+    :token => omniauth['credentials']['token'],
+    :secret => omniauth['credentials']['secret']}
   end
 end

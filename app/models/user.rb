@@ -66,6 +66,9 @@ class User < ActiveRecord::Base
   scope :order_by_invitation_time, order("invitation_sent_at desc")
   scope :order_by_name, order('full_name ASC, username ASC')
 
+  # Store
+  store :settings, accessors: [:twitter_connected, :linkedin_connected]
+
   def profile_complete_percent
     empty_count = 0
     empty_count += 1 if job_title.blank?
@@ -105,10 +108,6 @@ class User < ActiveRecord::Base
 
   def pending
     User.invited_by(self).inactive
-  end
-
-  def twitter?
-    @twitter ||= authentications.where(provider: 'twitter').exists?
   end
 
   def top_tags(limit)
@@ -154,14 +153,10 @@ class User < ActiveRecord::Base
     end
   end
 
-  def create_omniauth(omniauth)
-    unless omniauth['credentials'].blank?
-      authentications.create(:provider => omniauth['provider'],
-                            :uid => omniauth['uid'],
-                            :token => omniauth['credentials']['token'],
-                            :secret => omniauth['credentials']['secret'])
-
-    end
+  def create_authentication(attributes)
+    authentication = authentications.create(attributes)
+    self.update_attribute(:"#{authentication.provider}_connected", true)
+    authentication
   end
 
   def incoming_activities_for_others
@@ -210,9 +205,11 @@ class User < ActiveRecord::Base
     self.save(validate: false)
   end
 
-  def disconnect_from_twitter!
+  def disconnect_from_provider(provider)
     twitter_contacts.destroy_all
-    self.authentications.where(:provider => 'twitter').destroy_all
+    authentication = authentications.find_by_provider(provider)
+    authentication.destroy if authentication
+    self.update_attribute(:"#{provider}_connected", false)
   end
 
   def to_param

@@ -9,6 +9,7 @@ class ImportContactsJob
           client = Gbrand::Twitter::Client.from_oauth_token(authentication.token, authentication.secret)
           Gbrand::Twitter::Importer.import(authentication.user, client)
         when 'linkedin'
+
       end
     end
   end

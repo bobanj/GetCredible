@@ -27,7 +27,7 @@ class Twitter::SessionsController < ApplicationController
   end
 
   def destroy
-    current_user.disconnect_from_twitter!
+    current_user.disconnect_from_provider('twitter')
     flash[:notice] = I18n.t('twitter.contacts.remove')
     redirect_to invite_url
   end
