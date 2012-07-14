@@ -1,25 +1,35 @@
 class TransferTwitterContactsToContacts < ActiveRecord::Migration
   def up
-    con
-    remove_column :users, :twitter_id
-    remove_column :users, :twitter_token
-    remove_column :users, :twitter_secret
+    Contact.reset_column_information
+    transfer_twitter_contacts
+    drop_table :twitter_contacts
   end
 
   def down
-    add_column :users, :twitter_id, :integer
-    add_column :users, :twitter_token, :string
-    add_column :users, :twitter_secret, :string
-  end
-
-  def move_twitter_contacts_to_contacts
-    User.where('twitter_id is not NULL').find_each do |user|
-      user.authentications.where(:provider => 'twitter').destroy_all
-      user.create_authentication({:provider => 'twitter',
-                                  :uid => user.twitter_id,
-                                  :token => user.twitter_token,
-                                  :secret => user.twitter_secret
-                                 })
+    create_table "twitter_contacts", :force => true do |t|
+      t.integer  "user_id"
+      t.integer  "twitter_id"
+      t.boolean  "invited",     :default => false
+      t.datetime "created_at",                     :null => false
+      t.datetime "updated_at",                     :null => false
+      t.string   "screen_name"
+      t.string   "name"
+      t.string   "avatar"
     end
   end
+
+  def transfer_twitter_contacts
+     TwitterContact.includes(:user).find_each do |twitter_contact|
+       user = twitter_contact.user
+       twitter_authentication = user.twitter_authentication
+       if twitter_authentication
+        twitter_authentication.contacts.create(uid: twitter_contact.twitter_id,
+                                               username: twitter_contact.screen_name,
+                                               name: twitter_contact.name, avatar: twitter_contact.avatar,
+                                               url: "https://twitter.com/#{twitter_contact.screen_name}",
+                                               invited: twitter_contact.invited )
+       end
+     end
+  end
+
 end

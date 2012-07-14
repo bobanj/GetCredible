@@ -10,6 +10,10 @@ GetCredible::Application.routes.draw do
     :invitations => 'users/invitations',
     :omniauth_callbacks => "users/omniauth_callbacks"
   }
+  devise_scope :user do
+    delete "users/omniauth_callbacks/disconnect/:provider", to: "users/omniauth_callbacks#disconnect",
+           as: "disconnect_provider"#, constraints: {provider: ['twitter', 'linkedin']}
+  end
 
   resources :users, :only => [:index, :show] do
     resources :endorsements

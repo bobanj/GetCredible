@@ -3,7 +3,7 @@ class CreateContacts < ActiveRecord::Migration
     create_table :contacts do |t|
       t.integer :authentication_id
       t.string :uid
-      t.string :username
+      t.string :screen_name
       t.string :name
       t.string :avatar
       t.string :url

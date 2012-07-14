@@ -10,8 +10,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def failure
-    flash.delete(:notice)
     redirect_to invite_path
+  end
+
+  def disconnect
+    current_user.disconnect_from_provider(params[:provider])
+    flash[:notice] = "You have successfully disconnected your #{params[:provider]} account."
+    redirect_to invite_url
   end
 
   private
@@ -21,6 +26,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     authentication = current_user.authentications.find_by_provider_and_uid(omniauth['provider'], omniauth['uid']) ||
         current_user.create_authentication(auth_attributes(omniauth))
     authentication.import_contacts
+    flash[:notice] = "We'll import your contacts from #{omniauth['provider']} shortly."
     redirect_to invite_path
   end
 

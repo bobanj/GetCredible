@@ -52,6 +52,8 @@ describe User do
     it { should have_many(:followers) }
     it { should have_many(:incoming_endorsements) }
     it { should have_many(:outgoing_endorsements) }
+    it { should have_many(:twitter_contacts) }
+    it { should have_many(:linkeding_contacts) }
   end
 
   describe "Validations" do

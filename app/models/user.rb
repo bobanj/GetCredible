@@ -32,7 +32,6 @@ class User < ActiveRecord::Base
   has_many :votes, :foreign_key => :voter_id, :dependent => :destroy
   has_many :voted_users, :through => :votes, :uniq => true
   has_many :voters, :through => :user_tags, :uniq => true
-  has_many :twitter_contacts, :dependent => :destroy
   has_many :incoming_endorsements, :through => :user_tags, :source => :endorsements
   has_many :outgoing_endorsements, :class_name => 'Endorsement', :foreign_key => :endorsed_by_id, :dependent => :destroy
 
@@ -43,6 +42,16 @@ class User < ActiveRecord::Base
   has_many :followings, :through => :friendships, :source => :followed
   has_many :followers, :through => :reverse_friendships, :source => :follower
 
+  has_one :twitter_authentication, class_name: 'Authentication',
+          conditions: "authentications.provider = 'twitter'"
+  has_many :twitter_contacts, through: :twitter_authentication,
+           source: :contacts
+
+  has_one :linkedin_authentication, class_name: 'Authentication',
+          conditions: "authentications.provider = 'linkedin'"
+  has_many :linkedin_contacts, through: :linkedin_authentication,
+           source: :contacts
+  has_many :contacts, through: :authentications
   # Validations
   validates :username, :presence => true,
                :format => { with: /^\w+$/,
@@ -206,7 +215,6 @@ class User < ActiveRecord::Base
   end
 
   def disconnect_from_provider(provider)
-    twitter_contacts.destroy_all
     authentication = authentications.find_by_provider(provider)
     authentication.destroy if authentication
     self.update_attribute(:"#{provider}_connected", false)

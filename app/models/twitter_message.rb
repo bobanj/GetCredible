@@ -83,8 +83,8 @@ class TwitterMessage
   end
 
   def twitter_contact
-    @twitter_contact||= @twitter_contact = inviter.twitter_contacts.
-      find_by_twitter_id!(twitter_id)
+    @twitter_contact ||= @twitter_contact = inviter.twitter_contacts.
+      find_by_uid!(twitter_id)
 
   end
 
