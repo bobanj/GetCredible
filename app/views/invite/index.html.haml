@@ -7,7 +7,8 @@
       %h1 Invite & Tag
       %ul.horizontal.right
         - if current_user.twitter_id.blank?
-          %li= link_to "Import Twitter contacts", twitter_contacts_path, class: "twitter-import", title: "Import your Twitter contacts"
+          %li= link_to "OMNI", user_omniauth_authorize_path(:twitter), class: "twitter-import", title: "Import your Twitter contacts"
+          %li= link_to "Import Twitter contacts", twitter_contacts_path(:twitter), class: "twitter-import", title: "Import your Twitter contacts"
 
     %p.info You can invite your contacts one by one by entering their email addresses, or authorize us to access your Twitter contacts and invite more at once.
 

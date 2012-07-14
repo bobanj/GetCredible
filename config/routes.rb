@@ -1,4 +1,5 @@
 GetCredible::Application.routes.draw do
+  mount Resque::Server.new, :at => "/resque"
   post "tags/search"
   get '/invite' => 'invite#index'
   get '/sitemap.:format' => 'home#sitemap', :as => :sitemap

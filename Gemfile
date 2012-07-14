@@ -54,6 +54,7 @@ group :development do
   gem 'rails3-generators'
   gem 'quiet_assets'
   gem 'rails-footnotes', '>= 3.7.5.rc4'
+  gem 'awesome_print', :require => 'ap'
 end
 
 group :test do

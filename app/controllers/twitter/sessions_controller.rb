@@ -7,7 +7,6 @@ class Twitter::SessionsController < ApplicationController
     session[:request_token]  = request_token.token
     session[:request_secret] = request_token.secret
     session[:url] = params[:url] if params[:url].present?
-
     redirect_to request_token.authorize_url
   end
 

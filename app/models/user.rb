@@ -150,10 +150,10 @@ class User < ActiveRecord::Base
     end
   end
 
-  def apply_omniauth(omniauth)
+  def create_omniauth(omniauth)
     unless omniauth['credentials'].blank?
-      authentications.build(:provider => omniauth['provider'],
-                            :uuid => omniauth['uid'],
+      authentications.create(:provider => omniauth['provider'],
+                            :uid => omniauth['uid'],
                             :token => omniauth['credentials']['token'],
                             :secret => omniauth['credentials']['secret'])
 
@@ -208,9 +208,8 @@ class User < ActiveRecord::Base
 
   def disconnect_from_twitter!
     twitter_contacts.destroy_all
-    self.twitter_token  = nil
-    self.twitter_secret = nil
     self.twitter_id     = nil
+    self.authentications.where(:provider => 'twitter').destroy_all
     self.save(validate: false)
   end
 
