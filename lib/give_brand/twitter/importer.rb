@@ -1,8 +1,10 @@
-class Gbrand::Twitter::Importer
+class GiveBrand::Twitter::Importer
 
   attr_accessor :current_user, :client, :users
 
-  def self.import(current_user, client)
+  def self.import(authentication)
+    client = GiveBrand::Twitter::Client.from_oauth_token(authentication.token, authentication.secret)
+    current_user = authentication.user
     current_user.update_attribute(:twitter_handle, client.current_user.screen_name)
 
     # fetch users

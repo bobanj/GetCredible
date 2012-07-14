@@ -114,6 +114,11 @@ $(function (){
     $("#add-tag form").submit(function (e){
       e.preventDefault();
       var form = $(this);
+      if(form.hasClass('disabled')){
+        return false;
+      }
+      console.log('asdas');
+      form.addClass('disabled');
       var tagNames = $("#tag_names");
       if (tagNames.length > 0){
         tagNames = tagNames.val();
@@ -127,7 +132,9 @@ $(function (){
                 form.serialize(), function (data){
                   tagNamesTextField.tokenInput("clear");
                   $.getCredible.displayNotification('success', 'You have tagged ' + $.getCredible.tagCloud.data('user').name + ' with ' + tagNames);
-                  $.getCredible.renderTagCloud(data);
+                  $.getCredible.renderTagCloud(data, function(){
+                    form.removeClass('disabled');
+                  });
                   mixpanel.track("Tag");
                 });
           } else{
@@ -142,6 +149,8 @@ $(function (){
           $.getCredible.loginQtipApi.set('content.text', $('#login_dialog'));
           $.getCredible.loginQtipApi.show();
         }
+      } else {
+        form.removeClass('disabled');
       }
       return false;
     });

@@ -4,13 +4,11 @@ class ImportContactsJob
   def self.perform(authentication_id)
     authentication = Authentication.find_by_id(authentication_id)
     if authentication
-      case authentication.provider
-        when 'twitter'
-          client = Gbrand::Twitter::Client.from_oauth_token(authentication.token, authentication.secret)
-          Gbrand::Twitter::Importer.import(authentication.user, client)
-        when 'linkedin'
-          client = Gbrand::Linkedin::Client.from_oauth_token(authentication.token, authentication.secret)
-          Gbrand::Linkedin::Importer.import(authentication, client)
+      begin
+        GiveBrand::Importer.import(authentication)
+      ensure
+        user = authentication.user
+        user.update_attribute(:"#{authentication.provider}_state", 'finished')
       end
     end
   end

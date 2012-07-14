@@ -10,6 +10,6 @@
           = link_to "#{contact.name}  @#{contact.screen_name}", contact.url
       %span.status
         - unless contact.invited?
-          = link_to "Invite", "#", :class => 'twitter_contact btn primary small light right', :"data-twitter_id" => contact.uid, :"data-screen_name" => contact.screen_name
+          = link_to "Invite", "#", :class => 'js-contact-invite twitter_contact btn primary small light right', :'data-contact' => {screen_name: contact.screen_name, name: contact.name, uid: contact.uid, provider: contact.authentication.provider}.to_json
 
 = will_paginate @contacts

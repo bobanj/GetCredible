@@ -1,3 +1,8 @@
+- content_for :javascripts do
+  %script{:src => "//connect.facebook.net/en_US/all.js"}
+  :javascript
+    FB.init({appId: "#{ENV['FACEBOOK_APP_ID']}", xfbml: true, cookie: true});
+    window.facebookAppId = "#{ENV['FACEBOOK_APP_ID']}";
 = render 'twitter_invite'
 
 #content
@@ -6,14 +11,9 @@
 
       %h1 Invite & Tag
       %ul.horizontal.right
-        - if current_user.twitter_connected
-          %li= link_to "Disconnect from Twitter", disconnect_provider_path(provider: :twitter), :confirm => "Are you sure you want to disconnect your Twitter account?", :method => :delete, :class => "btn primary small light"
-        - else
-          %li= link_to "Import Twitter contacts", user_omniauth_authorize_path(:twitter), class: "twitter-import", title: "Import your Twitter contacts"
-        - if current_user.linkedin_connected
-          %li= link_to "Disconnect from Linkedin", disconnect_provider_path(provider: :linkedin), :confirm => "Are you sure you want to disconnect your Twitter account?", :method => :delete, :class => "btn primary small light"
-        - else
-          %li= link_to "Import LinkedIn contacts", user_omniauth_authorize_path(:linkedin), class: "twitter-import", title: "Import your Twitter contacts"
+        = render 'import_provider', provider: 'twitter'
+        = render 'import_provider', provider: 'linkedin'
+        = render 'import_provider', provider: 'facebook'
 
     %p.info You can invite your contacts one by one by entering their email addresses, or authorize us to access your Twitter contacts and invite more at once.
 
@@ -31,7 +31,7 @@
     #js-twitter-contacts-list.twitter-contacts-list.listing
       - if @contacts.present?
         = render 'contacts', :contacts => @contacts
-      - elsif !current_user.twitter_connected
+      - elsif !current_user.twitter_state
         .ngo
           %p== Import your #{link_to "Twitter contacts", user_omniauth_authorize_path(:twitter)} and send invites by DM.
 

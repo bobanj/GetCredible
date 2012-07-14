@@ -78,7 +78,7 @@ class TwitterMessage
   end
 
   def client
-    @client ||= Gbrand::Twitter::Client.from_oauth_token(
+    @client ||= GiveBrand::Twitter::Client.from_oauth_token(
       inviter.twitter_token, inviter.twitter_secret)
   end
 

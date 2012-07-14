@@ -2,9 +2,9 @@ class Twitter::ContactsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    client = Gbrand::Twitter::Client.from_oauth_token(current_user.twitter_token, current_user.twitter_secret)
+    client = GiveBrand::Twitter::Client.from_oauth_token(current_user.twitter_token, current_user.twitter_secret)
 
-    Gbrand::Twitter::Importer.import(current_user, client)
+    GiveBrand::Twitter::Importer.import(current_user, client)
     flash[:notice] = I18n.t('twitter.contacts.import')
     redirect_to invite_url
 

@@ -1,4 +1,4 @@
-module Gbrand::Twitter::Client
+module GiveBrand::Twitter::Client
   def self.from_oauth_token(oauth_token, oauth_token_secret)
     Twitter.configure do |config|
       config.consumer_key       = ENV['TWITTER_CONSUMER_KEY']

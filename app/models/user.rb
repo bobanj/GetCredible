@@ -52,6 +52,7 @@ class User < ActiveRecord::Base
   has_many :linkedin_contacts, through: :linkedin_authentication,
            source: :contacts
   has_many :contacts, through: :authentications
+
   # Validations
   validates :username, :presence => true,
                :format => { with: /^\w+$/,
@@ -76,7 +77,7 @@ class User < ActiveRecord::Base
   scope :order_by_name, order('full_name ASC, username ASC')
 
   # Store
-  store :settings, accessors: [:twitter_connected, :linkedin_connected]
+  store :settings, accessors: [:twitter_state, :linkedin_state, :facebook_state]
 
   def profile_complete_percent
     empty_count = 0
@@ -162,12 +163,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def create_authentication(attributes)
-    authentication = authentications.create(attributes)
-    self.update_attribute(:"#{authentication.provider}_connected", true)
-    authentication
-  end
-
   def incoming_activities_for_others
     incoming_activities.where('activity_items.user_id != activity_items.target_id')
   end
@@ -216,8 +211,13 @@ class User < ActiveRecord::Base
 
   def disconnect_from_provider(provider)
     authentication = authentications.find_by_provider(provider)
-    authentication.destroy if authentication
-    self.update_attribute(:"#{provider}_connected", false)
+    if authentication && authentication.user.send(:"#{provider}_state") == 'finished'
+      authentication.destroy
+      self.update_attribute(:"#{provider}_state", nil)
+      return true
+    else
+      return false
+    end
   end
 
   def to_param
