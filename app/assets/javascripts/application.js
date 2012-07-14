@@ -117,7 +117,6 @@ $(function (){
       if(form.hasClass('disabled')){
         return false;
       }
-      console.log('asdas');
       form.addClass('disabled');
       var tagNames = $("#tag_names");
       if (tagNames.length > 0){
