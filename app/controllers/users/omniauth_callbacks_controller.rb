@@ -20,9 +20,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     case provider
       when :twitter
         omniauth = env["omniauth.auth"]
-        ap omniauth
         authentication = current_user.authentications.find_by_uid(omniauth["uid"]) || current_user.create_omniauth(omniauth)
         authentication.import_contacts
+        session[:user_id] = current_user.id
         redirect_to invite_path
       when :linkedin
       else

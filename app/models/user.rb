@@ -208,9 +208,7 @@ class User < ActiveRecord::Base
 
   def disconnect_from_twitter!
     twitter_contacts.destroy_all
-    self.twitter_id     = nil
     self.authentications.where(:provider => 'twitter').destroy_all
-    self.save(validate: false)
   end
 
   def to_param
