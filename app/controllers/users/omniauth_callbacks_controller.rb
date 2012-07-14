@@ -22,7 +22,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         omniauth = env["omniauth.auth"]
         authentication = current_user.authentications.find_by_uid(omniauth["uid"]) || current_user.create_omniauth(omniauth)
         authentication.import_contacts
-        session[:user_id] = current_user.id
         redirect_to invite_path
       when :linkedin
       else

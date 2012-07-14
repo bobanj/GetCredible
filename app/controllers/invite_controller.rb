@@ -3,7 +3,7 @@ class InviteController < ApplicationController
 
   def index
     @contacts = current_user.twitter_contacts.search(params)
-    @users = Authentication.where(["provider = 'twitter' AND uid IN (?)", @contacts.map(&:twitter_id)]).includes(:user).map(&:user)
+    @users = Authentication.existing_users(@contacts)
     @twitter_message = TwitterMessage.new
 
     respond_to do |format|

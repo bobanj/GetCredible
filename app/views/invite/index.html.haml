@@ -6,15 +6,14 @@
 
       %h1 Invite & Tag
       %ul.horizontal.right
-        - if current_user.twitter_id.blank?
-          %li= link_to "OMNI", user_omniauth_authorize_path(:twitter), class: "twitter-import", title: "Import your Twitter contacts"
-          %li= link_to "Import Twitter contacts", twitter_contacts_path(:twitter), class: "twitter-import", title: "Import your Twitter contacts"
+        - unless current_user.twitter?
+          %li= link_to "Import Twitter contacts", user_omniauth_authorize_path(:twitter), class: "twitter-import", title: "Import your Twitter contacts"
 
     %p.info You can invite your contacts one by one by entering their email addresses, or authorize us to access your Twitter contacts and invite more at once.
 
     = render 'email_invite'
 
-    - if @contacts.present?
+    - if current_user.twitter?
       .search_listing
         = form_tag invite_path, :class => "left", remote: true, method: :get do
           %p
@@ -28,9 +27,9 @@
     #js-twitter-contacts-list.twitter-contacts-list.listing
       - if @contacts.present?
         = render 'contacts', :contacts => @contacts, :users => @users
-      - else
+      - elsif !current_user.twitter?
         .ngo
-          %p== Import your #{link_to "Twitter contacts", twitter_contacts_path} and send invites by DM.
+          %p== Import your #{link_to "Twitter contacts", user_omniauth_authorize_path(:twitter)} and send invites by DM.
 
 %aside
   = render 'shared/sidebar_nav'

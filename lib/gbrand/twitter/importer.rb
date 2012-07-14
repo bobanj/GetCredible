@@ -3,9 +3,7 @@ class Gbrand::Twitter::Importer
   attr_accessor :current_user, :client, :users
 
   def self.import(current_user, client)
-    current_user.twitter_handle = client.current_user.screen_name
-    current_user.twitter_id = client.current_user.id
-    current_user.save(validate: false)
+    current_user.update_attribute(:twitter_handle, client.current_user.screen_name)
 
     # fetch users
     importer = new(current_user, client)
@@ -30,11 +28,7 @@ class Gbrand::Twitter::Importer
   end
 
   def save
-    users.each do |user|
-      unless current_user.followings.exists?(twitter_id: user.id)
-        create_twitter_contact(user)
-      end
-    end
+    users.each { |user| create_twitter_contact(user) }
   end
 
   private

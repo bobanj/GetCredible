@@ -2,7 +2,7 @@ class ImportContactsJob
   @queue = :import_contacts
 
   def self.perform(authentication_id)
-    authentication = ::Authentication.find authentication_id
+    authentication = ::Authentication.find_by_id(authentication_id)
     if authentication
       case authentication.provider
         when 'twitter'

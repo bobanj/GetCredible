@@ -107,6 +107,10 @@ class User < ActiveRecord::Base
     User.invited_by(self).inactive
   end
 
+  def twitter?
+    @twitter ||= authentications.where(provider: 'twitter').exists?
+  end
+
   def top_tags(limit)
     user_tags.joins(:votes).
       select('user_tags.id, user_tags.tag_id, COUNT(*) AS total_votes').
