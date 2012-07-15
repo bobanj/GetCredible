@@ -274,9 +274,10 @@
     float: left;
     padding: 5px 0;
     img {
+      margin-right: 5px;
       opacity: 0.4;
       padding: 0;
-      width: 75%;
+      width: 18px;
       @include transition(all .4s);
       &:hover, &:focus {
         opacity: 1;
