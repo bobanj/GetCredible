@@ -1,2 +1,0 @@
-module Twitter::SessionsHelper
-end

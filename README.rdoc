@@ -11,6 +11,9 @@
   * rake givebrand:redis:recalculate (Recalculates the number of incoming and outgoing votes counters for user tag)
   * rake givebrand:redis:autocomplete (Makes tags available for autocomplete)
 
+== Resque Workers
+  QUEUE=import_contacts bundle exec rake environment resque:work
+
 == Env variables for heroku
   * DATABASE_URL
   * RAILS_ENV

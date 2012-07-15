@@ -5,8 +5,8 @@ describe 'User', type: :request do
 
   it "can accept email invitation", js: true do
     # mock twitter integration
-    TwitterMessage.any_instance.should_receive(:send_twitter_message).and_return(true)
-    TwitterMessage.any_instance.should_receive(:get_avatar_url).and_return(nil)
+    InvitationMessage.any_instance.should_receive(:send_invitation_message).and_return(true)
+    InvitationMessage.any_instance.should_receive(:get_avatar_url).and_return(nil)
 
     user = FactoryGirl.create(:user, full_name: "Some Name")
     twitter_contact = FactoryGirl.create(:twitter_contact,
@@ -21,7 +21,7 @@ describe 'User', type: :request do
     end
 
     # invite user
-    within("#js-twitter-invitation-form") do
+    within("#js-invitation-message-form") do
       fill_in("First tag", with: "tag1")
       fill_in("Second tag", with: "tag2")
       click_button("Send Direct Message")

@@ -1,4 +1,4 @@
-class TwitterMessage
+class InvitationMessage
   include ActiveModel::Validations
   include ActiveModel::Conversion
   include ActiveModel::Validations::Callbacks
@@ -6,14 +6,16 @@ class TwitterMessage
   include Rails.application.routes.url_helpers
 
   # Attributes
-  attr_accessor :view_context, :inviter, :twitter_id, :screen_name,
+  attr_accessor :view_context, :inviter, :uid, :provider, :screen_name,
                 :tag_names, :tag1, :tag2, :tag3
 
   # Callbacks
   before_validation :set_tag_names
 
   # Validations
-  validates_presence_of :inviter, :twitter_id, :screen_name
+  validates :inviter, presence: true
+  validates :uid, presence: true
+  validates :provider, inclusion: {in: ['twitter', 'facebook', 'linkedin']}
   validate :validate_at_least_one_tag
 
   def initialize(attributes = {})
@@ -24,7 +26,7 @@ class TwitterMessage
 
   def save
     if valid?
-      inviter_twitter_user
+      invite_contact
       true
     else
       false
@@ -44,24 +46,23 @@ class TwitterMessage
     errors[:tag1] << 'add at least one tag' if tag_names.blank?
   end
 
-  def inviter_twitter_user
+  def invite_contact
     User.transaction do
       invited = create_user
       inviter.followings << invited unless inviter.followings.exists?(invited)
-      send_twitter_message(invited)
-      twitter_contact.destroy
+      send_invitation_message(invited)
+      contact.destroy
     end
   end
 
   def create_user
-    fake_email = "twitter_#{twitter_contact.twitter_id}"
+    fake_email = "twitter_#{contact.uid}"
     user = User.find_by_email(fake_email)
     unless user
-      avatar = get_avatar_url(twitter_contact)
+      avatar = get_avatar_url(contact)
       user = User.new(email: fake_email,
-                      full_name: twitter_contact.name,
+                      full_name: contact.name,
                       remote_avatar_url: avatar)
-      user.twitter_id = twitter_contact.twitter_id
       user.invited_by = inviter
       user.skip_invitation = true
       user.invite!
@@ -71,25 +72,25 @@ class TwitterMessage
     user
   end
 
-  def send_twitter_message(user)
+  def send_invitation_message(user)
     url = view_context.accept_invitation_url(user, :invitation_token => user.invitation_token)
     message = "I've tagged you with \"#{tag_names.first}\" on GiveBrand! Start building your profile here: #{url}"
     client.direct_message_create(screen_name, message)
   end
 
   def client
+    client = GiveBrand::Client.new(user, provider)
     @client ||= GiveBrand::Twitter::Client.from_oauth_token(
       inviter.twitter_token, inviter.twitter_secret)
   end
 
-  def twitter_contact
-    @twitter_contact ||= @twitter_contact = inviter.twitter_contacts.
-      find_by_uid!(twitter_id)
-
+  def contact
+    @contact ||= @contact = inviter.twitter_contacts.
+      find_by_uid!(uid)
   end
 
-  def get_avatar_url(twitter_contact)
+  def get_avatar_url(contact)
     # replace the last '_normal' with ''
-    twitter_contact.avatar.reverse.sub('_normal'.reverse, '').reverse
+    contact.avatar.reverse.sub('_normal'.reverse, '').reverse
   end
 end

@@ -774,10 +774,10 @@ $(function (){
     }
   }
 
-  $.getCredible.twitterInvite = function (){
-    $.getCredible.twitterQtipApi = $('<div />').qtip({
+  $.getCredible.inviteContact = function (){
+    $.getCredible.invitationMessageQtipApi = $('<div />').qtip({
       content:{
-        id:'twitter_invite_modal',
+        id:'invitation_message_modal',
         text:' ',
         title:{
           text:' ',
@@ -800,28 +800,27 @@ $(function (){
         }
       },
       hide:false,
-      style:{ classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded ui-tooltip-twitter' }
+      style:{ classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded ui-tooltip-contact' }
     }).click(
         function (event){
           event.preventDefault();
           return false;
-        }).qtip('api');
+      }).qtip('api');
 
-    $('#main').delegate('.twitter_contact', 'click', function (e) {
+    $('#main').delegate('.invite_contact', 'click', function (e) {
       e.preventDefault();
-      var contact = $(this);
-      var twitterUsername = contact.data('screen_name');
-      var twitterId = contact.data('twitter_id');
-      $('#twitter_message_twitter_id').val(twitterId);
-      $('#twitter_message_screen_name').val(twitterUsername);
-      $("#js-twitter-invite-header").html("Invite <strong>@" + twitterUsername + "</strong>");
-      $("#js-twitter-invite-note").html("Suggest three tags you think describe " + twitterUsername + ".");
+      var contact = $(this).data('contact');
+      $('#invitation_message_uid').val(contact.uid);
+      $('#invitation_message_provider').val(contact.provider);
+      $('#invitation_message_screen_name').val(contact.screen_name);
+      $("#js-invitation-message-header").html("Invite <strong>" + contact.name + " @" + contact.screen_name + "</strong>");
+      $("#js-invitation-message-note").html("Suggest three tags you think describe " + contact.name + ".");
 
-      $.getCredible.twitterQtipApi.set('content.text', $('#twitter_invite'));
-      $.getCredible.twitterQtipApi.show();
+      $.getCredible.invitationMessageQtipApi.set('content.text', $('#invitation_message_invite'));
+      $.getCredible.invitationMessageQtipApi.show();
     });
 
-    $('#js-twitter-invitation-form').live('submit', function (e) {
+    $('#js-invitation-message-form').live('submit', function (e) {
       $(this).find('.loading').show();
     });
   };
@@ -859,7 +858,7 @@ $(function (){
           }
       },
       hide:false,
-      style: { classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded ui-tooltip-twitter email' }
+      style: { classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded ui-tooltip-contact email' }
   }).click(function (event) {
       event.preventDefault();
       return false;
@@ -1070,7 +1069,7 @@ $(function (){
   $.getCredible.ajaxPagination();
   $.getCredible.init();
   $.getCredible.updateTagCloud();
-  $.getCredible.twitterInvite();
+  $.getCredible.inviteContact();
   $.getCredible.emailInvite();
   $.getCredible.loginQtip();
   $.getCredible.trackingPages();

@@ -26,12 +26,7 @@ GetCredible::Application.routes.draw do
   end
 
   resources :activities, :only => [:show]
-
-  namespace :twitter do
-    resource :session, :only => [:new, :show, :destroy]
-    resources :messages, :only => [:create]
-    resources :contacts, :only => [:index]
-  end
+  resources :invitation_messages, :only => [:create]
 
   root :to => 'home#index'
 

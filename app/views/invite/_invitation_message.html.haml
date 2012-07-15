@@ -1,0 +1,6 @@
+-# #loading{style: "display: none"} loading...
+#invitation_message_invite.invite_dialog{style: "display: none;", title: ""}
+  %p.note#js-invitation-message-header
+  .invite_wrap
+    %p#js-invitation-message-note
+    = render 'invitation_messages/form', invitation_message: InvitationMessage.new, remote: true

@@ -3,7 +3,8 @@
   :javascript
     FB.init({appId: "#{ENV['FACEBOOK_APP_ID']}", xfbml: true, cookie: true});
     window.facebookAppId = "#{ENV['FACEBOOK_APP_ID']}";
-= render 'twitter_invite'
+
+= render 'invitation_message'
 
 #content
   %section#twitter_contacts.listing-wrap

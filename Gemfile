@@ -55,7 +55,7 @@ group :development do
   gem 'libnotify',  :require => RUBY_PLATFORM.include?('linux')   && 'rb-inotify'
   gem 'rails3-generators'
   gem 'quiet_assets'
-  gem 'rails-footnotes', '>= 3.7.5.rc4'
+  # gem 'rails-footnotes', '>= 3.7.5.rc4'
   gem 'awesome_print', :require => 'ap'
 end
 
