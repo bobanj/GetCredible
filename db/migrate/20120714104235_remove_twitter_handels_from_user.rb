@@ -15,7 +15,7 @@ class RemoveTwitterHandelsFromUser < ActiveRecord::Migration
   def move_data_to_authentication
     User.where('twitter_id is not NULL').find_each do |user|
       user.authentications.where(:provider => 'twitter').destroy_all
-      user.create_authentication({:provider => 'twitter',
+      user.authentications.create({:provider => 'twitter',
                             :uid => user.twitter_id,
                             :token => user.twitter_token,
                             :secret => user.twitter_secret
