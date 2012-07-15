@@ -1,5 +1,3 @@
-- check twitter/linkedin import works
-- check twitter DM
 - implement linkedin private message
 - import contacts from guide
 - add different dynos for background jobs
