@@ -1,13 +1,17 @@
 class Contact < ActiveRecord::Base
   # Attributes
-  attr_accessible :avatar, :invited, :name, :uid, :url, :screen_name
+  attr_accessible :avatar, :invited, :name, :uid, :url, :screen_name, :user_id
 
   # Associations
   belongs_to :authentication
+  belongs_to :user
 
   # Validations
   validates :authentication_id, presence: true
   validates :uid, presence: true
+  validates :screen_name, length: {maximum: 255}
+  validates :name, length: {maximum: 255}
+  validates :avatar, length: {maximum: 255}
 
   # Scopes
   scope :ordered, order('name ASC')

@@ -3,7 +3,6 @@ GetCredible::Application.routes.draw do
   post "tags/search"
   get '/invite' => 'invite#index'
   get '/sitemap.:format' => 'home#sitemap', :as => :sitemap
-  get '/i' => 'users/invitations#edit', as: :accept_invitation
 
   devise_for :users, :controllers => {
     :sessions => "users/sessions",
@@ -14,6 +13,7 @@ GetCredible::Application.routes.draw do
   devise_scope :user do
     delete "users/omniauth_callbacks/disconnect/:provider", to: "users/omniauth_callbacks#disconnect",
            as: "disconnect_provider"#, constraints: {provider: [:twitter, :linkedin]}
+    get '/i' => 'users/invitations#edit', as: :accept_invitation
   end
 
   resources :users, :only => [:index, :show] do

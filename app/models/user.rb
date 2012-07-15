@@ -18,11 +18,7 @@ class User < ActiveRecord::Base
 
   attr_accessor :tag_names
 
-  # Concerns
-  include Concerns::User::LinkedinContacts
-
   # Associations
-  has_many :authentications, dependent: :destroy
   has_many :user_tags, dependent: :destroy
   has_many :tags, through: :user_tags, :order => "name asc"
   has_many :activity_items, order: 'created_at desc', dependent: :destroy
@@ -42,6 +38,7 @@ class User < ActiveRecord::Base
   has_many :followings, :through => :friendships, :source => :followed
   has_many :followers, :through => :reverse_friendships, :source => :follower
 
+  has_many :authentications, dependent: :destroy
   has_one :twitter_authentication, class_name: 'Authentication',
           conditions: "authentications.provider = 'twitter'"
   has_many :twitter_contacts, through: :twitter_authentication,

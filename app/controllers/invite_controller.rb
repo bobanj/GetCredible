@@ -2,7 +2,7 @@ class InviteController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @contacts = current_user.contacts.includes(:authentication).search(params)
+    @contacts = current_user.contacts.includes([:authentication, :user]).search(params)
     #@users = Authentication.existing_users(@contacts)
     respond_to do |format|
       format.html { render layout: (request.xhr? ? false : true) }

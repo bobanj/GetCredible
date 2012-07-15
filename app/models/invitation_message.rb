@@ -49,7 +49,6 @@ class InvitationMessage
   def invite_contact
     User.transaction do
       invited = create_user
-      inviter.followings << invited unless inviter.followings.exists?(invited)
       send_invitation_message(invited)
     end
   end
@@ -75,7 +74,7 @@ class InvitationMessage
     url = view_context.accept_invitation_url(user, :invitation_token => user.invitation_token)
     message = "I've tagged you with \"#{tag_names.first}\" on GiveBrand! Start building your profile here: #{url}"
     client.direct_message_create(screen_name, message)
-    @contact.update_attribute(:invited, true) if @contact
+    contact.update_attributes({invited: true, user_id: user.id}) if contact
   end
 
   def client
@@ -83,8 +82,7 @@ class InvitationMessage
   end
 
   def contact
-    @contact ||= @contact = inviter.twitter_contacts.
-      find_by_uid!(uid)
+    @contact ||= inviter.twitter_contacts.find_by_uid!(uid)
   end
 
   def get_avatar_url(contact)

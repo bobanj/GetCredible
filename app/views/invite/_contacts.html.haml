@@ -3,7 +3,10 @@
     -#- user = users.detect{ |user| user.twitter_id == contact.twitter_id }
     %li{id: "row_contact_#{contact.id}", class: contact.invited? ? 'vouch' : nil}
       .tag-icon
-      = image_tag contact.avatar.presence || "fallback/avatar_default_avatar.png", width: 48, height: 48
+      - if contact.user && contact.user.active?
+        = link_to image_tag(contact.avatar.presence || "fallback/avatar_default_avatar.png", width: 48, height: 48), me_user_path(contact.user)
+      - else
+        = image_tag contact.avatar.presence || "fallback/avatar_default_avatar.png", width: 48, height: 48
       %span.name= link_to contact.name, contact.url
       - if contact.twitter?
         %span.user

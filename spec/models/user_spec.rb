@@ -45,7 +45,8 @@ describe User do
     it { should have_many(:votes).dependent(:destroy) }
     it { should have_many(:voted_users).through(:votes) }
     it { should have_many(:voters).through(:user_tags) }
-    it { should have_many(:twitter_contacts).dependent(:destroy) }
+    it { should have_many(:authentications).dependent(:destroy) }
+    it { should have_many(:contacts) }
     it { should have_many(:friendships).dependent(:destroy) }
     it { should have_many(:reverse_friendships).dependent(:destroy) }
     it { should have_many(:followings) }
@@ -53,7 +54,7 @@ describe User do
     it { should have_many(:incoming_endorsements) }
     it { should have_many(:outgoing_endorsements) }
     it { should have_many(:twitter_contacts) }
-    it { should have_many(:linkeding_contacts) }
+    it { should have_many(:linkedin_contacts) }
   end
 
   describe "Validations" do
