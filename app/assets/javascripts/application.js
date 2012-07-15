@@ -1077,11 +1077,17 @@ $(function (){
 
   $.getCredible.landingPageVideo = function () {
     $('.video').click(function () {
-      if ($.isFunction(landingVideoApi.playVideo)){
-        $("#landing-video").show('fast',function(){
+      $("#landing-video").show('fast',function(){
+        if ($.isFunction(landingVideoApi.playVideo)){
           landingVideoApi.playVideo();
-        });
-      }
+        } else {
+          var videoTmp = setTimeout(function () {
+            if ($.isFunction(landingVideoApi.playVideo)){
+              landingVideoApi.playVideo();
+            }
+          }, 800)
+        }
+      });
     });
   };
 

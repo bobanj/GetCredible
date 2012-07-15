@@ -1,5 +1,6 @@
-= content_for :javascripts do
-  %script{:src => "http://www.youtube.com/player_api", :type => "text/javascript"}
+- unless Rails.env.test? # stop warnings when running specs
+  = content_for :javascripts do
+    %script{:src => "http://www.youtube.com/player_api", :type => "text/javascript"}
 
 .featured
   //%h1 Lorem Ipsum Dolor Sit Amet
