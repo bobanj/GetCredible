@@ -1,13 +1,13 @@
 %ul
   - contacts.each do |contact|
     -#- user = users.detect{ |user| user.twitter_id == contact.twitter_id }
-    %li{:class => contact.invited? ? 'vouch' : nil}
+    %li{id: "row_contact_#{contact.id}", class: contact.invited? ? 'vouch' : nil}
       .tag-icon
       = image_tag contact.avatar.presence || "fallback/avatar_default_avatar.png", width: 48, height: 48
-      %span.name= contact.name
-      %span.user
-        - if contact.twitter?
-          = link_to "#{contact.name}  @#{contact.screen_name}", contact.url
+      %span.name= link_to contact.name, contact.url
+      - if contact.twitter?
+        %span.user
+        = link_to "@#{contact.screen_name}", contact.url
       %span.status
         - unless contact.invited?
           = link_to "Invite", "#", :class => 'js-contact-invite invite_contact btn primary small light right', :'data-contact' => {screen_name: contact.screen_name, name: contact.name, uid: contact.uid, provider: contact.authentication.provider}.to_json

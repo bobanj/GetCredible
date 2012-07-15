@@ -1,7 +1,8 @@
 $.getCredible.displayNotification('success', 'An invitation message has been sent to @<%= @invitation_message.screen_name %>.');
 
-$.getCredible.twitterQtipApi.hide();
+$.getCredible.invitationMessageQtipApi.hide();
 $('.loading').hide();
+$("#row_contact_<%=@invitation_message.instance_variable_get('@contact').id %>").addClass('vouch').find('.status').html('');
 $("#js-invitation-message-header").text('');
 $('#invitation_message_uid').val('');
 $('#invitation_message_screen_name').val('');

@@ -51,12 +51,11 @@ class InvitationMessage
       invited = create_user
       inviter.followings << invited unless inviter.followings.exists?(invited)
       send_invitation_message(invited)
-      contact.destroy
     end
   end
 
   def create_user
-    fake_email = "twitter_#{contact.uid}"
+    fake_email = "#{provider}_#{contact.uid}"
     user = User.find_by_email(fake_email)
     unless user
       avatar = get_avatar_url(contact)
@@ -76,12 +75,11 @@ class InvitationMessage
     url = view_context.accept_invitation_url(user, :invitation_token => user.invitation_token)
     message = "I've tagged you with \"#{tag_names.first}\" on GiveBrand! Start building your profile here: #{url}"
     client.direct_message_create(screen_name, message)
+    @contact.update_attribute(:invited, true) if @contact
   end
 
   def client
-    client = GiveBrand::Client.new(user, provider)
-    @client ||= GiveBrand::Twitter::Client.from_oauth_token(
-      inviter.twitter_token, inviter.twitter_secret)
+    @client ||= GiveBrand::Client.new(inviter, provider)
   end
 
   def contact
