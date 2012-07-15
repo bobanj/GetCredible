@@ -399,3 +399,28 @@ ul.social_fixed {
     }
   }
 }
+
+.cancel_account {
+  background-color: #EEE;
+  padding: 10px;
+
+  a.cancel_action {
+    border: 0 none;
+    color: #990000;
+    font-size: 11px;
+    font-weight: bold;
+    text-decoration: underline;
+    &:hover {
+      color: $blue;
+    }
+  }
+
+  strong {
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 11px;
+    margin-bottom: 0;
+  }
+}
