@@ -254,7 +254,33 @@
   .pagination {
     padding: 20px 25px;
   }
+  
+  &.people {
+    
+  }
 }
+
+.social-icons {
+  position: absolute;
+  left: 70%;
+  top: 12px;
+  li {
+    border: none;
+    display: inline;
+    float: left;
+    padding: 5px 0;
+    img {
+      opacity: 0.4;
+      padding: 0;
+      width: 75%;
+      @include transition(all .4s);
+      &:hover, &:focus {
+        opacity: 1;
+      }
+    }
+  }
+}
+
 #endorsements {
   .cancel {
     color: $red;

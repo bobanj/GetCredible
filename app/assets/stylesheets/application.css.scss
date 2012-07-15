@@ -1287,6 +1287,17 @@ ul#steps{
   }
 }
 
+.cells {
+  display: table;
+  margin-left: 0;
+  width: 100%;
+  li {
+    display: table-cell;
+    text-align: center;
+    vertical-align: top;
+  }
+}
+
 hr.divider {
   background: #eee;
   border: none;
