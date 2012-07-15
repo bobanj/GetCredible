@@ -6,8 +6,12 @@
   %h1 Your resume, amplified by your network
   %h2 Instantly show recruiters, hiring managers and potential clients your best skills and traits — chosen and vouched for by your friends and colleagues — and land your dream gig.
   .video
-    %iframe{ width: "560", height: "315", src: "http://www.youtube.com/embed/1yGSIHcAPqs", frameborder: "0", allowfullscreen: ''}
-    
+    #landing-video
+      - unless Rails.env.test? # stop warnings when running specs
+        = content_for :javascripts do
+          %script{:src => "http://www.youtube.com/player_api", :type => "text/javascript"}
+      -# %iframe{ width: "560", height: "315", src: "http://www.youtube.com/embed/1yGSIHcAPqs", frameborder: "0", allowfullscreen: ''}
+
   .easy-signup
     = simple_form_for(User.new, :as => :user, :url => registration_path(:user), :html => {:id => 'landing_sign_up_top'} ) do |f|
       %ul
