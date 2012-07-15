@@ -1,0 +1,35 @@
+#page
+  .featured
+    -#%ul#slider.unstyled{:style => "height:200px"}
+    %ul#explain.unstyled.slim
+      %li
+        = image_tag 'screen1.jpg'
+        %h3 Ask your network
+        %p Friends and colleagues can tag you with skills and traits to build your profile and personal brand.
+      %li
+        = image_tag 'screen2.jpg'
+        %h3 Tell your story
+        %p Endorsements let your connections go deeper by explaining why they tagged or vouched for you.
+      %li
+        = image_tag 'screen3.jpg'
+        %h3 Get hired
+        %p Give recruiters, hiring managers and clients an overview of your skills and personality by sharing your profile.
+  / #video
+  /   %h2 Watch our video and find out more
+  /   - unless Rails.env.test? # stop warnings when running specs
+  /     %iframe{ width: "560", height: "315", src: "http://www.youtube.com/embed/1yGSIHcAPqs", frameborder: "0", allowfullscreen: ''}
+  /   %p
+  /     %strong 98 seconds,
+  /     and you're an expert!
+  /     We have an 
+  /     = link_to "illustrated tour", tour_path
+  /     as well.
+
+  .featured
+    .easy-signup
+      = simple_form_for(User.new, :as => :user, :url => registration_path(:user), :html => {:id => 'landing_sign_up_bottom'}) do |f|
+        %ul
+          %li= f.input :username, :required => false, :placeholder => "Username", :label_html => {:class => 'hidden'}
+          %li= f.input :email, :placeholder => "Email", :label_html => {:class => 'hidden'}
+          %li= f.input :password, :placeholder => "Password", :label_html => {:class => 'hidden'}
+          %li.buttons= f.button :submit, "Sign up now for free", class: 'btn large primary', id: 'landing_sign_up_bottom'
