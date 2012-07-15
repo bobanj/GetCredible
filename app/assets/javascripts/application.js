@@ -52,7 +52,6 @@ function onYouTubePlayerAPIReady(){
       }
     }
   });
-
   landingVideoApi = new YT.Player('landing-video', {
     playerVars:{
       autoplay:0,
@@ -60,8 +59,8 @@ function onYouTubePlayerAPIReady(){
       origin:document.location.host
     },
     origin:document.location.host,
-    height:240,
-    width:370,
+    height:315,
+    width:560,
     videoId:$.getCredible.guideVideoId,
     events:{
       'onReady':function (e){
@@ -1079,7 +1078,9 @@ $(function (){
   $.getCredible.landingPageVideo = function () {
     $('.video').click(function () {
       if ($.isFunction(landingVideoApi.playVideo)){
-        landingVideoApi.playVideo();
+        $("#landing-video").show('fast',function(){
+          landingVideoApi.playVideo();
+        });
       }
     });
   };

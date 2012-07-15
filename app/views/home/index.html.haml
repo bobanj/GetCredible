@@ -1,3 +1,6 @@
+= content_for :javascripts do
+  %script{:src => "http://www.youtube.com/player_api", :type => "text/javascript"}
+
 .featured
   //%h1 Lorem Ipsum Dolor Sit Amet
   //%h2 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
@@ -7,9 +10,7 @@
   %h2 Instantly show recruiters, hiring managers and potential clients your best skills and traits — chosen and vouched for by your friends and colleagues — and land your dream gig.
   .video
     #landing-video
-      - unless Rails.env.test? # stop warnings when running specs
-        = content_for :javascripts do
-          %script{:src => "http://www.youtube.com/player_api", :type => "text/javascript"}
+      -#- unless Rails.env.test? # stop warnings when running specs
       -# %iframe{ width: "560", height: "315", src: "http://www.youtube.com/embed/1yGSIHcAPqs", frameborder: "0", allowfullscreen: ''}
 
   .easy-signup

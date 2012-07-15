@@ -1012,9 +1012,10 @@ footer {
     cursor: pointer;
     height: 325px;
     margin-top: 20px;
-    iframe {
-      display: none;
+
+    #landing-video{
       padding-top: 10px;
+      display: none;
     }
     // &:hover, &:focus {
     //   iframe {
