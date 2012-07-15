@@ -6,6 +6,7 @@
   .search_listing {
     background: #f6f6f6;
     padding: 15px 25px 3px;
+    position: relative;
   }
   .search_listing, .tag-search {
     margin: 0;
@@ -239,7 +240,7 @@
       width: 25px;
     }
     &:hover, &:focus {
-      .twitter_contact {
+      .twitter_contact, .status {
         display: block !important;
       }
       .score {
@@ -255,14 +256,17 @@
     padding: 20px 25px;
   }
   
-  &.people {
-    
+  .status {
+    display: none;
+    margin-top: 10px;
   }
+  
 }
 
 .social-icons {
   position: absolute;
-  left: 70%;
+  left: 60%;
+  margin: 0;
   top: 12px;
   li {
     border: none;

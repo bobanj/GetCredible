@@ -18,11 +18,11 @@
       -#   = link_to "@#{contact.screen_name}", contact.url, target: '_blank'
 
       %ul.social-icons
-        %li= link_to image_tag("icons/twitter.png"), "#"
-        %li= link_to image_tag("icons/facebook.png"), "#"
-        %li= link_to image_tag("icons/linkedin.png"), "#"
+        %li= link_to image_tag("icons/twitter500.png"), "#", width: "14"
+        %li= link_to image_tag("icons/facebook500.png"), "#", width: "14"
+        %li= link_to image_tag("icons/linkedin500.png"), "#", width: "14"
 
-      %span.status
+      %span.status.right
         - unless contact.invited?
           = link_to "Invite", "#", :class => 'js-contact-invite invite_contact btn primary small light right', :'data-contact' => {screen_name: contact.screen_name, name: contact.name, uid: contact.uid, provider: contact.authentication.provider}.to_json
 

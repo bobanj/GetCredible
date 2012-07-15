@@ -1,6 +1,6 @@
 - if current_user.send(:"#{provider}_state") == 'finished'
   %li= link_to "Disconnect from #{provider.capitalize}", disconnect_provider_path(provider: provider), :confirm => "Are you sure you want to disconnect your #{provider.capitalize} account?", :method => :delete
 - elsif current_user.send(:"#{provider}_state") == 'pending'
-  %li= link_to "Importing contacts", '#', class: "twitter-import", title: "Importing your #{provider.capitalize} contacts"
+  %li= link_to "Importing contacts", '#', class: "twitter-import #{provider}_icon", title: "Importing your #{provider.capitalize} contacts"
 - else
-  %li= link_to "Import #{provider.capitalize} contacts", user_omniauth_authorize_path(provider), class: "twitter-import", title: "Import your #{provider.capitalize} contacts"
+  %li= link_to "Import #{provider.capitalize} contacts", user_omniauth_authorize_path(provider), class: "twitter-import #{provider}_icon", title: "Import your #{provider.capitalize} contacts"
