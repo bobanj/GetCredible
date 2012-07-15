@@ -24,4 +24,13 @@ class HomeController < ApplicationController
 
   def sitemap
   end
+  
+  def index
+    if user_signed_in?
+      redirect_to activity_path('all')
+    else
+      render layout: 'landing'
+    end
+  end
+   
 end
