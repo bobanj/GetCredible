@@ -22,11 +22,10 @@
       = render :partial => 'shared/header'
 
       #main
-        = render 'shared/guide'
-
-        - #TODO Style flash messages
         = flash_messages
         = yield
+
+        = render 'shared/guide'
 
       = render 'shared/footer'
 
