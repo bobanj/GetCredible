@@ -24,7 +24,7 @@ class TransferTwitterContactsToContacts < ActiveRecord::Migration
        twitter_authentication = user.twitter_authentication
        if twitter_authentication
         twitter_authentication.contacts.create(uid: twitter_contact.twitter_id,
-                                               username: twitter_contact.screen_name,
+                                               screen_name: twitter_contact.screen_name,
                                                name: twitter_contact.name, avatar: twitter_contact.avatar,
                                                url: "https://twitter.com/#{twitter_contact.screen_name}",
                                                invited: twitter_contact.invited )
