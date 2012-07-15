@@ -835,6 +835,10 @@ $(function (){
 
 
   $.getCredible.emailInvite = function () {
+    $("#js-email-invite").click(function () {
+      $("#email_invite").slideToggle();
+    })
+
     $('#js-email-invitation-form').live('submit', function (e) {
       mixpanel.track("Invitation");
       $(this).find('.loading').show();

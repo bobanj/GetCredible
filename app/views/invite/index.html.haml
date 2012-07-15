@@ -14,7 +14,7 @@
       %h1 Invite & Tag
       %ul.cells
       %ul.horizontal.right
-        = link_to "Send Email Invite", "#", :class => "btn primary small light"
+        = link_to "Send Email Invite", "#", class: "btn primary small light", id: "js-email-invite"
       %ul.cells
         = render 'import_provider', provider: 'twitter'
         = render 'import_provider', provider: 'linkedin'
@@ -22,7 +22,7 @@
 
     %p.info You can invite your contacts one by one by entering their email addresses, or authorize us to access your Twitter contacts and invite more at once.
 
-    //= render 'email_invite'
+    = render 'email_invite'
 
     - if @contacts.present?
       .search_listing
