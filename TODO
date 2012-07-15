@@ -1,6 +1,4 @@
-- create following connections for imported users and mark contact.user_id
-- link to givebrand profile if user in the system
-- check twitter/facebook/linkedin import works
+- check twitter/linkedin import works
 - check twitter DM
 - implement linkedin private message
 - import contacts from guide
@@ -11,3 +9,4 @@
 * if time:
   - check facebook import works
   - implement facebook ui popup
+  - check facebook import

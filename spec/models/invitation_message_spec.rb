@@ -17,4 +17,25 @@ describe InvitationMessage do
       invitation_message.errors[:provider].should include("is not included in the list")
     end
   end
+
+  describe "User invitation" do
+    it "can invite contact and make connections" do
+      view_context = mock
+      user = FactoryGirl.create(:user, full_name: "User")
+      authentication = FactoryGirl.create(:authentication, uid: 't1',
+                                          provider: 'twitter', user: user)
+      contact = FactoryGirl.create(:contact, uid: 't2', authentication: authentication)
+
+      user.followings.should be_empty
+
+      invitation_message = InvitationMessage.new(uid: 't2', provider: 'twitter',
+        inviter: user, view_context: view_context, tag1: 'rails')
+      invitation_message.should_receive(:send_invitation_message).and_return(true)
+      invitation_message.save
+
+      user2 = User.find_by_email('twitter_t2')
+      user.followings.should include(user2) # following relationship
+      contact.reload.user.should == user2   # temp user - contact relatioship
+    end
+  end
 end

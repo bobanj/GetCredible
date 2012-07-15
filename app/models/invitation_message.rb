@@ -29,6 +29,7 @@ class InvitationMessage
       invite_contact
       true
     else
+      p errors.full_messages
       false
     end
   end
@@ -50,6 +51,7 @@ class InvitationMessage
     User.transaction do
       invited = create_user
       send_invitation_message(invited)
+      contact.update_attributes({invited: true, user_id: invited.id}) if contact
     end
   end
 
@@ -74,7 +76,6 @@ class InvitationMessage
     url = view_context.accept_invitation_url(user, :invitation_token => user.invitation_token)
     message = "I've tagged you with \"#{tag_names.first}\" on GiveBrand! Start building your profile here: #{url}"
     client.direct_message_create(screen_name, message)
-    contact.update_attributes({invited: true, user_id: user.id}) if contact
   end
 
   def client
@@ -87,6 +88,6 @@ class InvitationMessage
 
   def get_avatar_url(contact)
     # replace the last '_normal' with ''
-    contact.avatar.reverse.sub('_normal'.reverse, '').reverse
+    contact.avatar.to_s.reverse.sub('_normal'.reverse, '').reverse
   end
 end
