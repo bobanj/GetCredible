@@ -808,12 +808,20 @@ $(function (){
       }).qtip('api');
 
     $('#main').delegate('.invite_contact', 'click', function (e) {
+
       e.preventDefault();
       var contact = $(this).data('contact');
+
+      if (contact.provider === 'twitter') {
+        var contact_name = contact.name + " @" + contact.screen_name;
+      } else {
+        var contact_name = contact.name;
+      }
+
       $('#invitation_message_uid').val(contact.uid);
       $('#invitation_message_provider').val(contact.provider);
       $('#invitation_message_screen_name').val(contact.screen_name);
-      $("#js-invitation-message-header").html("Invite <strong>" + contact.name + " @" + contact.screen_name + "</strong>");
+      $("#js-invitation-message-header").html("Invite <strong>" + contact_name + "</strong>");
       $("#js-invitation-message-note").html("Suggest three tags you think describe " + contact.name + ".");
 
       $.getCredible.invitationMessageQtipApi.set('content.text', $('#invitation_message_invite'));

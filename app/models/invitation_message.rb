@@ -29,7 +29,6 @@ class InvitationMessage
       invite_contact
       true
     else
-      p errors.full_messages
       false
     end
   end
@@ -74,8 +73,14 @@ class InvitationMessage
 
   def send_invitation_message(user)
     url = view_context.accept_invitation_url(user, :invitation_token => user.invitation_token)
-    message = "I've tagged you with \"#{tag_names.first}\" on GiveBrand! Start building your profile here: #{url}"
-    client.direct_message_create(screen_name, message)
+    case provider
+    when 'twitter'
+      message = "I've tagged you with \"#{tag_names.first}\" on GiveBrand! Start building your profile here: #{url}"
+      client.direct_message_create(screen_name, message)
+    when 'linkedin'
+      message = "I've tagged you with \"#{tag_names.join(', ')}\" on GiveBrand! Start building your profile here: #{url}"
+      client.send_message("I invite you to claim your brand at GiveBrand!", message, [contact.uid])
+    end
   end
 
   def client
@@ -83,11 +88,19 @@ class InvitationMessage
   end
 
   def contact
-    @contact ||= inviter.twitter_contacts.find_by_uid!(uid)
+    @contact ||= inviter.contacts.where(['provider = ?', provider]).find_by_uid!(uid)
   end
 
   def get_avatar_url(contact)
-    # replace the last '_normal' with ''
-    contact.avatar.to_s.reverse.sub('_normal'.reverse, '').reverse
+    if provider == 'twitter'
+      # replace the last '_normal' with ''
+      contact.avatar.to_s.reverse.sub('_normal'.reverse, '').reverse
+    else
+      puts '@@@@@@@@@@2'
+      p contact.avatar
+      puts '@@@@@@@@@@2'
+      contact.avatar
+      #nil # contact.avatar
+    end
   end
 end
