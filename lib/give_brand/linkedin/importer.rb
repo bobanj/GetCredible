@@ -18,7 +18,7 @@ class GiveBrand::Linkedin::Importer
       contact.attributes = {
           name:   "#{connection.first_name} #{connection.last_name}".strip,
           avatar: connection.picture_url,
-          url:    connection.site_standard_profile_request.url
+          url:    connection.url.presence || connection.site_standard_profile_request.try(:url)
       }
 
       contact.save

@@ -7,13 +7,16 @@
         = link_to image_tag(contact.user.avatar, width: 48, height: 48), me_user_path(contact.user)
       - else
         = image_tag contact.avatar.presence || "fallback/avatar_default_avatar.png", width: 48, height: 48
-      %span.name= link_to contact.name, contact.url
-      - if contact.twitter?
-        %span.user
-        = link_to "@#{contact.screen_name}", contact.url, target: '_blank'
-      - elsif contact.linkedin?
-        %span.user
-        = link_to contact.name, contact.url, target: '_blank'
+
+      - if contact.user && contact.user.active?
+        %span.name= link_to contact.user.name, me_user_path(contact.user)
+      - else
+        %span.name= contact.name
+
+      -# - if contact.twitter?
+      -#   %span.user
+      -#   = link_to "@#{contact.screen_name}", contact.url, target: '_blank'
+
       %span.status
         - unless contact.invited?
           = link_to "Invite", "#", :class => 'js-contact-invite invite_contact btn primary small light right', :'data-contact' => {screen_name: contact.screen_name, name: contact.name, uid: contact.uid, provider: contact.authentication.provider}.to_json
