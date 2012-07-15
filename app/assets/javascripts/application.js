@@ -31,7 +31,7 @@ Array.prototype.unique = function (){
   return r;
 };
 
-var guideVideoApi;
+var guideVideoApi, landingVideoApi;
 // called when YouTube Api is loaded
 
 function onYouTubePlayerAPIReady(){
@@ -49,6 +49,23 @@ function onYouTubePlayerAPIReady(){
       'onReady':function (e){
         // Store the player in the API
         guideVideoApi = e.target;
+      }
+    }
+  });
+  landingVideoApi = new YT.Player('landing-video', {
+    playerVars:{
+      autoplay:0,
+      enablejsapi:1,
+      origin:document.location.host
+    },
+    origin:document.location.host,
+    height:315,
+    width:560,
+    videoId:$.getCredible.guideVideoId,
+    events:{
+      'onReady':function (e){
+        // Store the player in the API
+        landingVideoApi = e.target;
       }
     }
   });
@@ -1058,6 +1075,22 @@ $(function (){
     }
   }
 
+  $.getCredible.landingPageVideo = function () {
+    $('.video').click(function () {
+      $("#landing-video").show('fast',function(){
+        if ($.isFunction(landingVideoApi.playVideo)){
+          landingVideoApi.playVideo();
+        } else {
+          var videoTmp = setTimeout(function () {
+            if ($.isFunction(landingVideoApi.playVideo)){
+              landingVideoApi.playVideo();
+            }
+          }, 800)
+        }
+      });
+    });
+  };
+
   $.getCredible.showFlashMessages();
   $.getCredible.ajaxPagination();
   $.getCredible.init();
@@ -1065,5 +1098,6 @@ $(function (){
   $.getCredible.twitterInvite();
   $.getCredible.emailInvite();
   $.getCredible.loginQtip();
+  $.getCredible.landingPageVideo();
   $.getCredible.trackingPages();
 });

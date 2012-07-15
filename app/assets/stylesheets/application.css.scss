@@ -634,6 +634,7 @@ footer {
   float: right;
 }
 
+
 #global-header {
 
   //@include background-image(linear-gradient(lighten($black, 99%), lighten($black, 96%)));
@@ -749,6 +750,10 @@ footer {
 #gn-signin {
   float: right !important;
   margin-top: 35px;
+  opacity: 0.75;
+  &:hover, &:focus {
+    opacity: 1;
+  }
   li {
     margin-left: 5px;
   }
@@ -930,23 +935,23 @@ footer {
   @include background(radial-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.01) 100%));
 
   h1 {
-    font-size: 66px;
+    font-size: 64px;
     font-weight: bold;
     line-height: 0.85;
-    margin-top: 70px;
+    margin-top: 65px;
     margin-bottom: 0px;
     text-transform: uppercase;
   }
   h2 {
-    color: #777;
+    color: #666;
     font-family: open-sans, sans-serif;
-    font-size: 19px;
+    font-size: 16px;
     line-height: 1.5;
-    margin-top: 14px;
+    margin-top: 10px;
   }
   h3 {
     color: $blue;
-    font: bold 28px "gnuolane", impact, sans-serif;
+    font: bold 26px "gnuolane", impact, sans-serif;
     line-height: 1.5;
     margin-bottom: 4px;
   }
@@ -954,11 +959,11 @@ footer {
     @include text-shadow(#fff 0 1px 1px);
   }
   .easy-signup {
-    background: #e9e9e9;
+    background: #e2e2e2;
     border: 1px solid #ddd;
-    margin: 20px auto 10px;
-    padding: 6px 12px 6px 0;
-    width: 900px;
+    margin: 0 auto 10px;
+    padding: 6px 22px 6px 10px;
+    width: 920px;
     @include pie-clearfix;
     ul {
       margin: 0;
@@ -975,11 +980,12 @@ footer {
       width: 210px;
     }
     input[type=text], input[type=email], input[type=password] {
+      color: #888;
       padding: 6px 4px 5px;
     }
   }
   ul.slim {
-    padding: 0 4%;
+    padding: 0 8%;
   }
   li {
     display: inline;
@@ -995,11 +1001,27 @@ footer {
     border: 4px solid #fff;
     margin-bottom: 12px;
     position: relative;
-    width: 220px;
+    width: 180px;
     z-index: 2;
     @include border-radius(50%);
     @include box-shadow(rgba(0, 0, 0, 0.05) 0 1px 2px);
     @include transition(all .5s);
+  }
+  .video {
+    background: image_url("featured.png") no-repeat center;
+    cursor: pointer;
+    height: 325px;
+    margin-top: 20px;
+
+    #landing-video{
+      padding-top: 10px;
+      display: none;
+    }
+    // &:hover, &:focus {
+    //   iframe {
+    //     display: inline-block;
+    //   }
+    // }
   }
 }
 
@@ -1021,6 +1043,9 @@ footer {
 
 #explain {
   margin-top: 10px;
+  p {
+    font-size: 12px;
+  }
   li:hover img {
     z-index: 3;
     //@include scale(1.15);
