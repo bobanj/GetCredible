@@ -34,5 +34,12 @@
             = f.input :twitter_handle, :wrapper => false, :label => false
           %li.buttons= f.button :submit, "Save", class: 'btn primary large'
 
+  .cancel_account
+    = link_to "Cancel my account", user_registration_path, method: :delete, confirm: "Are you sure you want to cancel your account?", class: 'cancel_action'
+    %p
+      %strong Warning:
+      ="Once you cancel your account, you will lose all data associated with it. There is no undo."
+
+
 %aside
   = render 'shared/sidebar_nav'
