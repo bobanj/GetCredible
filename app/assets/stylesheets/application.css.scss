@@ -173,17 +173,18 @@ input, textarea {
 }  
 .twitter_icon {
   border-left: none;
+  border-right: none;
   border-top: none;
   @include background(image_url("icons/twitter500.png") no-repeat 25% center, linear-gradient(#fcfcfc, #f3f3f3));
-  &:hover, &:focus {
-    border-right: 1px solid #ddd;
-  }
+  
 }
 .linkedin_icon {
   border-left: none;
-  border-right: none;
   border-top: none;
   @include background(image_url("icons/linkedin500.png") no-repeat 25% center, linear-gradient(#fcfcfc, #f3f3f3));
+  &:hover, &:focus {
+    border-right: 1px solid #d9d9d9;
+  }
 }
 
 .linkedin-import {
@@ -974,15 +975,16 @@ footer {
 
   h1 {
     color: #eee;
-    font-size: 66px;
+    font-size: 64px;
     font-weight: bold;
+    letter-spacing: 1px;
     line-height: 0.85;
     margin-top: 50px;
     margin-bottom: 0px;
     text-transform: uppercase;
   }
   h2 {
-    color: #191919;
+    color: #b9e2ff;
     font-family: open-sans, sans-serif;
     font-size: 18px;
     line-height: 1.5;
@@ -995,10 +997,10 @@ footer {
     line-height: 1.5;
     margin-bottom: 4px;
   }
-  h1 {
+  h1, h2 {
     @include text-shadow(#333 0 1px 1px);
   }
-  h2, h3 {
+  h3 {
     @include text-shadow(rgba(255, 255, 255, 0.3) 0 1px 1px);
   }
   .easy-signup {
