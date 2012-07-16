@@ -15,15 +15,15 @@
       %ul.horizontal.right
         = link_to "Send Email Invite", "#", class: "btn primary small light", id: "js-email-invite"
     = render 'email_invite'
-    
+
     %ul.cells
       = render 'import_provider', provider: 'twitter'
       = render 'import_provider', provider: 'linkedin'
       -#= render 'import_provider', provider: 'facebook'
 
-    %p.info.mini You can invite your contacts one by one by entering their email addresses, or authorize us to access your Twitter contacts and invite more at once.
+    %p.info.mini You can invite your contacts one by one by entering their email addresses, or authorize us to access your Twitter and LinkedIn contacts and invite more at once.
 
-    
+
 
     - if @contacts.present?
       .search_listing
@@ -32,10 +32,10 @@
             = label_tag :q, "Search", class: 'hidden'
             = text_field_tag :q, params[:q]
             = submit_tag :search, value: "Search", name: nil
-        %ul.social-icons
-          %li= link_to image_tag("icons/twitter500.png"), "#", width: "14"
-          %li= link_to image_tag("icons/facebook500.png"), "#", width: "14"
-          %li= link_to image_tag("icons/linkedin500.png"), "#", width: "14"
+        -# %ul.social-icons
+        -#   %li= link_to image_tag("icons/twitter500.png"), "#", width: "14"
+        -#   %li= link_to image_tag("icons/facebook500.png"), "#", width: "14"
+        -#   %li= link_to image_tag("icons/linkedin500.png"), "#", width: "14"
 
     %hr.divider
     #js-twitter-contacts-list.twitter-contacts-list.listing
@@ -43,7 +43,7 @@
         = render 'contacts', :contacts => @contacts
       - elsif !current_user.twitter_state
         .ngo
-          %p== Import your #{link_to "Twitter contacts", user_omniauth_authorize_path(:twitter)} and send invites by DM.
+          %p== Import your #{link_to "Twitter", user_omniauth_authorize_path(:twitter)} or #{link_to "LinkedIn", user_omniauth_authorize_path(:linkedin)} contacts and send invites.
 
 %aside
   = render 'shared/sidebar_nav'
