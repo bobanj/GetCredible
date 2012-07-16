@@ -1025,6 +1025,7 @@ footer {
       width: 205px;
     }
     input[type=text], input[type=email], input[type=password] {
+
       color: #888;
       padding: 6px 4px 5px;
       width: 205px;
@@ -1072,7 +1073,7 @@ footer {
 }
 
 .ribbon {
-  background: #444;
+  background: #777;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   font: 18px/2 "open sans", sans-serif;
@@ -1083,7 +1084,7 @@ footer {
   top: -24px;
   width: 50%;
   @include border-radius(30px);
-  @include box-shadow(rgba(0, 0, 0, 0.1) 0 0 10px);
+  @include box-shadow(rgba(0, 0, 0, 0.2) 0 0 7px inset);
   a {
     color: #fff;
     color: rgba(255, 255, 255, 0.9);
