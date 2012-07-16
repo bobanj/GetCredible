@@ -148,14 +148,53 @@ input, textarea {
 }
 
 .twitter-import {
+  border: 1px solid #ddd;
+  color: $blue;
+  display: block;
+  font: 12px/2 "open sans", sans-serif;
+  padding: 14px 15px 14px 40px;
+  @include text-shadow(#fff 0 1px 1px);
+  @include background(linear-gradient(#fcfcfc, #f3f3f3));
+  @include box-shadow(rgba($white, 0.5) 0px 0px 1px 0px inset, rgba($white, 1) 0px 1px 3px);
+  &:hover, &:focus {
+    border-color: $blue;
+    color: #333;
+    text-decoration: none;
+  }
+}
+
+.twitter_icon, .linkedin_icon, .facebook_icon {
+  &.importing {
+    @include background(image_url("ajax_loader.gif") no-repeat 20% center, linear-gradient(#fcfcfc, #f3f3f3));
+  }
+  &.disconnect {
+    opacity: 0.6;
+  }
+}  
+.twitter_icon {
+  border-left: none;
+  border-top: none;
+  @include background(image_url("icons/twitter500.png") no-repeat 25% center, linear-gradient(#fcfcfc, #f3f3f3));
+  &:hover, &:focus {
+    border-right: 1px solid #ddd;
+  }
+}
+.linkedin_icon {
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  @include background(image_url("icons/linkedin500.png") no-repeat 25% center, linear-gradient(#fcfcfc, #f3f3f3));
+}
+
+.linkedin-import {
   border: 1px solid #c6c6c6;
+  border-left: none;
   color: $blue;
   display: block;
   font: 11px/2 "open sans", sans-serif;
   padding: 4px 15px 4px 40px;
-  @include border-radius(2px);
   @include text-shadow(#fff 0 1px 1px);
-  @include background(image_url("icons/twitter500.png") no-repeat 10px center, linear-gradient(#fcfcfc, #f3f3f3));
+  @include background(image_url("icons/linkedin500.png") no-repeat 10px center, linear-gradient(#fcfcfc, #f3f3f3));
   @include box-shadow(rgba($white, 0.5) 0px 0px 1px 0px inset, rgba($white, 1) 0px 1px 3px);
   &:hover, &:focus {
     border-color: $blue;
@@ -1309,6 +1348,19 @@ ul#steps{
     display: inline;
     float: left;
     margin-left: 5px;
+  }
+}
+
+.cells {
+  display: table;
+  margin-left: 0;
+  margin-bottom: 0;
+  table-layout: fixed;
+  width: 100%;
+  li {
+    display: table-cell;
+    text-align: center;
+    vertical-align: top;
   }
 }
 

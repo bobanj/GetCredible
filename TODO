@@ -1,0 +1,9 @@
+- import contacts from guide
+- add different dynos for background jobs
+
+
+
+* if time:
+  - check facebook import works
+  - implement facebook ui popup
+  - check facebook import

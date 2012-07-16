@@ -1,8 +1,8 @@
-.ui-tooltip-guide, .ui-tooltip-twitter, .ui-tooltip-login{
+.ui-tooltip-guide, .ui-tooltip-contact, .ui-tooltip-login{
   border: none;
 }
 
-.ui-tooltip-guide, .ui-tooltip-twitter, .ui-tooltip-login {
+.ui-tooltip-guide, .ui-tooltip-contact, .ui-tooltip-login {
   max-width: 420px;
   min-width: 420px;
   padding-bottom: 0;
@@ -60,7 +60,23 @@
   }
 }
 
-.ui-tooltip-twitter .ui-tooltip-content {
+#steps {
+  .inputs-list .cells li {
+    display: block;
+    width: auto;
+  }
+  .twitter-import {
+
+  }
+  .twitter_icon, .linkedin_icon, .facebook_icon {
+    background-position: 30%;
+    .importing {
+      background-position: 35%;
+    }
+  }
+}
+
+.ui-tooltip-contact .ui-tooltip-content {
   padding: 5px 0 15px;
   #page-header {
     border: none;

@@ -1,18 +1,32 @@
 %ul
   - contacts.each do |contact|
-    - user = users.detect{ |user| user.twitter_id == contact.twitter_id }
-    %li{:class => contact.invited? ? 'vouch' : nil}
+    -#- user = users.detect{ |user| user.twitter_id == contact.twitter_id }
+    %li{id: "row_contact_#{contact.id}", class: contact.invited? ? 'vouch' : nil}
       .tag-icon
-
-      - if user && user.active?
-        = link_to image_tag(contact.avatar), me_user_path(user)
-        %span.name= link_to contact.name, me_user_path(user)
+      - if contact.user && contact.user.active?
+        = link_to image_tag(contact.user.avatar, width: 48, height: 48), me_user_path(contact.user)
       - else
-        = image_tag contact.avatar
+        = image_tag contact.avatar.presence || "fallback/avatar_default_avatar.png", width: 48, height: 48
+
+      - if contact.user && contact.user.active?
+        %span.name= link_to contact.user.name, me_user_path(contact.user)
+      - else
         %span.name= contact.name
-      %span.user= link_to "@#{contact.screen_name}", "https://twitter.com/#{contact.screen_name}"
-      %span.status
+
+      -# - if contact.twitter?
+      -#   %span.user
+      -#   = link_to "@#{contact.screen_name}", contact.url, target: '_blank'
+
+      %ul.social-icons
+        - if contact.twitter?
+          %li= link_to image_tag("icons/twitter500.png", width: "14"), contact.url, target: '_blank'
+        - elsif contact.linkedin?
+          %li= link_to image_tag("icons/linkedin500.png", width: "14"), contact.url, target: '_blank'
+        -# - else
+        -#   %li= link_to image_tag("icons/facebook500.png"), "#", width: "14"
+
+      %span.status.right
         - unless contact.invited?
-          = link_to "Invite", "#", :class => 'twitter_contact btn primary small light right', :"data-twitter_id" => contact.twitter_id, :"data-screen_name" => contact.screen_name
+          = link_to "Invite", "#", :class => 'js-contact-invite invite_contact btn primary small light right', :'data-contact' => {screen_name: contact.screen_name, name: contact.name, uid: contact.uid, provider: contact.authentication.provider}.to_json
 
 = will_paginate @contacts

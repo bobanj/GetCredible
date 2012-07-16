@@ -1,4 +1,11 @@
-= render 'twitter_invite'
+- unless Rails.env.test? # stop warnings when running specs
+  - content_for :javascripts do
+    %script{:src => "//connect.facebook.net/en_US/all.js"}
+    :javascript
+      FB.init({appId: "#{ENV['FACEBOOK_APP_ID']}", xfbml: true, cookie: true});
+      window.facebookAppId = "#{ENV['FACEBOOK_APP_ID']}";
+
+= render 'invitation_message'
 
 #content
   %section#twitter_contacts.listing-wrap
@@ -6,12 +13,14 @@
 
       %h1 Invite & Tag
       %ul.horizontal.right
-        - if current_user.twitter_id.blank?
-          %li= link_to "Import Twitter contacts", twitter_contacts_path, class: "twitter-import", title: "Import your Twitter contacts"
-
-    %p.info You can invite your contacts one by one by entering their email addresses, or authorize us to access your Twitter contacts and invite more at once.
-
+        = link_to "Send Email Invite", "#", class: "btn primary small light", id: "js-email-invite"
     = render 'email_invite'
+
+    %ul#js-import-connections.cells
+      =render 'import_providers'
+    %p.info.mini You can invite your contacts one by one by entering their email addresses, or authorize us to access your Twitter and LinkedIn contacts and invite more at once.
+
+
 
     - if @contacts.present?
       .search_listing
@@ -20,16 +29,18 @@
             = label_tag :q, "Search", class: 'hidden'
             = text_field_tag :q, params[:q]
             = submit_tag :search, value: "Search", name: nil
-        %ul.horizontal.right
-          %li= link_to "Disconnect from Twitter", twitter_session_path, :confirm => "Are you sure you want to disconnect your Twitter account?", :method => :delete, :class => "btn primary small light"
+        -# %ul.social-icons
+        -#   %li= link_to image_tag("icons/twitter500.png"), "#", width: "14"
+        -#   %li= link_to image_tag("icons/facebook500.png"), "#", width: "14"
+        -#   %li= link_to image_tag("icons/linkedin500.png"), "#", width: "14"
 
     %hr.divider
     #js-twitter-contacts-list.twitter-contacts-list.listing
       - if @contacts.present?
-        = render 'contacts', :contacts => @contacts, :users => @users
-      - else
+        = render 'contacts', :contacts => @contacts
+      - elsif !current_user.twitter_state
         .ngo
-          %p== Import your #{link_to "Twitter contacts", twitter_contacts_path} and send invites by DM.
+          %p== Import your #{link_to "LinkedIn", user_omniauth_authorize_path(:linkedin)} or #{link_to "Twitter", user_omniauth_authorize_path(:twitter)} contacts and send invites.
 
 %aside
   = render 'shared/sidebar_nav'

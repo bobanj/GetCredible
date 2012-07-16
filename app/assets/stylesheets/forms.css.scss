@@ -525,16 +525,22 @@ ul.inputs {
       padding: 0 0 10px 6%;
       width: 50%;
       &.full {
-        width: 90%;
+        margin-bottom: 20px;
+        padding: 0;
+        width: 100%;
       }
       &.center {
         text-align: center;
       }
       &.buttons {
         border-top: 1px solid #ddd;
+        float: left;
         margin-top: 5px;
         padding: 15px 0 10px 6%;
         width: 94%;
+      }
+      li {
+        padding: 0;
       }
     }
   }

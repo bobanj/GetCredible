@@ -1,13 +1,21 @@
 GetCredible::Application.routes.draw do
+  mount Resque::Server.new, :at => "/resque"
   post "tags/search"
   get '/invite' => 'invite#index'
+  get '/invite/state' => 'invite#state'
   get '/sitemap.:format' => 'home#sitemap', :as => :sitemap
 
   devise_for :users, :controllers => {
     :sessions => "users/sessions",
     :registrations => "users/registrations",
-    :invitations => 'users/invitations'
+    :invitations => 'users/invitations',
+    :omniauth_callbacks => "users/omniauth_callbacks"
   }
+  devise_scope :user do
+    delete "users/omniauth_callbacks/disconnect/:provider", to: "users/omniauth_callbacks#disconnect",
+           as: "disconnect_provider"#, constraints: {provider: [:twitter, :linkedin]}
+    get '/i' => 'users/invitations#edit', as: :accept_invitation
+  end
 
   resources :users, :only => [:index, :show] do
     resources :endorsements
@@ -20,12 +28,7 @@ GetCredible::Application.routes.draw do
   end
 
   resources :activities, :only => [:show]
-
-  namespace :twitter do
-    resource :session, :only => [:new, :show, :destroy]
-    resources :messages, :only => [:create]
-    resources :contacts, :only => [:index]
-  end
+  resources :invitation_messages, :only => [:create]
 
   root :to => 'home#index'
 

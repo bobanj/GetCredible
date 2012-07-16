@@ -55,15 +55,12 @@
             = link_to "Back to setting up profile", nil, id: 'guide_video_back'
 
         %li#step_3{:style => "display:none"}
-          %h1 Invite your friends from Twitter
+          %h1 Invite your friends
           %ul.inputs-list
             %li.full.center
-              %a{ :href => twitter_contacts_path, :class => "twitter-button"}
-                = image_tag "twitter-mascot.png"
-                %span
-                  Link with your Twitter account
-                  %br
-                  and invite friends to boost your influence
+              %ul.cells
+                = render 'invite/import_provider', provider: 'linkedin'
+                = render 'invite/import_provider', provider: 'twitter'
             %li.buttons
               %a{id: 'prev_step_3', class: 'btn primary medium gray'}Previous
               %a{id: 'next_step_3', class: 'btn primary medium'}Finish

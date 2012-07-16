@@ -29,10 +29,16 @@ gem 'rails_config'
 gem 'soulmate'
 gem 'newrelic_rpm'
 gem 'remotipart', '~> 1.0'
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'omniauth-linkedin'
+gem 'omniauth-facebook'
 gem 'twitter'
-gem 'oauth'
+gem 'linkedin'
+gem 'koala'
 gem 'exception_notification'
 gem 'rinku', :require => 'rails_rinku'
+gem 'resque'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.2'
@@ -49,7 +55,8 @@ group :development do
   gem 'libnotify',  :require => RUBY_PLATFORM.include?('linux')   && 'rb-inotify'
   gem 'rails3-generators'
   gem 'quiet_assets'
-  gem 'rails-footnotes', '>= 3.7.5.rc4'
+  # gem 'rails-footnotes', '>= 3.7.5.rc4'
+  gem 'awesome_print', :require => 'ap'
 end
 
 group :test do

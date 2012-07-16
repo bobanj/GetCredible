@@ -5,12 +5,13 @@ describe 'User', type: :request do
 
   it "can invite users via twitter", js: true do
     # mock twitter integration
-    TwitterMessage.any_instance.should_receive(:send_twitter_message).and_return(true)
-    TwitterMessage.any_instance.should_receive(:get_avatar_url).and_return(nil)
+    InvitationMessage.any_instance.should_receive(:send_invitation_message).and_return(true)
+    InvitationMessage.any_instance.should_receive(:get_avatar_url).and_return(nil)
 
     user = FactoryGirl.create(:user, full_name: "Some Name")
-    twitter_contact = FactoryGirl.create(:twitter_contact,
-                        :screen_name => 'twitter_user', user: user)
+    authentication = FactoryGirl.create(:authentication, user: user)
+    contact = FactoryGirl.create(:contact, :screen_name => 'twitter_user',
+                                 authentication: authentication)
 
     sign_in_user(user)
     within("#global-nav") do
@@ -21,17 +22,17 @@ describe 'User', type: :request do
     end
 
     # see error messages
-    within("#js-twitter-invitation-form") do
-      click_button("Send Direct Message")
+    within("#js-invitation-message-form") do
+      click_button("Send Message")
       page.should have_content("add at least one tag")
     end
     page.should have_content('We could not sent your message at this time.')
 
     # invite user
-    within("#js-twitter-invitation-form") do
+    within("#js-invitation-message-form") do
       fill_in("First tag", with: "tag1")
       fill_in("Second tag", with: "tag2")
-      click_button("Send Direct Message")
+      click_button("Send Message")
     end
     page.should have_content('An invitation message has been sent to @twitter_user.')
 
