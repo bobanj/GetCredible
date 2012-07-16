@@ -1,9 +1,14 @@
-desc "Calculates rank"
-task :calculate_score => :environment do
-  desc "Calculates Score in the system"
-  rank_calculator = ScoreCalculator.new
-  rank_calculator.calculate
+require 'resque/tasks'
+
+task "resque:setup" => :environment do
+  ENV['QUEUE'] = '*' if ENV['QUEUE'].blank?
+
+  # Fix for handling resque jobs on Heroku cedar
+  # http://stackoverflow.com/questions/2611747/rails-resque-workers-fail-with-pgerror-server-closed-the-connection-unexpectedly
+  Resque.after_fork do |worker|
+    ActiveRecord::Base.establish_connection
+  end
 end
 
-
-Resque.before_fork = Proc.new { ActiveRecord::Base.establish_connection }
+desc "Alias for resque:work"
+task "jobs:work" => "resque:work"
