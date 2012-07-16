@@ -3,7 +3,7 @@ $("#js-import-connections").html('<%= j render 'import_providers' %>');
   var loopInviteAjax = setTimeout(function(){
     clearInterval(loopInviteAjax);
     $.getCredible.importingCheck();
-  }, 2000);
+  }, 4000);
 <% else %>
   $("#js-twitter-contacts-list").html('<%=j render 'contacts', :contacts => @contacts %>');
   $("#js-search-contacts").show();
