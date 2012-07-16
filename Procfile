@@ -1,1 +1,1 @@
-import_contacts: bundle exec rake environment resque:work QUEUE=import_contacts
+worker: bundle exec rake environment resque:work QUEUE=import_contacts
