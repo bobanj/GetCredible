@@ -16,27 +16,27 @@ describe 'User', type: :request do
       click_link("Invite")
     end
 
-    page.should have_content("green_panter")
-    page.should have_content("pink_panter")
+    page.should have_content("Green Panter")
+    page.should have_content("Pink Panter")
 
     within("#main") do
       fill_in("Search", with: "green")
       click_button("Search")
 
-      page.should have_content("green_panter")
-      page.should_not have_content("pink_panter")
+      page.should have_content("Green Panter")
+      page.should_not have_content("Pink Panter")
 
       fill_in("Search", with: "pink")
       click_button("Search")
 
-      page.should have_content("pink_panter")
-      page.should_not have_content("green_panter")
+      page.should have_content("Pink Panter")
+      page.should_not have_content("Green Panter")
 
       fill_in("Search", with: "")
       click_button("Search")
 
-      page.should have_content("pink_panter")
-      page.should have_content("green_panter")
+      page.should have_content("Pink Panter")
+      page.should have_content("Green Panter")
     end
   end
 end
