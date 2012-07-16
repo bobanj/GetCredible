@@ -61,7 +61,7 @@
   border-top: 5px solid rgba(255, 255, 255, 0.6);
   border-bottom: 5px solid rgba(255, 255, 255, 0.6);
   padding: 10px 0 45px;
-  @include box-shadow(rgba(0, 0, 0, 0.1) 0 0 10px, rgba(0, 0, 0, 0.2) 0 0 15px inset);
+  @include box-shadow(rgba(0, 0, 0, 0.1) 0 0 10px, rgba(0, 0, 0, 0.25) 0 2px 15px inset);
   .featured .easy-signup {
     border: 1px solid rgba(0, 0, 0, 0.25);
     @include border-radius(3px);
