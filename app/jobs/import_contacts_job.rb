@@ -7,7 +7,7 @@ class ImportContactsJob
       begin
         GiveBrand::Importer.import(authentication)
       ensure
-        user = authentication.user
+        user = authentication.user.reload
         user.update_attribute(:"#{authentication.provider}_state", 'finished')
       end
     end

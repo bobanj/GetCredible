@@ -16,11 +16,8 @@
         = link_to "Send Email Invite", "#", class: "btn primary small light", id: "js-email-invite"
     = render 'email_invite'
 
-    %ul.cells
-      = render 'import_provider', provider: 'twitter'
-      = render 'import_provider', provider: 'linkedin'
-      -#= render 'import_provider', provider: 'facebook'
-
+    %ul#js-import-connections.cells
+      =render 'import_providers'
     %p.info.mini You can invite your contacts one by one by entering their email addresses, or authorize us to access your Twitter and LinkedIn contacts and invite more at once.
 
 
@@ -43,7 +40,7 @@
         = render 'contacts', :contacts => @contacts
       - elsif !current_user.twitter_state
         .ngo
-          %p== Import your #{link_to "Twitter", user_omniauth_authorize_path(:twitter)} or #{link_to "LinkedIn", user_omniauth_authorize_path(:linkedin)} contacts and send invites.
+          %p== Import your #{link_to "LinkedIn", user_omniauth_authorize_path(:linkedin)} or #{link_to "Twitter", user_omniauth_authorize_path(:twitter)} contacts and send invites.
 
 %aside
   = render 'shared/sidebar_nav'

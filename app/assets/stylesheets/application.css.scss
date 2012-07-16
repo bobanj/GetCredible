@@ -165,7 +165,7 @@ input, textarea {
 
 .twitter_icon, .linkedin_icon, .facebook_icon {
   &.importing {
-    @include background(image_url("ajax_loader.gif") no-repeat 30% center, linear-gradient(#fcfcfc, #f3f3f3));
+    @include background(image_url("ajax_loader.gif") no-repeat 20% center, linear-gradient(#fcfcfc, #f3f3f3));
   }
   &.disconnect {
     opacity: 0.6;

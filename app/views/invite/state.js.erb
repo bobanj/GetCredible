@@ -1,0 +1,9 @@
+$("#js-import-connections").html('<%= j render 'import_providers' %>');
+<% if current_user.twitter_state == 'pending' || current_user.linkedin_state == 'pending' %>
+var loopInviteAjax = setTimeout(function(){
+  clearInterval(loopInviteAjax);
+  $.getCredible.importingCheck();
+}, 2000);
+<% else %>
+$("#js-twitter-contacts-list").html('<%=j render 'contacts', :contacts => @contacts %>');
+<% end %>

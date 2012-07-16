@@ -19,9 +19,9 @@
 
       %ul.social-icons
         - if contact.twitter?
-          %li= link_to image_tag("icons/twitter500.png"), "#", width: "14"
+          %li= link_to image_tag("icons/twitter500.png", width: "14"), contact.url, target: '_blank'
         - elsif contact.linkedin?
-          %li= link_to image_tag("icons/linkedin500.png"), "#", width: "14"
+          %li= link_to image_tag("icons/linkedin500.png", width: "14"), contact.url, target: '_blank'
         -# - else
         -#   %li= link_to image_tag("icons/facebook500.png"), "#", width: "14"
 

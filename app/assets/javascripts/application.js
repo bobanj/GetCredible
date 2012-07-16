@@ -774,6 +774,10 @@ $(function (){
     }
   }
 
+  $.getCredible.importingCheck = function(){
+    $.get('/invite/state');
+  }
+
   $.getCredible.inviteContact = function (){
     $.getCredible.invitationMessageQtipApi = $('<div />').qtip({
       content:{
@@ -831,8 +835,16 @@ $(function (){
     $('#js-invitation-message-form').live('submit', function (e) {
       $(this).find('.loading').show();
     });
-  };
 
+
+    var importConnections = $('#js-import-connections');
+    if (importConnections.length){
+      var importingInProgress = importConnections.find('a.importing');
+      if (importingInProgress.length){
+        $.getCredible.importingCheck();
+      }
+    }
+  };
 
   $.getCredible.emailInvite = function () {
     $("#js-email-invite").click(function () {

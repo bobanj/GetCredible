@@ -2,6 +2,7 @@ GetCredible::Application.routes.draw do
   mount Resque::Server.new, :at => "/resque"
   post "tags/search"
   get '/invite' => 'invite#index'
+  get '/invite/state' => 'invite#state'
   get '/sitemap.:format' => 'home#sitemap', :as => :sitemap
 
   devise_for :users, :controllers => {
