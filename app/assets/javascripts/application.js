@@ -131,6 +131,10 @@ $(function (){
     $("#add-tag form").submit(function (e){
       e.preventDefault();
       var form = $(this);
+      if(form.hasClass('disabled')){
+        return false;
+      }
+      form.addClass('disabled');
       var tagNames = $("#tag_names");
       if (tagNames.length > 0){
         tagNames = tagNames.val();
@@ -144,7 +148,9 @@ $(function (){
                 form.serialize(), function (data){
                   tagNamesTextField.tokenInput("clear");
                   $.getCredible.displayNotification('success', 'You have tagged ' + $.getCredible.tagCloud.data('user').name + ' with ' + tagNames);
-                  $.getCredible.renderTagCloud(data);
+                  $.getCredible.renderTagCloud(data, function(){
+                    form.removeClass('disabled');
+                  });
                   mixpanel.track("Tag");
                 });
           } else{
@@ -159,6 +165,8 @@ $(function (){
           $.getCredible.loginQtipApi.set('content.text', $('#login_dialog'));
           $.getCredible.loginQtipApi.show();
         }
+      } else {
+        form.removeClass('disabled');
       }
       return false;
     });
@@ -783,10 +791,14 @@ $(function (){
     }
   }
 
-  $.getCredible.twitterInvite = function (){
-    $.getCredible.twitterQtipApi = $('<div />').qtip({
+  $.getCredible.importingCheck = function(){
+    $.get('/invite/state');
+  }
+
+  $.getCredible.inviteContact = function (){
+    $.getCredible.invitationMessageQtipApi = $('<div />').qtip({
       content:{
-        id:'twitter_invite_modal',
+        id:'invitation_message_modal',
         text:' ',
         title:{
           text:' ',
@@ -809,34 +821,53 @@ $(function (){
         }
       },
       hide:false,
-      style:{ classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded ui-tooltip-twitter' }
+      style:{ classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded ui-tooltip-contact' }
     }).click(
         function (event){
           event.preventDefault();
           return false;
-        }).qtip('api');
+      }).qtip('api');
 
-    $('#main').delegate('.twitter_contact', 'click', function (e) {
+    $('#main').delegate('.invite_contact', 'click', function (e) {
+
       e.preventDefault();
-      var contact = $(this);
-      var twitterUsername = contact.data('screen_name');
-      var twitterId = contact.data('twitter_id');
-      $('#twitter_message_twitter_id').val(twitterId);
-      $('#twitter_message_screen_name').val(twitterUsername);
-      $("#js-twitter-invite-header").html("Invite <strong>@" + twitterUsername + "</strong>");
-      $("#js-twitter-invite-note").html("Suggest three tags you think describe " + twitterUsername + ".");
+      var contact = $(this).data('contact');
 
-      $.getCredible.twitterQtipApi.set('content.text', $('#twitter_invite'));
-      $.getCredible.twitterQtipApi.show();
+      if (contact.provider === 'twitter') {
+        var contact_name = contact.name + " @" + contact.screen_name;
+      } else {
+        var contact_name = contact.name;
+      }
+
+      $('#invitation_message_uid').val(contact.uid);
+      $('#invitation_message_provider').val(contact.provider);
+      $('#invitation_message_screen_name').val(contact.screen_name);
+      $("#js-invitation-message-header").html("Invite <strong>" + contact_name + "</strong>");
+      $("#js-invitation-message-note").html("Suggest three tags you think describe " + contact.name + ".");
+
+      $.getCredible.invitationMessageQtipApi.set('content.text', $('#invitation_message_invite'));
+      $.getCredible.invitationMessageQtipApi.show();
     });
 
-    $('#js-twitter-invitation-form').live('submit', function (e) {
+    $('#js-invitation-message-form').live('submit', function (e) {
       $(this).find('.loading').show();
     });
+
+
+    var importConnections = $('#js-import-connections');
+    if (importConnections.length){
+      var importingInProgress = importConnections.find('a.importing');
+      if (importingInProgress.length){
+        $.getCredible.importingCheck();
+      }
+    }
   };
 
-
   $.getCredible.emailInvite = function () {
+    $("#js-email-invite").click(function () {
+      $("#email_invite").slideToggle();
+    })
+
     $('#js-email-invitation-form').live('submit', function (e) {
       mixpanel.track("Invitation");
       $(this).find('.loading').show();
@@ -868,7 +899,7 @@ $(function (){
           }
       },
       hide:false,
-      style: { classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded ui-tooltip-twitter email' }
+      style: { classes:'ui-tooltip-light ui-tooltip-shadow ui-tooltip-rounded ui-tooltip-contact email' }
   }).click(function (event) {
       event.preventDefault();
       return false;
@@ -1095,7 +1126,7 @@ $(function (){
   $.getCredible.ajaxPagination();
   $.getCredible.init();
   $.getCredible.updateTagCloud();
-  $.getCredible.twitterInvite();
+  $.getCredible.inviteContact();
   $.getCredible.emailInvite();
   $.getCredible.loginQtip();
   $.getCredible.landingPageVideo();

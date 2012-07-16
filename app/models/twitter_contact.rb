@@ -26,8 +26,8 @@ class TwitterContact < ActiveRecord::Base
   end
 
   def self.search_by_name_or_screen_name(q)
-    where("UPPER(twitter_contacts.name) LIKE UPPER(:q) OR
-           UPPER(twitter_contacts.screen_name) LIKE UPPER(:q)",
+    where("UPPER(contacts.name) LIKE UPPER(:q) OR
+           UPPER(contacts.screen_name) LIKE UPPER(:q)",
            {:q => "%#{q}%"})
   end
 end

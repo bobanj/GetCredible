@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable #, :omniauthable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   # Additions
   mount_uploader :avatar, AvatarUploader
@@ -19,7 +19,6 @@ class User < ActiveRecord::Base
   attr_accessor :tag_names
 
   # Associations
-  has_many :authentications, dependent: :destroy
   has_many :user_tags, dependent: :destroy
   has_many :tags, through: :user_tags, :order => "name asc"
   has_many :activity_items, order: 'created_at desc', dependent: :destroy
@@ -29,7 +28,6 @@ class User < ActiveRecord::Base
   has_many :votes, :foreign_key => :voter_id, :dependent => :destroy
   has_many :voted_users, :through => :votes, :uniq => true
   has_many :voters, :through => :user_tags, :uniq => true
-  has_many :twitter_contacts, :dependent => :destroy
   has_many :incoming_endorsements, :through => :user_tags, :source => :endorsements
   has_many :outgoing_endorsements, :class_name => 'Endorsement', :foreign_key => :endorsed_by_id, :dependent => :destroy
 
@@ -40,13 +38,25 @@ class User < ActiveRecord::Base
   has_many :followings, :through => :friendships, :source => :followed
   has_many :followers, :through => :reverse_friendships, :source => :follower
 
+  has_many :authentications, dependent: :destroy
+  has_one :twitter_authentication, class_name: 'Authentication',
+          conditions: "authentications.provider = 'twitter'"
+  has_many :twitter_contacts, through: :twitter_authentication,
+           source: :contacts
+
+  has_one :linkedin_authentication, class_name: 'Authentication',
+          conditions: "authentications.provider = 'linkedin'"
+  has_many :linkedin_contacts, through: :linkedin_authentication,
+           source: :contacts
+  has_many :contacts, through: :authentications
+
   # Validations
   validates :username, :presence => true,
                :format => { with: /^\w+$/,
                             message: "only use letters, numbers and '_'" },
                :length => { minimum: 3 },
                :uniqueness => true,
-               :exclusion => { :in => %w(admin superuser test givebrand) }
+               :exclusion => { :in => %w(admin superuser test) }
   validates :personal_url, :url_format => true, :allow_blank => true
   validate :username_is_not_a_route
   validates :short_bio, :length => {:maximum => 200}
@@ -62,6 +72,9 @@ class User < ActiveRecord::Base
   scope :inactive, where('invitation_token IS NOT NULL')
   scope :order_by_invitation_time, order("invitation_sent_at desc")
   scope :order_by_name, order('full_name ASC, username ASC')
+
+  # Store
+  store :settings, accessors: [:twitter_state, :linkedin_state, :facebook_state]
 
   def profile_complete_percent
     empty_count = 0
@@ -146,15 +159,6 @@ class User < ActiveRecord::Base
       vote ? vote.destroy : false
     end
   end
-  def apply_omniauth(omniauth)
-    unless omniauth['credentials'].blank?
-      authentications.build(:provider => omniauth['provider'],
-                            :uuid => omniauth['uid'],
-                            :token => omniauth['credentials']['token'],
-                            :secret => omniauth['credentials']['secret'])
-
-    end
-  end
 
   def incoming_activities_for_others
     incoming_activities.where('activity_items.user_id != activity_items.target_id')
@@ -202,12 +206,15 @@ class User < ActiveRecord::Base
     self.save(validate: false)
   end
 
-  def disconnect_from_twitter!
-    twitter_contacts.destroy_all
-    self.twitter_token  = nil
-    self.twitter_secret = nil
-    self.twitter_id     = nil
-    self.save(validate: false)
+  def disconnect_from_provider(provider)
+    authentication = authentications.find_by_provider(provider)
+    if authentication && authentication.user.send(:"#{provider}_state") == 'finished'
+      authentication.destroy
+      self.update_attribute(:"#{provider}_state", nil)
+      return true
+    else
+      return false
+    end
   end
 
   def to_param

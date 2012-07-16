@@ -8,7 +8,7 @@
         = f.hidden_field :invitation_token
         %ul.inputs-list
           %li= f.input :username, required: false, autofocus: true, placeholder: "Username"
-          - if resource.twitter_id? # when invited via twitter, ask for email
+          - if resource.email.match(/^twitter_|^facebook_|^linkedin_/) || resource.email.blank?
             %li= f.input :email, input_html: { value: ''}, required: false, placeholder: "Email"
           %li= f.input :password, wrapper: false, placeholder: "Password"
           %li.buttons_left= f.button :submit, "Save", class: 'btn primary large'
