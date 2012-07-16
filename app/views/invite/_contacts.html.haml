@@ -4,7 +4,7 @@
     %li{id: "row_contact_#{contact.id}", class: contact.invited? ? 'vouch' : nil}
       .tag-icon
       - if contact.user && contact.user.active?
-        = link_to image_tag(contact.user.avatar, width: 48, height: 48), me_user_path(contact.user)
+        = link_to image_tag(contact.user.avatar.url(:avatar), width: 48, height: 48), me_user_path(contact.user)
       - else
         = image_tag contact.avatar.presence || "fallback/avatar_default_avatar.png", width: 48, height: 48
 
