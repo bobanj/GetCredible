@@ -943,11 +943,12 @@ footer {
     text-transform: uppercase;
   }
   h2 {
-    color: #666;
+    color: $blue;
     font-family: open-sans, sans-serif;
-    font-size: 16px;
+    font-size: 17px;
     line-height: 1.5;
     margin-top: 10px;
+    padding: 0 10%;
   }
   h3 {
     color: $blue;
@@ -1011,7 +1012,7 @@ footer {
     background: image_url("featured.png") no-repeat center;
     cursor: pointer;
     height: 325px;
-    margin-top: 20px;
+    margin-top: 15px;
 
     #landing-video{
       padding-top: 10px;
