@@ -12,7 +12,7 @@
   .video
     #landing-video
       -#- unless Rails.env.test? # stop warnings when running specs
-      -# %iframe{ width: "560", height: "315", src: "http://www.youtube.com/embed/1yGSIHcAPqs", frameborder: "0", allowfullscreen: ''}
+      -# %iframe{ width: "560", height: "315", src: "http://www.youtube.com/watch?v=UdijOhmTsUs", frameborder: "0", allowfullscreen: ''}
 
   .easy-signup
     = simple_form_for(User.new, :as => :user, :url => registration_path(:user), :html => {:id => 'landing_sign_up_top'} ) do |f|
