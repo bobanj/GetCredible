@@ -60,6 +60,22 @@
   }
 }
 
+#steps {
+  .inputs-list .cells li {
+    display: block;
+    width: auto;
+  }
+  .twitter-import {
+
+  }
+  .twitter_icon, .linkedin_icon, .facebook_icon {
+    background-position: 30%;
+    .importing {
+      background-position: 35%;
+    }
+  }
+}
+
 .ui-tooltip-contact .ui-tooltip-content {
   padding: 5px 0 15px;
   #page-header {

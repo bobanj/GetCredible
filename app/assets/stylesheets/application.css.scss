@@ -161,6 +161,15 @@ input, textarea {
     color: #333;
     text-decoration: none;
   }
+}
+
+.twitter_icon, .linkedin_icon, .facebook_icon {
+  &.importing {
+    @include background(image_url("ajax_loader.gif") no-repeat 30% center, linear-gradient(#fcfcfc, #f3f3f3));
+  }
+  &.disconnect {
+    opacity: 0.6;
+  }
 }  
 .twitter_icon {
   border-left: none;
@@ -1321,6 +1330,7 @@ ul#steps{
   display: table;
   margin-left: 0;
   margin-bottom: 0;
+  table-layout: fixed;
   width: 100%;
   li {
     display: table-cell;
