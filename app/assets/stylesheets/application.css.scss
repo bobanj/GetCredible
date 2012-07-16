@@ -974,7 +974,7 @@ footer {
   text-align: center;
 
   h1 {
-    color: #eee;
+    color: #fff;
     font-size: 64px;
     font-weight: bold;
     letter-spacing: 1px;
@@ -998,10 +998,10 @@ footer {
     margin-bottom: 4px;
   }
   h1, h2 {
-    @include text-shadow(#333 0 1px 1px);
+    @include text-shadow(rgba(0, 0, 0, 0.4) 0 1px 2px);
   }
   h3 {
-    @include text-shadow(rgba(255, 255, 255, 0.3) 0 1px 1px);
+    @include text-shadow(rgba(255, 255, 255, 0.3) 0 1px 2px);
   }
   .easy-signup {
     background: #e3e3e3;
