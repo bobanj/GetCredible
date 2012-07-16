@@ -1072,13 +1072,15 @@ footer {
 }
 
 .ribbon {
-  background: rgba(0, 0, 0, 0.5);
+  background: #444;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   font: 18px/2 "open sans", sans-serif;
-  margin: 15px auto;
+  margin: 0 auto;
   padding: 5px 0;
+  position: relative;
   text-align: center;
+  top: -24px;
   width: 50%;
   @include border-radius(30px);
   @include box-shadow(rgba(0, 0, 0, 0.1) 0 0 10px);
