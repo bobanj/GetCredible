@@ -700,7 +700,7 @@ footer {
 // Logo style
 
   #gn-logo {
-    @include background(radial-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.01) 100%));
+
     a {
       //background: image-url('logo2.png') no-repeat center;
       color: $blue;
@@ -749,7 +749,7 @@ footer {
 
 #gn-signin {
   float: right !important;
-  margin-top: 35px;
+  margin-top: 27px;
   opacity: 0.75;
   &:hover, &:focus {
     opacity: 1;
@@ -932,20 +932,20 @@ footer {
 .featured {
   margin-top: 25px;
   text-align: center;
-  @include background(radial-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.01) 100%));
 
   h1 {
-    font-size: 64px;
+    color: #eee;
+    font-size: 66px;
     font-weight: bold;
     line-height: 0.85;
-    margin-top: 65px;
+    margin-top: 50px;
     margin-bottom: 0px;
     text-transform: uppercase;
   }
   h2 {
-    color: $blue;
+    color: #191919;
     font-family: open-sans, sans-serif;
-    font-size: 17px;
+    font-size: 18px;
     line-height: 1.5;
     margin-top: 10px;
     padding: 0 10%;
@@ -956,15 +956,18 @@ footer {
     line-height: 1.5;
     margin-bottom: 4px;
   }
-  h1, h2, h3 {
-    @include text-shadow(#fff 0 1px 1px);
+  h1 {
+    @include text-shadow(#333 0 1px 1px);
+  }
+  h2, h3 {
+    @include text-shadow(rgba(255, 255, 255, 0.3) 0 1px 1px);
   }
   .easy-signup {
-    background: #e2e2e2;
+    background: #e3e3e3;
     border: 1px solid #ddd;
     margin: 0 auto 10px;
     padding: 6px 22px 6px 10px;
-    width: 920px;
+    width: 880px;
     @include pie-clearfix;
     ul {
       margin: 0;
@@ -978,11 +981,12 @@ footer {
       }
     }
     input[type=submit] {
-      width: 210px;
+      width: 205px;
     }
     input[type=text], input[type=email], input[type=password] {
       color: #888;
       padding: 6px 4px 5px;
+      width: 205px;
     }
   }
   ul.slim {
@@ -1023,6 +1027,31 @@ footer {
     //     display: inline-block;
     //   }
     // }
+  }
+}
+
+.ribbon {
+  background: rgba(0, 0, 0, 0.5);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  font: 18px/2 "open sans", sans-serif;
+  margin: 15px auto;
+  padding: 5px 0;
+  text-align: center;
+  width: 50%;
+  @include border-radius(30px);
+  @include box-shadow(rgba(0, 0, 0, 0.1) 0 0 10px);
+  a {
+    color: #fff;
+    color: rgba(255, 255, 255, 0.9);
+    display: block;
+    @include text-shadow(rgba(0, 0, 0, 0.4) 0 1px 2px);
+    &:hover, &:focus {
+      text-decoration: none;
+    }
+  }
+  &:hover, &:focus {
+    background: $blue;
   }
 }
 

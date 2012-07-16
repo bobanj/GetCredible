@@ -20,13 +20,18 @@
   %body{:id => controller_action_id}
     #page
       = render :partial => 'shared/header'
+    .featured-inline
+      #page
 
-      #main
-        = render 'shared/guide'
+        #main
+          = render 'shared/guide'
 
-        - #TODO Style flash messages
-        = flash_messages
-        = yield
+          - #TODO Style flash messages
+          = flash_messages
+          = yield
+    #page
+      .ribbon
+        = link_to "Check out our illustrated tour", "#"
 
     .tour-inline
       = render 'shared/explain'
