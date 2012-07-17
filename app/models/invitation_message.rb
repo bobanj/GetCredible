@@ -55,7 +55,7 @@ class InvitationMessage
   end
 
   def create_user
-    fake_email = "#{provider}_#{contact.uid}"
+    fake_email = "#{provider}_#{contact.uid}"  #devise saves email with downcase
     user = User.find_by_email(fake_email)
     unless user
       avatar = get_avatar_url(contact)
@@ -64,6 +64,10 @@ class InvitationMessage
                       remote_avatar_url: avatar)
       user.invited_by = inviter
       user.skip_invitation = true
+      # devise invitable makes uid downcase - REFACTOR THIS
+      def user.downcase_keys
+        nil
+      end
       user.invite!
     end
     inviter.add_tags(user, TagCleaner.clean(tag_names.join(',')), skip_email: true)
@@ -95,12 +99,6 @@ class InvitationMessage
     if provider == 'twitter'
       # replace the last '_normal' with ''
       contact.avatar.to_s.reverse.sub('_normal'.reverse, '').reverse
-    else
-      puts '@@@@@@@@@@2'
-      p contact.avatar
-      puts '@@@@@@@@@@2'
-      contact.avatar
-      #nil # contact.avatar
     end
   end
 end

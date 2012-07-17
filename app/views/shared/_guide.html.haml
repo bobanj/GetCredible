@@ -6,18 +6,18 @@
 
     #bubbles_container{:"data-show_guide" => params[:show_guide], :style => "display:none"}
       #guide_title
-        Few moments to set up your account.
+        Set up your account.
       %a#guide_close{href: '#'}
-        Do it later
+        I'll do this later
       #bubbles
       .clear{:style => "clear:both"}
       %ul#steps
 
         %li#step_1
-          %h1 Personal Information
+          %h1 Get your profile started
           = simple_form_for(current_user, :as => :user, :url => registration_path(:user), :remote => true, :html => {:id => 'user_avatar_guide_form', :multipart => true, :method => :put }) do |f|
             .avatar
-              = f.input :avatar, :as => :file, :wrapper => false, :input_html => {:id => "user_avatar_file"}
+              = f.input :avatar, :as => :file, :label => 'Profile photo', :wrapper => false, :input_html => {:id => "user_avatar_file"}
               = f.hidden_field :avatar_cache
               %span.btn.primary.medium.light Browse
             %a#user_avatar_preview
@@ -33,7 +33,7 @@
                 = f.button :submit, "Next", id: 'next_step_1', class: 'btn next primary medium gray'
 
         %li#step_2{:style => "display:none"}
-          %h1 Brand yourself in few words
+          %h1 Choose your first tags
           = form_tag user_user_tags_path(current_user), :id => 'step_2_form', :'data-tags-path' => user_user_tags_path(current_user) do
             = hidden_field_tag :tag_names, '', :id => 'step_2_tags'
             %ul.inputs-list
@@ -46,7 +46,7 @@
               %li
                 //= label_tag "tag_3"
                 = text_field_tag "tag_3", nil, :placeholder => 'Third tag'
-              %li= link_to "Watch our video", nil, id: 'guide_video_link'
+              %li= link_to "Watch our video to learn more", nil, id: 'guide_video_link'
               %li.buttons
                 %a{id: 'prev_step_2', class: 'btn primary medium gray'}Previous
                 = submit_tag "Next", id: 'next_step_2', class: 'btn next primary medium gray'
@@ -55,7 +55,7 @@
             = link_to "Back to setting up profile", nil, id: 'guide_video_back'
 
         %li#step_3{:style => "display:none"}
-          %h1 Invite your friends
+          %h1 Invite your contacts
           %ul.inputs-list
             %li.full.center
               %ul.cells

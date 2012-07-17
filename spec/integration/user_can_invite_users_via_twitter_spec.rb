@@ -10,7 +10,7 @@ describe 'User', type: :request do
 
     user = FactoryGirl.create(:user, full_name: "Some Name")
     authentication = FactoryGirl.create(:authentication, user: user)
-    contact = FactoryGirl.create(:contact, :screen_name => 'twitter_user',
+    contact = FactoryGirl.create(:contact, :screen_name => 'twitter_user', :name => 'Ninja',
                                  authentication: authentication)
 
     sign_in_user(user)
@@ -34,7 +34,7 @@ describe 'User', type: :request do
       fill_in("Second tag", with: "tag2")
       click_button("Send Message")
     end
-    page.should have_content('An invitation message has been sent to @twitter_user.')
+    page.should have_content("An invitation message has been sent to #{contact.name}." )
 
     invited = User.find_by_email('twitter_1')
     user.followings.should include(invited)

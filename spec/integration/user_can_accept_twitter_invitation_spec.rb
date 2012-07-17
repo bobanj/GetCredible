@@ -11,7 +11,7 @@ describe 'User', type: :request do
     user = FactoryGirl.create(:user, full_name: "Some Name")
     authentication = FactoryGirl.create(:authentication, user: user)
     contact = FactoryGirl.create(:contact, uid: 1,
-                screen_name: 'twitter_user', authentication: authentication)
+                screen_name: 'twitter_user', authentication: authentication, name: 'Ninja')
 
     sign_in_user(user)
     within("#global-nav") do
@@ -27,7 +27,7 @@ describe 'User', type: :request do
       fill_in("Second tag", with: "tag2")
       click_button("Send Message")
     end
-    page.should have_content('An invitation message has been sent to @twitter_user.')
+    page.should have_content("An invitation message has been sent to #{contact.name}")
 
     click_link("Logout")
 
