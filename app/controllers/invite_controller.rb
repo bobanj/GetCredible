@@ -11,6 +11,8 @@ class InviteController < ApplicationController
   end
 
   def state
+    redirect_to invite_url unless request.xhr?
+
     if current_user.twitter_state == 'finished' || current_user.linkedin_state == 'finished'
       load_contacts
     end
