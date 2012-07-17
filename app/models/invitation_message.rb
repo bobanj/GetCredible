@@ -55,7 +55,7 @@ class InvitationMessage
   end
 
   def create_user
-    fake_email = "#{provider}_#{contact.uid}"  #devise saves email with downcase
+    fake_email = "#{provider}_#{contact.uid}".downcase  #devise saves email with downcase
     user = User.find_by_email(fake_email)
     unless user
       avatar = get_avatar_url(contact)
@@ -65,9 +65,9 @@ class InvitationMessage
       user.invited_by = inviter
       user.skip_invitation = true
       # devise invitable makes uid downcase - REFACTOR THIS
-      def user.downcase_keys
-        nil
-      end
+      #def user.downcase_keys
+      #  nil
+      #end
       user.invite!
     end
     inviter.add_tags(user, TagCleaner.clean(tag_names.join(',')), skip_email: true)
