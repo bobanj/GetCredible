@@ -58,9 +58,8 @@
           %h1 Invite your contacts
           %ul.inputs-list
             %li.full.center
-              %ul.cells
-                = render 'invite/import_provider', provider: 'linkedin'
-                = render 'invite/import_provider', provider: 'twitter'
+              %ul.js-import-connections.cells
+                =render partial: 'invite/import_providers'
             %li.buttons
               %a{id: 'prev_step_3', class: 'btn primary medium gray'}Previous
               %a{id: 'next_step_3', class: 'btn primary medium'}Finish

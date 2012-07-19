@@ -1,6 +1,5 @@
 class InviteController < ApplicationController
   before_filter :authenticate_user!
-
   def index
     load_contacts
     #@users = Authentication.existing_users(@contacts)
@@ -13,8 +12,10 @@ class InviteController < ApplicationController
   def state
     redirect_to invite_url unless request.xhr?
 
-    if current_user.twitter_state == 'finished' || current_user.linkedin_state == 'finished'
+    if current_user.twitter_state == 'finished' || current_user.linkedin_state == 'finished' || current_user.facebook_state == 'finished'
       load_contacts
+    else
+      @contacts = []
     end
     #render json: {twitter_state: current_user.twitter_state,
     # linkedin_state: current_user.linkedin_state}

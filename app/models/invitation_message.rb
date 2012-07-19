@@ -83,7 +83,7 @@ class InvitationMessage
       client.direct_message_create(screen_name, message)
     when 'linkedin'
       message = "I've tagged you with \"#{tag_names.join(', ')}\" on GiveBrand! Start building your profile here: #{url}"
-      client.send_message("I invite you to claim your brand at GiveBrand!", message, [contact.uid])
+      client.send_message("Come claim your profile at GiveBrand!", message, [contact.uid])
     end
   end
 

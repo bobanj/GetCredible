@@ -3,4 +3,4 @@
 - elsif current_user.send(:"#{provider}_state") == 'pending'
   %li= link_to "Importing #{provider.capitalize} contacts", '#', class: "twitter-import #{provider}_icon importing", title: "Importing your #{provider.capitalize} contacts"
 - else
-  %li= link_to "Import #{provider.capitalize} contacts", user_omniauth_authorize_path(provider), class: "twitter-import #{provider}_icon import", title: "Import your #{provider.capitalize} contacts"
+  %li= link_to "Import #{provider.capitalize} contacts", '#', :'data-omniauth' => user_omniauth_authorize_path(provider), class: "twitter-import #{provider}_icon import", title: "Import your #{provider.capitalize} contacts"

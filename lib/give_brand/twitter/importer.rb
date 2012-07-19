@@ -5,7 +5,11 @@ class GiveBrand::Twitter::Importer
   def self.import(authentication, client)
     current_user = authentication.user
     current_user.update_attribute(:twitter_handle, client.current_user.screen_name)
-
+    if current_user && !current_user.avatar?
+      avatar = client.current_user.profile_image_url_https.reverse.sub('_normal'.reverse, '').reverse
+      current_user.remote_avatar_url = avatar
+      current_user.save
+    end
     # fetch users
     importer = new(current_user, client)
     importer.fetch_and_save

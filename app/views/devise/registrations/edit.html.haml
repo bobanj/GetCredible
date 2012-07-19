@@ -28,10 +28,10 @@
               characters.
           %li= f.input :location, :wrapper => false
           %li= f.input :personal_url, :wrapper => false, :label => 'Website'
-          %li.twitter.inner-tag
-            %label Twitter
-            %span.inner-tag-item @
-            = f.input :twitter_handle, :wrapper => false, :label => false
+          -#%li.twitter.inner-tag
+          -#  %label Twitter
+          -#  %span.inner-tag-item @
+          -#  = f.input :twitter_handle, :wrapper => false, :label => false
           %li.buttons= f.button :submit, "Save", class: 'btn primary large'
 
   .cancel_account

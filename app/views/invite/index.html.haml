@@ -16,7 +16,7 @@
         = link_to "Send Email Invite", "#", class: "btn primary small light", id: "js-email-invite"
     = render 'email_invite'
 
-    %ul#js-import-connections.cells
+    %ul.js-import-connections.cells
       =render 'import_providers'
     %p.info.mini
       We promise not to spam your network! GiveBrand will NEVER send automatic messages on your behalf.
@@ -37,7 +37,7 @@
     %hr.divider
     #js-twitter-contacts-list.twitter-contacts-list.listing
       - if @contacts.present?
-        = render 'contacts', :contacts => @contacts
+        = render 'contacts'
       - elsif !current_user.twitter_state
         .ngo
           %p== Import your #{link_to "LinkedIn", user_omniauth_authorize_path(:linkedin)} or #{link_to "Twitter", user_omniauth_authorize_path(:twitter)} contacts and send invites.

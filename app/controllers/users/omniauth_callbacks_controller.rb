@@ -35,7 +35,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     current_user.update_attribute(:"#{authentication.provider}_state", 'pending')
     authentication.import_contacts
     flash[:notice] = "We'll import your contacts from #{authentication.provider} shortly."
-    redirect_to invite_path
+    render 'callback', layout: false
   end
 
   def check_current_user

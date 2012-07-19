@@ -34,6 +34,12 @@ Array.prototype.unique = function (){
 var guideVideoApi, landingVideoApi;
 // called when YouTube Api is loaded
 
+function getCredibleRefresh(){
+  //location.reload();
+  $.getCredible.importingCheck();
+  $.getCredible.opener.close();
+}
+
 function onYouTubePlayerAPIReady(){
   guideVideoApi = new YT.Player('guide_video', {
     playerVars:{
@@ -852,7 +858,7 @@ $(function (){
     });
 
 
-    var importConnections = $('#js-import-connections');
+    var importConnections = $('.js-import-connections');
     if (importConnections.length){
       var importingInProgress = importConnections.find('a.importing');
       if (importingInProgress.length){
@@ -861,6 +867,16 @@ $(function (){
     }
   };
 
+  $.getCredible.imortConnections = function(){
+    $('.js-import-connections a').die('click').click(function(e){
+      var omniauthPath = $(this).data('omniauth');
+      if(typeof(omniauthPath) == 'string'){
+        e.preventDefault();
+        $.getCredible.opener = window.open(omniauthPath, 'Twitter', 'menubar=no,width=790,height=360,toolbar=no');
+        return false;
+      }
+    });
+  }
   $.getCredible.emailInvite = function () {
     $("#js-email-invite").click(function () {
       $("#email_invite").slideToggle();
@@ -1125,6 +1141,7 @@ $(function (){
   $.getCredible.init();
   $.getCredible.updateTagCloud();
   $.getCredible.inviteContact();
+  $.getCredible.imortConnections();
   $.getCredible.emailInvite();
   $.getCredible.loginQtip();
   $.getCredible.landingPageVideo();

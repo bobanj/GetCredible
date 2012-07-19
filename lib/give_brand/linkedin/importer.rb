@@ -5,6 +5,11 @@ class GiveBrand::Linkedin::Importer
     # client.connections({:start => 1, :count => 1}).total
 
     current_user = authentication.user
+    if current_user && !current_user.avatar?
+      avatar = client.profile(:id => authentication.uid, fields: [:picture_url])
+      current_user.remote_avatar_url = avatar.picture_url
+      current_user.save
+    end
 
     client.connections.all.each do |connection|
       contact = authentication.contacts.find_or_initialize_by_uid(connection.id)

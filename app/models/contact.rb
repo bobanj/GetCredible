@@ -24,6 +24,10 @@ class Contact < ActiveRecord::Base
     authentication.provider == 'linkedin'
   end
 
+  def facebook?
+    authentication.provider == 'facebook'
+  end
+
   # Class Methods
 
   def self.search(params)
@@ -32,7 +36,6 @@ class Contact < ActiveRecord::Base
       scope = scope.search_by_name_or_screen_name(params[:q])
     end
     scope = scope.paginate(:per_page => 25, :page => params[:page])
-
     scope.ordered
   end
 

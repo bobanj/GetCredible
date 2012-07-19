@@ -1,5 +1,5 @@
 %ul
-  - contacts.each do |contact|
+  - @contacts.each do |contact|
     -#- user = users.detect{ |user| user.twitter_id == contact.twitter_id }
     %li{id: "row_contact_#{contact.id}", class: contact.invited? ? 'vouch' : nil}
       .tag-icon
@@ -28,5 +28,5 @@
       %span.status.right
         - unless contact.invited?
           = link_to "Invite", "#", :class => 'js-contact-invite invite_contact btn primary small light right', :'data-contact' => {screen_name: contact.screen_name, name: contact.name, uid: contact.uid, provider: contact.authentication.provider}.to_json
-
-= will_paginate @contacts
+- if @contacts.present?
+  = will_paginate @contacts

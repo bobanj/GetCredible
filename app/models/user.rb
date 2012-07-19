@@ -48,6 +48,11 @@ class User < ActiveRecord::Base
           conditions: "authentications.provider = 'linkedin'"
   has_many :linkedin_contacts, through: :linkedin_authentication,
            source: :contacts
+
+  has_one :facebook_authentication, class_name: 'Authentication',
+          conditions: "authentications.provider = 'facebook'"
+  has_many :facebook_contacts, through: :facebook_authentication,
+           source: :contacts
   has_many :contacts, through: :authentications
 
   # Validations
