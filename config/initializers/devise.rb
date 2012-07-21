@@ -93,18 +93,18 @@ Devise.setup do |config|
   # this period, the invited resource won't be able to accept the invitation.
   # When invite_for is 0 (the default), the invitation won't expire.
   config.invite_for = 2.weeks
-  
+
   # Number of invitations users can send.
   # If invitation_limit is nil, users can send unlimited invitations.
   # If invitation_limit is 0, users can't send invitations.
   # If invitation_limit n > 0, users can send n invitations.
   # Default: nil
   # config.invitation_limit = 5
-  
+
   # The key to be used to check existing users when sending an invitation
   config.invite_key = :email
-  
-  # Flag that force a record to be valid before being actually invited 
+
+  # Flag that force a record to be valid before being actually invited
   # Default: false
   # config.validate_on_invite = true
 
@@ -240,7 +240,7 @@ Devise.setup do |config|
   config.omniauth :twitter, ENV['TWITTER_CONSUMER_KEY'], ENV['TWITTER_CONSUMER_SECRET']
   config.omniauth :linkedin, ENV['LINKEDIN_CONSUMER_KEY'], ENV['LINKEDIN_CONSUMER_SECRET']
   config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET'],
-                  :scope => 'email, user_website', :display => 'popup'
+                  :scope => 'email, user_website, xmpp_login', :display => 'popup'
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

@@ -844,6 +844,7 @@ $(function (){
       }
       $('#invitation_message_uid').val(contact.uid);
       $('#invitation_message_provider').val(contact.provider);
+      $('#invitation_message_name').val(contact.name);
       $('#invitation_message_screen_name').val(contact.screen_name);
       $("#js-invitation-message-header").html("Invite <strong>" + contactName + "</strong>");
       $("#js-invitation-message-note").html("Suggest three tags you think describe " + contact.name + ".");
@@ -856,18 +857,13 @@ $(function (){
       $(this).find('.loading').show();
     });
 
-
-    var importConnections = $('.js-import-connections');
-    if (importConnections.length){
-      var importingInProgress = importConnections.find('a.importing');
-      if (importingInProgress.length){
-        $.getCredible.importingCheck();
-      }
+    if ($('a.importing').length){
+      $.getCredible.importingCheck();
     }
   };
 
   $.getCredible.importConnections = function(){
-    $('.js-import-connections a').die('click').click(function(e){
+    $('a.js-import-popup').die('click').click(function(e){
       var omniauthPath = $(this).data('omniauth');
       if(typeof(omniauthPath) == 'string'){
         e.preventDefault();

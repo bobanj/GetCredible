@@ -40,7 +40,7 @@
         = render 'contacts'
       - elsif !current_user.twitter_state
         .ngo
-          %p== Import your #{link_to "LinkedIn", user_omniauth_authorize_path(:linkedin)} or #{link_to "Twitter", user_omniauth_authorize_path(:twitter)} contacts and send invites.
+          %p== Import your #{link_to "LinkedIn", '#', :class => 'js-import-popup', :'data-provider' => 'linkedin', :'data-omniauth' => user_omniauth_authorize_path(:linkedin)}, #{link_to "Twitter", '#', :class => 'js-import-popup', :'data-provider' => 'twitter', :'data-omniauth' => user_omniauth_authorize_path(:twitter)} or #{link_to "Facebook", '#', :class => 'js-import-popup', :'data-provider' => 'facebook', :'data-omniauth' => user_omniauth_authorize_path(:facebook)} contacts and send them private invitations to boost your profile.
 
 %aside
   = render 'shared/sidebar_nav'

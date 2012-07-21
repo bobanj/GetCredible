@@ -6,7 +6,7 @@ class InvitationMessage
   include Rails.application.routes.url_helpers
 
   # Attributes
-  attr_accessor :view_context, :inviter, :uid, :provider, :screen_name,
+  attr_accessor :view_context, :inviter, :uid, :provider, :name, :screen_name,
                 :tag_names, :tag1, :tag2, :tag3
 
   # Callbacks
@@ -83,7 +83,19 @@ class InvitationMessage
       client.direct_message_create(screen_name, message)
     when 'linkedin'
       message = "I've tagged you with \"#{tag_names.join(', ')}\" on GiveBrand! Start building your profile here: #{url}"
-      client.send_message("Come claim your profile at GiveBrand!", message, [contact.uid])
+      subject = "Come claim your profile at GiveBrand!"
+      client.send_message(subject, message, [contact.uid])
+    when 'facebook'
+      message = "I've tagged you with \"#{tag_names.join(', ')}\" on GiveBrand! Start building your profile here: #{url}"
+      subject = "Come claim your profile at GiveBrand!"
+      jabber_message = Jabber::Message.new("-#{contact.uid}@chat.facebook.com", message)
+      jabber_message.subject = subject
+
+      client = Jabber::Client.new Jabber::JID.new("-#{inviter.facebook_authentication.uid}@chat.facebook.com")
+      client.connect
+      client.auth_sasl(Jabber::SASL::XFacebookPlatform.new(client, ENV['FACEBOOK_APP_ID'], inviter.facebook_authentication.token, ENV['FACEBOOK_APP_SECRET']), nil)
+      client.send(jabber_message)
+      client.close
     end
   end
 
