@@ -1,10 +1,3 @@
-- unless Rails.env.test? # stop warnings when running specs
-  - content_for :javascripts do
-    %script{:src => "//connect.facebook.net/en_US/all.js"}
-    :javascript
-      FB.init({appId: "#{ENV['FACEBOOK_APP_ID']}", xfbml: true, cookie: true});
-      window.facebookAppId = "#{ENV['FACEBOOK_APP_ID']}";
-
 = render 'invitation_message'
 
 #content
