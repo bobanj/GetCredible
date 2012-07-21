@@ -839,7 +839,7 @@ $(function (){
       }
       $('#invitation_message_uid').val(contact.uid);
       $('#invitation_message_provider').val(contact.provider);
-      $('#invitation_message_screen_name').val(contact.name);
+      $('#invitation_message_screen_name').val(contact.screen_name);
       $("#js-invitation-message-header").html("Invite <strong>" + contactName + "</strong>");
       $("#js-invitation-message-note").html("Suggest three tags you think describe " + contact.name + ".");
 
