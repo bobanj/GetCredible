@@ -7,3 +7,9 @@ def sign_in_user(user)
   end
   page.should have_content("Logout")
 end
+
+def mock_send_message
+  message_sender = mock
+  GiveBrand::MessageSender.should_receive(:new).and_return(message_sender)
+  message_sender.should_receive(:send_message).and_return(true)
+end

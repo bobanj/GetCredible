@@ -4,15 +4,11 @@ class GiveBrand::Twitter::Importer
 
   def self.import(authentication, client)
     current_user = authentication.user
-    current_user.update_attribute(:twitter_handle, client.current_user.screen_name)
-    if current_user && !current_user.avatar?
-      avatar = client.current_user.profile_image_url_https.reverse.sub('_normal'.reverse, '').reverse
-      current_user.remote_avatar_url = avatar
-      current_user.save
-    end
+
     # fetch users
     importer = new(current_user, client)
-    importer.fetch_and_save
+    importer.update_current_user
+    importer.fetch_and_save_users
   end
 
   def initialize(current_user, client)
@@ -20,8 +16,17 @@ class GiveBrand::Twitter::Importer
     @client       = client
   end
 
-  def fetch_and_save
+  def fetch_and_save_users
     fetch_users.each { |user| create_twitter_contact(user) }
+  end
+
+  def update_current_user
+    current_user.twitter_handle = client.current_user.screen_name
+    if current_user && !current_user.avatar?
+      avatar = client.current_user.profile_image_url_https.reverse.sub('_normal'.reverse, '').reverse
+      current_user.remote_avatar_url = avatar
+    end
+    current_user.save
   end
 
   def fetch_users

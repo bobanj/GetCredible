@@ -1,12 +1,9 @@
 require 'spec_helper'
-require_relative 'steps/app_steps'
 
 describe 'User', type: :request do
 
   it "can invite users via twitter", js: true do
-    # mock twitter integration
-    InvitationMessage.any_instance.should_receive(:send_invitation_message).and_return(true)
-    InvitationMessage.any_instance.should_receive(:get_avatar_url).and_return(nil)
+    mock_send_message # mock twitter integration
 
     user = FactoryGirl.create(:user, full_name: "Some Name")
     authentication = FactoryGirl.create(:authentication, user: user)

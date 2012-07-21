@@ -20,7 +20,9 @@ describe InvitationMessage do
 
   describe "User invitation" do
     it "can invite contact and make connections" do
+      mock_send_message
       view_context = mock
+
       user = FactoryGirl.create(:user, full_name: "User")
       authentication = FactoryGirl.create(:authentication, uid: 't1',
                                           provider: 'twitter', user: user)
@@ -30,7 +32,7 @@ describe InvitationMessage do
 
       invitation_message = InvitationMessage.new(uid: 't2', provider: 'twitter',
         inviter: user, view_context: view_context, tag1: 'rails')
-      invitation_message.should_receive(:send_invitation_message).and_return(true)
+
       invitation_message.save
 
       user2 = User.find_by_email('twitter_t2')

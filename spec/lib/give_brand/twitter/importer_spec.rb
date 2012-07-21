@@ -15,6 +15,7 @@ describe GiveBrand::Twitter::Importer do
 
     twitter_user = stub(:twitter_user, id: 't2', screen_name: 'screen_name2',
                   name: 'name2', avatar: 'avatar2', profile_image_url: "url2")
+    GiveBrand::Twitter::Importer.any_instance.should_receive(:update_current_user).and_return(true)
     GiveBrand::Twitter::Importer.any_instance.should_receive(:fetch_users).and_return([twitter_user])
     client = stub(:client, current_user: mock(:current_user, screen_name: 'twitter_user'))
 

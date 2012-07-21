@@ -12,6 +12,8 @@ describe GiveBrand::Linkedin::Importer do
                                     provider: 'linkedin', uid: 'l2', user: user2)
 
     user1.followings.should be_empty
+    GiveBrand::Linkedin::Importer.should_receive(:update_current_user).
+      with(user1).and_return(true)
 
     linkedin_user = stub(:linkedin_user, id: 'l2',
      first_name: 'First', last_name: 'Last', picture_url: 'avatar2', url: "url2")
