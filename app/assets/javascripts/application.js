@@ -34,11 +34,10 @@ Array.prototype.unique = function (){
 var guideVideoApi, landingVideoApi;
 // called when YouTube Api is loaded
 
-function getCredibleRefresh(){
-  //location.reload();
+function closeOmniauthPopup(){
   $.getCredible.importingCheck();
   $.getCredible.opener.close();
-}
+};
 
 function onYouTubePlayerAPIReady(){
   guideVideoApi = new YT.Player('guide_video', {
@@ -839,13 +838,13 @@ $(function (){
       var contact = $(this).data('contact');
       var contactName;
       if (contact.provider === 'twitter') {
-         contactName = contact.name + " @" + contact.screen_name;
+        contactName = contact.name + " @" + contact.screen_name;
       } else {
         contactName = contact.name;
       }
       $('#invitation_message_uid').val(contact.uid);
       $('#invitation_message_provider').val(contact.provider);
-      $('#invitation_message_screen_name').val(contact.name);
+      $('#invitation_message_screen_name').val(contact.screen_name);
       $("#js-invitation-message-header").html("Invite <strong>" + contactName + "</strong>");
       $("#js-invitation-message-note").html("Suggest three tags you think describe " + contact.name + ".");
 
@@ -867,12 +866,12 @@ $(function (){
     }
   };
 
-  $.getCredible.imortConnections = function(){
+  $.getCredible.importConnections = function(){
     $('.js-import-connections a').die('click').click(function(e){
       var omniauthPath = $(this).data('omniauth');
       if(typeof(omniauthPath) == 'string'){
         e.preventDefault();
-        $.getCredible.opener = window.open(omniauthPath, 'Twitter', 'menubar=no,width=790,height=360,toolbar=no');
+        $.getCredible.opener = window.open(omniauthPath, $(this).data('provider').toString(), 'menubar=no,width=790,height=360,toolbar=no');
         return false;
       }
     });
@@ -1141,7 +1140,7 @@ $(function (){
   $.getCredible.init();
   $.getCredible.updateTagCloud();
   $.getCredible.inviteContact();
-  $.getCredible.imortConnections();
+  $.getCredible.importConnections();
   $.getCredible.emailInvite();
   $.getCredible.loginQtip();
   $.getCredible.landingPageVideo();

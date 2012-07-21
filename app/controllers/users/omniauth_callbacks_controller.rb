@@ -30,8 +30,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def oauthorize
     omniauth = env["omniauth.auth"]
-    authentication = current_user.authentications.find_by_provider_and_uid(omniauth['provider'], omniauth['uid']) ||
-        current_user.authentications.create(auth_attributes(omniauth))
+    authentication = current_user.authentications.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
+    if authentication
+      authentication.update_attributes(auth_attributes(omniauth))
+    else
+      authentication = current_user.authentications.create(auth_attributes(omniauth))
+    end
     current_user.update_attribute(:"#{authentication.provider}_state", 'pending')
     authentication.import_contacts
     flash[:notice] = "We'll import your contacts from #{authentication.provider} shortly."
