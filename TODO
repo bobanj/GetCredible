@@ -1,9 +1,7 @@
-- import contacts from guide
-- add different dynos for background jobs
-
-
-
-* if time:
-  - check facebook import works
-  - implement facebook ui popup
-  - check facebook import
+- facebook research sending private messages from the backend
+- contact refactoring (extract contacts in other table without duplicate contacts)
+- passive following
+- facebook invite
+  - send private message via javascript ( many possible workflows: create or don't create user, display or not display tag form popup)
+- user pusher for contact import check
+- check app performance

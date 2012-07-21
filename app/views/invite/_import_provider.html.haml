@@ -1,6 +1,6 @@
 - if current_user.send(:"#{provider}_state") == 'finished'
   %li= link_to "Disconnect from #{provider.capitalize}", disconnect_provider_path(provider: provider), :confirm => "Are you sure you want to disconnect your #{provider.capitalize} account?", :method => :delete, :'data-provider' => provider, class: "twitter-import #{provider}_icon disconnect"
 - elsif current_user.send(:"#{provider}_state") == 'pending'
-  %li= link_to "Importing #{provider.capitalize} contacts", '#',:'data-provider' => provider, class: "twitter-import #{provider}_icon importing", title: "Importing your #{provider.capitalize} contacts"
+  %li= link_to "Importing #{provider.capitalize} contacts", '#', :'data-provider' => provider, class: "twitter-import #{provider}_icon importing", title: "Importing your #{provider.capitalize} contacts"
 - else
-  %li= link_to "Import #{provider.capitalize} contacts", '#',:'data-provider' => provider, :'data-omniauth' => user_omniauth_authorize_path(provider), class: "twitter-import #{provider}_icon import", title: "Import your #{provider.capitalize} contacts"
+  %li= link_to "Import #{provider.capitalize} contacts", '#', :'data-provider' => provider, :'data-omniauth' => user_omniauth_authorize_path(provider), class: "twitter-import #{provider}_icon import js-import-popup", title: "Import your #{provider.capitalize} contacts"
