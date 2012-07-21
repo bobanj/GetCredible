@@ -4,7 +4,7 @@
   %span.endorse
     - if user_signed_in? && @user != current_user
       = link_to "Endorse this tag", "#",id: "endorse_#{user_tag.id}_link", class: 'js-endorse-tag action', :'data-user_tag_id' => user_tag.id
-    = link_to "Hide all endorsements", "#", :class => "js-endorsements-toggle", :'data-user_tag_id' => user_tag.id
-    = link_to "Show all endorsements", "#", :class => "js-endorsements-toggle hide", :'data-user_tag_id' => user_tag.id
+    = link_to "Minimize", "#", :class => "js-endorsements-toggle", :'data-user_tag_id' => user_tag.id
+    = link_to "Expand", "#", :class => "js-endorsements-toggle hide", :'data-user_tag_id' => user_tag.id
   %ul.tag-endorse{id: "endorsements_#{user_tag.id}_list"}
     = render :partial => 'endorsements/endorsement', :collection => endorsements

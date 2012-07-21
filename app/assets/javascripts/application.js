@@ -1001,12 +1001,12 @@ $(function (){
       var endorsements = $('#endorsements_' + userTagId + '_list');
       if (endorsements.length > 0){
         if (endorsements.hasClass('hide')){
-          self.text("Hide all endorsements");
+          self.text("Minimize");
           endorsements.slideDown(800, function(){
             $(this).removeClass('hide');
           });
         } else{
-          self.text("Show all endorsements");
+          self.text("Expand");
           endorsements.slideUp(800, function(){
             $(this).addClass('hide');
           });
