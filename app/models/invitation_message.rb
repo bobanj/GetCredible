@@ -3,7 +3,6 @@ class InvitationMessage
   include ActiveModel::Conversion
   include ActiveModel::Validations::Callbacks
   extend ActiveModel::Naming
-  include Rails.application.routes.url_helpers
 
   # Attributes
   attr_accessor :view_context, :inviter, :uid, :provider, :name, :screen_name,
@@ -49,58 +48,25 @@ class InvitationMessage
   def invite_contact
     User.transaction do
       invited = create_user
-      send_invitation_message(invited)
-      contact.update_attributes({invited: true, user_id: invited.id}) if contact
+      GiveBrand::Messenger.new(self, invited, contact.uid).send_message
+      contact.update_attributes({invited: true, user_id: invited.id})
     end
   end
 
   def create_user
-    fake_email = "#{provider}_#{contact.uid}".downcase  #devise saves email with downcase
+    fake_email = "#{provider}_#{contact.uid}".downcase # devise saves email with downcase
     user = User.find_by_email(fake_email)
     unless user
       avatar = get_avatar_url(contact)
-      user = User.new(email: fake_email,
-                      full_name: contact.name,
+      user = User.new(email: fake_email, full_name: contact.name,
                       remote_avatar_url: avatar)
       user.invited_by = inviter
       user.skip_invitation = true
-      # devise invitable makes uid downcase - REFACTOR THIS
-      #def user.downcase_keys
-      #  nil
-      #end
       user.invite!
     end
     inviter.add_tags(user, TagCleaner.clean(tag_names.join(',')), skip_email: true)
     inviter.add_following(user)
     user
-  end
-
-  def send_invitation_message(user)
-    url = view_context.accept_invitation_url(user, :invitation_token => user.invitation_token)
-    case provider
-    when 'twitter'
-      message = "I've tagged you with \"#{tag_names.first}\" on GiveBrand! Start building your profile here: #{url}"
-      client.direct_message_create(screen_name, message)
-    when 'linkedin'
-      message = "I've tagged you with \"#{tag_names.join(', ')}\" on GiveBrand! Start building your profile here: #{url}"
-      subject = "Come claim your profile at GiveBrand!"
-      client.send_message(subject, message, [contact.uid])
-    when 'facebook'
-      message = "I've tagged you with \"#{tag_names.join(', ')}\" on GiveBrand! Start building your profile here: #{url}"
-      subject = "Come claim your profile at GiveBrand!"
-      jabber_message = Jabber::Message.new("-#{contact.uid}@chat.facebook.com", message)
-      jabber_message.subject = subject
-
-      client = Jabber::Client.new Jabber::JID.new("-#{inviter.facebook_authentication.uid}@chat.facebook.com")
-      client.connect
-      client.auth_sasl(Jabber::SASL::XFacebookPlatform.new(client, ENV['FACEBOOK_APP_ID'], inviter.facebook_authentication.token, ENV['FACEBOOK_APP_SECRET']), nil)
-      client.send(jabber_message)
-      client.close
-    end
-  end
-
-  def client
-    @client ||= GiveBrand::Client.new(inviter, provider)
   end
 
   def contact
