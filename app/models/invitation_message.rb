@@ -25,7 +25,7 @@ class InvitationMessage
 
   def save
     if valid?
-      invite_contact
+      save_and_invite
       true
     else
       false
@@ -45,38 +45,15 @@ class InvitationMessage
     errors[:tag1] << 'add at least one tag' if tag_names.blank?
   end
 
-  def invite_contact
+  def save_and_invite
     User.transaction do
-      invited = create_user
-      GiveBrand::Messenger.new(self, invited, contact.uid).send_message
-      contact.update_attributes({invited: true, user_id: invited.id})
+      user = GiveBrand::UserCreator.new(self, contact).create
+      GiveBrand::MessageSender.new(self, user, contact.uid).send_message
+      contact.update_attributes({invited: true, user_id: user.id})
     end
-  end
-
-  def create_user
-    fake_email = "#{provider}_#{contact.uid}".downcase # devise saves email with downcase
-    user = User.find_by_email(fake_email)
-    unless user
-      avatar = get_avatar_url(contact)
-      user = User.new(email: fake_email, full_name: contact.name,
-                      remote_avatar_url: avatar)
-      user.invited_by = inviter
-      user.skip_invitation = true
-      user.invite!
-    end
-    inviter.add_tags(user, TagCleaner.clean(tag_names.join(',')), skip_email: true)
-    inviter.add_following(user)
-    user
   end
 
   def contact
     @contact ||= inviter.contacts.where(['provider = ?', provider]).find_by_uid!(uid)
-  end
-
-  def get_avatar_url(contact)
-    if provider == 'twitter'
-      # replace the last '_normal' with ''
-      contact.avatar.to_s.reverse.sub('_normal'.reverse, '').reverse
-    end
   end
 end

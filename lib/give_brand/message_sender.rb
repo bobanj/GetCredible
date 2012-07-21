@@ -1,20 +1,21 @@
 module GiveBrand
-  class Messenger
+  class MessageSender
     include Rails.application.routes.url_helpers
 
-    attr_accessor :invitation_message, :sender, :receiver, :receiver_uid
+    attr_accessor :invitation_message, :receiver, :receiver_uid
+    delegate :inviter, :provider, :tag_names, :screen_name, :view_context,
+             to: :invitation_message
 
     def initialize(invitation_message, receiver, receiver_uid)
       @invitation_message = invitation_message
-      @sender             = invitation_message.inviter
       @receiver           = receiver
       @receiver_uid       = receiver_uid
     end
 
     def send_message
-      case invitation_message.provider
+      case provider
       when 'twitter'
-        client.direct_message_create(invitation_message.screen_name, message_body_short)
+        client.direct_message_create(screen_name, message_body_short)
       when 'linkedin'
         client.send_message(message_subject, message_body, [receiver_uid])
       when 'facebook'
@@ -24,20 +25,20 @@ module GiveBrand
 
     private
     def client
-      @client ||= GiveBrand::Client.new(sender, invitation_message.provider)
+      @client ||= GiveBrand::Client.new(inviter, provider)
     end
 
     def invitation_url
-      invitation_message.view_context.accept_invitation_url(receiver,
+      view_context.accept_invitation_url(receiver,
           :invitation_token => receiver.invitation_token)
     end
 
     def message_body
-      "I've tagged you with \"#{invitation_message.tag_names.join(', ')}\" on GiveBrand! Start building your profile here: #{invitation_url}"
+      "I've tagged you with \"#{tag_names.join(', ')}\" on GiveBrand! Start building your profile here: #{invitation_url}"
     end
 
     def message_body_short
-      "I've tagged you with \"#{invitation_message.tag_names.first}\" on GiveBrand! Start building your profile here: #{invitation_url}"
+      "I've tagged you with \"#{tag_names.first}\" on GiveBrand! Start building your profile here: #{invitation_url}"
     end
 
     def message_subject
@@ -45,7 +46,7 @@ module GiveBrand
     end
 
     def send_facebook_message
-      facebook_auth    = sender.facebook_authentication
+      facebook_auth    = inviter.facebook_authentication
       sender_chat_id   = "-#{receiver_uid}@chat.facebook.com"
       receiver_chat_id = "-#{facebook_auth.uid}@chat.facebook.com"
       jabber_message   = Jabber::Message.new(sender_chat_id, message_body)
