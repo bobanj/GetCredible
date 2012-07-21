@@ -52,7 +52,7 @@ module GiveBrand
       jabber_message   = Jabber::Message.new(sender_chat_id, message_body)
       jabber_message.subject = message_subject
 
-      client = Jabber::Client.new Jabber::JID.new(receiver_chat_id)
+      client = Jabber::Client.new(Jabber::JID.new(receiver_chat_id))
       client.connect
       client.auth_sasl(Jabber::SASL::XFacebookPlatform.new(client,
          ENV.fetch('FACEBOOK_APP_ID'), facebook_auth.token,
