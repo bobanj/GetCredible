@@ -187,6 +187,15 @@ input, textarea {
   }
 }
 
+.facebook_icon {
+  border-left: none;
+  border-top: none;
+  @include background(image_url("icons/facebook500.png") no-repeat 25% center, linear-gradient(#fcfcfc, #f3f3f3));
+  &:hover, &:focus {
+    border-right: 1px solid #d9d9d9;
+  }
+}
+
 .linkedin-import {
   border: 1px solid #c6c6c6;
   border-left: none;
