@@ -7,6 +7,11 @@
     %li= f.input :tag1, placeholder: "First tag", label: "First tag", label_html: {class: 'hidden'}
     %li= f.input :tag2, placeholder: "Second tag", label: "Second tag", label_html: {class: 'hidden'}
     %li= f.input :tag3, placeholder: "Third tag", label: "Third tag", label_html: {class: 'hidden'}
+    %li
+      %p
+        Your message: I've tagged you with (tags) on GiveBrand!
+        Start building your profile here: (invitation_link)
+
     %li.buttons
       = f.submit :send_dm, value: "Send Message", class: "btn primary large"
       .loading{style: "display: none"} loading...
