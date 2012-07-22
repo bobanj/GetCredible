@@ -2,7 +2,7 @@ class GiveBrand::Facebook::Importer
 
   def self.import(authentication, client)
     current_user = authentication.user
-    update_current_user(current_user)
+    update_current_user(current_user, client)
 
     connections = client.fql_query("select uid, name, pic, profile_url from user where uid in (select uid2 from friend where uid1 = me())")
     connections.each do |connection|
@@ -34,7 +34,7 @@ class GiveBrand::Facebook::Importer
     contact
   end
 
-  def self.update_current_user(current_user)
+  def self.update_current_user(current_user, client)
     if current_user && !current_user.avatar?
       me = client.fql_query("select pic from user where uid = me()")
       current_user.remote_avatar_url = me.first['pic']

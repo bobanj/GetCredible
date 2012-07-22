@@ -5,7 +5,7 @@ class GiveBrand::Linkedin::Importer
     # client.connections({:start => 1, :count => 1}).total
 
     current_user = authentication.user
-    update_current_user(current_user)
+    update_current_user(current_user, client)
     client.connections.all.each do |connection|
       existing_authentication = Authentication.find_by_provider_and_uid('linkedin', connection.id)
       contact = create_contact(connection, existing_authentication)
@@ -35,7 +35,7 @@ class GiveBrand::Linkedin::Importer
     contact
   end
 
-  def self.update_current_user(current_user)
+  def self.update_current_user(current_user, client)
     if current_user && !current_user.avatar?
       avatar = client.profile(:id => authentication.uid, fields: [:picture_url])
       current_user.remote_avatar_url = avatar.picture_url
