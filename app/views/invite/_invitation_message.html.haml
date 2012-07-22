@@ -4,4 +4,7 @@
   .invite_wrap
     %p#js-invitation-message-note
     = render 'invitation_messages/form', invitation_message: InvitationMessage.new, remote: true
+    %p
+      Your message: I've tagged you with (tags) on GiveBrand!
+      Start building your profile here: (invitation_link)
 
