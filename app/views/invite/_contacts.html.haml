@@ -27,7 +27,7 @@
           %li= link_to image_tag("icons/facebook500.png", width: "14"), contact.url, target: '_blank'
 
       %span.status.right
-        - unless authentication_contact.invited?
+        - if !authentication_contact.invited? || (contact.user && contact.user.active?)
           = link_to "Invite", "#", :class => 'js-contact-invite invite_contact btn primary small light right', :'data-contact' => {screen_name: contact.screen_name, name: contact.name, uid: contact.uid, provider: contact.provider}.to_json
 - if @authentication_contacts.present?
   = will_paginate @authentication_contacts
