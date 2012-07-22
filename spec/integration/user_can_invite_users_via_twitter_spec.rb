@@ -7,8 +7,8 @@ describe 'User', type: :request do
 
     user = FactoryGirl.create(:user, full_name: "Some Name")
     authentication = FactoryGirl.create(:authentication, user: user)
-    contact = FactoryGirl.create(:contact, :screen_name => 'twitter_user', :name => 'Ninja',
-                                 authentication: authentication)
+    contact = FactoryGirl.create(:contact, :screen_name => 'twitter_user', :name => 'Ninja')
+    FactoryGirl.create(:authentication_contact, contact: contact, authentication: authentication)
 
     sign_in_user(user)
     within("#global-nav") do

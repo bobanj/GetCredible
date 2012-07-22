@@ -1,7 +1,8 @@
 %ul
-  - @contacts.each do |contact|
+  - @authentication_contacts.each do |authentication_contact|
+    - contact = authentication_contact.contact
     -#- user = users.detect{ |user| user.twitter_id == contact.twitter_id }
-    %li{id: "row_contact_#{contact.id}", class: contact.invited? ? 'vouch' : nil}
+    %li{id: "row_contact_#{contact.id}", class: authentication_contact.invited? ? 'vouch' : nil}
       .tag-icon
       - if contact.user && contact.user.active?
         = link_to image_tag(contact.user.avatar.url(:avatar), width: 48, height: 48), me_user_path(contact.user)
@@ -26,7 +27,7 @@
           %li= link_to image_tag("icons/facebook500.png", width: "14"), contact.url, target: '_blank'
 
       %span.status.right
-        - unless contact.invited?
-          = link_to "Invite", "#", :class => 'js-contact-invite invite_contact btn primary small light right', :'data-contact' => {screen_name: contact.screen_name, name: contact.name, uid: contact.uid, provider: contact.authentication.provider}.to_json
-- if @contacts.present?
-  = will_paginate @contacts
+        - unless authentication_contact.invited?
+          = link_to "Invite", "#", :class => 'js-contact-invite invite_contact btn primary small light right', :'data-contact' => {screen_name: contact.screen_name, name: contact.name, uid: contact.uid, provider: contact.provider}.to_json
+- if @authentication_contacts.present?
+  = will_paginate @authentication_contacts

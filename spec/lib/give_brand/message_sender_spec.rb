@@ -2,9 +2,7 @@ require 'spec_helper'
 
 describe GiveBrand::MessageSender do
   let(:inviter) { FactoryGirl.create(:user) }
-  let(:authentication) { FactoryGirl.create(:authentication,
-      provider: 'twitter', user: inviter, uid: 'uid1') }
-  let(:contact) { FactoryGirl.create(:contact, authentication: authentication,
+  let(:contact) { FactoryGirl.create(:contact,
       uid: 'uid2', screen_name: 'pink_panter') }
   let(:receiver_uid) { 'uid1' }
   let(:client) { mock }
@@ -22,7 +20,7 @@ describe GiveBrand::MessageSender do
     invitation_message = create_invitation_message('twitter')
     GiveBrand::Client.should_receive(:new).with(inviter, 'twitter').and_return(client)
 
-    message_body = "I've tagged you with \"rails\" on GiveBrand! Start building your profile here: url"
+    message_body = "I've tagged you with \"rails\" on GiveBrand! Build your profile here: url"
     client.should_receive(:direct_message_create).with('pink_panter', message_body).and_return(true)
 
     receiver = GiveBrand::UserCreator.new(invitation_message, contact).create
@@ -34,7 +32,7 @@ describe GiveBrand::MessageSender do
     invitation_message = create_invitation_message('linkedin')
     GiveBrand::Client.should_receive(:new).with(inviter, 'linkedin').and_return(client)
 
-    message_subject = "Come claim your profile at GiveBrand!"
+    message_subject = "Come build your profile at GiveBrand!"
     message_body = "I've tagged you with \"rails\" on GiveBrand! Start building your profile here: url"
     client.should_receive(:send_message).with(message_subject, message_body, [receiver_uid]).and_return(true)
 

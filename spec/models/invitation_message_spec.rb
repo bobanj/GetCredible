@@ -26,8 +26,9 @@ describe InvitationMessage do
       user = FactoryGirl.create(:user, full_name: "User")
       authentication = FactoryGirl.create(:authentication, uid: 't1',
                                           provider: 'twitter', user: user)
-      contact = FactoryGirl.create(:contact, uid: 't2', authentication: authentication)
+      contact = FactoryGirl.create(:contact, uid: 't2')
 
+      FactoryGirl.create(:authentication_contact, authentication: authentication, contact: contact)
       user.followings.should be_empty
 
       invitation_message = InvitationMessage.new(uid: 't2', provider: 'twitter',

@@ -5,10 +5,12 @@ describe 'User', type: :request do
   it "can search twitter friends", js: true do
     user = FactoryGirl.create(:user, full_name: "Some Name")
     authentication = FactoryGirl.create(:authentication, user: user)
-    contact = FactoryGirl.create(:contact, uid: 1,
-      screen_name: 'green_panter', name: 'Green Panter', authentication: authentication)
-    contact = FactoryGirl.create(:contact, uid: 2,
-      screen_name: 'pink_panter', name: 'Pink Panter', authentication: authentication)
+    contact1 = FactoryGirl.create(:contact, uid: 1,
+      screen_name: 'green_panter', name: 'Green Panter')
+    contact2 = FactoryGirl.create(:contact, uid: 2,
+      screen_name: 'pink_panter', name: 'Pink Panter')
+    FactoryGirl.create(:authentication_contact, contact: contact1, authentication: authentication)
+    FactoryGirl.create(:authentication_contact, contact: contact2, authentication: authentication)
 
     sign_in_user(user)
     within("#global-nav") do

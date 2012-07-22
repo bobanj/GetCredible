@@ -6,27 +6,35 @@ class GiveBrand::Linkedin::Importer
 
     current_user = authentication.user
     update_current_user(current_user)
-
     client.connections.all.each do |connection|
-      contact = authentication.contacts.find_or_initialize_by_uid(connection.id)
-
       existing_authentication = Authentication.find_by_provider_and_uid('linkedin', connection.id)
-      if existing_authentication
-        current_user.add_following(existing_authentication.user)
-        contact.user = existing_authentication.user
+      contact = create_contact(connection, existing_authentication)
+
+      unless authentication.contacts.include?(contact)
+        authentication.contacts << contact
       end
 
-      contact.attributes = {
-          name:   "#{connection.first_name} #{connection.last_name}".strip,
-          avatar: connection.picture_url,
-          url:    connection.url.presence || connection.site_standard_profile_request.try(:url)
-      }
+      if existing_authentication
+        current_user.add_following(existing_authentication.user)
+      end
 
-      contact.save
     end
   end
 
   private
+
+  def self.create_contact(connection, existing_authentication)
+    contact = Contact.find_or_initialize_by_uid_and_provider(connection.id, 'linkedin')
+    contact.attributes = {
+        name:   "#{connection.first_name} #{connection.last_name}".strip,
+        avatar: connection.picture_url,
+        url:    connection.url.presence || connection.site_standard_profile_request.try(:url)
+    }
+    contact.user = existing_authentication.user if existing_authentication
+    contact.save!
+    contact
+  end
+
   def self.update_current_user(current_user)
     if current_user && !current_user.avatar?
       avatar = client.profile(:id => authentication.uid, fields: [:picture_url])

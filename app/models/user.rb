@@ -41,19 +41,21 @@ class User < ActiveRecord::Base
   has_many :authentications, dependent: :destroy
   has_one :twitter_authentication, class_name: 'Authentication',
           conditions: "authentications.provider = 'twitter'"
-  has_many :twitter_contacts, through: :twitter_authentication,
-           source: :contacts
+  has_many :twitter_authentication_contacts, through: :twitter_authentication, source: :authentication_contacts
+  has_many :twitter_contacts, through: :twitter_authentication_contacts, source: :contact
 
   has_one :linkedin_authentication, class_name: 'Authentication',
           conditions: "authentications.provider = 'linkedin'"
-  has_many :linkedin_contacts, through: :linkedin_authentication,
-           source: :contacts
+  has_many :linkedin_authentication_contacts, through: :linkedin_authentication, source: :authentication_contacts
+  has_many :linkedin_contacts, through: :linkedin_authentication_contacts, source: :contact
 
   has_one :facebook_authentication, class_name: 'Authentication',
           conditions: "authentications.provider = 'facebook'"
-  has_many :facebook_contacts, through: :facebook_authentication,
-           source: :contacts
-  has_many :contacts, through: :authentications
+  has_many :facebook_authentication_contacts, through: :facebook_authentication, source: :authentication_contacts
+  has_many :facebook_contacts, through: :facebook_authentication_contacts, source: :contact
+
+  has_many :authentication_contacts, through: :authentications
+  has_many :contacts, through: :authentication_contacts
 
   # Validations
   validates :username, :presence => true,

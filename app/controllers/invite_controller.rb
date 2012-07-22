@@ -15,7 +15,7 @@ class InviteController < ApplicationController
     if current_user.twitter_state == 'finished' || current_user.linkedin_state == 'finished' || current_user.facebook_state == 'finished'
       load_contacts
     else
-      @contacts = []
+      @authentication_contacts = []
     end
     #render json: {twitter_state: current_user.twitter_state,
     # linkedin_state: current_user.linkedin_state}
@@ -24,6 +24,6 @@ class InviteController < ApplicationController
   private
 
   def load_contacts
-    @contacts = current_user.contacts.includes([:authentication, :user]).search(params)
+    @authentication_contacts = current_user.authentication_contacts.includes(:contact => :user).search(params)
   end
 end

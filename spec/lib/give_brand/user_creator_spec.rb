@@ -2,10 +2,8 @@ require 'spec_helper'
 
 describe GiveBrand::UserCreator do
   let(:inviter) { FactoryGirl.create(:user) }
-  let(:authentication) { FactoryGirl.create(:authentication,
-      provider: 'twitter', user: inviter, uid: 'uid1') }
-  let(:contact) { FactoryGirl.create(:contact, authentication: authentication,
-      uid: 'uid2', screen_name: 'pink_panter') }
+  let(:contact) { FactoryGirl.create(:contact, uid: 'uid2',
+                                     screen_name: 'pink_panter') }
   let(:invitation_message) { InvitationMessage.new(tag_names: ['rails'],
       uid: 'uid2', provider: 'twitter', inviter: inviter) }
 

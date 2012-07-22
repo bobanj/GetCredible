@@ -38,11 +38,11 @@ module GiveBrand
     end
 
     def message_body_short
-      "I've tagged you with \"#{tag_names.first}\" on GiveBrand! Start building your profile here: #{invitation_url}"
+      "I've tagged you with \"#{tag_names.first}\" on GiveBrand! Build your profile: #{invitation_url}"
     end
 
     def message_subject
-      "Come claim your profile at GiveBrand!"
+      "Come build your profile at GiveBrand!"
     end
 
     def send_facebook_message

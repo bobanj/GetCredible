@@ -5,7 +5,8 @@ module GiveBrand
 
       case authentication.provider
         when 'twitter'
-          GiveBrand::Twitter::Importer.import(authentication, client)
+          importer = GiveBrand::Twitter::Importer.new(authentication, client)
+          importer.import
         when 'linkedin'
           GiveBrand::Linkedin::Importer.import(authentication, client)
         when 'facebook'

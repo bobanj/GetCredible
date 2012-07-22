@@ -1,24 +1,31 @@
 class GiveBrand::Twitter::Importer
 
-  attr_accessor :current_user, :client, :users
+  attr_accessor :authentication, :current_user, :client, :users
 
-  def self.import(authentication, client)
-    current_user = authentication.user
-
-    # fetch users
-    importer = new(current_user, client)
-    importer.update_current_user
-    importer.fetch_and_save_users
+  def initialize(authentication, client)
+    @authentication = authentication
+    @current_user = authentication.user
+    @client = client
   end
 
-  def initialize(current_user, client)
-    @current_user = current_user
-    @client       = client
+  def import
+    update_current_user
+    connections.each do |connection|
+      existing_authentication = Authentication.find_by_provider_and_uid('twitter', connection.id.to_s)
+      contact = create_contact(connection, existing_authentication)
+
+      unless authentication.contacts.include?(contact)
+        authentication.contacts << contact
+      end
+
+      if existing_authentication
+        current_user.add_following(existing_authentication.user)
+      end
+
+    end
   end
 
-  def fetch_and_save_users
-    fetch_users.each { |user| create_twitter_contact(user) }
-  end
+  private
 
   def update_current_user
     current_user.twitter_handle = client.current_user.screen_name
@@ -29,12 +36,12 @@ class GiveBrand::Twitter::Importer
     current_user.save
   end
 
-  def fetch_users
+  def connections
     users = []
     cursor = -1
 
     while cursor != 0 do
-      new_users = get_contacts(current_user.twitter_handle, cursor)
+      new_users = get_contacts(cursor)
       users     += new_users.users
       cursor    = new_users.next_cursor
     end
@@ -42,30 +49,22 @@ class GiveBrand::Twitter::Importer
     users
   end
 
-  private
-
-  def get_contacts(screen_name, cursor)
-    cursor = client.get("/1/statuses/followers/#{screen_name}.json", {:cursor => cursor})
+  def get_contacts(cursor)
+    cursor = client.get("/1/statuses/followers/#{current_user.twitter_handle}.json", {:cursor => cursor})
     Twitter::Cursor.new(cursor, 'users', Twitter::User)
   end
 
-  def create_twitter_contact(twitter_user)
-    contact = current_user.twitter_authentication.contacts.find_or_initialize_by_uid(twitter_user.id.to_s)
-
-    existing_authentication = Authentication.find_by_provider_and_uid('twitter', twitter_user.id.to_s)
-    if existing_authentication
-      current_user.add_following(existing_authentication.user)
-      contact.user = existing_authentication.user
-    end
-
+  def create_contact(connection, existing_authentication)
+    contact = Contact.find_or_initialize_by_uid_and_provider(connection.id.to_s, 'twitter')
     contact.attributes = {
-      screen_name: twitter_user.screen_name.to_s.first(255),
-      name: twitter_user.name.to_s.first(255),
-      avatar: twitter_user.profile_image_url.to_s.first(255),
-      url: "https://twitter.com/#{twitter_user.screen_name}"
+        screen_name: connection.screen_name.to_s.first(255),
+        name: connection.name.to_s.first(255),
+        avatar: connection.profile_image_url.to_s.first(255),
+        url: "https://twitter.com/#{connection.screen_name}"
     }
-
-    contact.save
+    contact.user = existing_authentication.user if existing_authentication
+    contact.save!
+    contact
   end
 end
 

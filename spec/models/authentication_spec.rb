@@ -11,7 +11,8 @@ describe Authentication do
 
   describe "Associations" do
     it { should belong_to(:user) }
-    it { should have_many(:contacts).dependent(:destroy) }
+    it { should have_many(:authentication_contacts).dependent(:destroy) }
+    it { should have_many(:contacts) }
   end
 
   describe "Validations" do
