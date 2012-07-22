@@ -16,6 +16,8 @@ class InvitationMessagesController < ApplicationController
     render :twitter_error, :locals => {:error => e.message}
   rescue Twitter::Error
     render :twitter_error, :locals => {:error => I18n.t('twitter.errors.unavailable')}
+  rescue GiveBrand::MessageSender::FacebookChatAccessDenied
+    render :facebook_error, :locals => {:error => 'Allow "Access Facebook Chat" to invite your Facebook friends.' }
   end
 
 end

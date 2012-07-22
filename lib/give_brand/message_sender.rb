@@ -1,5 +1,7 @@
 module GiveBrand
   class MessageSender
+    class FacebookChatAccessDenied < StandardError; end
+
     include Rails.application.routes.url_helpers
 
     attr_accessor :invitation_message, :receiver, :receiver_uid
@@ -59,6 +61,8 @@ module GiveBrand
          ENV.fetch('FACEBOOK_APP_SECRET')), nil)
       client.send(jabber_message)
       client.close
+    rescue RuntimeError
+      raise FacebookChatAccessDenied, "No access to Facebook Chat"
     end
   end
 end
