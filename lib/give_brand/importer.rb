@@ -3,15 +3,15 @@ module GiveBrand
     def self.import(authentication)
       client = GiveBrand::Client.new(authentication.user, authentication.provider)
 
-      case authentication.provider
-        when 'twitter'
-          importer = GiveBrand::Twitter::Importer.new(authentication, client)
-          importer.import
-        when 'linkedin'
-          GiveBrand::Linkedin::Importer.import(authentication, client)
-        when 'facebook'
-          GiveBrand::Facebook::Importer.import(authentication, client)
-      end
+      importer = case authentication.provider
+                   when 'twitter'
+                     GiveBrand::Twitter::Importer.new(authentication, client)
+                   when 'linkedin'
+                     GiveBrand::Linkedin::Importer.new(authentication, client)
+                   when 'facebook'
+                     GiveBrand::Facebook::Importer.new(authentication, client)
+                 end
+      importer.import
     end
   end
 end

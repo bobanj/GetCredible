@@ -12,15 +12,16 @@ describe GiveBrand::Linkedin::Importer do
                                     provider: 'linkedin', uid: 'l2', user: user2)
 
     user1.followings.should be_empty
-    GiveBrand::Linkedin::Importer.should_receive(:update_current_user).
-      with(user1).and_return(true)
 
+    client = stub(:client)
     linkedin_user = stub(:linkedin_user, id: 'l2',
-     first_name: 'First', last_name: 'Last', picture_url: 'avatar2', url: "url2")
+                         first_name: 'First', last_name: 'Last', picture_url: 'avatar2', url: "url2")
 
-    client = stub(:client, connections: mock(:connections, all: [linkedin_user]))
-
-    GiveBrand::Linkedin::Importer.import(authentication1, client)
+    importer = GiveBrand::Linkedin::Importer.new(authentication1, client)
+    importer.current_user.should == user1
+    importer.stub(:update_current_user).and_return(true)
+    importer.stub(:connections).and_return([linkedin_user])
+    importer.import
 
     user1.followings.should include(user2)
     user1.reload.linkedin_contacts.first.user.should == user2

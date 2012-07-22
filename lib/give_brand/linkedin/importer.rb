@@ -1,12 +1,19 @@
 class GiveBrand::Linkedin::Importer
+  attr_accessor :authentication, :current_user, :client
 
-  def self.import(authentication, client)
+  def initialize(authentication, client)
+    @authentication = authentication
+    @current_user = authentication.user
+    @client = client
+  end
+
+
+  def import
     # In case we need to import contacts with pagination use:
     # client.connections({:start => 1, :count => 1}).total
+    update_current_user
 
-    current_user = authentication.user
-    update_current_user(current_user, client)
-    client.connections.all.each do |connection|
+    connections.each do |connection|
       existing_authentication = Authentication.find_by_provider_and_uid('linkedin', connection.id)
       contact = create_contact(connection, existing_authentication)
 
@@ -23,7 +30,7 @@ class GiveBrand::Linkedin::Importer
 
   private
 
-  def self.create_contact(connection, existing_authentication)
+  def create_contact(connection, existing_authentication)
     contact = Contact.find_or_initialize_by_uid_and_provider(connection.id, 'linkedin')
     contact.attributes = {
         name:   "#{connection.first_name} #{connection.last_name}".strip,
@@ -35,12 +42,16 @@ class GiveBrand::Linkedin::Importer
     contact
   end
 
-  def self.update_current_user(current_user, client)
+  def update_current_user
     if current_user && !current_user.avatar?
       avatar = client.profile(:id => authentication.uid, fields: [:picture_url])
       current_user.remote_avatar_url = avatar.picture_url
       current_user.save
     end
+  end
+
+  def connections
+    client.connections.all
   end
 
 end

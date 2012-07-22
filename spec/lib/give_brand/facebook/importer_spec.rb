@@ -12,15 +12,16 @@ describe GiveBrand::Facebook::Importer do
                                     provider: 'facebook', uid: 'f2', user: user2)
 
     user1.followings.should be_empty
-    GiveBrand::Facebook::Importer.should_receive(:update_current_user).
-      with(user1).and_return(true)
 
+    client = stub(:client)
     facebook_user = {'uid' => 'f2', 'name' => 'First Last',
                      'pic' => 'avatar2', 'profile_url' => "url2"}
 
-    client = stub(:client, fql_query: [facebook_user])
-
-    GiveBrand::Facebook::Importer.import(authentication1, client)
+    importer = GiveBrand::Facebook::Importer.new(authentication1, client)
+    importer.current_user.should == user1
+    importer.stub(:update_current_user).and_return(true)
+    importer.stub(:connections).and_return([facebook_user])
+    importer.import
 
     user1.followings.should include(user2)
     user1.reload.facebook_contacts.first.user.should == user2
