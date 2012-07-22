@@ -20,7 +20,7 @@ describe GiveBrand::MessageSender do
     invitation_message = create_invitation_message('twitter')
     GiveBrand::Client.should_receive(:new).with(inviter, 'twitter').and_return(client)
 
-    message_body = "I've tagged you with \"rails\" on GiveBrand! Build your profile here: url"
+    message_body = "I've tagged you with \"rails\" on GiveBrand! Build your profile: url"
     client.should_receive(:direct_message_create).with('pink_panter', message_body).and_return(true)
 
     receiver = GiveBrand::UserCreator.new(invitation_message, contact).create
