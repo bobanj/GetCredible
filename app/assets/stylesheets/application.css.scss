@@ -174,13 +174,13 @@ input, textarea {
   &.disconnect {
     opacity: 0.6;
   }
-}  
+}
 .twitter_icon {
   border-left: none;
   border-right: none;
   border-top: none;
   @include background(image_url("icons/twitter500.png") no-repeat 25% center, linear-gradient(#fcfcfc, #f3f3f3));
-  
+
 }
 .linkedin_icon {
   border-left: none;
@@ -362,7 +362,7 @@ input, textarea {
     position: relative;
     float: left;
     height: 41px;
-    margin-right: 10px;
+    // margin-right: 10px;
     width: 41px;
     margin-left: -45px;
 
