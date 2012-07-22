@@ -1,6 +1,6 @@
 class UserMailer < ActionMailer::Base
 
-  default from: "GiveBrand <no-reply@givebrand.to>"
+  default from: "GiveBrand <no-reply@givebrand.com>"
 
   def welcome_email(user)
     @receiver = user

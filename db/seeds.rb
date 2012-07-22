@@ -8,7 +8,7 @@
 usernames = ["test","voter"]
 password = "asdfasdf"
 usernames.each do |username|
-  email = "#{username}@givebrand.to"
+  email = "#{username}@givebrand.com"
   user = User.find_by_email email
   unless user
     puts "Setting up Test user with: #{email} / #{password}"

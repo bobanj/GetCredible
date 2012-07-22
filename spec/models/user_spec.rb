@@ -109,15 +109,15 @@ describe User do
 
   describe "Callbacks" do
     it "adds protocol and removes empty spaces from personal_url" do
-      user = FactoryGirl.build(:user, :personal_url => ' givebrand.to ')
+      user = FactoryGirl.build(:user, :personal_url => ' givebrand.com ')
       user.valid?.should be_true
-      user.personal_url.should == 'http://givebrand.to'
+      user.personal_url.should == 'http://givebrand.com'
     end
 
     it "removes empty spaces from personal_url" do
-      user = FactoryGirl.build(:user, :personal_url => ' http://givebrand.to ')
+      user = FactoryGirl.build(:user, :personal_url => ' http://givebrand.com ')
       user.valid?.should be_true
-      user.personal_url.should == 'http://givebrand.to'
+      user.personal_url.should == 'http://givebrand.com'
     end
 
     it "removes @ sign and empty spaces from twitter username" do

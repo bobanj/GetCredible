@@ -66,12 +66,12 @@ GetCredible::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # Devise Mailer
-  config.action_mailer.default_url_options = { :host => 'staging.givebrand.to' }
-  config.action_mailer.asset_host          = 'staging.givebrand.to'
+  config.action_mailer.default_url_options = { :host => 'staging.givebrand.com' }
+  config.action_mailer.asset_host          = 'staging.givebrand.com'
 
   config.middleware.use ExceptionNotifier,
     :email_prefix => "[GiveBrand Staging Error] ",
-    :sender_address => %{"no-reply@givebrand.to"},
+    :sender_address => %{"no-reply@givebrand.com"},
     :exception_recipients => %w{dalibor.nasevic@gmail.com bobanj@gmail.com}
     # ignore_exceptions: ExceptionNotifier.default_ignore_exceptions # + [RuntimeError]
 

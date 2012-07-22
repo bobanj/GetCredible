@@ -5,7 +5,7 @@
   %head
     %meta{ 'content' => "text/html; charset=UTF-8", 'http-equiv' => "Content-Type" }
 
-  %body{:style => "background:url(http://givebrand.to/assets/bg2.png) #f6f6f6;font-size:12px;font-family:Helvetica,Arial,sans-serif;margin:0;padding:15px 0 0;line-height:1.4;"}
+  %body{:style => "background:url(http://givebrand.com/assets/bg2.png) #f6f6f6;font-size:12px;font-family:Helvetica,Arial,sans-serif;margin:0;padding:15px 0 0;line-height:1.4;"}
     %table{:style => "margin: 0 auto;width:600px;"}
       %tbody
         = render 'user_mailer/header'
@@ -41,6 +41,6 @@
             %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
               If you have any questions, we're always here to answer them.
               %br
-              Send a quick note to #{mail_to 'russ@givebrand.to', 'russ@givebrand.to', :style => "color: #{@link_color};"}, or tweet us at #{link_to '@GiveBrand', 'https://twitter.com/givebrand', :style => "color: #{@link_color};"}. Now get taggin'!
+              Send a quick note to #{mail_to 'russ@givebrand.com', 'russ@givebrand.com', :style => "color: #{@link_color};"}, or tweet us at #{link_to '@GiveBrand', 'https://twitter.com/givebrand', :style => "color: #{@link_color};"}. Now get taggin'!
 
     = render 'user_mailer/footer'

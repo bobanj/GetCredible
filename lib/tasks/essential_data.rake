@@ -37,7 +37,7 @@ namespace :givebrand do
       u = User.new
       u.full_name = "populator_#{index + 1}"
       u.password = "populator"
-      u.email = "populator_#{index + 1}@givebrand.to"
+      u.email = "populator_#{index + 1}@givebrand.com"
       u.save
     end
 

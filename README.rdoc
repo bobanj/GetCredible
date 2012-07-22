@@ -1,4 +1,4 @@
-= givebrand.to
+= givebrand.com
 
 == Development notes
 == Setup
