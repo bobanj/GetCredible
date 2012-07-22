@@ -93,7 +93,6 @@ input, textarea {
 
 
 // Button Sizes
-
   &.large {
     @include border-radius(2px);
     font-size: 14px;
@@ -145,6 +144,11 @@ input, textarea {
       @include background-image(linear-gradient($red - #222, $red - #111));
     }
   }
+  &.finish {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
 }
 
 .twitter-import {
@@ -188,11 +192,11 @@ input, textarea {
 }
 
 .facebook_icon {
-  border-left: none;
   border-top: none;
+  border-right: none;
   @include background(image_url("icons/facebook500.png") no-repeat 25% center, linear-gradient(#fcfcfc, #f3f3f3));
   &:hover, &:focus {
-    border-right: 1px solid #d9d9d9;
+    border-left: 1px solid #d9d9d9;
   }
 }
 
