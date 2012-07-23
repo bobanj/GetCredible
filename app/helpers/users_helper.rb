@@ -17,4 +17,12 @@ module UsersHelper
   def users_active_class(name)
     params[:action] == name ? 'active' : nil
   end
+
+  def twitter_name(user)
+    if user.twitter_handle
+      "@#{user.twitter_handle} #{apostrophe(user.name)}"
+    else
+      user.name + apostrophe(user.name)
+    end
+  end
 end
