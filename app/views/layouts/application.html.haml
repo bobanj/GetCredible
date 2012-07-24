@@ -1,7 +1,9 @@
 !!!
 %html{:itemscope => "", :itemtype => "http://#{request.host}:#{request.port.to_s+request.fullpath}"}
   %head
-    %title GiveBrand
+    %title= yield(:title).presence || 'GiveBrand'
+    %meta{ name: 'description', content: yield(:description).presence || 'Your Resume, Amplified By Your Network' }
+    %meta{ name: 'keywords', content: yield(:keywords).presence || 'givebrand, resume, profession, network, skills' }
     = render 'shared/meta_information'
     %link{ :rel => "shortcut icon", :href => "/favicon.ico", :type => "image/x-icon" }
 

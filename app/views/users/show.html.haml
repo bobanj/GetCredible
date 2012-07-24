@@ -1,3 +1,7 @@
+- title(page_title(@user))
+- description(@user.short_bio)
+- keywords(@user.tags.map(&:name).join(', '))
+
 - content_for :meta_tags do
   %meta{ :property => "og:title", :content => "Help me boost my credibility on GiveBrand" }
   %meta{ :property => "og:type", :content => "article" }
