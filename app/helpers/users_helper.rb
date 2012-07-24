@@ -19,10 +19,18 @@ module UsersHelper
   end
 
   def twitter_name(user)
-    if user.twitter_handle
-      "@#{user.twitter_handle} #{apostrophe(user.name)}"
+    if user.twitter_handle.present?
+      "@#{user.twitter_handle} #{apostrophe(user.twitter_handle)}"
     else
-      user.name + apostrophe(user.name)
+      "#{user.name}#{apostrophe(user.name)}"
+    end
+  end
+
+  def page_title(user)
+    if user.full_name.present?
+      "#{user.full_name} (#{user.username}) on Givebrand"
+    else
+      "#{user.username} on Givebrand"
     end
   end
 end
