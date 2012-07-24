@@ -56,6 +56,7 @@ class User < ActiveRecord::Base
 
   has_many :authentication_contacts, through: :authentications
   has_many :contacts, through: :authentication_contacts
+  has_one :contact
 
   # Validations
   validates :username, :presence => true,

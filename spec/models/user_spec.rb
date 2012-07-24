@@ -47,6 +47,7 @@ describe User do
     it { should have_many(:voters).through(:user_tags) }
     it { should have_many(:authentications).dependent(:destroy) }
     it { should have_many(:contacts) }
+    it { should have_one(:contact) }
     it { should have_many(:friendships).dependent(:destroy) }
     it { should have_many(:reverse_friendships).dependent(:destroy) }
     it { should have_many(:followings) }
