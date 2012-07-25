@@ -9,7 +9,7 @@
       %h1 Edit Profile
       = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :remote => true, :html => {:multipart => true, :method => :put, :id => 'user_edit_avatar_form' }) do |f|
         .avatar
-          = f.input :avatar, :as => :file, :wrapper => false, :input_html => {:id => "user_edit_avatar_file"}
+          = f.input :avatar, :as => :file, :label => 'Profile photo', :wrapper => false, :input_html => {:id => "user_edit_avatar_file"}
           = f.hidden_field :avatar_cache
 
       = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => :put }) do |f|
