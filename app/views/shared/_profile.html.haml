@@ -19,11 +19,10 @@
         %li.location
           %span.icon
           = @user.location
-      - unless @user.personal_url.blank?
+      - if @user.personal_url.present?
         %li.web
           %span.icon
-          - #TODO create url for given addr ex google.com
-          = link_to @user.personal_url, @user.personal_url, :target => '_blank'
+          = link_to 'Website', @user.personal_url, :target => '_blank'
       - unless @user.twitter_handle.blank?
         %li.twitter
           %a.twitter-follow-button{"data-hashtags" => "givebrand", "data-show-count" => "false", :href => "https://twitter.com/#{@user.twitter_handle}"}="Follow @#{@user.twitter_handle}"
