@@ -15,7 +15,7 @@
 
         %tr
           %td
-            %h1{:style => "color:#444444;margin:10px 0 5px;font-size:16px;font-weight:normal;"}Hey, #{@receiver.name}.
+            %h1{:style => "color:#444444;margin:10px 0 5px;font-size:16px;font-weight:normal;"} Hey, #{@receiver.name}.
             %h2{:style => "font-size:22px;font-weight:normal;line-height:1.4;color:#444;margin:0 0 15px;"}
               Great news: #{link_to @tagger.name, me_user_url(@tagger), :style => "color: #{@link_color};"} has just tagged you with #{@tag_names.map{|t| "\"#{t}\""}.join(', ')}.
 

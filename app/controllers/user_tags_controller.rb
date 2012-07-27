@@ -16,11 +16,14 @@ class UserTagsController < ApplicationController
   end
 
   def vote
+    new_follower = !current_user.voted_users.include?(@user)
     user_tag = @user.user_tags.find(params[:id])
     vote = current_user.add_vote(user_tag)
 
     if vote
-      # UserMailer.vote_email(current_user, @user, user_tag.tag.name).deliver
+      if new_follower
+        UserMailer.vote_email(current_user, @user, user_tag.tag.name).deliver
+      end
       render json: tag_summary_ok(user_tag, @user, current_user)
     else
       render json: tag_summary_error

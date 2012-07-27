@@ -15,12 +15,18 @@
 
         %tr
           %td
-            %h1{:style => "color:#444444;margin:10px 0 5px;font-size:16px;font-weight:normal;"}Hello #{link_to @receiver.name, me_user_url(@receiver)}!
+            %h1{:style => "color:#444444;margin:10px 0 5px;font-size:16px;font-weight:normal;"} Hi, #{@receiver.name}!
             %h2{:style => "font-size:22px;font-weight:normal;line-height:1.4;color:#444;margin:0 0 15px;"}
-              #{link_to @voter.name, me_user_url(@voter)} vouched for #{@tag_name}.
+              You've really got people talking... #{link_to @voter.name, me_user_url(@voter), :style => "color: #{@link_color};"} has just vouched for your <strong>#{@tag_name}</strong> tag.
+
         %tr
           %td{:colspan => "100"}
             %hr{:style => "background:none;border:none;border-top:1px solid #eee;"}
-        = render 'signature'
+        %tr
+          %td
+            %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
+              Have you been on GiveBrand lately?
+              %br
+              #{link_to 'Sign in and tag one of your contacts', user_following_url(@receiver), :style => "color: #{@link_color};"}
 
     = render 'user_mailer/footer'

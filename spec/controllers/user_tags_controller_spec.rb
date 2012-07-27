@@ -78,7 +78,29 @@ describe UserTagsController do
       controller.stub(:current_user).and_return(user)
     end
 
-    it "can vote for a user tag" do
+    it "can vote for a user tag and receive an email if first vote" do
+      user_tag   = FactoryGirl.build(:user_tag, :user => other_user,
+                                 :tag => FactoryGirl.create(:tag, name: 'developer'))
+      User.stub(:find_by_username!).with(other_user.username).and_return(other_user)
+      controller.should_receive(:tag_summary).and_return({})
+      other_user.stub_chain(:user_tags, :find).with("1").and_return(user_tag)
+
+      user.should_receive(:add_vote).with(user_tag).and_return(true)
+
+      post :vote, :user_id => other_user.username, :id => "1"
+      JSON.parse(response.body)['status'].should == 'ok'
+
+      unread_emails_for(other_user.email).size.should == parse_email_count(1)
+      open_email(other_user.email)
+      current_email.should have_subject("You received a vote!")
+    end
+
+    it "can vote for a user tag and receive an email if not first vote" do
+      tag = FactoryGirl.create(:tag, name: 'designer')
+      existing_user_tag = FactoryGirl.create(:user_tag, :user => other_user,
+                                             :tag => tag, tagger: other_user)
+      user.add_vote(existing_user_tag)
+
       user_tag   = FactoryGirl.build(:user_tag, :user => other_user,
                                  :tag => FactoryGirl.create(:tag, name: 'developer'))
       User.stub(:find_by_username!).with(other_user.username).and_return(other_user)
@@ -91,10 +113,6 @@ describe UserTagsController do
       JSON.parse(response.body)['status'].should == 'ok'
 
       unread_emails_for(other_user.email).size.should == parse_email_count(0)
-      # unread_emails_for(other_user.email).size.should == parse_email_count(1)
-      # open_email(other_user.email)
-      # current_email.should have_subject("You received a vote!")
-      # current_email.should have_content("User vouched for developer")
     end
 
     it "cannot vote for himself" do
