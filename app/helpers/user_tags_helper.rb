@@ -35,6 +35,20 @@ module UserTagsHelper
     }
   end
 
+  def tag_cloud_summary(user)
+    top_tags = user.user_tags.includes(:tag).inject({}) { |result, user_tag|
+      tag_scores = Redis::SortedSet.new("tag:#{user_tag.tag_id}:scores")
+      result[user_tag.tag.name] = tag_scores.score(user_tag.id)
+      result
+    }.sort_by {|k,v| -v}.first(5).map{|t| t[0]}
+
+    skills = top_tags.map{ |t| "<span class='skill'>#{t}</span>" }
+
+    if skills.present?
+      "#{user.short_name}#{apostrophe(user.short_name)} brand is associated with #{skills.to_sentence}.".html_safe
+    end
+  end
+
   def preload_associations(activity_items)
     vote_activities        = activity_items.select{|i| i.item_type == 'Vote'}
     user_tag_activities    = activity_items.select{|i| i.item_type == 'UserTag'}

@@ -1,4 +1,4 @@
-%section#tags
+%section#tags.skills
   #add-tag
     .inner{:class => (false && @user == current_user) ? "cannot_tag" : nil}
       = form_tag user_user_tags_path(@user) do
@@ -35,5 +35,5 @@
                     :"data-can-delete" => 'false',
                     :"data-user" => {:name => @user == current_user ? 'yourself' : @user.name}.to_json}
   #tag-msg
-    %span.icon
+    -# %span.icon
     = tag_cloud_summary(@user)

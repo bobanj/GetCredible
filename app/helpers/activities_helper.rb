@@ -88,25 +88,24 @@ module ActivitiesHelper
     activity_item.target != current_user
   end
 
-  def tag_cloud_summary(user)
-    users = user.incoming_activities.includes(:user).map { |a| a.user }.uniq
-    if users.length == 0
-      "Nobody tagged or vouched for #{who?(user)} so far.".html_safe
-    elsif users.length == 1
-      tagger = users.pop
-      "Only #{who?(tagger)} tagged or vouched for #{who?(user)} so far.".html_safe
-    elsif users.length == 2
-      "#{users.map { |user| yourself?(user)}.join(' and ')} tagged or vouched for #{who?(user)} so far.".html_safe
-    else
-      output = []
-      u = users.pop
-      output << yourself?(u)
-      u = users.pop
-      output << yourself?(u)
-      output.join(', ').concat(" and #{users.length} other people tagged or vouched for #{who?(user)} so far.").html_safe
-    end
-
-  end
+  # def tag_cloud_summary(user)
+  #   users = user.incoming_activities.includes(:user).map { |a| a.user }.uniq
+  #   if users.length == 0
+  #     "Nobody tagged or vouched for #{who?(user)} so far.".html_safe
+  #   elsif users.length == 1
+  #     tagger = users.pop
+  #     "Only #{who?(tagger)} tagged or vouched for #{who?(user)} so far.".html_safe
+  #   elsif users.length == 2
+  #     "#{users.map { |user| yourself?(user)}.join(' and ')} tagged or vouched for #{who?(user)} so far.".html_safe
+  #   else
+  #     output = []
+  #     u = users.pop
+  #     output << yourself?(u)
+  #     u = users.pop
+  #     output << yourself?(u)
+  #     output.join(', ').concat(" and #{users.length} other people tagged or vouched for #{who?(user)} so far.").html_safe
+  #   end
+  # end
 
   def yourself?(user)
     ((current_user && current_user == user) ? "yourself" : link_to(user.name, me_user_path(user))).html_safe
