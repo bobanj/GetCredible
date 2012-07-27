@@ -340,10 +340,10 @@ ul.social_fixed {
     padding: 1px 10px;
     text-align: center;
     width: 170px;
-    @include border-radius(5px);
+    // @include border-radius(5px);
     &:hover, &:focus {
       text-decoration: none;
-      @include box-shadow(rgba(0, 0, 0, 0.15) 0 0 3px);
+      // @include box-shadow(rgba(0, 0, 0, 0.15) 0 0 3px);
     }
   }
 }
