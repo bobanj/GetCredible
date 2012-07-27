@@ -7,7 +7,7 @@ describe 'User', type: :request do
 
     user = FactoryGirl.create(:user, full_name: "Some Name")
     sign_in_user(user)
-    click_link("Invite")
+    click_link("Invite and tag more contacts")
     # click_link("Invite by email")
 
     # see error messages

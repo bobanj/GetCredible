@@ -12,9 +12,7 @@ describe 'User', type: :request do
     FactoryGirl.create(:authentication_contact, contact: contact, authentication: authentication)
 
     sign_in_user(user)
-    within("#global-nav") do
-      click_link("Invite")
-    end
+    click_link("Invite and tag more contacts")
     within(".twitter-contacts-list") do
       click_link("Invite")
     end
