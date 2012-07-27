@@ -12,7 +12,7 @@ describe 'User', type: :request do
     FactoryGirl.create(:authentication_contact, contact: contact, authentication: authentication)
 
     sign_in_user(user)
-    click_link("Invite and tag more contacts")
+    click_link("Invite and Tag Your Contacts")
     within(".twitter-contacts-list") do
       click_link("Invite")
     end

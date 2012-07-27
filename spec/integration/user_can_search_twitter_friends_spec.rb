@@ -13,7 +13,7 @@ describe 'User', type: :request do
     FactoryGirl.create(:authentication_contact, contact: contact2, authentication: authentication)
 
     sign_in_user(user)
-    click_link("Invite and tag more contacts")
+    click_link("Invite and Tag Your Contacts")
 
     page.should have_content("Green Panter")
     page.should have_content("Pink Panter")
