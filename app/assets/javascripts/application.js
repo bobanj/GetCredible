@@ -292,7 +292,7 @@ $(function (){
   };
 
   $.getCredible.getWordCustomClass = function (userTag){
-    var customClass = "word ";
+    var customClass = "skill word ";
     customClass += this.tagCloud.data('can-delete') ? 'remove ' : '';
     if ($.getCredible.tagCloud.data('can-vote') && !this.tagCloud.data('can-delete')){
       customClass += userTag.voted ? "vouch " : "unvouch ";
