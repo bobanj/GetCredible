@@ -44,6 +44,7 @@ function onYouTubePlayerAPIReady(){
     playerVars:{
       autoplay:0,
       enablejsapi:1,
+      showinfo: 0,
       origin:document.location.host
     },
     origin:document.location.host,
@@ -1134,6 +1135,7 @@ $(function (){
             playerVars:{
               autoplay:1,
               enablejsapi:1,
+              showinfo: 0,
               origin:document.location.host
             },
             origin:document.location.host,
