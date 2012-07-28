@@ -221,41 +221,27 @@ $(function (){
       }
 
       if (this.tagCloud.data('can-vote')){
-        $.post(this.tagCloudPath + '/' + word.data('user-tag-id') + voteToggle, function (data){
-          if (data.status == 'ok'){
-            var user = $.getCredible.tagCloud.data('user');
-            var voters = $.getCredible.voterImages(data.voters);
-            word.data('score', data.score);
-            word.data('user-tag-id', data.id);
-            word.data('tagged', data.tagged);
-            word.data('rank', data.rank);
-            word.data('total', data.total);
-            word.data('voters', voters.join(''));
-            word.data('voters_count', data.voters_count);
-            word.removeClass('vouch unvouch');
-            word.addClass(data.voted ? "vouch " : "unvouch");
-            $.getCredible.updateQtipContentData(word);
-            $.getCredible.tagCloudQtipApi.set('content.text', word.data('qtip-content'));
-            if (data.voters_count === null){
-              if ($.getCredible.tagCloudQtipApi){
-                $.getCredible.tagCloudQtipApi.hide($('.word'));
-              }
-              $.getCredible.updateTagCloud(function (){
-              });
-            } else{
-              if (word.hasClass('vouch')){
-                $.getCredible.displayNotification('success', 'You have vouched for ' + word.text());
-              } else{
-                mixpanel.track("Tag");
-                $.getCredible.displayNotification('success', 'You have removed vouch for ' + word.text());
-              }
-            }
-            //$('.tag-vote').click(function (){
-              //$.getCredible.vote($.getCredible.currentQtipTarget);
-              //return false;
-            //});
-          }
-        });
+        if(voteToggle == '/unvote.json'){
+          noty({
+            text:'Are you sure you want to unvouch for ' + word.text() + '?',
+            layout:'center',
+            type:'alert',
+            buttons:[
+              {type:'btn primary medium', text:'Ok', click:function (){
+                $.getCredible.submitVote(word, voteToggle);
+              } },
+              {type:'btn primary medium red', text:'Cancel', click:function (){
+
+              } }
+            ],
+            closable:false,
+            timeout:false
+          });
+
+        } else {
+          $.getCredible.submitVote(word, voteToggle);
+        }
+
       } else{
         if (!this.tagCloud.data('can-delete')){
           $.getCredible.displayNotification('alert', 'You can not vouch for yourself')
@@ -265,6 +251,44 @@ $(function (){
       $.getCredible.displayNotification('error', 'You are not authorized for this action')
     }
   };
+
+  $.getCredible.submitVote = function(word, voteToggle){
+    $.post(this.tagCloudPath + '/' + word.data('user-tag-id') + voteToggle, function (data){
+      if (data.status == 'ok'){
+        var user = $.getCredible.tagCloud.data('user');
+        var voters = $.getCredible.voterImages(data.voters);
+        word.data('score', data.score);
+        word.data('user-tag-id', data.id);
+        word.data('tagged', data.tagged);
+        word.data('rank', data.rank);
+        word.data('total', data.total);
+        word.data('voters', voters.join(''));
+        word.data('voters_count', data.voters_count);
+        word.removeClass('vouch unvouch');
+        word.addClass(data.voted ? "vouch " : "unvouch");
+        $.getCredible.updateQtipContentData(word);
+        $.getCredible.tagCloudQtipApi.set('content.text', word.data('qtip-content'));
+        if (data.voters_count === null){
+          if ($.getCredible.tagCloudQtipApi){
+            $.getCredible.tagCloudQtipApi.hide();
+          }
+          $.getCredible.updateTagCloud(function (){
+          });
+        } else{
+          if (word.hasClass('vouch')){
+            $.getCredible.displayNotification('success', 'You have vouched for ' + word.text());
+          } else{
+            mixpanel.track("Tag");
+            $.getCredible.displayNotification('success', 'You have removed vouch for ' + word.text());
+          }
+        }
+        $('.ui-tooltip-content .tag-vote').unbind('click').click(function (){
+          $.getCredible.vote($.getCredible.currentQtipTarget);
+          return false;
+        });
+      }
+    });
+  }
 
   $.getCredible.voterImages = function (voters){
     var votersImages = [];
@@ -276,7 +300,7 @@ $(function (){
   };
 
   $.getCredible.getWordCustomClass = function (userTag){
-    var customClass = "skill word ";
+    var customClass = "skill ";
     customClass += this.tagCloud.data('can-delete') ? 'remove ' : '';
     if ($.getCredible.tagCloud.data('can-vote') && !this.tagCloud.data('can-delete')){
       customClass += userTag.voted ? "vouch " : "unvouch ";
@@ -404,7 +428,7 @@ $(function (){
       delayedMode:true,
       afterCloudRender:function (){
         $.getCredible.tagCloudLoader.hide('fast');
-        var words = $("#tag-cloud .word");
+        var words = $("#tag-cloud .skill");
         words.each(function (){
           var word = $(this);
           $.getCredible.updateQtipContentData(word);
@@ -434,7 +458,7 @@ $(function (){
                   $.getCredible.currentQtipTarget = $(event.originalEvent.target);
                   if ($.getCredible.currentQtipTarget.length){
                     api.set('content.text', $.getCredible.currentQtipTarget.data('qtip-content'));
-                    $('.tag-vote').unbind('click').click(function (){
+                    $('.ui-tooltip-content .tag-vote').unbind('click').click(function (){
                       $.getCredible.vote($.getCredible.currentQtipTarget);
                       return false;
                     });
