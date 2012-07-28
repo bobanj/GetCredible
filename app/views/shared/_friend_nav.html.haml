@@ -8,3 +8,6 @@
       = link_to user_followers_path(user) do
         %span= user.voters_count
         Followers
+
+  - if user_signed_in? && (@user.blank? || @user == current_user)
+    = link_to 'Invite and Tag Your Contacts', invite_path, :class => 'invite'
