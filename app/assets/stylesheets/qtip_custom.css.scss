@@ -204,3 +204,39 @@
     margin-left: 0;
   }
 }
+.ui-tooltip-landing-video{
+  max-width: 560px;
+  min-width: 560px;
+  .ui-tooltip-content{
+    padding: 0;
+    margin: 0;
+  }
+  .ui-tooltip-titlebar {
+    display: inline;
+    background: transparent;
+    float: none;
+    padding: 0;
+    overflow: visible;
+    .ui-tooltip-close {
+      position: relative;
+      right: -555px;
+    }
+    .ui-tooltip-icon .ui-icon {
+      background: #111;
+      border: none;
+      color: #fff;
+      display: block;
+      font-size: 15px;
+      font-weight: bold;
+      height: 30px;
+      line-height: 30px;
+      position: absolute;
+      right: -21px;
+      text-align: center;
+      top: -21px;
+      width: 30px;
+      @include border-radius(50%);
+      z-index: 999;
+    }
+  }
+}
