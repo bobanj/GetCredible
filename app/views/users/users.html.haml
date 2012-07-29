@@ -1,3 +1,7 @@
+- unless Rails.env.test? # stop warnings when running specs
+  - content_for :javascripts do
+    = render 'shared/twitter_social_network_script'
+
 #content
   = render 'shared/profile'
 

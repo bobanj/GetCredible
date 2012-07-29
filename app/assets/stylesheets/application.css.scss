@@ -435,10 +435,11 @@ input, textarea {
     color: $grayDark;
     float: left;
     font-size: 13px;
+    left: 80px;
     line-height: 16px;
     min-width: 100px;
+    padding-right: 10px;
     position: absolute;
-    left: 80px;
   }
 
   time, .details {
@@ -450,8 +451,10 @@ input, textarea {
   .details {
     display: block;
     float: left;
-    margin-top: 5px;
-    width: 93%;
+    margin-top: 15px;
+    width: 85%;
+    position: absolute;
+    left: 80px;
   }
 
 }
