@@ -18,7 +18,7 @@ class UserMailer < ActionMailer::Base
     @voter    = voter
     @receiver = voted
     @tag_name = tag_name
-    mail(to: @receiver.email, subject: "You received a vote!")
+    mail(to: @receiver.email, subject: "Someone vouched for you!")
   end
 
   def invitation_accepted_email(inviter, user)

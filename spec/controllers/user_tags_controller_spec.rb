@@ -92,7 +92,7 @@ describe UserTagsController do
 
       unread_emails_for(other_user.email).size.should == parse_email_count(1)
       open_email(other_user.email)
-      current_email.should have_subject("You received a vote!")
+      current_email.should have_subject("Someone vouched for you!")
     end
 
     it "can vote for a user tag and receive an email if not first vote" do
