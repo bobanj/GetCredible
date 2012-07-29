@@ -1164,8 +1164,8 @@ $(function (){
               origin:document.location.host
             },
             origin:document.location.host,
-            height:315,
-            width:560,
+            height: 390,
+            width: 640,
             videoId:$.getCredible.guideVideoId,
             events:{
               'onReady':function (e){
