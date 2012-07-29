@@ -1222,24 +1222,40 @@ $(function (){
       }
     });
 
+    var changeFriendshipCounter = function (button, diff) {
+      if (button.data('own-profile')) {
+        var counter = $('#js-friendship-counts').find('li:first span');
+      } else {
+        var counter = button.next('#js-friendship-counts').find('li:last span');
+      }
+
+      counter.text(parseInt(counter.text()) + diff);
+    }
+
     $('.js-friendship-action').click(function(){
       var button = $(this);
       var isFollowing = button.data('following');
       var buttonText = button.find('span');
       button.removeClass('red green blue');
-      if(isFollowing){
+
+      if (isFollowing) {
         button.data('following', false);
         buttonText.text('Follow');
         button.addClass('green');
-        $.post(button.data('unfollow-path'), { _method:'delete' });
+
+        $.post(button.data('unfollow-path'), { _method:'delete' }, function () {
+          changeFriendshipCounter(button, -1);
+        });
       } else {
         button.data('following', true);
         buttonText.text('Following');
         button.addClass('blue');
-        $.post(button.data('follow-path'));
+
+        $.post(button.data('follow-path'), function () {
+          changeFriendshipCounter(button, 1);
+        });
       }
     });
-
 
     $('#profile_sidebar').delegate('.js-friendship-action', 'click', function () {
       if($(this).hasClass('disabled')){

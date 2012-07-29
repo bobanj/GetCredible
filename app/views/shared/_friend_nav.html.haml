@@ -1,6 +1,7 @@
 %nav#friend-nav
-  = render 'shared/friendship_button', user: user
-  %ul
+  = render 'shared/friendship_button', user: user, own_profile: false
+
+  %ul#js-friendship-counts
     %li
       = link_to user_following_path(user) do
         %span= user.followings.active.count

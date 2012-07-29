@@ -17,7 +17,7 @@
                 %span.name= link_to user.name, me_user_path(user)
               - else
                 %span= user.name.presence || "No name"
-              = render 'shared/friendship_button', user: user
+              = render 'shared/friendship_button', user: user, own_profile: current_user == @user
 
       - else
         .ngo
