@@ -1160,6 +1160,7 @@ $(function (){
               autoplay:1,
               enablejsapi:1,
               showinfo: 0,
+              wmode: "opaque",
               origin:document.location.host
             },
             origin:document.location.host,
