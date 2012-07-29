@@ -1195,9 +1195,21 @@ $(function (){
 
   };
 
+  $.getCredible.friendship = function () {
+    $('#profile_sidebar').delegate('.js-friendship-action', 'click', function () {
+      if($(this).hasClass('disabled')){
+        return false;
+      } else {
+        $(this).addClass('disabled');
+        $(this).parent().find('img').removeClass('hide');
+      }
+    });
+  };
+
   $.getCredible.showFlashMessages();
   $.getCredible.ajaxPagination();
   $.getCredible.init();
+  $.getCredible.friendship();
   $.getCredible.updateTagCloud();
   $.getCredible.inviteContact();
   $.getCredible.importConnections();

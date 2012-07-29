@@ -49,7 +49,7 @@
     -#   %a.pin-it-button{"count-layout" => "vertical", :href => "http://pinterest.com/pin/create/button/?url=#{u(me_user_url(@user))}&media=#{request.protocol}#{request.host_with_port}#{asset_path("logo.png")}&description=Description"}
     -#     %img{:border => "0", :src => "//assets.pinterest.com/images/PinExt.png", :title => "Pin It"}/
 
-%aside
+%aside#profile_sidebar
   - if user_signed_in? && @user == current_user
     = render 'shared/sidebar_nav'
   = render 'shared/friend_nav', user: @user

@@ -318,18 +318,18 @@ ul.social_fixed {
     float: left;
     text-align: center;
     width: 50%;
-  }
-  a {
-    display: block;
-    font: 12px/3 open-sans, Arial, sans-serif;
-    padding: 10px 0;
-    span {
-      font: bold 24px/1.5 "gnuolane", sans-serif;
-      padding-right: 3px;
-    }
-    &:hover, &:focus {
-      background: rgba(255, 255, 255, 0.4);
-      text-decoration: none;
+    a {
+      display: block;
+      font: 12px/3 open-sans, Arial, sans-serif;
+      padding: 10px 0;
+      span {
+        font: bold 24px/1.5 "gnuolane", sans-serif;
+        padding-right: 3px;
+      }
+      &:hover, &:focus {
+        background: rgba(255, 255, 255, 0.4);
+        text-decoration: none;
+      }
     }
   }
   a.invite {
@@ -345,6 +345,11 @@ ul.social_fixed {
       text-decoration: none;
       // @include box-shadow(rgba(0, 0, 0, 0.15) 0 0 3px);
     }
+  }
+  a.tiny {
+    font-size: 14px;
+    margin-bottom: 5px;
+    padding: 8px;
   }
 }
 
