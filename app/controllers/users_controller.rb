@@ -16,14 +16,14 @@ class UsersController < ApplicationController
   end
 
   def followers
-    @users = @user.followers.order_by_name.
+    @users = @user.followers.active.order_by_name.
         paginate :per_page => 10, :page => params[:page]
 
     render :users, layout: (request.xhr? ? false : true)
   end
 
   def following
-    @users = @user.followings.order_by_name.
+    @users = @user.followings.active.order_by_name.
         paginate :per_page => 10, :page => params[:page]
 
     render :users, layout: (request.xhr? ? false : true)

@@ -1201,7 +1201,6 @@ $(function (){
         return false;
       } else {
         $(this).addClass('disabled');
-        $(this).parent().find('img').removeClass('hide');
       }
     });
   };
