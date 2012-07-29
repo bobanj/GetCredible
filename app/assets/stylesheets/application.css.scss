@@ -348,9 +348,10 @@ input, textarea {
 .list-view {
 
   li {
-    padding: 14px 20px;
     border-bottom: 1px solid #e9e9e9;
     font-size: 11px;
+    padding: 14px 20px;
+    position: relative;
     @include pie-clearfix;
     @include transition(all .4s);
     &:hover, &:focus {
