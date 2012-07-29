@@ -154,6 +154,17 @@ input, textarea {
     margin-bottom: 5px;
     padding: 8px;
   }
+  &.blue {
+    border: 1px solid #c6c6c6;
+    color: $white;
+    background: $blue;
+    &:hover, &:focus {
+      background: $blue - #111;
+      border: 1px solid $blue - #222;
+      @include background-image(linear-gradient($blue - #222, $blue - #111));
+    }
+  }
+
 }
 
 .twitter-import {

@@ -4,12 +4,12 @@ class FriendshipsController < ApplicationController
 
   def create
     @friendship = current_user.follow(@user)
-    render 'friend_nav'
+    render nothing: true
   end
 
   def destroy
     current_user.unfollow(@user)
-    render 'friend_nav'
+    render nothing: true
   end
 
   private
