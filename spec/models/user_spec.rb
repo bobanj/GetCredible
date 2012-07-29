@@ -158,6 +158,11 @@ describe User do
       voter.add_vote(user_tag)
       voter.activity_items.count.should == 1
     end
+
+    it "creates follow association after voting for tag" do
+      voter.add_vote(user_tag)
+      voter.followings.should include(user)
+    end
   end
 
   describe "#remove_vote" do
@@ -407,28 +412,21 @@ describe User do
       end
     end
 
-    describe "#friends" do
+    describe "#followings_and_followers" do
       it "returns the users that both interacted with the user" do
         voter.add_vote(user_tag)
         user.add_tags(voter, ['development'])
-        user.friends.should include(voter)
+        user.followings_and_followers.should include(voter)
+      end
+
+    end
+
+    describe "#voted_for?" do
+      it "returns true or false for a given user_tag" do
+        voter.add_vote(user_tag)
+        voter.voted_for?(user_tag).should be_true
       end
     end
 
-    describe "#voted_count" do
-      it "returns number of supported people" do
-        voter.add_vote(user_tag)
-        voter.add_vote(user_tag2)
-        voter.voted_count.should == 1
-      end
-    end
-
-    describe "#voters_count" do
-      it "returns number of supporters" do
-        voter.add_vote(user_tag)
-        voter.add_vote(user_tag2)
-        user.voters_count.should == 1
-      end
-    end
   end
 end

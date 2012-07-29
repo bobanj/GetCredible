@@ -2,11 +2,11 @@
   %ul
     %li
       = link_to user_following_path(user) do
-        %span= user.voted_count
+        %span= user.followings.count
         Following
     %li
       = link_to user_followers_path(user) do
-        %span= user.voters_count
+        %span= user.followers.count
         Followers
 
   - if user_signed_in? && (@user.blank? || @user == current_user)

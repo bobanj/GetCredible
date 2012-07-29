@@ -22,7 +22,7 @@ module GiveBrand
       end
 
       inviter.add_tags(user, TagCleaner.clean(tag_names.join(',')), skip_email: true)
-      inviter.add_following(user)
+      inviter.follow(user)
 
       return user
     end

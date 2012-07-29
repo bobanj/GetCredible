@@ -49,15 +49,7 @@ describe Endorsement do
     it "creates vouch (following association) on endorsement" do
       FactoryGirl.create(:endorsement, endorser: endorser, user_tag: user_tag)
       user_tag.reload.votes.length.should == 1
-      endorser.reload.voted_users.should include(user)
-    end
-
-    it "creates vouch (following association) on endorsement" do
-      endorser.add_vote(user_tag, false)
-      user_tag.votes.length.should == 1 # sanity
-      FactoryGirl.create(:endorsement, endorser: endorser, user_tag: user_tag)
-      user_tag.reload.votes.length.should == 1
-      endorser.reload.voted_users.should include(user)
+      endorser.reload.followings.should include(user)
     end
   end
 end

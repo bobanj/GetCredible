@@ -19,7 +19,7 @@ class GiveBrand::Facebook::Importer
       end
 
       if existing_authentication
-        current_user.add_following(existing_authentication.user)
+        current_user.follow(existing_authentication.user)
       end
 
       contact.save

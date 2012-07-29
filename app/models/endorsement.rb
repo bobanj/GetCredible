@@ -33,7 +33,7 @@ class Endorsement < ActiveRecord::Base
   end
 
   def create_vote
-    endorser.add_vote(user_tag, false)
+    endorser.add_vote(user_tag, false) unless endorser.voted_for?(user_tag)
   end
 
 end

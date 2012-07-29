@@ -11,9 +11,6 @@ class Tag < ActiveRecord::Base
   has_many :votes, :through => :user_tags
   has_many :voters, :through => :votes, :uniq => true
   has_many :voted_users, :through => :votes
-  has_many :voted_ranking, :through => :votes, :source => :voted_users,
-           :select => "users.id, COUNT(*) AS votes_count", :group => "users.id",
-           :order => "votes_count DESC"
 
   # Callbacks
   after_save :load_into_soulmate
@@ -21,10 +18,6 @@ class Tag < ActiveRecord::Base
 
   # Class Methods
   class << self
-    def voted_ranking
-      voted_users.select("users.id, COUNT(*) AS votes_count").group("users.id").
-          order("votes_count DESC")
-    end
 
     def search(term)
       return [] if term.blank?

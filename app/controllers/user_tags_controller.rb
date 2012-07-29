@@ -16,7 +16,7 @@ class UserTagsController < ApplicationController
   end
 
   def vote
-    new_follower = !current_user.voted_users.include?(@user)
+    new_follower = !current_user.following?(@user)
     user_tag = @user.user_tags.find(params[:id])
     vote = current_user.add_vote(user_tag)
 

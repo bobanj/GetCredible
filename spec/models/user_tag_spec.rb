@@ -103,6 +103,18 @@ describe UserTag do
       user.user_tags[0].reload.votes.length.should == 2
       user.tags[0].name.should == 'web design'
     end
+
+    it "creates follow association after adding new tag" do
+      UserTag.add_tags(tagger, user, ['development'])
+      tagger.followings.should include(user)
+    end
+
+    it "creates follow association after voting for tag" do
+      UserTag.add_tags(tagger, user, ['development'])
+      tagger.followings.should include(user)
+    end
+
   end
+
 
 end

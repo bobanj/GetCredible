@@ -32,7 +32,7 @@ class EndorsementsController < ApplicationController
 
   def destroy
     @endorsement = current_user.incoming_endorsements.find(params[:id])
-    #@endorsement.destroy
+    @endorsement.destroy
   end
 
   private

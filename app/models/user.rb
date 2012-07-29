@@ -26,8 +26,8 @@ class User < ActiveRecord::Base
                                  :class_name => 'ActivityItem',
                                  :order => 'created_at DESC'
   has_many :votes, :foreign_key => :voter_id, :dependent => :destroy
-  has_many :voted_users, :through => :votes, :uniq => true
-  has_many :voters, :through => :user_tags, :uniq => true
+  has_many :voted_users, :through => :votes, :uniq => true # Users who you voted for
+  has_many :voters, :through => :user_tags, :uniq => true # Users who voted for you
   has_many :incoming_endorsements, :through => :user_tags, :source => :endorsements
   has_many :outgoing_endorsements, :class_name => 'Endorsement', :foreign_key => :endorsed_by_id, :dependent => :destroy
 
@@ -105,20 +105,12 @@ class User < ActiveRecord::Base
     read_attribute(:full_name).presence || username
   end
 
-  def friends
-    voted_users & voters
+  def followings_and_followers
+    followings & followers
   end
 
   def active?
     invitation_token.blank?
-  end
-
-  def voted_count
-    voted_users.count(:distinct => true)
-  end
-
-  def voters_count
-    voters.count(:distinct => true)
   end
 
   def pending
@@ -142,13 +134,22 @@ class User < ActiveRecord::Base
     UserTag.add_tags(self, user, tag_names, options)
   end
 
-  def add_following(invited)
-    followings << invited unless followings.exists?(invited)
+  def following?(user)
+    followings.exists?(user)
+  end
+
+  def follow(user)
+    followings << user unless following?(user)
+  end
+
+  def unfollow(user)
+    followings.delete(user) if following?(user)
   end
 
   def add_vote(user_tag, log_vote_activity = true)
     if self != user_tag.user
       vote = vote_exclusively_for(user_tag)
+      follow(user_tag.user)
       # Vote.create!(:vote => direction, :voteable => voteable, :voter => self)
       if log_vote_activity
         activity_items.create(item: vote, target: user_tag.user)
@@ -157,6 +158,10 @@ class User < ActiveRecord::Base
       vote = false
     end
     vote
+  end
+
+  def voted_for?(user_tag)
+    Vote.exists?(:voter_id => self.id, :voteable_id => user_tag.id)
   end
 
   def remove_vote(user_tag)
@@ -199,7 +204,7 @@ class User < ActiveRecord::Base
                           INNER JOIN users ON users.id = activity_items.target_id AND users.invitation_token IS NULL
                           WHERE activity_items.target_id = :id
                         ) AS t
-                        ORDER BY created_at DESC", id: id, user_ids: friends.map(&:id)],
+                        ORDER BY created_at DESC", id: id, user_ids: followings_and_followers.map(&:id)],
                         :page => params[:page], :per_page => params[:per_page])
   end
 
@@ -308,8 +313,8 @@ class User < ActiveRecord::Base
   end
 
   def email_followers
-    voters.each do |voter|
-      UserMailer.invitation_accepted_email(voter, self).deliver
+    followers.each do |follower|
+      UserMailer.invitation_accepted_email(follower, self).deliver
     end
   end
 end
