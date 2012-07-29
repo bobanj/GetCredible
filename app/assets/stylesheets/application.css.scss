@@ -370,10 +370,6 @@ input, textarea {
     a {
       @include box-shadow(0);
     }
-    .self-tag{
-      width: 38px;
-      height: 38px;
-    }
     img {
       width: 32px;
       @include box-shadow(rgba(0, 0, 0, 0.2) 0 0 2px inset);
