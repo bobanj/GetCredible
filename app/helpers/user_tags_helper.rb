@@ -45,7 +45,7 @@ module UserTagsHelper
     skills = top_tags.map{ |t| "<span class='skill'>#{t}</span>" }
 
     if skills.present?
-      "#{user.short_name}#{apostrophe(user.short_name)} brand is associated with #{skills.to_sentence}.".html_safe
+      "When people think of #{user.name}, here are just a few of the skills and traits that come to mind:<br/>#{skills.to_sentence}.".html_safe
     end
   end
 
