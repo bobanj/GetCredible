@@ -5,7 +5,13 @@ describe UserTagsController do
   let(:other_user) { FactoryGirl.create(:user, full_name: "Other User", username: 'other_user') }
 
   describe "Authentication" do
-    it_should_require_current_user_for :create, :vote, :unvote
+
+    [:create, :vote, :unvote].each do |action|
+      it "#{action} action should require current user" do
+        get action, user_id: user.id, :id => 1
+        controller.should_not_receive(action)
+      end
+    end
   end
 
   describe "#index" do
@@ -21,7 +27,7 @@ describe UserTagsController do
   describe "#create" do
     it "requires signed in user" do
       controller.should_not_receive(:create)
-      post :create, tag_names: 'something'
+      post :create, user_id: user.username, tag_names: 'something'
     end
 
     it "can tag other user" do

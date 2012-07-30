@@ -49,9 +49,9 @@ class InvitationMessage
     User.transaction do
       user = GiveBrand::UserCreator.new(self, contact).create
       GiveBrand::MessageSender.new(self, user, contact.uid).send_message
-      contact.update_attribute(:user_id, user.id)
+      contact.update_column(:user_id, user.id)
       ac = inviter.authentication_contacts.find_by_contact_id!(contact.id)
-      ac.update_attribute(:invited, true)
+      ac.update_column(:invited, true)
     end
   end
 
