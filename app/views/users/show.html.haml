@@ -8,7 +8,7 @@
   %meta{ :property => "og:url", :content => me_user_url(@user) }
   %meta{ :property => "og:site_name", :content => "Give Brand" }
   %meta{ :property => "og:description", :content => "I'm building my brand on GiveBrand. Help me boost my credibility... create your own profile and tag me! #{me_user_url(@user)}" }
-  %meta{ :property => "og:image", :content => "#{root_url.chomp('/')}#{@user.avatar_url}" }
+  %meta{ :property => "og:image", :content => @user.avatar_url }
   - # Google Plus
   %meta{:content => "Help me boost my credibility on GiveBrand", :itemprop => "name"}
   %meta{:content => "I'm building my brand on @GiveBrand. Help me boost my credibility... create your own profile and tag me! #{me_user_url(@user)}", :itemprop => "description"}/
