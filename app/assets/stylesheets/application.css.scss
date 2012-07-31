@@ -116,10 +116,6 @@ input, textarea {
     text-align: center;
     width: 84px;
   }
-  &.gray {
-    border: 1px solid #777;
-    @include background-image(linear-gradient(#999, #888));
-  }
   &.light {
     border: 1px solid #c6c6c6;
     color: $blue;
@@ -137,6 +133,7 @@ input, textarea {
   &.red {
     background: $red;
     border: 1px solid $red - #111;
+    color: $white;
     @include background-image(linear-gradient($red, $red - #111));
     &:hover, &:focus {
       background: $red - #111;
@@ -162,6 +159,39 @@ input, textarea {
       background: $blue - #111;
       border: 1px solid $blue - #222;
       @include background-image(linear-gradient($blue - #222, $blue - #111));
+    }
+  }
+  &.follow {
+    background: $grayLighter;
+    border: 1px solid #777;
+    color: $black;
+    @include background-image(linear-gradient($grayLighter, $grayLighter - #111));
+    &:hover, &:focus {
+      background: $grayLighter - #111;
+      border: 1px solid $grayLighter - #222;
+      @include background-image(linear-gradient($grayLighter - #222, $grayLighter - #111));
+    }
+  }
+  &.unfollow {
+    background: $redLight;
+    border: 1px solid $redLight - #111;
+    color: $white;
+    @include background-image(linear-gradient($redLight, $redLight - #111));
+    &:hover, &:focus {
+      background: $redLight - #111;
+      border: 1px solid $redLight - #222;
+      @include background-image(linear-gradient($redLight - #222, $redLight - #111));
+    }
+  }
+  &.following {
+    background: $blueLight;
+    border: 1px solid #c6c6c6;
+    color: $white;
+    @include background-image(linear-gradient($blueLight, $blueLight - #111));
+    &:hover, &:focus {
+      background: $blueLight - #111;
+      border: 1px solid $blueLight - #222;
+      @include background-image(linear-gradient($blueLight - #222, $blueLight - #111));
     }
   }
 

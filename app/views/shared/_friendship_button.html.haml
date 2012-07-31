@@ -1,6 +1,6 @@
 - if user_signed_in? && current_user != user
   - is_following = current_user.following?(user)
-  %button{class: "js-friendship-action button btn primary tiny friendship #{is_following ? 'blue' : 'green'}",
+  %button{class: "js-friendship-action button btn tiny friendship #{is_following ? 'following' : 'follow'}",
   :'data-following' => is_following.to_s,
   :'data-follow-path' => user_friendships_path(user),
   :'data-unfollow-path' => user_friendship_path(user, :current),
