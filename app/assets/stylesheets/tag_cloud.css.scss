@@ -30,7 +30,8 @@
       font-family: proxima-nova-sc-osf, gnuolane, sans-serif;
       font-style: normal;
       font-weight: 800;
-      font-size: 64px;
+      //font-size: 64px;
+      font-size: 54px;
       color:#5688A3;
       //font: 42px gnuolane, impact, sans-serif;
       //color: #333;
@@ -39,7 +40,8 @@
       font-family: proxima-nova, gnuolane, sans-serif;
       font-style: normal;
       font-weight: 800;
-      font-size: 50px;
+      //font-size: 50px;
+      font-size: 45px;
       color: #95B053;
       //font: 36px gnuolane, impact, sans-serif;
       //color: #555;
@@ -95,6 +97,7 @@
   .remove .icon { background-position: 0 -128px; }
 
   .word {
+    white-space: nowrap;
     //font-family: 'franklin-gothic-urw-cond';
     &:hover, &:focus {
       background: #eee;
@@ -113,6 +116,7 @@
   font: 12px "open-sans", sans-serif;
   padding: 18px;
   text-align: center;
+  line-height: 18px;
 
   .icon {
     background-position: 0 -112px;
