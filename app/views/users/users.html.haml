@@ -1,3 +1,8 @@
+- if params[:action] == 'followers'
+  - title("People who follow #{@user.name} on Givebrand")
+- elsif params[:action] == 'following'
+  - title("People #{@user.name} is following on Givebrand")
+
 - unless Rails.env.test? # stop warnings when running specs
   - content_for :javascripts do
     = render 'shared/twitter_social_network_script'

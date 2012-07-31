@@ -26,11 +26,11 @@ module UsersHelper
     end
   end
 
-  def page_title(user)
+  def name_and_username(user)
     if user.full_name.present?
-      "#{user.full_name} (#{user.username}) on Givebrand"
+      "#{user.full_name} (#{user.username})"
     else
-      "#{user.username} on Givebrand"
+      user.username
     end
   end
 end
