@@ -312,6 +312,10 @@ ul.social_fixed {
     margin-left: 0;
     @include pie-clearfix;
   }
+  button {
+    display: block;
+    margin: 0 auto;
+  }
   li {
     //border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     display: inline;
