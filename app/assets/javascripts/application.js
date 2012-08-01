@@ -372,11 +372,9 @@ $(function (){
   };
 
   $.getCredible.updateQtipContentData = function (word){
-    var rank = word.data('rank') ? word.data('rank')+'' : '0';
-    if(rank == '0'){
-      rank = 'rank: N/A';
-    } else {
-      rank = 'rank:' + rank + ' out of ' + word.data('total');
+    var rank = '';
+    if(word.data('rank') != 0){
+      rank = '<p class="tag-place">rank:' + word.data('rank') + ' out of ' + word.data('total') + '</p>';
     }
     var vouchUnvouch = word.hasClass('vouch') ? 'Remove' : 'Vouch';
     var vouchUnvouchClass = word.hasClass('vouch') ? 'btn primary red tiny' : 'btn primary green tiny';
@@ -384,7 +382,7 @@ $(function (){
         '<div class="tag-score">' +
         '<p class="tag-title">score</p>' +
         '<p class="tag-big">' + word.data('score') + '</p>' +
-        '<p class="tag-place">' + rank + '</p>' +
+        rank +
         '</div>' +
         '<div class="tag-votes">' +
         '<p>' + word.data('voters_count') +
