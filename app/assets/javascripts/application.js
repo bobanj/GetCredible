@@ -373,8 +373,8 @@ $(function (){
 
   $.getCredible.updateQtipContentData = function (word){
     var rank = '';
-    if(word.data('rank') != 0 || (word.data('rank') == 0 && word.data('score') > 1 && word.data('score') < 100)){
-      rank = '<p class="tag-place">rank:' + (word.data('rank') + 1) + ' out of ' + word.data('total') + '</p>';
+    if(word.data('rank') != 0 || (word.data('rank') == 0 && word.data('score') > 1)){
+      rank = '<p class="tag-place">rank: ' + (word.data('rank') + 1) + ' out of ' + word.data('total') + '</p>';
     }
 
     var vouchUnvouch = word.hasClass('vouch') ? 'Remove' : 'Vouch';
