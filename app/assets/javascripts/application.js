@@ -372,20 +372,14 @@ $(function (){
   };
 
   $.getCredible.updateQtipContentData = function (word){
-    var rank = '';
-    if(word.data('rank') != 0 || (word.data('rank') == 0 && word.data('score') > 1)){
-      rank = '<p class="tag-place">rank: ' + (word.data('rank') + 1) + ' out of ' + word.data('total') + '</p>';
-    }
-
+    var rank = word.data('rank') ? '#' + word.data('rank') : 'N/A';
     var vouchUnvouch = word.hasClass('vouch') ? 'Remove' : 'Vouch';
     var vouchUnvouchClass = word.hasClass('vouch') ? 'btn primary red tiny' : 'btn primary green tiny';
-    var qtipContent = '';
-    if(rank != ''){
-    qtipContent = '<div class="tag-wrap">' +
+    var qtipContent = '<div class="tag-wrap">' +
         '<div class="tag-score">' +
         '<p class="tag-title">score</p>' +
         '<p class="tag-big">' + word.data('score') + '</p>' +
-        rank +
+        '<p class="tag-place">' + rank + ' out of ' + word.data('total') + '</p>' +
         '</div>' +
         '<div class="tag-votes">' +
         '<p>' + word.data('voters_count') +
@@ -393,27 +387,9 @@ $(function (){
         '  vouched for ' + word.text() + '</p>' +
         '<p>' + word.data('voters') + '</p>' +
         '</div>';
-      if ($.getCredible.tagCloud.data('can-vote')){
-        //qtipContent = qtipContent + '<div class="tag-action"><a href="#" class="tag-vote button ' + vouchUnvouchClass + '">' + vouchUnvouch + '</a><a href="#" class="js-tag-endorse button btn primary white tiny">Endorse</a></div>'
-        qtipContent = qtipContent + '<div class="tag-action"><a href="#" class="tag-vote button ' + vouchUnvouchClass + '">' + vouchUnvouch + '</a></div>'
-      }
-    } else {
-      qtipContent = '<div class="tag-wrap">' +
-          '<div class="tag-score-no-rank">' +
-          '<p class="tag-title">score</p>' +
-          '<p class="tag-big">' + word.data('score') + '</p>' +
-          rank +
-          '</div>' +
-          '<div class="tag-votes-no-rank">' +
-          '<p>' + word.data('voters_count') +
-          (word.data('voters_count') == 1 ? ' person' : ' people') +
-          '  vouched for ' + word.text() + '</p>' +
-          '<p>' + word.data('voters') + '</p>' +
-          '</div>';
-      if ($.getCredible.tagCloud.data('can-vote')){
-        //qtipContent = qtipContent + '<div class="tag-action"><a href="#" class="tag-vote button ' + vouchUnvouchClass + '">' + vouchUnvouch + '</a><a href="#" class="js-tag-endorse button btn primary white tiny">Endorse</a></div>'
-        qtipContent = qtipContent + '<div class="tag-action-no-rank"><a href="#" class="tag-vote button ' + vouchUnvouchClass + '">' + vouchUnvouch + '</a></div>'
-      }
+    if ($.getCredible.tagCloud.data('can-vote')){
+      //qtipContent = qtipContent + '<div class="tag-action"><a href="#" class="tag-vote button ' + vouchUnvouchClass + '">' + vouchUnvouch + '</a><a href="#" class="js-tag-endorse button btn primary white tiny">Endorse</a></div>'
+      qtipContent = qtipContent + '<div class="tag-action"><a href="#" class="tag-vote button ' + vouchUnvouchClass + '">' + vouchUnvouch + '</a></div>'
     }
     qtipContent = qtipContent + '</div>';
     word.data('qtip-content', qtipContent);
