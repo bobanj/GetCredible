@@ -18,7 +18,6 @@ class Tag < ActiveRecord::Base
 
   # Class Methods
   class << self
-
     def search(term)
       return [] if term.blank?
       matches = Soulmate::Matcher.new('tag').matches_for_term(term)
@@ -27,7 +26,6 @@ class Tag < ActiveRecord::Base
   end
 
   private
-
   def load_into_soulmate
     loader = Soulmate::Loader.new("tag")
     loader.add("term" => name, "id" => id, "score" => user_tags_count)

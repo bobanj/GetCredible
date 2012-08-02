@@ -20,7 +20,7 @@
                     = link_to image_tag(user.avatar.url(:avatar)), me_user_path(user)
                   - else
                     = image_tag(user.avatar.url(:avatar))
-                %h2= profile_title(user)
+                %h2= user_title(user)
                 %br
                 .details
 

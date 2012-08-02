@@ -47,7 +47,7 @@ class UserTag < ActiveRecord::Base
         user_tag.tagger = tagger
         user_tag.save
         unless options[:skip_activity_item]
-          tagger.activity_items.create(:item => user_tag, :target => user)# if tagger != user
+          ActivityItem.create(user: tagger, item: user_tag, target: user) # if tagger != user
         end
         # automatically add vote on tag creation
         tagger != user ? tagger.add_vote(user_tag, false) : user_tag.update_counters

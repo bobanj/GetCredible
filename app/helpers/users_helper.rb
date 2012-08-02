@@ -1,9 +1,10 @@
 module UsersHelper
-  def disable_tagging(user)
-    user == current_user || current_user.nil?
+
+  def user_link(user)
+    link_to(user.name, me_user_path(user))
   end
 
-  def profile_title(user)
+  def user_title(user)
     if user.active?
       title = link_to(user.name, me_user_path(user))
     else
@@ -14,10 +15,6 @@ module UsersHelper
     title
   end
 
-  def users_active_class(name)
-    params[:action] == name ? 'active' : nil
-  end
-
   def twitter_name(user)
     if user.twitter_handle.present?
       "@#{user.twitter_handle} #{apostrophe(user.twitter_handle)}"
@@ -26,7 +23,7 @@ module UsersHelper
     end
   end
 
-  def name_and_username(user)
+  def user_name_with_username(user)
     if user.full_name.present?
       "#{user.full_name} (#{user.username})"
     else

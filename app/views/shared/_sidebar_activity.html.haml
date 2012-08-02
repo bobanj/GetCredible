@@ -10,7 +10,7 @@
   %ul.list-view.unstyled
     - if activities.present?
       - activities.each do |activity_item|
-        %li{:class => activity_class(activity_item)}
+        %li{:class => activity_item_class(activity_item)}
           .tag-icon
           = activity_description(activity_item)
     - else

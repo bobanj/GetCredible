@@ -4,11 +4,11 @@
       %h1 Recent Activity
       %nav.right
         %ul.tabs
-          %li.first{:class => activity_active_class('all')}
+          %li.first{:class => activity_tab_class('all')}
             = link_to 'All', activity_path('all'), :class => 'js-remote'
-          %li{:class => activity_active_class('incoming')}
+          %li{:class => activity_tab_class('incoming')}
             = link_to 'Notifications', activity_path('incoming'), :class => 'js-remote'
-          %li.last{:class => activity_active_class('outgoing')}
+          %li.last{:class => activity_tab_class('outgoing')}
             = link_to 'My Activity', activity_path('outgoing'), :class => 'js-remote'
 
     .feed
@@ -16,7 +16,7 @@
 
         - if @activity_items.present?
           - @activity_items.each do |activity_item|
-            %li{:class => activity_class(activity_item)}
+            %li{:class => activity_item_class(activity_item)}
               .content
                 .tag-icon
                 .photo

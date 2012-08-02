@@ -11,8 +11,7 @@ class EndorsementsController < ApplicationController
     @endorsement = current_user.outgoing_endorsements.new(params[:endorsement])
 
     if @endorsement.save
-      current_user.activity_items.create(:item => @endorsement,
-                                :target_id => @user.id)
+      ActivityItem.create(user: current_user, item: @endorsement, target: @user)
       UserMailer.endorse_email(@endorsement).deliver
       render :create_success
     else

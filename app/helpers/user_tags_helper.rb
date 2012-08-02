@@ -6,14 +6,6 @@ module UserTagsHelper
     end
   end
 
-  def user_avatar_url(user, size = :thumb)
-    if user.avatar.present?
-      user.avatar_url(size)
-    else
-      "#{DOMAIN_URL}/assets/#{user.avatar_url(size)}"
-    end
-  end
-
   def tag_summary(user_tag, user, viewer)
     tag        = user_tag.tag
     tag_scores = Redis::SortedSet.new("tag:#{tag.id}:scores")
@@ -49,18 +41,11 @@ module UserTagsHelper
     end
   end
 
+  def load_user_tags(user)
+    user.user_tags.includes(:tag).map { |ut| [ut.tag.name, ut.id] }
+  end
+
   def preload_associations(activity_items)
-    vote_activities        = activity_items.select{|i| i.item_type == 'Vote'}
-    user_tag_activities    = activity_items.select{|i| i.item_type == 'UserTag'}
-    endorsement_activities = activity_items.select{|i| i.item_type == 'Endorsement'}
-
-    ActiveRecord::Associations::Preloader.
-      new(vote_activities, [{:item => {:voteable => :tag}}, :target, :user]).run
-
-    ActiveRecord::Associations::Preloader.
-      new(user_tag_activities, [{:item => :tag}, :target, :user]).run
-
-    ActiveRecord::Associations::Preloader.
-      new(endorsement_activities, [{:item => :endorser}, :target, :user]).run
+    ActiveRecord::Associations::Preloader.new(activity_items, [:target, :user]).run
   end
 end
