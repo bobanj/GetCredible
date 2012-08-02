@@ -6,6 +6,7 @@ describe ActivityItem do
     it { should belong_to(:user) }
     it { should belong_to(:item) }
     it { should belong_to(:target) }
+    it { should have_and_belong_to_many(:tags) }
   end
 
   describe "Database Columns" do

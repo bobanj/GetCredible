@@ -152,7 +152,8 @@ class User < ActiveRecord::Base
       follow(user_tag.user)
       # Vote.create!(:vote => direction, :voteable => voteable, :voter => self)
       if log_vote_activity
-        ActivityItem.(user: self, item: vote, target: user_tag.user)
+        ActivityItem.create(user: self, item: vote,
+                            target: user_tag.user, tags: [user_tag.tag])
       end
     else
       vote = false

@@ -44,8 +44,4 @@ module UserTagsHelper
   def load_user_tags(user)
     user.user_tags.includes(:tag).map { |ut| [ut.tag.name, ut.id] }
   end
-
-  def preload_associations(activity_items)
-    ActiveRecord::Associations::Preloader.new(activity_items, [:target, :user]).run
-  end
 end

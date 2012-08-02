@@ -14,7 +14,7 @@ describe ActivitiesController do
       sign_in(user)
       user.stub_chain(:user_tags, :exists?).and_return(true)
       controller.stub(:current_user).and_return(user)
-      controller.stub(:preload_associations)
+      controller.stub(:preload_activity_items)
     end
 
     it "can return all activities" do

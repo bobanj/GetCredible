@@ -29,7 +29,7 @@ module ActivitiesHelper
   def incoming_activity_description(activity_item)
     user = activity_item.user
     target = activity_item.target
-    tag = tag_link('test') # TODO: add real tag
+    tag = activity_item.tags.map{ |t| tag_link(t.name) }.join(', ')
     subject_link = subject_link(user)
     object_link = object_link(target)
 
@@ -50,7 +50,7 @@ module ActivitiesHelper
   def outgoing_activity_description(activity_item)
     user = activity_item.user
     target = activity_item.target
-    tag = tag_link('test') # TODO: add real tag
+    tag = activity_item.tags.map{ |t| tag_link(t.name) }.join(', ')
     subject_link = subject_link(user)
     object_link = object_link(target)
 
