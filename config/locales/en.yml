@@ -2,6 +2,17 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  twitter:
+    errors:
+      unavailable: 'Twitter services are currently unavailable. Try again later.'
+    contacts:
+      import: 'Your twitter contacts were successfully imported.'
+      remove: 'Your Twitter account was successfully disconnected.'
+  linkedin:
+    errors:
+      access_denied: 'LinkedIn services are currently unavailable. Try again later.'
+
+
   activerecord:
     errors:
       models:

@@ -13,11 +13,13 @@ class InvitationMessagesController < ApplicationController
   rescue Twitter::Error::Unauthorized
     render :unauthorized
   rescue Twitter::Error::Forbidden => e
-    render :twitter_error, :locals => {:error => e.message}
+    render :api_error, :locals => {:error => e.message}
   rescue Twitter::Error
-    render :twitter_error, :locals => {:error => I18n.t('twitter.errors.unavailable')}
+    render :api_error, :locals => {:error => I18n.t('twitter.errors.unavailable')}
+  rescue LinkedIn::Errors::AccessDeniedError
+    render :api_error, :locals => {:error => I18n.t('linkedin.errors.access_denied')}
   rescue GiveBrand::MessageSender::FacebookChatAccessDenied
-    render :facebook_error, :locals => {:error => 'Allow "Access Facebook Chat" to invite your Facebook friends.' }
+    render :api_error, :locals => {:error => 'Allow "Access Facebook Chat" to invite your Facebook friends.' }
   end
 
 end
