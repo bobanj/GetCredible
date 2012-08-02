@@ -28,6 +28,15 @@ namespace :get_credible do
     invitations_accepted.group_by{|u| u.contact.try(:provider) }.each do |provider, contacts|
       puts "  - #{provider.presence || 'unknown'}: #{contacts.length}"
     end
+
+    social_accounts_count = Authentication.count
+    facebook_acounts_count = Authentication.where(provider: 'facebook').count
+    linkedin_acounts_count = Authentication.where(provider: 'linkedin').count
+    twitter_acounts_count = Authentication.where(provider: 'twitter').count
+    puts "Social accounts connected: #{social_accounts_count}"
+    puts "  - facebook: #{facebook_acounts_count}"
+    puts "  - linkedin: #{linkedin_acounts_count}"
+    puts "  - twitter: #{twitter_acounts_count}"
     puts
     puts "* unknown - details lost because of db changes"
     puts '------------------------------------------------'
