@@ -4,7 +4,6 @@ class Authentication < ActiveRecord::Base
 
   # Associations
   belongs_to :user
-  has_many :temp_contacts, dependent: :destroy
   has_many :authentication_contacts, dependent: :destroy
   has_many :contacts, through: :authentication_contacts
 
