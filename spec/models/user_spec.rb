@@ -412,13 +412,12 @@ describe User do
       end
     end
 
-    describe "#followings_and_followers" do
+    describe "#friends" do
       it "returns the users that both interacted with the user" do
         voter.add_vote(user_tag)
         user.add_tags(voter, ['development'])
-        user.followings_and_followers.should include(voter)
+        user.friends.should include(voter)
       end
-
     end
 
     describe "#voted_for?" do

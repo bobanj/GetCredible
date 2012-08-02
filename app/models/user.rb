@@ -105,7 +105,7 @@ class User < ActiveRecord::Base
     read_attribute(:full_name).presence || username
   end
 
-  def followings_and_followers
+  def friends
     followings & followers
   end
 
@@ -187,11 +187,8 @@ class User < ActiveRecord::Base
   end
 
   def all_activities
-    user_ids = followings_and_followers.map(&:id) + [self.id]
-    target_ids = [self.id]
-    ActivityItem.active.ordered.
-      where(['user_id IN (:user_ids) OR target_id IN (:target_ids)',
-             {user_ids: user_ids, target_ids: target_ids}])
+    users_ids = (friends + [self]).map(&:id)
+    ActivityItem.active.ordered.where(['user_id IN (?)', users_ids])
   end
 
   def vote_exclusively_for(voteable)
