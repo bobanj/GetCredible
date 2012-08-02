@@ -10,7 +10,7 @@ en:
       remove: 'Your Twitter account was successfully disconnected.'
   linkedin:
     errors:
-      access_denied: 'LinkedIn services are currently unavailable. Try again later.'
+      access_denied: 'Linkedin only allows 10 invites in 24 hours at this time. Please try again tomorrow'
 
 
   activerecord:
