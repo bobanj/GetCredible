@@ -18,7 +18,7 @@ describe ActivitiesController do
     end
 
     it "can return all activities" do
-      user.stub(:all_activities).and_return([activity_item])
+      user.stub_chain(:all_activities, :paginate).and_return([activity_item])
 
       get :show, :id => 'all'
       assigns(:activity_items).should == [activity_item]

@@ -76,10 +76,10 @@ class User < ActiveRecord::Base
 
   # Scopes
   scope :none, where("1 = 0")
-  scope :active, where('invitation_token IS NULL')
-  scope :inactive, where('invitation_token IS NOT NULL')
-  scope :order_by_invitation_time, order("invitation_sent_at desc")
-  scope :order_by_name, order('full_name ASC, username ASC')
+  scope :active, where('users.invitation_token IS NULL')
+  scope :inactive, where('usrs.invitation_token IS NOT NULL')
+  scope :order_by_invitation_time, order("users.invitation_sent_at desc")
+  scope :order_by_name, order('users.full_name ASC, users.username ASC')
 
   # Store
   store :settings, accessors: [:twitter_state, :linkedin_state, :facebook_state]
@@ -175,38 +175,23 @@ class User < ActiveRecord::Base
   end
 
   def incoming_activities_for_others
-    incoming_activities.where('activity_items.user_id != activity_items.target_id')
+    incoming_activities.different_user_target
   end
 
   def outgoing_activities
-    activity_items.joins(:target).
-      where('users.invitation_token IS NULL').
-      order('created_at DESC')
+    activity_items.active.ordered
   end
 
   def outgoing_activities_for_others
-    activity_items.joins(:target).
-      where('users.invitation_token IS NULL AND activity_items.user_id != activity_items.target_id').
-      order('created_at DESC')
+    activity_items.active.different_user_target.ordered
   end
 
-  def all_activities(params = {})
-    ActivityItem.paginate_by_sql(["SELECT t.* FROM
-                        (
-                          SELECT activity_items.* FROM activity_items
-                          INNER JOIN users ON users.id = activity_items.target_id AND users.invitation_token IS NULL
-                          WHERE activity_items.user_id = :id
-                          UNION
-                          SELECT activity_items.* FROM activity_items
-                          INNER JOIN users ON users.id = activity_items.target_id AND users.invitation_token IS NULL
-                          WHERE activity_items.user_id IN (:user_ids)
-                          UNION
-                          SELECT activity_items.* FROM activity_items
-                          INNER JOIN users ON users.id = activity_items.target_id AND users.invitation_token IS NULL
-                          WHERE activity_items.target_id = :id
-                        ) AS t
-                        ORDER BY created_at DESC", id: id, user_ids: followings_and_followers.map(&:id)],
-                        :page => params[:page], :per_page => params[:per_page])
+  def all_activities
+    user_ids = followings_and_followers.map(&:id) + [self.id]
+    target_ids = [self.id]
+    ActivityItem.active.ordered.
+      where(['user_id IN (:user_ids) OR target_id IN (:target_ids)',
+             {user_ids: user_ids, target_ids: target_ids}])
   end
 
   def vote_exclusively_for(voteable)

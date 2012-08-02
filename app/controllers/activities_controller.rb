@@ -18,7 +18,7 @@ class ActivitiesController < ApplicationController
       when 'outgoing'
         current_user.outgoing_activities.paginate(paginate_options)
       when 'all'
-        current_user.all_activities(paginate_options)
+        current_user.all_activities.paginate(paginate_options)
       else
         raise ActiveRecord::RecordNotFound
       end
