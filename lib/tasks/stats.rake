@@ -5,6 +5,9 @@ namespace :get_credible do
     users_count = User.count
     puts "Total users: #{users_count}"
 
+    contacts_count = Contact.count
+    puts "Total contacts: #{contacts_count}"
+
     normal_registrations_count = User.where('invitation_sent_at IS NULL').count
     puts "Normal user registrations: #{normal_registrations_count}"
 
