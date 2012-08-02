@@ -187,7 +187,7 @@ class User < ActiveRecord::Base
   end
 
   def all_activities
-    users_ids = (friends + [self]).map(&:id)
+    users_ids = (followings + [self]).map(&:id)
     ActivityItem.active.ordered.where(['user_id IN (?)', users_ids])
   end
 
