@@ -22,7 +22,7 @@ class ScoreCalculator
 
   def calculate
     start = Time.now
-    #ActiveRecord::Base.connection.execute('DELETE FROM "user_tag_results"')
+
     Tag.where("user_tags_count > 0").find_each do |tag|
       total_user_tags = tag.user_tags_count
       # Comment set_scale_range to toggle logaritmic score calculation
@@ -38,25 +38,18 @@ class ScoreCalculator
 
         user_tag.votes.each do |vote|
           rankable_graph.link(vote.voteable_id, user_tag.id)
-          # findit = vote.voter.user_tags.detect { |vut| vut.tag_id == user_tag.tag_id }
-          # if findit
-            # rankable_graph.link(findit.id, user_tag.id)
+          # voter_user_tag = vote.voter.user_tags.detect { |vut| vut.tag_id == user_tag.tag_id }
+          # if voter_user_tag
+          #   rankable_graph.link(voter_user_tag.id, user_tag.id)
           # end
         end
       end
 
       rankable_graph.rank(probability, tolerance) do |user_tag_id, rank|
-        #user_tag = UserTag.find_by_id user_tag_id rescue nil
         # TODO set outgoing and incoming votes after vote:create so they only get here
 
-        incoming = Redis::Value.new("user_tag:#{user_tag_id}:incoming").value rescue false
-        outgoing = Redis::Value.new("user_tag:#{user_tag_id}:outgoing").value rescue false
-        if !incoming || !outgoing
-          user_tag = UserTag.find_by_id user_tag_id unless user_tag
-          user_tag.update_counters
-          incoming = Redis::Value.new("user_tag:#{user_tag_id}:incoming").value
-          outgoing = Redis::Value.new("user_tag:#{user_tag_id}:outgoing").value
-        end
+        incoming = Redis::Value.new("user_tag:#{user_tag_id}:incoming").value rescue 0
+        outgoing = Redis::Value.new("user_tag:#{user_tag_id}:outgoing").value rescue 0
 
         outgoing = 1 if outgoing.to_i == 0
         weight = rank.to_f * total_user_tags.to_f * (incoming.to_f / (incoming.to_f + outgoing.to_f))
@@ -79,10 +72,9 @@ class ScoreCalculator
           tag_scores[user_tag_id] = weight
         end
       end
-
     end
 
-    # List of the last 10 timings (how much time does it take for the calculate_score task to run)
+    # List of the last 10 score timings for the calculate_score task
     score_timings = Redis::List.new('calculate_score_timings')
     score_timings.shift if score_timings.size == 10
     score_timings << "#{Time.now - start} sec"

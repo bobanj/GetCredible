@@ -39,7 +39,7 @@ class UserTag < ActiveRecord::Base
 
       if user_tag
         # just add vote if tag already exists
-        tagger != user ? tagger.add_vote(user_tag) : user_tag.update_counters
+        tagger.add_vote(user_tag) if tagger != user
       else
         new_tags << tag.name
         user_tag = user.user_tags.new
@@ -51,8 +51,10 @@ class UserTag < ActiveRecord::Base
                               target: user, tags: [tag]) # if tagger != user
         end
         # automatically add vote on tag creation
-        tagger != user ? tagger.add_vote(user_tag, false) : user_tag.update_counters
+        tagger.add_vote(user_tag, false) if tagger != user
       end
+
+      user_tag.update_counters
     end
 
     unless options[:skip_email]
