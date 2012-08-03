@@ -34,6 +34,8 @@ class ScoreCalculator
       tag_scores = Redis::SortedSet.new("tag:#{tag.id}:scores")
 
       tag.user_tags.includes(:votes => {:voter => :user_tags}).order('created_at asc').each do |user_tag|
+        tag_scores[user_tag.id] = 0 # initialize scores to 0
+
         user_tag.votes.each do |vote|
           rankable_graph.link(vote.voteable_id, user_tag.id)
           # findit = vote.voter.user_tags.detect { |vut| vut.tag_id == user_tag.tag_id }
@@ -60,12 +62,9 @@ class ScoreCalculator
         weight = rank.to_f * total_user_tags.to_f * (incoming.to_f / (incoming.to_f + outgoing.to_f))
 
         weight = 1.to_f + weight if weight < 1
-        if weight.infinite?
-          break
-          raise "Infinite Weight for #{user_tag_id}"
-          return false
-        end
-        unless scale_range.empty?
+        break if weight.infinite?
+
+        if scale_range.present?
           if weight > scale_max
             tag_scores[user_tag_id] = score_max
           else
@@ -84,13 +83,12 @@ class ScoreCalculator
     end
 
     # List of the last 10 timings (how much time does it take for the calculate_score task to run)
-    how_long_list = Redis::List.new('calculate_score_timings')
-    how_long_list.shift if how_long_list.size == 10
-    how_long_list << seconds_to_units(Time.now - start)
+    score_timings = Redis::List.new('calculate_score_timings')
+    score_timings.shift if score_timings.size == 10
+    score_timings << "#{Time.now - start} sec"
   end
 
   private
-
   def set_scale_range(scale_max, base)
     scale_range = []
     (1..score_max).to_a.inject(scale_max) { |result, scale_element|
@@ -102,14 +100,4 @@ class ScoreCalculator
     scale_range << Range.new(0, pom)
     scale_range.reverse
   end
-
-  def seconds_to_units(seconds)
-    '%d days, %d hours, %d minutes, %d seconds' %
-        # the .reverse lets us put the larger units first for readability
-        [24,60,60].reverse.inject([seconds]) {|result, unitsize|
-          result[0,0] = result.shift.divmod(unitsize)
-          result
-        }
-  end
-
 end
