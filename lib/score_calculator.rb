@@ -37,11 +37,12 @@ class ScoreCalculator
         tag_scores[user_tag.id] = 0 # initialize scores to 0
 
         user_tag.votes.each do |vote|
-          rankable_graph.link(vote.voteable_id, user_tag.id)
-          # voter_user_tag = vote.voter.user_tags.detect { |vut| vut.tag_id == user_tag.tag_id }
-          # if voter_user_tag
-          #   rankable_graph.link(voter_user_tag.id, user_tag.id)
-          # end
+          # rankable_graph.link(vote.voteable_id, user_tag.id)
+          voter_user_tag = vote.voter.user_tags.detect { |vut| vut.tag_id == user_tag.tag_id }
+          if voter_user_tag
+            # puts "#{voter_user_tag.id} => #{user_tag.id}"
+            rankable_graph.link(voter_user_tag.id, user_tag.id)
+          end
         end
       end
 
@@ -56,6 +57,8 @@ class ScoreCalculator
 
         weight = 1.to_f + weight if weight < 1
         break if weight.infinite?
+
+        # puts "#{user_tag_id} => #{rank} - #{weight}"
 
         if scale_range.present?
           if weight > scale_max

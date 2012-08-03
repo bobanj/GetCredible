@@ -65,11 +65,11 @@ class UserTag < ActiveRecord::Base
 
   private
   def calculate_outgoing
-    self.user.votes.joins({:user_tag => :tag}).where("tags.id = ?", tag_id).count
+    user.votes.joins({:user_tag => :tag}).where("tags.id = ?", tag_id).count
   end
 
   def calculate_incoming
-    self.votes.count
+    votes.count
   end
 
   def remove_from_redis
@@ -77,5 +77,4 @@ class UserTag < ActiveRecord::Base
     Redis::Value.new("user_tag:#{id}:incoming").delete
     Redis::Value.new("user_tag:#{id}:outgoing").delete
   end
-
 end
