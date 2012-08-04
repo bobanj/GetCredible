@@ -408,6 +408,11 @@ $(function (){
   $.getCredible.renderTagCloud = function (data, tagCloudCallback){
     var distributionOptions = $.getCredible.distributionOptions(data);
     var wordList = $.getCredible.createWordList(data, distributionOptions);
+    var letterCount = 0;
+    $.each(data, function (i, userTag){
+      letterCount += userTag.name.length;
+    });
+
     if (wordList.length > 0){
       $('#js_no_tags').hide();
       $('#edit_tag_cloud').removeClass('hidden');
@@ -418,10 +423,13 @@ $(function (){
     }
     $.getCredible.tagCloudLoader.show('fast');
     $.getCredible.tagCloud.html('');
-    var growHeight = 330 + (distributionOptions.divisor * wordList.length);
+    var growHeight = (letterCount / 20) * 65;
+    if(growHeight < 290){
+      growHeight = 290;
+    }
     $.getCredible.tagCloud.css('height', growHeight + 'px');
     $.getCredible.tagCloud.jQCloud(wordList, {
-      width:700,
+      width:680,
       height:growHeight,
       nofollow:true,
       parts:distributionOptions.parts,
