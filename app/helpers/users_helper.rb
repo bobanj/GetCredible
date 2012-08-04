@@ -11,7 +11,7 @@ module UsersHelper
       title = user.name
     end
 
-    title += ", #{user.short_bio}" if user.short_bio.present?
+    title += ", #{truncate(user.short_bio, length: 150)}" if user.short_bio.present?
     title
   end
 
