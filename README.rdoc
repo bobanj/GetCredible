@@ -8,6 +8,7 @@
 === Rake Tasks
   * rake calculate_score  (Calculates Score in the system)
   * rake givebrand:redis:clean (Cleans redis data for Tag and UserTag)
+  * rake givebrand:redis:purge (Cleans all redis data)
   * rake givebrand:redis:recalculate (Recalculates the number of incoming and outgoing votes counters for user tag)
   * rake givebrand:redis:autocomplete (Makes tags available for autocomplete)
 
