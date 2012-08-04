@@ -11,7 +11,7 @@ gem "haml-rails"
 gem "jquery-rails"
 gem 'simple_form'
 gem 'country_select'
-gem 'rmagick'
+gem 'mini_magick'
 gem 'carrierwave'
 gem 'capistrano'
 gem 'capistrano-ext'
