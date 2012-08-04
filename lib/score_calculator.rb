@@ -36,8 +36,10 @@ class ScoreCalculator
       tag.user_tags.includes(:votes => {:voter => :user_tags}).order('created_at asc').each do |user_tag|
         tag_scores[user_tag.id] = 0 # initialize scores to 0
 
+        # puts "#{user_tag.id} => #{user_tag.id}"
+        rankable_graph.link(user_tag.id, user_tag.id)
+
         user_tag.votes.each do |vote|
-          # rankable_graph.link(vote.voteable_id, user_tag.id)
           voter_user_tag = vote.voter.user_tags.detect { |vut| vut.tag_id == user_tag.tag_id }
           if voter_user_tag
             # puts "#{voter_user_tag.id} => #{user_tag.id}"
@@ -53,12 +55,9 @@ class ScoreCalculator
         outgoing = Redis::Value.new("user_tag:#{user_tag_id}:outgoing").value rescue 0
 
         outgoing = 1 if outgoing.to_i == 0
-        weight = rank.to_f * total_user_tags.to_f * (incoming.to_f / (incoming.to_f + outgoing.to_f))
+        weight = 1 + rank.to_f * total_user_tags.to_f * (incoming.to_f / (incoming.to_f + outgoing.to_f))
 
-        weight = 1.to_f + weight if weight < 1
-        break if weight.infinite?
-
-        # puts "#{user_tag_id} => #{rank} - #{weight}"
+        # puts "#{user_tag_id} - rank: #{rank}, weight: #{weight}"
 
         if scale_range.present?
           if weight > scale_max
