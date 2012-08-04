@@ -33,7 +33,8 @@ class ScoreCalculator
       rankable_graph = RankableGraph.new
       tag_scores = Redis::SortedSet.new("tag:#{tag.id}:scores")
 
-      tag.user_tags.includes(:votes => {:voter => :user_tags}).order('created_at asc').each do |user_tag|
+      tag.user_tags.joins(:user).where('users.invitation_token IS NULL').
+          includes(:votes => {:voter => :user_tags}).order('created_at asc').each do |user_tag|
         tag_scores[user_tag.id] = 0 # initialize scores to 0
 
         # puts "#{user_tag.id} => #{user_tag.id}"
