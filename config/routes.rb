@@ -30,6 +30,7 @@ GetCredible::Application.routes.draw do
 
   resources :activities, :only => [:show]
   resources :invitation_messages, :only => [:create]
+  resources :links, :only => [:create]
 
   root :to => 'home#index'
 

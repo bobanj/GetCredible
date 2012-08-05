@@ -35,4 +35,7 @@ describe TagCleaner do
     TagCleaner.clean("%ninja, !manga, $shishe").should == ["ninja","manga","shishe"]
   end
 
+  it "removes nils" do
+    TagCleaner.clean("%, !, $").should == []
+  end
 end

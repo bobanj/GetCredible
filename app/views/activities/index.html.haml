@@ -11,6 +11,8 @@
           %li.last{:class => activity_tab_class('outgoing')}
             = link_to 'My Activity', activity_path('outgoing'), :class => 'js-remote'
 
+    = render 'links/share_link'
+
     .feed
       %ul.list-view.unstyled#js_collection_list
 

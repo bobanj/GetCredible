@@ -4,13 +4,14 @@ class Tag < ActiveRecord::Base
   attr_accessible :name
 
   # Validations
-  validates :name, :presence => true, :uniqueness => true
+  validates :name, presence: true, uniqueness: true
 
   # Associations
-  has_many :user_tags, :dependent => :destroy
-  has_many :votes, :through => :user_tags
-  has_many :voters, :through => :votes, :uniq => true
-  has_many :voted_users, :through => :votes
+  has_many :user_tags, dependent: :destroy
+  has_many :votes, through: :user_tags
+  has_many :voters, through: :votes, uniq: true
+  has_many :voted_users, through: :votes
+  has_and_belongs_to_many :links
 
   # Callbacks
   after_save :load_into_soulmate

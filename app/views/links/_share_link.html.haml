@@ -1,0 +1,6 @@
+.share_link
+  %h2 Share link
+  = simple_form_for @link do |f|
+    = f.input :url
+    = f.input :tag_names, as: 'text'
+    = f.button :submit, "Share"

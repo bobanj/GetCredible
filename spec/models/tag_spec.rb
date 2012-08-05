@@ -15,6 +15,7 @@ describe Tag do
     it { should have_many(:user_tags).dependent(:destroy) }
     it { should have_many(:votes) }
     it { should have_many(:voters).through(:votes) }
+    it { should have_and_belong_to_many(:links) }
   end
 
   describe 'Create' do
