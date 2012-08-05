@@ -11,5 +11,5 @@ class ActivityItem < ActiveRecord::Base
 
   scope :active, joins(:target).where('users.invitation_token IS NULL')
   scope :ordered, order('activity_items.created_at DESC')
-  scope :different_user_target, where('activity_items.user_id != activity_items.target_id')
+  scope :other_users, where('activity_items.user_id != activity_items.target_id')
 end

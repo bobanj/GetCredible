@@ -40,6 +40,7 @@ describe User do
   describe "Associations" do
     it { should have_many(:user_tags).dependent(:destroy) }
     it { should have_many(:tags).through(:user_tags) }
+    it { should have_many(:links).dependent(:destroy) }
     it { should have_many(:activity_items).dependent(:destroy) }
     it { should have_many(:incoming_activities) }
     it { should have_many(:votes).dependent(:destroy) }

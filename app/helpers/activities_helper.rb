@@ -44,6 +44,8 @@ module ActivitiesHelper
       end
     when 'Endorsement'
       "Cool! #{subject_link} endorsed #{object_link}"
+    when 'Link'
+      "#{subject_link} shared a link #{auto_link(activity_item.item.url)} tags: #{tag}"
     end.html_safe
   end
 
@@ -65,6 +67,8 @@ module ActivitiesHelper
       end
     when 'Endorsement'
       "#{subject_link} wrote an endorsement for #{object_link}"
+    when 'Link'
+      "#{subject_link} shared a link #{auto_link(activity_item.item.url)} tags: #{tag}"
     end.html_safe
   end
 

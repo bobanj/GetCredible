@@ -20,7 +20,8 @@ class User < ActiveRecord::Base
 
   # Associations
   has_many :user_tags, dependent: :destroy
-  has_many :tags, through: :user_tags, :order => "name asc"
+  has_many :tags, through: :user_tags, :order => "name ASC"
+  has_many :links, dependent: :destroy
   has_many :activity_items, order: 'created_at desc', dependent: :destroy
   has_many :incoming_activities, :foreign_key => :target_id,
                                  :class_name => 'ActivityItem',
@@ -175,7 +176,7 @@ class User < ActiveRecord::Base
   end
 
   def incoming_activities_for_others
-    incoming_activities.different_user_target
+    incoming_activities.other_users
   end
 
   def outgoing_activities
@@ -183,12 +184,21 @@ class User < ActiveRecord::Base
   end
 
   def outgoing_activities_for_others
-    activity_items.active.different_user_target.ordered
+    activity_items.active.other_users.ordered
   end
 
   def all_activities
     users_ids = (followings + [self]).map(&:id)
-    ActivityItem.active.ordered.where(['user_id IN (?)', users_ids])
+    ActivityItem.active.ordered.joins(:tags).
+      where(["(item_type != 'Link' AND user_id IN (:user_ids)) OR
+              (item_type = 'Link' AND user_id = :user_id) OR
+              (item_type = 'Link' AND user_id IN (:user_ids) AND tags.id IN (:tags))",
+              {user_id: id, user_ids: users_ids, tags: tags.map(&:id)}])
+
+    # only activities for tags that user have
+    # ActivityItem.active.ordered.joins(:tags).
+    #   where(["user_id IN (:user_ids) AND tags.id IN (:tags)",
+    #           {user_ids: users_ids, tags: tags.map(&:id)}])
   end
 
   def vote_exclusively_for(voteable)
