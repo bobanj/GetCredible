@@ -1107,6 +1107,20 @@ $(function (){
         break;
       case 'activities_show':
         mixpanel.track("Activity Page");
+        var linkTagNames = $("#link_tag_names");
+        if (linkTagNames.length > 0){
+          linkTagNames.tokenInput("/tags/search", {
+            method:'POST',
+            queryParam:'term',
+            propertyToSearch:'term',
+            tokenValue:'term',
+            crossDomain:false,
+            theme:"facebook",
+            hintText:'e.g. web design, leadership (comma separated)',
+            minChars:2
+          });
+        }
+
         break;
       case 'users_following':
         //mixpanel.track("User following page");
