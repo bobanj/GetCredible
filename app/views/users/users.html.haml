@@ -34,7 +34,7 @@
             %span== No #{params[:action]} present.
             %br
 
-    = will_paginate @users
+    = will_paginate @users, :renderer => PaginationNoFollow
 
 %aside
   - if user_signed_in? && @user == current_user

@@ -33,6 +33,6 @@
                     Top Tags:
                     = raw top_tags.collect { |top_tag| tag_link(top_tag.name) }.join(", ")
 
-      = will_paginate @users
+      = will_paginate @users, :renderer => PaginationNoFollow
 
 %aside
