@@ -465,6 +465,7 @@ $(function (){
                   // Update the content of the tooltip on each show
                   $.getCredible.currentQtipTarget = $(event.originalEvent.target);
                   if ($.getCredible.currentQtipTarget.length){
+                    $('#token-input-tag_names').blur();
                     api.set('content.text', $.getCredible.currentQtipTarget.data('qtip-content'));
                     $('.ui-tooltip-content .tag-vote').unbind('click').click(function (){
                       $.getCredible.vote($.getCredible.currentQtipTarget);
