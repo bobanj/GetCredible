@@ -18,7 +18,8 @@ module UserTagsHelper
       voted: viewer && viewer.votes.detect{|vote| vote.voteable_id == user_tag.id} ? true : false,
       tagged: user_tag.tagger == viewer,
       score: score,
-      total: tag.user_tags_count,
+      # total: tag.user_tags_count,
+      total: tag.user_tags.joins(:user).where('users.invitation_token IS NULL').count, # count only active users
       rank: tag_scores.revrank(user_tag.id) + 1,
       # TODO: eager load: last_voters
       voters: last_voters.map{ |voter|
