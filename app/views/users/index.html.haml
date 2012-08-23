@@ -1,4 +1,4 @@
-- title("Search results for '#{params[:q]}' on Givebrand")
+- title("Search results for '#{params[:q]}' on Givebrand #{pagination_title(@users)}")
 
 #content
   %section#search
@@ -10,28 +10,8 @@
             = "'#{params[:q]}'"
 
       .feed
-        %ul.list-view.unstyled
-
-          - @users.each do |user|
-            %li
-              .content
-                .photo
-                  - if user.active?
-                    = link_to image_tag(user.avatar.url(:avatar)), me_user_path(user)
-                  - else
-                    = image_tag(user.avatar.url(:avatar))
-                %h2= user_title(user)
-                %br
-                .details
-
-                  - if current_user && user.interacted_by(current_user)
-
-                    = "You interacted with #{user.name}’s profile."
-
-                  - top_tags = user.top_tags(3)
-                  - if top_tags.present?
-                    Top Tags:
-                    = raw top_tags.collect { |top_tag| tag_link(top_tag.name) }.join(", ")
+        %ul.list-view.unstyled#js_collection_list
+          = render 'searched_users'
 
       = will_paginate @users, :renderer => PaginationNoFollow
 

@@ -1,1 +1,7 @@
-$('#js-twitter-contacts-list').html("<%= escape_javascript(render('contacts')) %>");
+<% if params[:q].present? && params[:page].blank? %>
+  $('#js_collection_list').html("<%= j render('contacts') %>");
+<% else %>
+  $('#js_collection_list').append('<%= j render('contacts') %>');
+<% end %>
+
+<%= render 'shared/endless_pagination', collection: @authentication_contacts %>

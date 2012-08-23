@@ -1,0 +1,6 @@
+<% if collection.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate(collection) %>');
+<% else %>
+  $('.pagination').remove();
+<% end %>
+$('.pagination').hide();

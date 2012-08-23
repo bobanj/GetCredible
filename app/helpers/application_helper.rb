@@ -42,4 +42,12 @@ module ApplicationHelper
     user.full_name.present? && user.user_tags.any? ? false : true
   end
 
+  def pagination_title(collection)
+    if params[:page] == '1' || params[:page].blank?
+      nil
+    else
+      "(#{params[:page]}/#{@users.total_pages})"
+    end
+  end
+
 end

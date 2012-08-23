@@ -1,33 +1,30 @@
-%ul
-  - @authentication_contacts.each do |authentication_contact|
-    - contact = authentication_contact.contact
-    -#- user = users.detect{ |user| user.twitter_id == contact.twitter_id }
-    %li{id: "row_contact_#{contact.id}", class: authentication_contact.invited? ? 'vouch' : nil}
-      .tag-icon
-      - if contact.user && contact.user.active?
-        = link_to image_tag(contact.user.avatar.url(:avatar), width: 48, height: 48), me_user_path(contact.user)
+- @authentication_contacts.each do |authentication_contact|
+  - contact = authentication_contact.contact
+  -#- user = users.detect{ |user| user.twitter_id == contact.twitter_id }
+  %li{id: "row_contact_#{contact.id}", class: authentication_contact.invited? ? 'vouch' : nil}
+    .tag-icon
+    - if contact.user && contact.user.active?
+      = link_to image_tag(contact.user.avatar.url(:avatar), width: 48, height: 48), me_user_path(contact.user)
+    - else
+      = image_tag contact.avatar.presence || "fallback/avatar_default_avatar.png", width: 48, height: 48
+
+    - if contact.user && contact.user.active?
+      %span.name= link_to contact.user.name, me_user_path(contact.user)
+    - else
+      %span.name= contact.name
+
+    -# - if contact.twitter?
+    -#   %span.user
+    -#   = link_to "@#{contact.screen_name}", contact.url, target: '_blank'
+
+    %ul.social-icons
+      - if contact.twitter?
+        %li= link_to image_tag("icons/twitter500.png", width: "14"), contact.url, target: '_blank'
+      - elsif contact.linkedin?
+        %li= link_to image_tag("icons/linkedin500.png", width: "14"), contact.url, target: '_blank'
       - else
-        = image_tag contact.avatar.presence || "fallback/avatar_default_avatar.png", width: 48, height: 48
+        %li= link_to image_tag("icons/facebook500.png", width: "14"), contact.url, target: '_blank'
 
-      - if contact.user && contact.user.active?
-        %span.name= link_to contact.user.name, me_user_path(contact.user)
-      - else
-        %span.name= contact.name
-
-      -# - if contact.twitter?
-      -#   %span.user
-      -#   = link_to "@#{contact.screen_name}", contact.url, target: '_blank'
-
-      %ul.social-icons
-        - if contact.twitter?
-          %li= link_to image_tag("icons/twitter500.png", width: "14"), contact.url, target: '_blank'
-        - elsif contact.linkedin?
-          %li= link_to image_tag("icons/linkedin500.png", width: "14"), contact.url, target: '_blank'
-        - else
-          %li= link_to image_tag("icons/facebook500.png", width: "14"), contact.url, target: '_blank'
-
-      %span.status.right
-        - if !authentication_contact.invited? && !(contact.user && contact.user.active?)
-          = link_to "Invite", "#", :class => 'js-contact-invite invite_contact btn primary small light right', :'data-contact' => {screen_name: contact.screen_name, name: contact.name, uid: contact.uid, provider: contact.provider}.to_json
-- if @authentication_contacts.present?
-  = will_paginate @authentication_contacts
+    %span.status.right
+      - if !authentication_contact.invited? && !(contact.user && contact.user.active?)
+        = link_to "Invite", "#", :class => 'js-contact-invite invite_contact btn primary small light right', :'data-contact' => {screen_name: contact.screen_name, name: contact.name, uid: contact.uid, provider: contact.provider}.to_json
