@@ -15,6 +15,7 @@ GetCredible::Application.routes.draw do
     delete "users/omniauth_callbacks/disconnect/:provider", to: "users/omniauth_callbacks#disconnect",
            as: "disconnect_provider"#, constraints: {provider: [:twitter, :linkedin]}
     get '/i' => 'users/invitations#edit', as: :accept_invitation
+    # TODO #get 'users/registrations/change_password', to: 'users/registrations#change_password'
   end
 
   resources :users, :only => [:index, :show] do
@@ -45,4 +46,7 @@ GetCredible::Application.routes.draw do
   match '/:id' => 'users#show', :as => 'me_user'
   match '/:id/followers' => 'users#followers', :as => 'user_followers'
   match '/:id/following' => 'users#following', :as => 'user_following'
+
+  get '/api/url/preview', to: 'tags#preview'
+
 end

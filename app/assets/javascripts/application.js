@@ -23,6 +23,7 @@
 //= require jquery.remotipart
 //= require jquery.limit-1.2.source
 //= require chosen.jquery
+//= require jquery.preview.full
 
 Array.prototype.unique = function (){
   var o = {}, i, l = this.length, r = [];
@@ -1315,4 +1316,6 @@ $(function (){
   $.getCredible.landingPageVideo();
   $.getCredible.trackingPages();
   $.getCredible.infiniteScroll();
+  $.getCredible.shareArticle();
+
 });
