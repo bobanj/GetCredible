@@ -45,7 +45,8 @@ module ActivitiesHelper
     when 'Endorsement'
       "Cool! #{subject_link} endorsed #{object_link}"
     when 'Link'
-      "#{subject_link} shared a link #{auto_link(activity_item.item.url)} tags: #{tag}"
+      link_title = activity_item.item.title.presence || activity_item.item.url
+      "#{subject_link} shared a link #{link_to(link_title, activity_item.item.url, target: '_blank')} tags: #{tag}"
     end.html_safe
   end
 
@@ -68,7 +69,8 @@ module ActivitiesHelper
     when 'Endorsement'
       "#{subject_link} wrote an endorsement for #{object_link}"
     when 'Link'
-      "#{subject_link} shared a link #{auto_link(activity_item.item.url)} tags: #{tag}"
+      link_title = activity_item.item.title.presence || activity_item.item.url
+      "#{subject_link} shared a link #{link_to(link_title, activity_item.item.url)} tags: #{tag}"
     end.html_safe
   end
 

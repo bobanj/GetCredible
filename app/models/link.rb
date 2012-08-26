@@ -1,7 +1,7 @@
 class Link < ActiveRecord::Base
 
   # Attributes
-  attr_accessible :url, :title, :tag_names
+  attr_accessible :url, :title, :description, :thumbnail_url, :tag_names
   attr_accessor :tag_names
 
   # Associatoins

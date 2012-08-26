@@ -1,6 +1,6 @@
-$.getCredible.guide.isUpdating = false;
+$.giveBrand.guide.isUpdating = false;
 <% if current_user.errors.any? %>
-$.getCredible.displayNotification('error', '<%= @message %>');
+$.giveBrand.displayNotification('error', '<%= @message %>');
 <% else %>
 
 <% if @remotipart %>
@@ -26,7 +26,7 @@ if($("#user_avatar_preview").length > 0){
 }
 
 <% else %>
-$.getCredible.displayNotification('success', '<%= escape_javascript @message %>');
+$.giveBrand.displayNotification('success', '<%= escape_javascript @message %>');
 $("#step_1").hide('fast',function () {
   $('#bubbles').progressBubbles('progress');
   $("#step_2").show('fast');

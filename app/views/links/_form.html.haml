@@ -1,0 +1,12 @@
+= simple_form_for link, remote: true, html: { id: 'js-share-link-form' } do |f|
+  = f.input :url
+  #js-url-details{class: link.url.present? ? nil : 'hidden'}
+    = f.input :tag_names, label: 'Tags', class: 'hidden'
+    = f.input :title
+    = f.input :description, as: :text, input_html: { rows: 4 }
+    = f.input :thumbnail_url, as: :hidden
+    #js-thumbnail-url
+      - if link.thumbnail_url.present?
+        = image_tag link.thumbnail_url
+    = f.button :submit, "Share", id: 'share_link_btn'
+  .selector

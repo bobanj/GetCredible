@@ -8,7 +8,6 @@
     %link{ :rel => "shortcut icon", :href => "/favicon.ico", :type => "image/x-icon" }
 
     = stylesheet_link_tag    "application", :media => "all"
-    = javascript_include_tag "application"
     = csrf_meta_tags
 
     %script{:src => "http://use.typekit.com/dde7uth.js", :type => "text/javascript"}
@@ -27,10 +26,17 @@
         = flash_messages
         = yield
 
+
+        #share_link{style: "display: none"}
+          %h2 Share link
+          = render 'links/form', link: Link.new
         = render 'shared/guide'
 
       = render 'shared/footer'
 
+      :javascript
+        var EMBEDLY_KEY = '#{ENV['EMBEDLY_KEY']}';
+      = javascript_include_tag "application"
       = yield :javascripts
       = render 'shared/google_analytics'
       = render 'shared/mixpanel'

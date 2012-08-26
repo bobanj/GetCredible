@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'User', type: :request do
 
-  it "can share links" do
+  it "can share links", js: true do
     user1 = FactoryGirl.create(:user)
     user2 = FactoryGirl.create(:user, full_name: 'Pink Panter')
     tag = FactoryGirl.create(:tag, name: 'rails')
@@ -12,19 +12,19 @@ describe 'User', type: :request do
     sign_in_user(user2)
     click_link("Activity")
 
-    within(".share_link") do
+    within("#share_link") do
       fill_in("Url", with: "http://example.com/ruby-article.html")
       fill_in("Tags", with: "ruby, language")
       click_button("Share")
     end
-    page.should have_content("You shared a link http://example.com/ruby-article.html tags: ruby, language")
+    page.should have_content("Successfully shared")
 
-    within(".share_link") do
+    within("#share_link") do
       fill_in("Url", with: "http://example.com/rails-article.html")
       fill_in("Tags", with: "rails, framework")
       click_button("Share")
     end
-    page.should have_content("You shared a link http://example.com/rails-article.html tags: rails, framework")
+    page.should have_content("Successfully shared")
 
     click_link("Logout")
 

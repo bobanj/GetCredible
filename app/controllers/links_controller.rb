@@ -7,9 +7,9 @@ class LinksController < ApplicationController
     if @link.save
       ActivityItem.create(user: current_user, item: @link,
                           target: current_user, tags: @link.tags)
-      flash[:notice] = "Link was successfully created"
+      render :create_success
+    else
+      render :create_failure
     end
-
-    redirect_to activity_path('all')
   end
 end

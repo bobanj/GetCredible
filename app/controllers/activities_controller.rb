@@ -4,7 +4,6 @@ class ActivitiesController < ApplicationController
   before_filter :authenticate_user!
 
   def show
-    @link = Link.new
     @activity_items = load_activity_items
     preload_activity_items(@activity_items)
 

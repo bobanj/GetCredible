@@ -1,6 +1,6 @@
-$.getCredible.displayNotification('success', 'An invitation message has been sent to <%= @invitation_message.name %>.');
+$.giveBrand.displayNotification('success', 'An invitation message has been sent to <%= @invitation_message.name %>.');
 
-$.getCredible.invitationMessageQtipApi.hide();
+$.giveBrand.invitationMessageQtipApi.hide();
 $('.loading').hide();
 $("#row_contact_<%=@invitation_message.instance_variable_get('@contact').id %>").addClass('vouch').find('.status').html('');
 $("#js-invitation-message-header").text('');

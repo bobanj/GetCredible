@@ -6,7 +6,6 @@
     %link{ :rel => "shortcut icon", :href => "/favicon.ico", :type => "image/x-icon" }
 
     = stylesheet_link_tag    "application", :media => "all"
-    = javascript_include_tag "application"
     = csrf_meta_tags
 
     %script{:src => "http://use.typekit.com/dde7uth.js", :type => "text/javascript"}
@@ -37,6 +36,7 @@
       = render 'shared/explain'
     = render 'shared/footer'
 
+    = javascript_include_tag "application"
     = yield :javascripts
     = render 'shared/google_analytics'
     = render 'shared/mixpanel'

@@ -4,6 +4,8 @@ describe Link do
   describe "Attributes" do
     it { should allow_mass_assignment_of(:url) }
     it { should allow_mass_assignment_of(:title) }
+    it { should allow_mass_assignment_of(:description) }
+    it { should allow_mass_assignment_of(:thumbnail_url) }
     it { should allow_mass_assignment_of(:tag_names) }
     it { should_not allow_mass_assignment_of(:user_id) }
   end

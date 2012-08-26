@@ -2,7 +2,7 @@ $(".js-import-connections").html('<%= j render 'import_providers' %>');
   <% if current_user.twitter_state == 'pending' || current_user.linkedin_state == 'pending' || current_user.facebook_state == 'pending' %>
   var loopInviteAjax = setTimeout(function(){
     clearInterval(loopInviteAjax);
-    $.getCredible.importingCheck();
+    $.giveBrand.importingCheck();
   }, 4000);
 <% else %>
   $("#js-twitter-contacts-list").html('<%=j render 'contacts' %>');
@@ -15,4 +15,4 @@ $(".js-import-connections").html('<%= j render 'import_providers' %>');
     $("#user_avatar_sidebar").html('<%= image_tag(current_user.avatar_url(:avatar)) %>');
   }
 <% end %>
-$.getCredible.importConnections();
+$.giveBrand.importConnections();

@@ -832,7 +832,7 @@ footer {
       }
     }
   }
-  #gn-login, #gn-register, #gn-activity, #gn-tour, #gn-profile, #gn-logout, #gn-tour, #gn-invite {
+  #gn-login, #gn-register, #gn-activity, #gn-tour, #gn-profile, #gn-share, #gn-logout, #gn-tour, #gn-invite {
     float: right;
   }
 }
@@ -1479,7 +1479,6 @@ hr.divider {
 .hide{
   display: none;
 }
-@import "preview";
 @import "profile";
 @import "activity";
 @import "devise";
