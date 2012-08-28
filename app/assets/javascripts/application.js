@@ -25,22 +25,30 @@
 //= require chosen.jquery
 //= require jquery.embedly.min
 //= require givebrand.js
+//= require givebrand.guide.js
+//= require givebrand.endorsements
 //= require givebrand.friendship
-//= require givebrand.infinite_scroll
-//= require givebrand.share_url
+//= require givebrand.importConnections
+//= require givebrand.invite
+//= require givebrand.loginQtip
+//= require givebrand.landingPageVideo
+//= require givebrand.trackingPages
+//= require givebrand.infiniteScroll
+//= require givebrand.shareUrl
+//= require givebrand.ajaxPagination
 
 $(function (){
-  $.giveBrand.showFlashMessages();
-  $.giveBrand.ajaxPagination();
   $.giveBrand.init();
+  $.giveBrand.guide();
+  $.giveBrand.endorsements();
   $.giveBrand.friendship();
-  $.giveBrand.updateTagCloud();
-  $.giveBrand.inviteContact();
+  $.giveBrand.updateTagCloud(); // in givebrand.js
   $.giveBrand.importConnections();
-  $.giveBrand.emailInvite();
+  $.giveBrand.invite();
   $.giveBrand.loginQtip();
   $.giveBrand.landingPageVideo();
   $.giveBrand.trackingPages();
   $.giveBrand.infiniteScroll();
   $.giveBrand.shareUrl();
+  $.giveBrand.ajaxPagination();
 });

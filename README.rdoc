@@ -13,11 +13,11 @@
   * rake givebrand:redis:autocomplete (Makes tags available for autocomplete)
 
 === Resque Workers
-  QUEUE=import_contacts bundle exec rake environment resque:work
-
-  or just:
-
   foreman start
+
+  or:
+
+  QUEUE=import_contacts bundle exec rake environment resque:work
 
 === Env variables for heroku
   * DATABASE_URL
