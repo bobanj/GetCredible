@@ -30,7 +30,5 @@
     = will_paginate @users
 
 %aside
-  - if user_signed_in? && @user == current_user
-    = render 'shared/sidebar_nav'
   = render 'shared/friend_nav', user: @user
   = render 'shared/sidebar_activity', :user => @user

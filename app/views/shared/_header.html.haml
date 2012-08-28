@@ -30,6 +30,8 @@
             = link_to "Logout", destroy_user_session_path
           %li#gn-profile
             = link_to 'Profile', me_user_path(current_user), :class => ((params[:controller] == 'users' && ['show', 'followers', 'following'].include?(params[:action]) && current_user == @user) ? 'active' : nil)
+          %li#gn-invite
+            = link_to 'Invite', invite_path, :class => (params[:controller] == 'invite' ? 'active' : nil)
           %li#gn-share
             = link_to 'Share', '#', id: 'js_share_btn'
           %li#gn-activity

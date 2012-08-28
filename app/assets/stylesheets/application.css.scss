@@ -832,7 +832,7 @@ footer {
       }
     }
   }
-  #gn-login, #gn-register, #gn-activity, #gn-tour, #gn-profile, #gn-share, #gn-logout, #gn-tour, #gn-invite {
+  #gn-login, #gn-register, #gn-activity, #gn-tour, #gn-profile, #gn-share, #gn-invite, #gn-logout, #gn-tour, #gn-invite {
     float: right;
   }
 }
@@ -1265,21 +1265,6 @@ aside {
         float: left;
         margin-bottom: 10px;
         @include box-shadow(rgba($black, 0.07) 0px 1px 2px);
-      }
-      #show_guide {
-        background: transparent;
-        display: inline-block;
-        margin-left: 2px;
-        position: absolute;
-        right: -10px;
-        top: -10px;
-        @include box-shadow(none);
-        img {
-          width: 18px;
-        }
-      }
-      a {
-        padding: 4px;
       }
     }
 
