@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'User', type: :request do
+describe 'Visitor', type: :request do
 
   it "can sign up" do
     email = 'user@example.com'

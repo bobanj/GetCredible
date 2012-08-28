@@ -17,6 +17,9 @@ class Link < ActiveRecord::Base
   # Callbacks
   before_save :set_tags
 
+  # Scopes
+  scope :ordered, order('created_at DESC')
+
   private
   def tag_names_presence
     cleaned_tag_names = TagCleaner.clean(tag_names)

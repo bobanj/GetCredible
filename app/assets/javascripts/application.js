@@ -25,6 +25,7 @@
 //= require chosen.jquery
 //= require jquery.embedly.min
 //= require givebrand.js
+//= require givebrand.friendship
 //= require givebrand.infinite_scroll
 //= require givebrand.share_url
 

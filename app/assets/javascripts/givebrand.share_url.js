@@ -32,8 +32,9 @@ $.giveBrand.shareQtipApi = $('<div />').qtip({
 
 $.giveBrand.shareUrlInit = function(){
   var typingTimer;
-  var doneTypingInterval = 1000;
+  var doneTypingInterval = 200;
 
+  $('#link_url').focus();
   $('#link_url').keyup(function(){
     clearTimeout(typingTimer);
     if ($('#link_url').val) {

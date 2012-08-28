@@ -31,7 +31,7 @@ describe 'User', type: :request do
     sign_in_user(user1)
     click_link("Activity")
 
-    page.should_not have_content("Pink Panter shared a link http://example.com/ruby-article.html tags: ruby, language")
-    page.should have_content("Pink Panter shared a link http://example.com/rails-article.html tags: rails, framework")
+    page.should_not have_content("Pink Panter shared a link http://example.com/ruby-article.html")
+    page.should have_content("Pink Panter shared a link http://example.com/rails-article.html")
   end
 end

@@ -1,0 +1,12 @@
+- @links.each do |link|
+  %li.link_details
+    = link_to link.title, link.url, target: '_blank'
+    %br
+    %p= link.description
+    - if link.thumbnail_url.present?
+      = image_tag link.thumbnail_url
+    %ul.link_tags
+      - link.tags.each do |tag|
+        %li= tag.name
+    - if current_user && current_user == @user
+      = link_to "Delete", user_link_path(current_user, link), method: :delete, data: { confirm: "Are you sure you want to delete this link?" }

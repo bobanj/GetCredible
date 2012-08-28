@@ -1,4 +1,4 @@
-= simple_form_for link, remote: true, html: { id: 'js-share-link-form' } do |f|
+= simple_form_for [current_user, link], remote: true, html: { id: 'js-share-link-form' } do |f|
   = f.input :url
   #js-url-details{class: link.url.present? ? nil : 'hidden'}
     = f.input :tag_names, label: 'Tags', class: 'hidden'

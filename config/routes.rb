@@ -1,10 +1,15 @@
 GetCredible::Application.routes.draw do
+
+  root :to => 'home#index'
+
   mount Resque::Server.new, :at => "/resque"
-  post "tags/search"
+
   get '/invite' => 'invite#index'
   get '/invite/state' => 'invite#state'
   get '/sitemap.:format' => 'home#sitemap', :as => :sitemap
+  post "tags/search"
 
+  # devise
   devise_for :users, :controllers => {
     :sessions => "users/sessions",
     :registrations => "users/registrations",
@@ -18,9 +23,11 @@ GetCredible::Application.routes.draw do
     # TODO #get 'users/registrations/change_password', to: 'users/registrations#change_password'
   end
 
+  # resources
   resources :users, :only => [:index, :show] do
     resources :endorsements
     resources :friendships
+    resources :links, :only => [:create, :index, :destroy]
     resources :user_tags, :only => [:index, :create, :destroy], :path => :tags do
       member do
         post :vote
@@ -28,12 +35,8 @@ GetCredible::Application.routes.draw do
       end
     end
   end
-
   resources :activities, :only => [:show]
   resources :invitation_messages, :only => [:create]
-  resources :links, :only => [:create]
-
-  root :to => 'home#index'
 
   # static pages
   get '/privacy' => 'home#privacy'
@@ -43,10 +46,9 @@ GetCredible::Application.routes.draw do
   get '/team' => 'home#team'
   get '/about' => 'home#about'
 
+  # user namespace
   match '/:id' => 'users#show', :as => 'me_user'
   match '/:id/followers' => 'users#followers', :as => 'user_followers'
   match '/:id/following' => 'users#following', :as => 'user_following'
-
-  get '/api/url/preview', to: 'tags#preview'
-
+  match '/:id/links' => 'links#index', :as => 'me_user_links'
 end

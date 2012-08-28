@@ -1,0 +1,19 @@
+#content
+  = render 'shared/profile'
+
+  %section.content
+    %header#page-header
+      %h1 Shared articles
+
+  .listing-wrap
+    %section#links.listing
+      %ul#js_collection_list
+        = render 'links'
+
+      = will_paginate @links
+
+%aside
+  - if user_signed_in? && @user == current_user
+    = render 'shared/sidebar_nav'
+  = render 'shared/friend_nav', user: @user
+  = render 'shared/sidebar_activity', :user => @user

@@ -27,10 +27,11 @@
         = yield
 
 
-        #share_link{style: "display: none"}
-          %h2 Share link
-          = render 'links/form', link: Link.new
-        = render 'shared/guide'
+        - if current_user
+          #share_link{style: "display: none"}
+            %h2 Share link
+            = render 'links/form', link: Link.new
+          = render 'shared/guide'
 
       = render 'shared/footer'
 

@@ -35,7 +35,7 @@ describe 'User', type: :request do
       click_button("Follow")
     end
 
-    # unfollow from my my profile page
+    # unfollow from my profile page
     click_link("Profile")
     click_link("1 Following")
 
