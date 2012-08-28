@@ -13,7 +13,7 @@ describe 'User', type: :request do
     page.should have_content("0 Followers")
 
     # follow
-    within("#friend-nav") do
+    within("#profile") do
       click_button("Follow")
     end
 
@@ -21,7 +21,7 @@ describe 'User', type: :request do
     page.should have_content("1 Followers")
 
     # unfollow
-    within("#friend-nav") do
+    within("#profile") do
       page.execute_script("$('.js-friendship-action').trigger('mouseover')")
       click_button("Unfollow")
     end
@@ -31,7 +31,7 @@ describe 'User', type: :request do
       page.should have_content("0 Followers")
     end
 
-    within("#friend-nav") do
+    within("#profile") do
       click_button("Follow")
     end
 

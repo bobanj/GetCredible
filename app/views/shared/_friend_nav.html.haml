@@ -3,8 +3,6 @@
 - followers_count = user.followers.active.count
 
 %nav#friend-nav
-  = render 'shared/friendship_button', user: user, own_profile: false
-
   %ul#js-friendship-counts
     %li
       = link_to me_user_links_path(user) do
