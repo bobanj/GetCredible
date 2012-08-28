@@ -9,15 +9,8 @@
     = render 'endorsements/write_endorsement_form', hide: !(user_signed_in? && current_user != @user), endorsement: Endorsement.new
     .listing
       %ul#endorsements_list
-        - if @user_tag_endorsements.present?
-          - @user_tag_endorsements.each do |user_tag, endorsements|
-            = render 'endorsements/user_tag_endorsements', user_tag: user_tag, endorsements: endorsements
-        - else
-          %li#js-no-endorsements
-            .ngo
-              %p
-                %span
-                  No endorsements yet
+        - @user_tag_endorsements.each do |user_tag, endorsements|
+          = render 'endorsements/user_tag_endorsements', user_tag: user_tag, endorsements: endorsements
 
     #endorsements_form_keeper.hide
       =render 'endorsements/form', endorsement: Endorsement.new

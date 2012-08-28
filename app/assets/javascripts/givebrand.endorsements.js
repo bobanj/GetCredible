@@ -62,22 +62,34 @@ $.giveBrand.endorsements = function (){
 //      return false;
 //    })
 
-  $("#endorsements").on("click","#write_endorsement_cancel", function(e){
+  $("#endorsements").on("click","#write_endorsement_cancel", function(e) {
     e.preventDefault();
     $("#write_endorsement_form").slideUp();
     $("#write_endorsement_description_error").text('');
     $("#write_endorsement_tag_error").text('');
   });
 
-  if($("#write_endorsement_description").length){
+  if ($("#write_endorsement_description").length) {
     $("#write_endorsement_description").limit('300', $("#write_endorsement_word_counter"));
   }
 
-  if($("#write_endorsement_user_tag_id").length){
+  if ($("#write_endorsement_user_tag_id").length) {
     $("#write_endorsement_user_tag_id").chosen();
   }
 
-  $("#endorsements").on("submit", "#write_endorsement_form", function (e){
+  $("#endorsements").on("submit", "#write_endorsement_form", function (e) {
     $(this).find('.loader').removeClass('hide');
+  });
+
+  $('#endorsements').delegate('#write_endorsement_description', 'keyup', function () {
+    var field = $(this);
+    var button = field.parents('form:first').find('.btn');
+    console.log(button)
+
+    if (field.val().length > 0) {
+      button.addClass('primary');
+    } else {
+      button.removeClass('primary');
+    }
   });
 };
