@@ -27,7 +27,7 @@
             %span== No #{params[:action]} present.
             %br
 
-    = will_paginate @users, :renderer => PaginationNoFollow
+    = will_paginate @users
 
 %aside
   - if user_signed_in? && @user == current_user
