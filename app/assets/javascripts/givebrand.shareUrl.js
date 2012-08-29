@@ -49,7 +49,7 @@ $.giveBrand.shareUrlInit = function(){
       return;
     }
 
-    if (!url.match(/^http:\/\//)) {
+    if (!url.match(/^https?:\/\//)) {
       url = "http://" + url;
     }
 
