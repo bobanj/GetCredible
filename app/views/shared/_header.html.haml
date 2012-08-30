@@ -1,46 +1,62 @@
-%header#global-header
-  %nav
-    %ul#global-nav
-      %li#gn-logo
-        = link_to (user_signed_in? ? activity_path('all') : root_path), :class => 'logo' do
-          %span give
-          brand
+- if params[:controller] == 'home' && params[:action] == 'index'
+  %header#global-header
+    .wrapper
+      %nav
+        %ul#global-nav
+          %li#gn-logo
+            = link_to (user_signed_in? ? activity_path('all') : root_path), :class => 'logo' do
+              %span give
+              brand
+          %li#gn-signin
+            = simple_form_for(:user, :url => user_session_path, :namespace => 'sign_in', :html => {:id => 'user_sign_in'}) do |f|
+              %ul
+                %li
+                  = f.input :email, :required => false, :autofocus => true, :input_html => { :value => nil }, :placeholder => "Email or Username", :label => "Email or Username", :label_html => {:class => 'hidden'}, :input_html => {:tabindex => 1}
+                  = f.input :remember_me, :as => :boolean, :input_html => {:tabindex => 3}
+                %li
+                  = f.input :password, :required => false, :placeholder => "Password", :input_html => { :value => nil }, :label_html => {:class => 'hidden'}, :input_html => {:tabindex => 2}
+                  = link_to "Forgot your password?", new_user_password_path
+                %li
+                  = f.button :submit, "Sign in", class: 'btn small primary gray', id: 'landing_sign_in'
+                  
+- else
+  %header#global-header.app
+    .wrapper
+      %nav
+        %ul#global-nav
+          %li#gn-logo
+            = link_to (user_signed_in? ? activity_path('all') : root_path), :class => 'logo' do
+              %span give
+              brand
+          %li#global-search
+            = form_tag users_path, :id => 'g-search', :method => :get do
+              //= label_tag :q, "Search"
+              = text_field_tag :q, '', :id => 'g-searchtext', :placeholder => 'Search people or tag'
+              %button go
 
-      - if params[:controller] == 'home' && params[:action] == 'index'
-        %li#gn-signin
-          = simple_form_for(:user, :url => user_session_path, :namespace => 'sign_in', :html => {:id => 'user_sign_in'}) do |f|
-            %ul
-              %li
-                = f.input :email, :required => false, :autofocus => true, :input_html => { :value => nil }, :placeholder => "Email or Username", :label => "Email or Username", :label_html => {:class => 'hidden'}, :input_html => {:tabindex => 1}
-                = f.input :remember_me, :as => :boolean, :input_html => {:tabindex => 3}
-              %li
-                = f.input :password, :required => false, :placeholder => "Password", :input_html => { :value => nil }, :label_html => {:class => 'hidden'}, :input_html => {:tabindex => 2}
-                = link_to "Forgot your password?", new_user_password_path
-              %li
-                = f.button :submit, "Sign in", class: 'btn small primary gray', id: 'landing_sign_in'
-      - else
-        %li#global-search
-          = form_tag users_path, :id => 'g-search', :method => :get do
-            //= label_tag :q, "Search"
-            = text_field_tag :q, '', :id => 'g-searchtext', :placeholder => 'Search people or tag'
-            %button go
+          - if user_signed_in?
+            %li#gn-share.right
+              = link_to 'Share', '#', id: 'js_share_btn', :class => "contrast"
+            %li#gn-activity
+              
+              = link_to activity_path('all'), :class => "(params[:controller] == 'activities' ? 'active' : nil)" do
+                //%span#gn-activity-counter 144
+                Activity
+            %li#gn-invite
+              = link_to 'Invite', invite_path, :class => (params[:controller] == 'invite' ? 'active' : nil)
+            
+            %li#gn-profile
+              = link_to me_user_path(current_user), :class => "((params[:controller] == 'users' && ['show', 'followers', 'following'].include?(params[:action]) && current_user == @user) ? 'active' : nil)" do
+                = image_tag current_user.avatar_url(:thumb), :width => "15"
+                Profile
+            %li#gn-logout
+              = link_to "Logout", destroy_user_session_path
+            
 
-        - if user_signed_in?
-          %li#gn-logout
-            = link_to "Logout", destroy_user_session_path
-          %li#gn-profile
-            = link_to 'Profile', me_user_path(current_user), :class => ((params[:controller] == 'users' && ['show', 'followers', 'following'].include?(params[:action]) && current_user == @user) ? 'active' : nil)
-          %li#gn-invite
-            = link_to 'Invite', invite_path, :class => (params[:controller] == 'invite' ? 'active' : nil)
-          %li#gn-share
-            = link_to 'Share', '#', id: 'js_share_btn'
-          %li#gn-activity
-            = link_to 'Activity', activity_path('all'), :class => (params[:controller] == 'activities' ? 'active' : nil)
-
-        - else
-          %li#gn-tour
-            = link_to 'Tour', tour_path, :class => (params[:controller] == 'home' && params[:action] == 'tour' ? 'active' : nil)
-          %li#gn-register
-            = link_to "Sign up", new_user_registration_path, :class => (params[:controller] == 'users/registrations' ? 'active' : nil)
-          %li#gn-login
-            = link_to 'Sign in', new_user_session_path, :class => (params[:controller] == 'users/sessions' ? 'active' : nil)
+          - else
+            %li#gn-tour
+              = link_to 'Tour', tour_path, :class => (params[:controller] == 'home' && params[:action] == 'tour' ? 'active' : nil)
+            %li#gn-register
+              = link_to "Sign up", new_user_registration_path, :class => (params[:controller] == 'users/registrations' ? 'active' : nil)
+            %li#gn-login
+              = link_to 'Sign in', new_user_session_path, :class => (params[:controller] == 'users/sessions' ? 'active' : nil)

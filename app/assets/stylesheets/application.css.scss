@@ -591,13 +591,9 @@ body {
 
 /* GRIDS
 -----------------------------------------------------------------------*/
-#page {
+.wrapper {
   @include grid-container;
   @include pie-clearfix;
-}
-
-#global-header {
-  @include grid(12);
 }
 
 #content {
@@ -737,14 +733,67 @@ footer {
 
 
 #global-header {
-
-  //@include background-image(linear-gradient(lighten($black, 99%), lighten($black, 96%)));
-  //border-bottom: 1px solid $borderColor;
-  //border-left: 1px solid $borderColor;
-  //border-right: 1px solid $borderColor;
-  //@include border-bottom-radius(3px);
   margin-bottom: 0px;
   position: relative;
+  .wrapper {
+    width: 940px;
+  }
+  &.app {
+    background: #222;
+    margin-bottom: 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 20;
+    #global-nav li.right {
+      float: right;
+    }
+    #gn-logo a {
+      margin: 10px 20px 10px 0;
+      @include text-shadow(none);
+      span {
+        color: #fff;
+        @include text-shadow(none)
+      } 
+    }
+    #gn-logout a {
+      color: #666;
+    }
+    a {
+      color: #999;
+      padding: 25px 15px 20px;
+      @include text-shadow(none);
+      &:hover, &:focus, &.active {
+        background: #191919;
+        color: #fff
+      }
+      &.contrast {
+        background: $orange;
+        color: #222;
+        margin: 15px 0;
+        padding: 10px 10px 5px;
+        opacity: 0.8;
+        @include border-radius(2px);
+      }
+    }
+    #gn-profile img {
+      margin: -2px 3px 0 0;
+    }
+  }
+}
+
+#gn-activity-counter {
+  background: $red;
+  color: #fff;
+  display: inline-block;
+  height: 16px;
+  font-size: 10px;
+  font-weight: normal;
+  line-height: 16px;
+  padding: 2px !important;
+  text-align: center;
+  width: 16px;
+  @include border-radius(50%);
 }
 
 // Global navigation
@@ -763,7 +812,7 @@ footer {
       border-left: 0 none;
     }
   }
-  span{
+  #gn-logo span{
     color: $gray;
     display: block;
     font-size: 14px;
@@ -803,20 +852,13 @@ footer {
   #gn-logo {
 
     a {
-      //background: image-url('logo2.png') no-repeat center;
       color: $blue;
       font: normal 30px "gnuolane", impact, sans-serif;
-      //height: 63px;
       letter-spacing: 0.6px;
-      margin: 35px 0 14px;
+      margin: 30px 0 14px;
       opacity: 0.9;
       padding: 0;
-      //text-transform: uppercase;
-      //text-indent: -99999px;
-      //width: 150px;
-
       @include transition(all .4s);
-      //@include transform(skew(0deg, -6deg));
       span {
         color: #444;
         display: inline;
@@ -828,12 +870,8 @@ footer {
       }
       &:hover, &:focus, &:hover span {
         opacity: 1;
-        @include text-shadow(#fff 0 0 15px);
       }
     }
-  }
-  #gn-login, #gn-register, #gn-activity, #gn-tour, #gn-profile, #gn-share, #gn-invite, #gn-logout, #gn-tour, #gn-invite {
-    float: right;
   }
 }
 
@@ -900,14 +938,13 @@ footer {
 #global-search {
   display: inline-block;
   float: right !important;
-  margin-top: 27px;
-  padding-left: 10px;
+  margin-top: 10px;
   width: 248px !important;
   form {
     margin: 0 0 0 10px;
-    background: #fff;
-    border: 4px solid #eee;
-    @include box-shadow(rgba($black, 0.2) 0px 1px 3px inset);
+    background: #2c2c2c;
+    border: 4px solid #222;
+    //@include box-shadow(rgba($black, 0.2) 0px 1px 3px inset);
     @include border-radius(1px);
     width: 233px;
     @include clearfix;
@@ -915,13 +952,13 @@ footer {
 
   input {
     @include box-shadow(none);
-    @include text-shadow(#fff 0 1px 0);
+    @include text-shadow(#111 0 1px 0);
     background: none;
-    color: #888;
+    color: #aaa;
     width: 183px;
     border: 0 none;
     float: left;
-    font-size: 12px;
+    font-size: 11px;
     padding: 3px 11px 2px 11px;
     margin: 0px;
   }
@@ -929,7 +966,7 @@ footer {
   button {
     background-color: transparent;
     border: 0 none;
-    border-left: 1px solid #d9d9d9;
+    border-left: 1px solid #222;
     float: left;
     @include replace-text("icon-search.png");
     height: 30px;
@@ -952,6 +989,10 @@ footer {
     float: none;
     vertical-align: top;
   }
+}
+
+.fixed-push {
+  margin-top: 80px;
 }
 
 #content, .inner-page {

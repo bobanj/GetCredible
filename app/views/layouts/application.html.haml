@@ -19,10 +19,9 @@
       = stylesheet_link_tag "ie/application", :media => "all"
 
   %body{:id => controller_action_id}
-    #page
-      = render :partial => 'shared/header'
-
-      #main
+    = render :partial => 'shared/header'
+    .wrapper
+      #main.fixed-push
         = flash_messages
         = yield
 

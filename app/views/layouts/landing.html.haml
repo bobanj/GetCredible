@@ -17,18 +17,19 @@
       = stylesheet_link_tag "ie/application", :media => "all"
 
   %body{:id => controller_action_id}
-    #page
+    .wrapper
       = render :partial => 'shared/header'
+      
     .featured-inline
-      #page
-
+      .wrapper
         #main
           = render 'shared/guide'
 
           - #TODO Style flash messages
           = flash_messages
           = yield
-    #page
+          
+    .wrapper
       .ribbon
         = link_to "Check out our illustrated tour", tour_path
 
