@@ -60,6 +60,46 @@
   }
 }
 
+.ui-tooltip-share-url {
+  .ui-tooltip-content {
+    padding: 0;
+  }
+  .input {
+    margin-bottom: 10px;
+  }
+  h2 {
+    border-bottom: 1px solid #eee;
+    color: $blue;
+    padding: 0 15px;
+  }
+  form {
+    padding: 15px 15px 25px;
+  }
+  label {
+    display: inline-block;
+    font-size: 11px;
+    margin-bottom: 0;
+    padding: 8px 8px 8px 0;
+    vertical-align: top;
+    width: 60px;
+  }
+  input[type=text], input[type=url], textarea {
+    width: 310px;
+  }
+  ul.token-input-list-facebook {
+    display: inline-block;
+    margin: 0;
+    width: 310px;
+  }
+  .thumbnail-url {
+    border-bottom: 1px solid #ddd;
+    margin: 0 auto 15px;
+    padding: 15px 0;
+    text-align: center;
+    width: 385px;
+  }
+}
+
 #steps {
   .inputs-list .cells li {
     display: block;

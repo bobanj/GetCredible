@@ -5,8 +5,8 @@
     = f.input :title
     = f.input :description, as: :text, input_html: { rows: 4 }
     = f.input :thumbnail_url, as: :hidden
-    #js-thumbnail-url
+    #js-thumbnail-url.thumbnail-url
       - if link.thumbnail_url.present?
         = image_tag link.thumbnail_url
-    = f.button :submit, "Share", id: 'share_link_btn'
+    = f.button :submit, "Share", id: 'share_link_btn', :class => "btn large primary"
   .selector

@@ -738,6 +738,7 @@ footer {
   .wrapper {
     width: 940px;
   }
+  
   &.app {
     background: #222;
     margin-bottom: 20px;
@@ -780,6 +781,7 @@ footer {
       margin: -2px 3px 0 0;
     }
   }
+  
 }
 
 #gn-activity-counter {
@@ -834,7 +836,7 @@ footer {
   a{
     color: #666;
     display: block;
-    font: bold 12px "open-sans", sans-serif;
+    font: bold 11px open-sans, sans-serif;
     padding: 39px 18px 29px 18px;
     //border-left: 1px solid $white;
     //border-right: 1px solid $borderColor;
