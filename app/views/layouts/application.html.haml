@@ -32,7 +32,8 @@
             = render 'links/form', link: Link.new
           = render 'shared/guide'
 
-      = render 'shared/footer'
+      - unless ['activities', 'invite', 'links', 'user_tags', 'users'].include?(params[:controller])
+        = render 'shared/footer'
 
       :javascript
         var EMBEDLY_KEY = '#{ENV['EMBEDLY_KEY']}';

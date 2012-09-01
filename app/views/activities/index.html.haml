@@ -9,9 +9,9 @@
         %li.last{:class => activity_tab_class('outgoing')}
           = link_to 'My Activity', activity_path('outgoing'), :class => 'js-remote'
     %h1 Recent Activity
-    
-        
-  #content.activities_wrapper
+
+
+  #content
     %section.content
 
       .feed
@@ -27,3 +27,5 @@
                 %br
                 == #{link_to "Brand Yourself", user_path(current_user)} or #{link_to "invite people", new_user_invitation_path}.
       = will_paginate @activity_items
+
+%aside

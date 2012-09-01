@@ -41,4 +41,3 @@
           %p== Import your #{link_to "LinkedIn", '#', :class => 'js-import-popup', :'data-provider' => 'linkedin', :'data-omniauth' => user_omniauth_authorize_path(:linkedin)}, #{link_to "Twitter", '#', :class => 'js-import-popup', :'data-provider' => 'twitter', :'data-omniauth' => user_omniauth_authorize_path(:twitter)} or #{link_to "Facebook", '#', :class => 'js-import-popup', :'data-provider' => 'facebook', :'data-omniauth' => user_omniauth_authorize_path(:facebook)} contacts and send them private invitations to boost your profile.
 
 %aside
-  = render 'shared/friend_nav', user: current_user

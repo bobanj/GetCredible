@@ -609,10 +609,6 @@ body {
   width: 690px;
 }
 
-#content.activities_wrapper {
-  width: 100%;
-}
-
 #global-search, aside {
   @include grid(3);
   @include alpha;
