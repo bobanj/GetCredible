@@ -3,7 +3,7 @@
     .content
       .photo
         - if user.active?
-          = link_to image_tag(user.avatar.url(:avatar)), me_user_path(user)
+          = link_to image_tag(user.avatar.url(:avatar)), user_path(user)
         - else
           = image_tag(user.avatar.url(:avatar))
       %h2= user_title(user)

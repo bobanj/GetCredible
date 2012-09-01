@@ -17,7 +17,7 @@
           %td
             %h1{:style => "color:#444444;margin:10px 0 5px;font-size:16px;font-weight:normal;"} #{@receiver.name}! Check it OUT!
             %h2{:style => "font-size:22px;font-weight:normal;line-height:1.4;color:#444;margin:0 0 15px;"}
-              #{link_to @endorser.name, me_user_url(@endorser), :style => "color: #{@link_color};"} has just left an endorsement on your GiveBrand #{link_to 'profile', me_user_url(@receiver), :style => "color: #{@link_color}"}. Take a look:
+              #{link_to @endorser.name, user_path(@endorser), :style => "color: #{@link_color};"} has just left an endorsement on your GiveBrand #{link_to 'profile', user_path(@receiver), :style => "color: #{@link_color}"}. Take a look:
             %p{:style => "font-size:12px;font-style:italic;line-height:1.4;color:#444;margin:0 0 15px;"}
               = @endorsement.description
 

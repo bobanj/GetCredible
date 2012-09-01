@@ -31,6 +31,6 @@ class UsersController < ApplicationController
 
   private
   def load_user
-    @user = User.find_by_username!(params[:id].to_s.downcase)
+    @user = User.find_by_username!(params[:user_id].to_s.downcase)
   end
 end

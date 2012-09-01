@@ -50,7 +50,7 @@ class EmailMessage
   def validate_user_is_not_already_registered
     user = User.find_by_email(email)
     if user && user.active?
-      errors[:email] << "#{view_context.link_to(user.name, view_context.me_user_path(user.username))} is registered"
+      errors[:email] << "#{view_context.link_to(user.name, view_context.user_path(user.username))} is registered"
     end
   end
 end

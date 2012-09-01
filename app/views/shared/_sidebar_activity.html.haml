@@ -5,7 +5,7 @@
 
 .sidebar-item#latest-activity
   %h2
-    == #{link_to(user.short_name, me_user_path(user))}#{apostrophe(user.short_name)} Activity
+    == #{link_to(user.short_name, user_path(user))}#{apostrophe(user.short_name)} Activity
     /.view-all= link_to "View profile", '#'
   %ul.list-view.unstyled
     - if activities.present?

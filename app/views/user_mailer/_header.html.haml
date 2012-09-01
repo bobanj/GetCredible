@@ -8,7 +8,7 @@
       - if @receiver.active?
         = link_to "Home", root_url, :style => "color: #{@link_color}; margin: 0 5px;font-size:12px;"
         = link_to "Activity", activity_url('all'), :style => "color: #{@link_color}; margin: 0 5px;font-size:12px;"
-        = link_to "Profile", me_user_url(@receiver), :style => "color: #{@link_color}; margin: 0 5px;font-size:12px;"
+        = link_to "Profile", user_path(@receiver), :style => "color: #{@link_color}; margin: 0 5px;font-size:12px;"
       - else @receiver.active?
         = link_to "Home", root_url, :style => "color: #{@link_color}; margin: 0 5px;font-size:12px;"
         = link_to "Tour", tour_url, :style => "color: #{@link_color}; margin: 0 5px;font-size:12px;"

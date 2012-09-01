@@ -26,7 +26,7 @@
         %ul.horizontal
           - resource.followers.each do |user|
             %li.user
-              = link_to image_tag(user.avatar_url(:avatar), title: user.name), me_user_path(user)
+              = link_to image_tag(user.avatar_url(:avatar), title: user.name), user_path(user)
 
 %aside
   = render "links"

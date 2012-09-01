@@ -4,12 +4,12 @@
   %li{id: "row_contact_#{contact.id}", class: authentication_contact.invited? ? 'vouch' : nil}
     .tag-icon
     - if contact.user && contact.user.active?
-      = link_to image_tag(contact.user.avatar.url(:avatar), width: 48, height: 48), me_user_path(contact.user)
+      = link_to image_tag(contact.user.avatar.url(:avatar), width: 48, height: 48), user_path(contact.user)
     - else
       = image_tag contact.avatar.presence || "fallback/avatar_default_avatar.png", width: 48, height: 48
 
     - if contact.user && contact.user.active?
-      %span.name= link_to contact.user.name, me_user_path(contact.user)
+      %span.name= link_to contact.user.name, user_path(contact.user)
     - else
       %span.name= contact.name
 

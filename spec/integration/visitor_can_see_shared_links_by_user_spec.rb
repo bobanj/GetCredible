@@ -7,7 +7,7 @@ describe 'Visitor', type: :request do
     FactoryGirl.create(:link, user: user, title: 'Ruby is great',
                        tag_names: 'ruby, language')
 
-    visit(me_user_path(user))
+    visit(user_path(user))
     click_link("1 Share")
 
     within("#links .link_details") do

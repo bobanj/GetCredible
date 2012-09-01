@@ -7,7 +7,7 @@ describe 'User', type: :request do
     user = FactoryGirl.create(:user, full_name: "Pink Panter")
     sign_in_user(follower)
 
-    visit me_user_path(user)
+    visit user_path(user)
 
     page.should have_content("0 Following")
     page.should have_content("0 Followers")

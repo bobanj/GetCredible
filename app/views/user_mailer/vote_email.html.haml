@@ -17,7 +17,7 @@
           %td
             %h1{:style => "color:#444444;margin:10px 0 5px;font-size:16px;font-weight:normal;"} Hi, #{@receiver.name}!
             %h2{:style => "font-size:22px;font-weight:normal;line-height:1.4;color:#444;margin:0 0 15px;"}
-              You've really got people talking... #{link_to @voter.name, me_user_url(@voter), :style => "color: #{@link_color};"} has just vouched for your <strong>#{@tag_name}</strong> tag.
+              You've really got people talking... #{link_to @voter.name, user_path(@voter), :style => "color: #{@link_color};"} has just vouched for your <strong>#{@tag_name}</strong> tag.
 
         %tr
           %td{:colspan => "100"}

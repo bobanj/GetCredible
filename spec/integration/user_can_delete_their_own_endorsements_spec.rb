@@ -12,7 +12,7 @@ describe 'User', type: :request do
 
     sign_in_user(user)
 
-    visit me_user_path(user)
+    visit user_path(user)
 
     page.should have_content("This is my endorsement")
 

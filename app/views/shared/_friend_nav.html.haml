@@ -5,7 +5,7 @@
 %nav#friend-nav
   %ul#js-friendship-counts
     %li
-      = link_to me_user_links_path(user) do
+      = link_to user_links_path(user) do
         %span= links_count
         = "Share".pluralize(links_count)
     %li#js-following-count

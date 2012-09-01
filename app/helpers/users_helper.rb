@@ -1,12 +1,12 @@
 module UsersHelper
 
   def user_link(user)
-    link_to(user.name, me_user_path(user))
+    link_to(user.name, user_path(user))
   end
 
   def user_title(user)
     if user.active?
-      title = link_to(user.name, me_user_path(user))
+      title = link_to(user.name, user_path(user))
     else
       title = user.name
     end

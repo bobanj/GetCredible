@@ -3,7 +3,7 @@
     .content
       .tag-icon
       .photo
-        = link_to me_user_path(activity_item.user) do
+        = link_to user_path(activity_item.user) do
           - if activity_item.user_id == activity_item.target_id
             = image_tag activity_item.user.avatar.url(:medium), class: 'self-tag'
           - else

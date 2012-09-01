@@ -300,7 +300,7 @@ class User < ActiveRecord::Base
         recognize_path("#{username}", :method => :get) rescue nil
 
     if !(path && path[:controller] == 'users' &&
-         path[:action] == 'show' && path[:id] == username)
+         path[:action] == 'show' && path[:user_id] == username)
       errors.add(:username, "is not available")
     end
   end

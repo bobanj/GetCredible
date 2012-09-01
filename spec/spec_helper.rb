@@ -38,13 +38,6 @@ Spork.prefork do
     # config.use_transactional_fixtures = true
     config.use_transactional_fixtures = false
 
-    config.before(:suite) do
-      DatabaseCleaner.strategy = :truncation
-    end
-    config.before :each do
-      DatabaseCleaner.clean
-    end
-
     # Capybara driver
     Capybara.javascript_driver = :webkit
 

@@ -2,9 +2,10 @@ class LinksController < ApplicationController
   before_filter :authenticate_user!, except: [:index]
 
   def index
-    @user = User.find_by_username!(params[:id])
+    @user = User.find_by_username!(params[:user_id])
     @links = @user.links.includes(:tags).ordered.
         paginate :per_page => 3, :page => params[:page]
+
     render layout: (request.xhr? ? false : true)
   end
 
@@ -22,9 +23,9 @@ class LinksController < ApplicationController
 
   def destroy
     @link = current_user.links.find(params[:id])
-
     @link.destroy
     flash[:notice] = "Link was successfully deleted"
-    redirect_to me_user_links_path(current_user)
+
+    redirect_to user_links_path(current_user)
   end
 end

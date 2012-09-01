@@ -9,11 +9,11 @@ describe 'User', type: :request do
     user = FactoryGirl.create(:user, full_name: "Pink Panter")
     sign_in_user(endorser)
 
-    visit me_user_path(user)
+    visit user_path(user)
     fill_in('token-input-tag_names', with: 'ruby, rails')
     click_button("Tag 'em!")
 
-    visit me_user_path(user) # needed to receive email and then read it
+    visit user_path(user) # needed to receive email and then read it
     open_email(user.email)
     current_email.should have_subject("Tagged... You're it!")
 

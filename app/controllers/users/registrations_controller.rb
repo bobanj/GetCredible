@@ -37,7 +37,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           flash[:notice] = 'You have updated your profile successfully.'
           # Sign in the user by passing validation in case his password changed
           sign_in current_user, :bypass => true
-          redirect_to me_user_path(current_user)
+          redirect_to user_path(current_user)
         end
         format.js {
           if remotipart_submitted?

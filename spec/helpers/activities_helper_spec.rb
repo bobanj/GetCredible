@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ActivitiesHelper do
-  describe "#me_user_path(user)" do
+  describe "#user_path(user)" do
     it "adds 's on names that does not end with s" do
       helper.apostrophe('Pink').should == "'s"
     end
