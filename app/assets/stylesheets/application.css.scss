@@ -162,14 +162,16 @@ input, textarea {
     }
   }
   &.follow {
-    background: $grayLighter;
-    border: 1px solid #777;
-    color: $black;
-    @include background-image(linear-gradient($grayLighter, $grayLighter - #111));
+    background: $blue;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font-size: 11px;
+    padding: 5px 13px;
+    @include background-image(linear-gradient($blue + #111, $blue));
     &:hover, &:focus {
-      background: $grayLighter - #111;
-      border: 1px solid $grayLighter - #222;
-      @include background-image(linear-gradient($grayLighter - #222, $grayLighter - #111));
+      background: $blue - #111;
+      border: 1px solid $blue - #222;
+      @include background-image(linear-gradient($blue, $blue - #111));
     }
   }
   &.unfollow {

@@ -7,9 +7,12 @@
         = link_to image_tag(@user.avatar_url(:thumb)), user_path(@user), :id => "user_avatar_main"
         - if user_signed_in? && @user == current_user && show_guide?(current_user, params[:show_guide])
           = link_to image_tag("indicator.png"), nil, id: 'show_guide'
+        %p.follow
+          = render 'shared/friendship_button', user: @user, own_profile: current_user == @user
       = link_to user_path(@user), :class => 'no_underline' do
         %h1.fn= @user.name
       %h2.title= auto_link(@user.short_bio, :html => {:target => '_blank'}, :link => :urls)
+      
     %ul.right
       - if @user.location.present?
         %li.location.adr
@@ -26,5 +29,4 @@
           %span.icon
           = link_to 'Twitter', "https://twitter.com/#{@user.twitter_handle}", :target => '_blank', class: 'url'
 
-      %li.follow
-        = render 'shared/friendship_button', user: @user, own_profile: current_user == @user
+      
