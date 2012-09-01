@@ -320,8 +320,8 @@ $.giveBrand.updateQtipContentData = function (word){
   var rank = word.data('rank') ? '#' + word.data('rank') : 'N/A';
   var vouchUnvouch = word.hasClass('vouch') ? 'Remove' : 'Vouch';
   var vouchUnvouchClass = word.hasClass('vouch') ? 'btn primary red tiny' : 'btn primary green tiny';
-  var searchLink = '<a href="/search?q=' + word.text() + '">' + word.text() + '</a>';
-  var userTagLink = word.data('voters_count') > 5 ? '<a class="see_all" href="' + window.location.href + '/tags/' + word.text() + '">See All</a>' : '';
+  var searchLink = '<a href="/search?q=' + encodeURIComponent(word.text()) + '">' + word.text() + '</a>';
+  var userTagLink = word.data('voters_count') > 5 ? '<a class="see_all" href="' + window.location.href + '/tags/' + encodeURIComponent(word.text()) + '">See All</a>' : '';
   var qtipContent = '<div class="tag-wrap">' +
       '<div class="tag-score">' +
       '<p class="tag-title">score</p>' +
