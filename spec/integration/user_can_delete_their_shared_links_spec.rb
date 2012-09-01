@@ -3,12 +3,12 @@ require 'spec_helper'
 describe 'User', type: :request do
 
   it "can delete their shared links" do
-    user = FactoryGirl.create(:user)
+    user = FactoryGirl.create(:user, full_name: 'Pink Panther')
     FactoryGirl.create(:link, user: user, title: 'Ruby is great',
                        tag_names: 'ruby, language')
 
     sign_in_user(user)
-    click_link("Profile")
+    click_link("Pink Panther")
     click_link("1 Share")
 
     page.should have_content('Ruby is great')

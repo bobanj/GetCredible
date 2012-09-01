@@ -315,8 +315,8 @@ describe User do
       user.short_name.should == 'Pink'
     end
 
-    it "returns 'Pink' when full_name is 'Pink Panter'" do
-      user = FactoryGirl.build(:user, full_name: 'Pink Panter')
+    it "returns 'Pink' when full_name is 'Pink Panther'" do
+      user = FactoryGirl.build(:user, full_name: 'Pink Panther')
       user.short_name.should == 'Pink'
     end
   end
@@ -329,8 +329,8 @@ describe User do
     end
 
     it "can find users by name" do
-      user = FactoryGirl.create(:user, full_name: 'Pink Panter')
-      users = User.search(q: 'Panter')
+      user = FactoryGirl.create(:user, full_name: 'Pink Panther')
+      users = User.search(q: 'Panther')
       users.should include(user)
     end
 
@@ -341,7 +341,7 @@ describe User do
     end
 
     it "returns no user when query is blank" do
-      user = FactoryGirl.create(:user, full_name: 'Pink Panter')
+      user = FactoryGirl.create(:user, full_name: 'Pink Panther')
       users = User.search(q: '')
       users.should_not include(user)
     end
@@ -354,8 +354,8 @@ describe User do
     end
 
     it "returns full_name when full_name is present" do
-      user = FactoryGirl.build(:user, :full_name => 'Pink Panter', :username => 'p')
-      user.full_name.should == 'Pink Panter'
+      user = FactoryGirl.build(:user, :full_name => 'Pink Panther', :username => 'p')
+      user.full_name.should == 'Pink Panther'
     end
   end
 

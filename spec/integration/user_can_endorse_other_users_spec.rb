@@ -6,7 +6,7 @@ describe 'User', type: :request do
     reset_mailer
 
     endorser = FactoryGirl.create(:user, full_name: "Endorser")
-    user = FactoryGirl.create(:user, full_name: "Pink Panter")
+    user = FactoryGirl.create(:user, full_name: "Pink Panther")
     sign_in_user(endorser)
 
     visit user_path(user)

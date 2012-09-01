@@ -3,23 +3,23 @@ require 'spec_helper'
 describe 'User', type: :request do
 
   it "can edit their account" do
-    user = FactoryGirl.create(:user, full_name: "Some Name")
+    user = FactoryGirl.create(:user, full_name: "Pink Panther")
     sign_in_user(user)
-    click_link("Profile")
+    click_link('Pink Panther')
     within "#profile" do
       click_link("Edit")
     end
-    fill_in("Full name", with: "Some other Name")
+    fill_in("Full name", with: "Green Panther")
     click_button("Save")
     page.should have_content("You have updated your profile successfully.")
 
-    click_link("Profile")
+    click_link('Green Panther')
     within ".details" do
-      find("h1", :text => "Some other Name")
+      find("h1", :text => "Green Panther")
     end
 
-    click_link("Profile")
-    find_field("Full name").value.should == "Some other Name"
+    click_link('Green Panther')
+    find_field("Full name").value.should == "Green Panther"
   end
 end
 

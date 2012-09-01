@@ -3,8 +3,8 @@ require 'spec_helper'
 describe 'User', type: :request do
 
   it "can follow other users", js: true do
-    follower = FactoryGirl.create(:user, full_name: "Follower")
-    user = FactoryGirl.create(:user, full_name: "Pink Panter")
+    follower = FactoryGirl.create(:user, full_name: "Pink Panther")
+    user = FactoryGirl.create(:user)
     sign_in_user(follower)
 
     visit user_path(user)
@@ -36,7 +36,7 @@ describe 'User', type: :request do
     end
 
     # unfollow from my profile page
-    click_link("Profile")
+    click_link("Pink Panther")
     click_link("1 Following")
 
     within("#invitation_content") do

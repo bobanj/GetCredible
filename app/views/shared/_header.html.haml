@@ -48,7 +48,7 @@
             %li#gn-profile
               = link_to user_path(current_user), :class => "((params[:controller] == 'users' && ['show', 'followers', 'following'].include?(params[:action]) && current_user == @user) ? 'active' : nil)" do
                 = image_tag current_user.avatar_url(:thumb), :width => "15"
-                Profile
+                = current_user.name
             %li#gn-logout
               = link_to "Logout", destroy_user_session_path
 

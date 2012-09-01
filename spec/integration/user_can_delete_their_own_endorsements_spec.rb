@@ -4,7 +4,7 @@ describe 'User', type: :request do
 
   it "can delete their own endorsements", js: true do
     endorser = FactoryGirl.create(:user, full_name: "Endorser")
-    user = FactoryGirl.create(:user, full_name: "Pink Panter")
+    user = FactoryGirl.create(:user, full_name: "Pink Panther")
     tag = FactoryGirl.create(:tag)
     user_tag = FactoryGirl.create(:user_tag, user: user, tagger: endorser, tag: tag)
     endorsement = FactoryGirl.create(:endorsement, endorser: endorser,
