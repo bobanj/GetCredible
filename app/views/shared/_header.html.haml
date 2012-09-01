@@ -39,14 +39,14 @@
               = link_to 'Share', '#', id: 'js_share_btn', :class => "contrast"
             %li#gn-activity
 
-              = link_to activity_path('all'), :class => "(params[:controller] == 'activities' ? 'active' : nil)" do
+              = link_to activity_path('all'), :class => (params[:controller] == 'activities' ? 'active' : nil) do
                 //%span#gn-activity-counter 144
                 Activity
             %li#gn-invite
               = link_to 'Invite', invite_path, :class => (params[:controller] == 'invite' ? 'active' : nil)
 
             %li#gn-profile
-              = link_to user_path(current_user), :class => "((params[:controller] == 'users' && ['show', 'followers', 'following'].include?(params[:action]) && current_user == @user) ? 'active' : nil)" do
+              = link_to user_path(current_user), :class => ((params[:controller] == 'users' && ['show', 'followers', 'following'].include?(params[:action]) && current_user == @user) ? 'active' : nil) do
                 = image_tag current_user.avatar_url(:thumb), :width => "15"
                 = current_user.name
             %li#gn-logout

@@ -600,6 +600,11 @@ body {
   @include grid(9);
   @include alpha;
   @include omega;
+  width: 690px;
+}
+
+#content.activities_wrapper {
+  width: 100%;
 }
 
 #global-search, aside {
@@ -610,9 +615,6 @@ body {
 
 aside {
   width: 250px !important;
-}
-#content {
-  width: 690px;
 }
 .half {
   width: 50%;
@@ -738,7 +740,7 @@ footer {
   .wrapper {
     width: 940px;
   }
-  
+
   &.app {
     background: #222;
     margin-bottom: 20px;
@@ -755,7 +757,7 @@ footer {
       span {
         color: #fff;
         @include text-shadow(none)
-      } 
+      }
     }
     #gn-logout a {
       color: #666;
@@ -781,7 +783,7 @@ footer {
       margin: -2px 3px 0 0;
     }
   }
-  
+
 }
 
 #gn-activity-counter {
