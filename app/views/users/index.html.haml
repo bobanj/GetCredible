@@ -1,18 +1,20 @@
 - title("Search results for '#{params[:q]}' on Givebrand #{pagination_title(@users)}")
 
-#content
-  %section#search
-    .content
-      %header#page-header
-        %h1
-          Search results for
-          %em
-            = "'#{params[:q]}'"
+#content-wrap
+  %header#page-header
+    %h1
+      Search results for
+      %em
+        = "'#{params[:q]}'"
+  #content
+    %section#search
+      .content
+        
 
-      .feed
-        %ul.list-view.unstyled#js_collection_list
-          = render 'users/searched_users'
+        .feed
+          %ul.list-view.unstyled#js_collection_list
+            = render 'users/searched_users'
 
-      = will_paginate @users
+        = will_paginate @users
 
 %aside

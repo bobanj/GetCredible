@@ -7,7 +7,6 @@
         - else
           = image_tag(user.avatar.url(:avatar))
       %h2= user_title(user)
-      %br
       .details
 
         - if current_user && user.interacted_by(current_user)
