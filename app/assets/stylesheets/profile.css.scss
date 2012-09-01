@@ -337,14 +337,15 @@ ul.social_fixed {
   }
   li {
     //border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    display: inline;
-    float: left;
-    text-align: center;
-    width: 33%;
+    //display: inline;
+    //float: left;
+    //text-align: center;
+    //width: 33%;
     a {
+      border-bottom: 1px solid #ddd;
       display: block;
       font: 12px/3 open-sans, Arial, sans-serif;
-      padding: 10px 0;
+      padding: 0 10px;
       span {
         font: bold 24px/1.5 "gnuolane", sans-serif;
         padding-right: 3px;
@@ -353,6 +354,9 @@ ul.social_fixed {
         background: rgba(255, 255, 255, 0.4);
         text-decoration: none;
       }
+    }
+    &:last-child a {
+      border-bottom: none;
     }
   }
   a.invite {

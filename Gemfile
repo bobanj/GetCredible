@@ -22,7 +22,7 @@ gem 'bootstrap-sass'
 gem 'compass-rails','~> 1.0.0.rc.3'
 gem 'compass-960-plugin'
 gem 'statistics2'
-gem 'rankable_graph'
+#gem 'rankable_graph'
 gem 'redis-objects'
 gem 'redis-namespace'
 gem 'rails_config'
@@ -59,6 +59,7 @@ group :development do
   gem 'quiet_assets'
   # gem 'rails-footnotes', '>= 3.7.5.rc4'
   gem 'awesome_print', :require => 'ap'
+  gem 'sqlite3'
 end
 
 group :test do
