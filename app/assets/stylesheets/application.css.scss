@@ -749,7 +749,7 @@ footer {
   }
 
   &.app {
-    background: image_url('bg1.png') #444;
+    background: image_url('bg.png') #444;
     position: fixed;
     top: 0;
     width: 100%;
@@ -759,12 +759,11 @@ footer {
       float: right;
     }
     #gn-logo a {
-      color: #292929;
-      color: rgba(0, 0, 0, 0.66);
-      font-size: 25px;
+      color: #aadbff;
+      font-size: 24px;
       font-weight: bold;
       margin: 14px 20px 0 0;
-      @include text-shadow(rgba(255, 255, 255, 0.2) 0 1px 1px);
+      @include text-shadow(rgba(0, 0, 0, 0.2) 0 1px 1px);
       span {
         color: #fff;
         font-size: 24px;
