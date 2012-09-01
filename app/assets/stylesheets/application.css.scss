@@ -747,6 +747,7 @@ footer {
 
 
 #global-header {
+  height: 58px;
   margin-bottom: 0px;
   position: relative;
   .wrapper {
@@ -786,7 +787,7 @@ footer {
       @include text-shadow(rgba(0, 0, 0, 0.2) 0 1px 0);
       &:hover, &:focus, &.active {
         background: rgba(0, 0, 0, 0.12);
-        color: #fff
+        color: #fff;
       }
       &.contrast {
         background: $orange - #060606;
@@ -798,8 +799,42 @@ footer {
         @include text-shadow(rgba(0, 0, 0, 0.2) 0 1px 0);
       }
     }
-    #gn-profile img {
-      margin: -2px 3px 0 0;
+    #gn-profile {
+      background: none;
+      position: relative;
+      ul {
+        background: image_url('bg1.png');
+        display: none;
+        left: 0;
+        margin-left: 0;
+        position: absolute;
+        top: 58px;
+        width: 100%;
+        li {
+          float: none;
+        }
+        a {
+          background: rgba(0, 0, 0, 0.12);
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          display: block;
+          padding: 10px 15px;
+          &:hover, &:focus {
+            background: rgba(0, 0, 0, 0.05);
+          }
+        }
+      }
+      img {
+        margin: -2px 3px 0 0;
+      }
+      &:hover, &:focus {
+        background: rgba(0, 0, 0, 0.12);
+        > a {
+          background: none;
+        }
+        ul {
+          display: block
+        }
+      }
     }
   }
 
@@ -1258,10 +1293,12 @@ footer {
 
 #page-header {
   border-bottom: 1px solid #eee;
+  padding: 0 9px;
 
   h1 {
+    color: $blue - #111;
     line-height: 1.8;
-    margin-bottom: 7px;
+    margin-bottom: 4px;
   }
 }
 
