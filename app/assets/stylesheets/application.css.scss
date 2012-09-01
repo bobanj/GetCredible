@@ -750,11 +750,11 @@ footer {
 
   &.app {
     background: image_url('bg1.png') #444;
-    margin-bottom: 20px;
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 20;
+    @include box-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
     #global-nav li.right {
       float: right;
     }
