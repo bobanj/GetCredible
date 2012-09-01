@@ -9,6 +9,9 @@ module ActivitiesHelper
                  when 'Vote' then 'vouch'
                  when 'UserTag' then 'tag'
                  when 'Endorsement' then 'endorsement'
+                 when 'Link' then 'share'
+                 else
+                   raise "Not Implemented"
                end
     classes << 'you' if outgoing_activity?(activity_item)
     classes.join(' ')
