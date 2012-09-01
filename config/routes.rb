@@ -46,7 +46,7 @@ GetCredible::Application.routes.draw do
     resources :links, only: [:create, :index, :destroy]
     resources :endorsements
     resources :friendships
-    resources :user_tags, only: [:index, :create, :destroy], path: :tags do
+    resources :user_tags, only: [:index, :show, :create, :destroy], path: :tags do
       member do
         post :vote
         post :unvote

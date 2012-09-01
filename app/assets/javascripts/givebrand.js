@@ -320,6 +320,8 @@ $.giveBrand.updateQtipContentData = function (word){
   var rank = word.data('rank') ? '#' + word.data('rank') : 'N/A';
   var vouchUnvouch = word.hasClass('vouch') ? 'Remove' : 'Vouch';
   var vouchUnvouchClass = word.hasClass('vouch') ? 'btn primary red tiny' : 'btn primary green tiny';
+  var searchLink = '<a href="/search?q=' + word.text() + '">' + word.text() + '</a>';
+  var userTagLink = word.data('voters_count') > 5 ? '<a class="see_all" href="' + window.location.href + '/tags/' + word.text() + '">See All</a>' : '';
   var qtipContent = '<div class="tag-wrap">' +
       '<div class="tag-score">' +
       '<p class="tag-title">score</p>' +
@@ -329,8 +331,8 @@ $.giveBrand.updateQtipContentData = function (word){
       '<div class="tag-votes">' +
       '<p>' + word.data('voters_count') +
       (word.data('voters_count') == 1 ? ' person' : ' people') +
-      '  vouched for ' + word.text() + '</p>' +
-      '<p>' + word.data('voters') + '</p>' +
+      '  vouched for ' + searchLink + '</p>' +
+      '<p>' + word.data('voters') + userTagLink + '</p>' +
       '</div>';
   if ($.giveBrand.tagCloud.data('can-vote')){
     //qtipContent = qtipContent + '<div class="tag-action"><a href="#" class="tag-vote button ' + vouchUnvouchClass + '">' + vouchUnvouch + '</a><a href="#" class="js-tag-endorse button btn primary white tiny">Endorse</a></div>'

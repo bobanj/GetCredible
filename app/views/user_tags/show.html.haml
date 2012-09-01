@@ -1,0 +1,18 @@
+- title("People who vouched #{@user.name} '#{@tag.name}' on Givebrand #{pagination_title(@users)}")
+
+#content
+  = render 'shared/profile'
+
+  %section.content
+    %header#page-header
+      %h1= "People who vouched '#{@tag.name}'"
+
+    .feed
+      %ul.list-view.unstyled#js_collection_list
+        = render 'users/searched_users'
+
+      = will_paginate @users
+
+%aside
+  = render 'shared/friend_nav', user: @user
+  = render 'shared/sidebar_activity', :user => @user

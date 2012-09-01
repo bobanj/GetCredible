@@ -3,12 +3,13 @@ require 'spec_helper'
 describe UserTagsController do
   let(:user) { FactoryGirl.create(:user, full_name: 'User', username: 'user') }
   let(:other_user) { FactoryGirl.create(:user, full_name: "Other User", username: 'other_user') }
+  let(:tag) { FactoryGirl.create(:tag, name: 'ruby') }
+  let(:user_tag) { FactoryGirl.create(:user_tag, tag: tag, user: user, tagger: other_user) }
 
   describe "Authentication" do
-
     [:create, :vote, :unvote].each do |action|
       it "#{action} action should require current user" do
-        get action, user_id: user.id, :id => 1
+        get action, user_id: user.id, id: 1
         controller.should_not_receive(action)
       end
     end
@@ -19,8 +20,16 @@ describe UserTagsController do
       User.stub(:find_by_username!).with(user.username).and_return(user)
       controller.stub(:tags_summary).with(user, nil).and_return([])
 
-      get :index, format: 'json', :user_id => user.username
+      get :index, format: 'json', user_id: user.username
       JSON.parse(response.body).should be_empty
+    end
+  end
+
+  describe "#show" do
+    it "renders show action" do
+      other_user.add_vote(user_tag)
+      get :show, id: 'ruby', user_id: user.username
+      response.should render_template('show')
     end
   end
 
@@ -85,15 +94,15 @@ describe UserTagsController do
     end
 
     it "can vote for a user tag and receive an email if first vote" do
-      user_tag   = FactoryGirl.build(:user_tag, :user => other_user,
-                                 :tag => FactoryGirl.create(:tag, name: 'developer'))
+      user_tag   = FactoryGirl.build(:user_tag, user: other_user,
+                                 tag: FactoryGirl.create(:tag, name: 'developer'))
       User.stub(:find_by_username!).with(other_user.username).and_return(other_user)
       controller.should_receive(:tag_summary).and_return({})
       other_user.stub_chain(:user_tags, :find).with("1").and_return(user_tag)
 
       user.should_receive(:add_vote).with(user_tag).and_return(true)
 
-      post :vote, :user_id => other_user.username, :id => "1"
+      post :vote, user_id: other_user.username, id: "1"
       JSON.parse(response.body)['status'].should == 'ok'
 
       unread_emails_for(other_user.email).size.should == parse_email_count(1)
@@ -103,32 +112,32 @@ describe UserTagsController do
 
     it "can vote for a user tag and receive an email if not first vote" do
       tag = FactoryGirl.create(:tag, name: 'designer')
-      existing_user_tag = FactoryGirl.create(:user_tag, :user => other_user,
-                                             :tag => tag, tagger: other_user)
+      existing_user_tag = FactoryGirl.create(:user_tag, user: other_user,
+                                             tag: tag, tagger: other_user)
       user.add_vote(existing_user_tag)
 
-      user_tag   = FactoryGirl.build(:user_tag, :user => other_user,
-                                 :tag => FactoryGirl.create(:tag, name: 'developer'))
+      user_tag   = FactoryGirl.build(:user_tag, user: other_user,
+                                 tag: FactoryGirl.create(:tag, name: 'developer'))
       User.stub(:find_by_username!).with(other_user.username).and_return(other_user)
       controller.should_receive(:tag_summary).and_return({})
       other_user.stub_chain(:user_tags, :find).with("1").and_return(user_tag)
 
       user.should_receive(:add_vote).with(user_tag).and_return(true)
 
-      post :vote, :user_id => other_user.username, :id => "1"
+      post :vote, user_id: other_user.username, id: "1"
       JSON.parse(response.body)['status'].should == 'ok'
 
       unread_emails_for(other_user.email).size.should == parse_email_count(0)
     end
 
     it "cannot vote for himself" do
-      user_tag = FactoryGirl.build(:user_tag, :user => user)
+      user_tag = FactoryGirl.build(:user_tag, user: user)
       User.stub(:find_by_username!).with(other_user.username).and_return(other_user)
       other_user.stub_chain(:user_tags, :find).with("1").and_return(user_tag)
 
       user.should_receive(:add_vote).with(user_tag).and_return(false)
 
-      post :vote, :user_id => other_user.username, :id => "1"
+      post :vote, user_id: other_user.username, id: "1"
       JSON.parse(response.body)['status'].should == 'error'
 
       unread_emails_for(user.email).size.should == parse_email_count(0)
@@ -150,7 +159,7 @@ describe UserTagsController do
       other_user.stub_chain(:user_tags, :find).with("1").and_return(user_tag)
       user.should_receive(:remove_vote).and_return(true)
 
-      post :unvote, :user_id => other_user.username, :id => "1"
+      post :unvote, user_id: other_user.username, id: "1"
       JSON.parse(response.body)['status'].should == 'ok'
     end
 
@@ -161,7 +170,7 @@ describe UserTagsController do
       other_user.stub_chain(:user_tags, :find).with("1").and_return(user_tag)
       user.should_receive(:remove_vote).and_return(false)
 
-      post :unvote, :user_id => other_user.username, :id => "1"
+      post :unvote, user_id: other_user.username, id: "1"
       JSON.parse(response.body)['status'].should == 'error'
     end
   end

@@ -3,17 +3,12 @@
     = link_to 'Edit', edit_user_registration_path, :class => 'edit-button'
   .details
     .left
-      - if user_signed_in? && @user == current_user
-        .photo
-          = link_to image_tag(@user.avatar_url(:thumb)), edit_user_registration_path, :id => "user_avatar_main"
-          - if show_guide?(current_user, params[:show_guide])
-            = link_to image_tag("indicator.png"), nil, id: 'show_guide'
-        = link_to edit_user_registration_path, :class => 'no_underline' do
-          %h1.fn= @user.name
-      - else
-        .photo= link_to image_tag(@user.avatar_url(:thumb)), user_path(@user), :id => "user_avatar_main"
-        = link_to user_path(@user), :class => 'no_underline' do
-          %h1.fn= @user.name
+      .photo
+        = link_to image_tag(@user.avatar_url(:thumb)), user_path(@user), :id => "user_avatar_main"
+        - if user_signed_in? && @user == current_user && show_guide?(current_user, params[:show_guide])
+          = link_to image_tag("indicator.png"), nil, id: 'show_guide'
+      = link_to user_path(@user), :class => 'no_underline' do
+        %h1.fn= @user.name
       %h2.title= auto_link(@user.short_bio, :html => {:target => '_blank'}, :link => :urls)
     %ul.right
       - if @user.location.present?

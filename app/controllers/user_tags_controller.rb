@@ -1,11 +1,20 @@
 class UserTagsController < ApplicationController
   include UserTagsHelper
 
-  before_filter :authenticate_user!, :except => [:index]
+  before_filter :authenticate_user!, :except => [:index, :show]
   before_filter :load_user
 
   def index
     render json: tags_summary(@user, current_user)
+  end
+
+  def show
+    @tag = Tag.find_by_name!(params[:id])
+    user_tag = @user.user_tags.find_by_tag_id!(@tag.id)
+    @users = user_tag.voters.includes(user_tags: :tag).
+      paginate(:per_page => 10, :page => params[:page])
+
+    render layout: (request.xhr? ? false : true)
   end
 
   def create
