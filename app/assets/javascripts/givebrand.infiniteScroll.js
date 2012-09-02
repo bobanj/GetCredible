@@ -1,5 +1,6 @@
 $.giveBrand.infiniteScroll = function () {
   if ($('#js_collection_list').length && $('.pagination').length > 0) {
+    $('#js_footer').hide();
     $(window).scroll(function () {
       $('.pagination').hide();
       var url = $('.pagination .next_page').attr('href');

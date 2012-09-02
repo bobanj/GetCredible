@@ -5,8 +5,10 @@
   #content
     %section.content
       .feed
-        %ul.list-view.unstyled
+        %ul.list-view.unstyled#js_collection_list
           = render 'activities/activities'
+
+      = will_paginate @activity_items
 
 %aside
   = render 'shared/sign'
