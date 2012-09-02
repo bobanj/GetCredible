@@ -1,0 +1,21 @@
+- unless user_signed_in?
+  %section.sign
+    = simple_form_for(:user, :url => user_session_path, :namespace => 'sign_in', :html => {:id => 'user_sign_in'}) do |f|
+      %ul
+        %li
+          = f.input :email, :required => false, :autofocus => true, :input_html => { :value => nil }, :placeholder => "Email or Username", :label => "Email or Username", :label_html => {:class => 'hidden'}, :input_html => {:tabindex => 1}
+        %li
+          = f.input :password, :required => false, :placeholder => "Password", :input_html => { :value => nil }, :label_html => {:class => 'hidden'}, :input_html => {:tabindex => 2}
+        %li
+          = f.input :remember_me, :as => :boolean, :input_html => {:tabindex => 3}
+          = link_to "Forgot password?", new_user_password_path
+        %li
+          = f.button :submit, "Sign in", class: 'btn small primary gray', id: 'landing_sign_in'
+
+    = simple_form_for(User.new, :as => :user, :url => registration_path(:user), :html => {:id => 'user_sign_up'} ) do |f|
+      %h2 New to GiveBrand? Sign up
+      %ul
+        %li= f.input :username, :required => false, :placeholder => "Username", :label_html => {:class => 'hidden'}
+        %li= f.input :email, :placeholder => "Email", :label_html => {:class => 'hidden'}
+        %li= f.input :password, :placeholder => "Password", :label_html => {:class => 'hidden'}
+        %li.buttons= f.button :submit, "Sign up now for free", class: 'btn large primary'

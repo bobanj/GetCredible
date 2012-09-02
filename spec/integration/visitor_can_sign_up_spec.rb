@@ -6,7 +6,7 @@ describe 'Visitor', type: :request do
     email = 'user@example.com'
 
     visit(root_path)
-    within(".easy-signup") do
+    within("#user_sign_up") do
       fill_in("Username", with: "pink_panter")
       fill_in("Email", with: email)
       fill_in("Password", with: "password")

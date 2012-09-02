@@ -596,5 +596,39 @@ ul.inputs {
   font-style: italic;
 }
 
+.sign {
+  padding-top: 50px;
 
+  h2 {
+    margin-left: 25px;
+    margin-bottom: 3px;
+    color: #404040;
+  }
+
+  ul {
+    list-style: none;
+
+    li {
+      clear: both;
+    }
+
+    input[type=text], input[type=email], input[type=password], input[type=submit] {
+      margin: 5px 0;
+    }
+
+    .input.boolean {
+      float: left;
+      margin-right: 15px;
+      font-size: 12px;
+
+      label {
+        padding-top: 4px;
+      }
+    }
+
+    a {
+      font-size: 12px;
+    }
+  }
+}
 

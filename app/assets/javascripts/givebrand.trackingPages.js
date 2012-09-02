@@ -7,10 +7,7 @@ $.giveBrand.trackingPages = function(){
       $("#user_sign_in").submit(function(){
         mixpanel.track("Activity Page");
       });
-      $("#landing_sign_up_top").submit(function(){
-        mixpanel.track("Landing page");
-      });
-      $("#landing_sign_up_bottom").submit(function(){
+      $("#user_sign_up").submit(function(){
         mixpanel.track("Landing page");
       });
     break;
