@@ -28,7 +28,7 @@
               = image_tag current_user.avatar_url(:thumb), :width => "15"
               = current_user.name
             %ul
-              %li= link_to "Profile", user_path(current_user)
+              %li= link_to "Edit Profile", edit_user_registration_path
               %li= link_to "Logout", destroy_user_session_path
 
 
