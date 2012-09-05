@@ -1,12 +1,13 @@
 = simple_form_for [current_user, link], remote: true, html: { id: 'js-share-link-form' } do |f|
-  = f.input :url
-  #js-url-details{class: link.url.present? ? nil : 'hidden'}
-    = f.input :tag_names, label: 'Tags', class: 'hidden'
+  = f.input :url, required: false, :placeholder => "Web page link", :label => "Web page link", :label_html => {:class => 'hidden'}
+  .left
+    .js_url_share_fields{class: link.url.present? ? nil : 'hidden'}
+      = f.input :tag_names, label: 'Tags', class: 'hidden'
+      = f.input :description, as: :text, input_html: { rows: 4 }
+      = f.button :submit, "Share", id: 'share_link_btn', :class => "btn large primary"
+  .right.js_url_share_fields{class: link.url.present? ? nil : 'hidden'}
     = f.input :title
-    = f.input :description, as: :text, input_html: { rows: 4 }
     = f.input :thumbnail_url, as: :hidden
     #js-thumbnail-url.thumbnail-url
       - if link.thumbnail_url.present?
         = image_tag link.thumbnail_url
-    = f.button :submit, "Share", id: 'share_link_btn', :class => "btn large primary"
-  .selector

@@ -13,14 +13,14 @@ describe 'User', type: :request do
     click_link("Activity")
 
     within("#share_link") do
-      fill_in("Url", with: "http://example.com/ruby-article.html")
+      fill_in("Web page link", with: "http://example.com/ruby-article.html")
       fill_in("Tags", with: "ruby, language")
       click_button("Share")
     end
     page.should have_content("Successfully shared")
 
     within("#share_link") do
-      fill_in("Url", with: "http://example.com/rails-article.html")
+      fill_in("Web page link", with: "http://example.com/rails-article.html")
       fill_in("Tags", with: "rails, framework")
       click_button("Share")
     end

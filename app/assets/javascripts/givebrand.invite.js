@@ -72,28 +72,6 @@ $.giveBrand.emailByInvite = function () {
 };
 
 $.giveBrand.invite = function (){
-  var invitationExistingTagNames = $('#invite_tag_names');
-  var prePopulateInvitationTags = [];
-
-  if (invitationExistingTagNames.length > 0 && invitationExistingTagNames.val() != ''){
-    invitationExistingTagNames = invitationExistingTagNames.val().split(',');
-    $.each(invitationExistingTagNames, function (index, tagName){
-      prePopulateInvitationTags.push({term:tagName});
-    });
-  }
-
-  $('#invite_tag_names').tokenInput("/tags/search", {
-    method:'POST',
-    queryParam:'term',
-    propertyToSearch:'term',
-    tokenValue:'term',
-    crossDomain:false,
-    theme:"facebook",
-    hintText:'e.g. web design, leadership (comma separated)',
-    minChars:2,
-    prePopulate:prePopulateInvitationTags
-  });
-
   $.giveBrand.inviteContact(); // in givebrand.js
   $.giveBrand.emailByInvite(); // in givebrand.js
 };

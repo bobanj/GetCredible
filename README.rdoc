@@ -1,16 +1,19 @@
 = givebrand.com
 
 == Development notes
+
 === Setup
-  * gem install bundler (get the latest version)
+  * gem install bundler
   * bundle install
 
+
 === Rake Tasks
-  * rake calculate_score  (Calculates Score in the system)
-  * rake givebrand:redis:clean (Cleans redis data for Tag and UserTag)
-  * rake givebrand:redis:purge (Cleans all redis data)
-  * rake givebrand:redis:recalculate (Recalculates the number of incoming and outgoing votes counters for user tag)
-  * rake givebrand:redis:autocomplete (Makes tags available for autocomplete)
+  * rake calculate_score              # Calculates Score in the system
+  * rake givebrand:redis:clean        # Cleans redis data for Tag and UserTag
+  * rake givebrand:redis:purge        # Cleans all redis data
+  * rake givebrand:redis:recalculate  # Recalculates the number of incoming and outgoing votes counters for user tag
+  * rake givebrand:redis:autocomplete # Makes tags available for autocomplete
+
 
 === Resque Workers
   foreman start
@@ -18,6 +21,11 @@
   or:
 
   QUEUE=import_contacts bundle exec rake environment resque:work
+
+
+=== Known issues
+  * In development environment twitter invite message is longer than 140 character and you'll get an error when trying to send invitation.
+
 
 === Env variables for heroku
   * DATABASE_URL
@@ -33,5 +41,3 @@
   * TWITTER_CONSUMER_SECRET
   * TWITTER_CONSUMER_SECRET
   * MIXPANEL_TOKEN
-
-

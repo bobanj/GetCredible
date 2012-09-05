@@ -54,7 +54,7 @@ $.giveBrand.shareUrlInit = function(){
     }
 
     $.embedly(url, { key: EMBEDLY_KEY }, function (oembed, dict) {
-      $('#js-url-details').removeClass('hidden');
+      $('.js_url_share_fields').removeClass('hidden');
       $('#link_url').val(oembed.url);
       $('#link_title').val(oembed.title);
       $('#link_description').val(oembed.description);
@@ -67,7 +67,7 @@ $.giveBrand.shareUrlInit = function(){
 };
 
 $.giveBrand.resetShareForm = function(){
-  $('#js-url-details').addClass('hidden');
+  $('.js_url_share_fields').addClass('hidden');
   $('#link_url').val('');
   $('#link_title').val('');
   $('#link_description').val('');

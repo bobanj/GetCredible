@@ -6,7 +6,7 @@ ul.noty_container {
 }
 .noty_bar {
   background: none;
-  
+
 }
 .noty_bar .noty_message {
   padding: 5px 0px;
@@ -70,7 +70,6 @@ li.token-input-token-facebook {
 
 .token-input-dropdown-facebook {
   z-index: 99999;
-  width: 373px !important;
   p {
     font-size: 11px;
     font-weight: normal;
@@ -78,7 +77,7 @@ li.token-input-token-facebook {
   }
 }
 #simplemodal-container .simplemodal-data {
-  
+
   .note {
     background: $blue;
     color: #fff;
