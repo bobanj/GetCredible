@@ -746,7 +746,7 @@ footer {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 20;
+    z-index: 20000;
     @include box-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
     #global-nav li.right {
       float: right;
