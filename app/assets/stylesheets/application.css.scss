@@ -146,11 +146,6 @@ input, textarea {
     padding-right: 40px;
   }
 
-  &.friendship {
-    font-size: 14px;
-    margin-bottom: 5px;
-    padding: 8px;
-  }
   &.blue {
     border: 1px solid #c6c6c6;
     color: $white;
@@ -161,12 +156,16 @@ input, textarea {
       @include background-image(linear-gradient($blue - #222, $blue - #111));
     }
   }
+  &.friendship {
+    font-size: 11px;
+    margin-bottom: 5px;
+    padding: 5px 8px;
+    width: 76px;
+    color: $white;
+  }
   &.follow {
     background: $blue;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    color: #fff;
-    font-size: 11px;
-    padding: 5px 13px;
     @include background-image(linear-gradient($blue + #111, $blue));
     &:hover, &:focus {
       background: $blue - #111;
@@ -177,7 +176,6 @@ input, textarea {
   &.unfollow {
     background: $redLight;
     border: 1px solid $redLight - #111;
-    color: $white;
     @include background-image(linear-gradient($redLight, $redLight - #111));
     &:hover, &:focus {
       background: $redLight - #111;
@@ -188,7 +186,6 @@ input, textarea {
   &.following {
     background: $blueLight;
     border: 1px solid #c6c6c6;
-    color: $white;
     @include background-image(linear-gradient($blueLight, $blueLight - #111));
     &:hover, &:focus {
       background: $blueLight - #111;
@@ -196,7 +193,6 @@ input, textarea {
       @include background-image(linear-gradient($blueLight - #222, $blueLight - #111));
     }
   }
-
 }
 
 .twitter-import {
