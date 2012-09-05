@@ -9,7 +9,7 @@ describe 'User', type: :request do
     within "#profile" do
       click_link("Edit")
     end
-    click_link("Cancel my account")
+    click_link("Delete my account")
     page.should have_content("Bye! Your account was successfully cancelled. We hope to see you again soon.")
   end
 end
