@@ -1,0 +1,8 @@
+.photo
+  = link_to user_path(activity_item.user) do
+    - if activity_item.user_id == activity_item.target_id
+      = image_tag activity_item.user.avatar.url(:medium), class: 'self-tag'
+    - else
+      = image_tag activity_item.user.avatar.url(:small)
+      = image_tag activity_item.target.avatar.url(:tiny), :class => 'over'
+-#.icon

@@ -1,0 +1,31 @@
+%li{:class => "share #{activity_item_class(activity_item)}"}
+  .content
+    .tag-icon
+    = render 'activities/elements/photo', activity_item: activity_item
+    %h2
+      = subject_link(activity_item.user)
+      shared a
+      = link_to 'link', activity_item.item.url, target: '_blank'
+
+    .link_details
+      .title= link_to(activity_item.item.title.presence || activity_item.item.url, activity_item.item.url)
+      .url= base_url(activity_item.item.url)
+      %p
+        - if activity_item.item.thumbnail_url.present?
+          = image_tag activity_item.item.thumbnail_url
+        = activity_item.item.description
+    //%br
+    //%p.feed-score
+    //  Score:
+    //  %span 3,
+    //  Position:
+    //  %span #4
+    //  out of
+    //  %span 102
+    -# %ul.feed-users.horizontal
+    -#   %li Other users:
+    -#   %li= link_to image_tag activity_item.user.avatar.url(:small)
+    -#   %li= link_to image_tag activity_item.user.avatar.url(:small)
+    -#   %li= link_to image_tag activity_item.user.avatar.url(:small)
+
+    %time= activity_item.created_at.strftime("%d. %b %Y")

@@ -4,17 +4,7 @@ module ActivitiesHelper
   end
 
   def activity_item_class(activity_item)
-    classes = []
-    classes << case activity_item.item_type
-                 when 'Vote' then 'vouch'
-                 when 'UserTag' then 'tag'
-                 when 'Endorsement' then 'endorsement'
-                 when 'Link' then 'share'
-                 else
-                   raise "Not Implemented"
-               end
-    classes << 'you' if outgoing_activity?(activity_item)
-    classes.join(' ')
+    outgoing_activity?(activity_item) ? 'you' : nil
   end
 
   def activity_description(activity_item)

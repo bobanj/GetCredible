@@ -461,7 +461,7 @@ input, textarea {
   h2 {
     color: $grayDark;
     font-size: 13px;
-    line-height: 16px;
+    line-height: 18px;
     margin-top: 9px;
     min-width: 100px;
     padding-right: 10px;
@@ -528,9 +528,30 @@ input, textarea {
   }
 }
 
-.share .tag-icon {
-  background: image_url('icon-article.png') no-repeat center;
+.share {
+  .tag-icon {
+    background: image_url('icon-article.png') no-repeat center;
+  }
+  img {
+    max-width: 100px;
+    margin: 0 10px 10px 0;
+    float: left;
+    clear: left;
+  }
+  .title {
+    font-size: 14px;
+    margin-top: 6px;
+  }
+  .url {
+    margin-top: -5px;
+    color: #999;
+  }
+  p {
+    line-height: 22px;
+  }
 }
+
+
 .list-view {
   .share:hover, .share:focus {
     .tag-icon {
@@ -605,6 +626,11 @@ body {
   @include alpha;
   @include omega;
   width: 690px;
+}
+#home_index {
+  #content {
+    width: 680px;
+  }
 }
 
 #global-search, aside {

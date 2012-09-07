@@ -1,3 +1,5 @@
+require 'uri'
+
 module ApplicationHelper
 
   def title(page_title)
@@ -48,6 +50,11 @@ module ApplicationHelper
     else
       "(#{params[:page]}/#{@users.total_pages})"
     end
+  end
+
+  def base_url(address)
+    uri = URI.parse(address)
+    "#{uri.scheme}://#{uri.host}"
   end
 
 end

@@ -13,7 +13,7 @@
           = f.button :submit, "Sign in", class: 'btn small primary gray', id: 'landing_sign_in'
 
     = simple_form_for(User.new, :as => :user, :url => registration_path(:user), :html => {:id => 'user_sign_up'} ) do |f|
-      %h2 New to GiveBrand? Sign up
+      %h2 New to GiveBrand? <span>Sign up</span>
       %ul
         %li= f.input :username, :required => false, :placeholder => "Username", :label_html => {:class => 'hidden'}
         %li= f.input :email, :placeholder => "Email", :label_html => {:class => 'hidden'}
