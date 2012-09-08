@@ -1,0 +1,4 @@
+%ul.link_tags
+  - tags.each do |tag|
+    %li
+      = link_to tag.name, search_path(q: tag.name)

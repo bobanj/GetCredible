@@ -1,0 +1,68 @@
+ul.list-view > li
+  position: relative
+  .link_details
+    .btn
+      display: none
+      font-size: 12px
+      padding: 3px 8px
+      position: absolute
+      right: 0
+      top: 5px
+      +border-left-radius(3px)
+      +border-right-radius(0)
+
+  &:hover
+    .btn
+      display: inline
+
+.link_details
+  margin: 5px 0
+  overflow: hidden
+  padding: 0
+
+  .title
+    font-size: 14px
+    line-height: 16px
+    padding-right: 50px
+
+  .url
+    color: #999
+    line-height: 18px
+    margin-bottom: 8px
+    padding-right: 50px
+
+  p
+    line-height: 18px
+
+    img
+      max-width: 100px
+      padding: 5px 15px 10px 0
+      float: left
+      clear: left
+      +box-shadow(none !important)
+
+ul.link_tags
+  clear: both
+  +horizontal-list(4px)
+
+  li
+    margin-bottom: 4px
+    background: #FCFDFD
+    border: 1px solid darken(#FCFDFD, 20%)
+    height: 24px
+    margin-right: 5px
+    padding: 0
+    @include border-radius(5px)
+
+    &:hover
+      background: darken(#FCFDFD, 4%)
+
+    a
+      display: block
+      font-size: 12px
+      margin-top: -1px
+      padding: 0 7px
+      text-decoration: none
+
+      &:hover
+        @include opacity(0.8)

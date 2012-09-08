@@ -1,0 +1,136 @@
+
+// jqcloud
+#tag-cloud
+  min-height: 250px
+  line-height: normal
+  overflow: hidden
+  position: relative
+  width: 680px
+  a
+    color: inherit
+    display: inline-block
+    font-size: inherit
+    text-decoration: none
+
+    &:hover
+      color: #0df
+      color: #0cf
+
+  > span
+    border: 1px solid transparent
+    cursor: pointer
+    display: inline-block
+    font-family: open-sans, sans-serif
+    padding: 0px 10px
+
+    //text-transform: uppercase
+
+    &.w5
+      font-family: proxima-nova-sc-osf, gnuolane, sans-serif
+      font-style: normal
+      font-weight: 800
+      //font-size: 64px
+      font-size: 50px
+      color: #5688A3
+      //font: 42px gnuolane, impact, sans-serif
+      //color: #333
+
+    &.w4
+      font-family: proxima-nova, gnuolane, sans-serif
+      font-style: normal
+      font-weight: 800
+      //font-size: 50px
+      font-size: 42px
+      color: #95B053
+      //font: 36px gnuolane, impact, sans-serif
+      //color: #555
+
+    &.w3
+      font-family: proxima-nova, gnuolane, sans-serif
+      font-style: normal
+      font-weight: 900
+      font-size: 34px
+      color: #b88439
+      //font: 34px futura-pt, sans-serif
+      //color: $blue - #090909
+
+    &.w2
+      font-family: proxima-nova, gnuolane, sans-serif
+      font-style: normal
+      font-weight: 400
+      font-size: 30px
+      color: #4AA9C7
+      //font: 24px open-sans, sans-serif
+      //color: $blue + #191919
+
+    &.w1
+      font-family: proxima-nova, gnuolane, sans-serif
+      font-style: normal
+      font-weight: 400
+      font-size: 19px
+      color: #465D6D
+      //font: 18px open-sans, sans-serif
+      //color: $blue + #444
+
+
+
+  .icon
+    display: inline-block
+    margin-left: 8px
+
+
+  .vouch
+    &:hover .icon
+      background-position: 0 -16px
+
+
+
+  .unvouch
+    &:hover .icon
+      background-position: 0 0
+
+
+
+  .tag .icon
+    background-position: 0 -48px
+
+
+  .remove .icon
+    background-position: 0 -128px
+
+
+  .skill
+    white-space: nowrap
+    //font-family: 'franklin-gothic-urw-cond'
+    &:hover, &:focus
+      background: #eee
+      border: 1px solid rgba(0, 0, 0, 0.1)
+      color: #111
+      position: relative
+      z-index: 99999999
+      @include border-radius(3px)
+      @include box-shadow(rgba(0, 0, 0, 0.1) 0 0 3px inset)
+
+
+
+
+#tag-msg
+  color: #888
+  font: 12px "open-sans", sans-serif
+  padding: 18px
+  text-align: center
+  line-height: 18px
+
+  .icon
+    background-position: 0 -112px
+    height: 12px
+    width: 16px
+    margin-right: 5px
+    margin-left: 10px
+
+
+
+.tag-actions
+  bottom: 3px
+  position: absolute
+

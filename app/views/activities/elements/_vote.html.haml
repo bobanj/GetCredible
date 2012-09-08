@@ -2,20 +2,9 @@
   .content
     .tag-icon
     = render 'activities/elements/photo', activity_item: activity_item
-    %h2
-      = activity_description(activity_item)
-    //%br
-    //%p.feed-score
-    //  Score:
-    //  %span 3,
-    //  Position:
-    //  %span #4
-    //  out of
-    //  %span 102
-    -# %ul.feed-users.horizontal
-    -#   %li Other users:
-    -#   %li= link_to image_tag activity_item.user.avatar.url(:small)
-    -#   %li= link_to image_tag activity_item.user.avatar.url(:small)
-    -#   %li= link_to image_tag activity_item.user.avatar.url(:small)
+    %h2= activity_description(activity_item)
+
+    .activity_details
+      = render 'shared/tags', tags: activity_item.tags
 
     %time= activity_item.created_at.strftime("%d. %b %Y")

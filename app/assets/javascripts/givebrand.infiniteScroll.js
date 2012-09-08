@@ -9,6 +9,29 @@ $.giveBrand.infiniteScroll = function () {
         $.getScript(url);
       }
     });
+
     $(window).scroll();
   }
 };
+
+$.giveBrand.scrollToTop = function () {
+  var scrollBtn = $("#scroll_to_top");
+  scrollBtn.hide();
+
+  $(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 300) {
+        scrollBtn.fadeIn();
+      } else {
+        scrollBtn.fadeOut();
+      }
+    });
+
+    scrollBtn.click(function () {
+      $('body,html').animate({
+        scrollTop: 0
+      }, 800);
+      return false;
+    });
+  });
+}

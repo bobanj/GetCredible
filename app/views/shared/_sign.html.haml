@@ -8,6 +8,7 @@
           = f.input :password, :required => false, :placeholder => "Password", :input_html => { :value => nil }, :label_html => {:class => 'hidden'}, :input_html => {:tabindex => 2}
         %li
           = f.input :remember_me, :as => :boolean, :input_html => {:tabindex => 3}
+          %span.middle_dot &#183;
           = link_to "Forgot password?", new_user_password_path
         %li
           = f.button :submit, "Sign in", class: 'btn small primary gray', id: 'landing_sign_in'

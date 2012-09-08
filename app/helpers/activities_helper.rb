@@ -22,48 +22,44 @@ module ActivitiesHelper
   def incoming_activity_description(activity_item)
     user = activity_item.user
     target = activity_item.target
-    tag = activity_item.tags.map{ |t| tag_link(t.name) }.join(', ')
     subject_link = subject_link(user)
     object_link = object_link(target)
 
     case activity_item.item_type
     when 'Vote'
-      "Check YOU out! #{subject_link} vouched for your tag: #{tag}"
+      "Check YOU out! #{subject_link} vouched for you"
     when 'UserTag'
       if user == activity_item.target
-        "Sweet! You tagged yourself: #{tag}"
+        "Sweet! You tagged yourself"
       else
-        "Sweet! #{subject_link} tagged #{object_link}: #{tag}"
+        "Sweet! #{subject_link} tagged #{object_link}"
       end
     when 'Endorsement'
       "Cool! #{subject_link} endorsed #{object_link}"
     when 'Link'
-      link_title = activity_item.item.title.presence || activity_item.item.url
-      "#{subject_link} shared a link #{link_to(link_title, activity_item.item.url, target: '_blank')} tags: #{tag}"
+      "#{subject_link} shared a #{link_to('link', activity_item.item.url, target: '_blank')}"
     end.html_safe
   end
 
   def outgoing_activity_description(activity_item)
     user = activity_item.user
     target = activity_item.target
-    tag = activity_item.tags.map{ |t| tag_link(t.name) }.join(', ')
     subject_link = subject_link(user)
     object_link = object_link(target)
 
     case activity_item.item_type
     when 'Vote'
-      "#{subject_link} vouched for #{object_link}'s tag: #{tag}"
+      "#{subject_link} vouched for #{object_link}'s"
     when 'UserTag'
       if user == activity_item.target
-        "#{user_link(user)} tagged themself: #{tag}"
+        "#{user_link(user)} tagged themself"
       else
-        "#{subject_link} tagged #{object_link}: #{tag}"
+        "#{subject_link} tagged #{object_link}"
       end
     when 'Endorsement'
       "#{subject_link} wrote an endorsement for #{object_link}"
     when 'Link'
-      link_title = activity_item.item.title.presence || activity_item.item.url
-      "#{subject_link} shared a link #{link_to(link_title, activity_item.item.url)} tags: #{tag}"
+      "#{subject_link} shared a #{link_to('link', activity_item.item.url, target: '_blank')}"
     end.html_safe
   end
 

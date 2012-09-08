@@ -49,6 +49,7 @@ $(function (){
   $.giveBrand.landingPageVideo();
   $.giveBrand.trackingPages();
   $.giveBrand.infiniteScroll();
+  $.giveBrand.scrollToTop();
   $.giveBrand.shareUrl();
   $.giveBrand.ajaxPagination();
 });

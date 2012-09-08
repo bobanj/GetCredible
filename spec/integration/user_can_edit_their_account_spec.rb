@@ -6,9 +6,7 @@ describe 'User', type: :request do
     user = FactoryGirl.create(:user, full_name: "Pink Panther")
     sign_in_user(user)
     click_link('Pink Panther')
-    within "#profile" do
-      click_link("Edit")
-    end
+    click_link('Edit Profile')
     fill_in("Full name", with: "Green Panther")
     click_button("Save")
     page.should have_content("You have updated your profile successfully.")

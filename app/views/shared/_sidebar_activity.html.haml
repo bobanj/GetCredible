@@ -12,6 +12,6 @@
       - activities.each do |activity_item|
         %li{:class => activity_item_class(activity_item)}
           .tag-icon
-          = activity_description(activity_item)
+          = raw "#{activity_description(activity_item)}: #{activity_item.tags.map{ |t| tag_link(t.name) }.join(', ')}"
     - else
       %li No recent activity
