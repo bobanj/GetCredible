@@ -193,7 +193,7 @@ class User < ActiveRecord::Base
       where(["(item_type != 'Link' AND user_id IN (:user_ids)) OR
               (item_type = 'Link' AND user_id = :user_id) OR
               (item_type = 'Link' AND user_id IN (:user_ids) AND tags.id IN (:tags))",
-              {user_id: id, user_ids: users_ids, tags: tags.map(&:id)}])
+              {user_id: id, user_ids: users_ids, tags: tags.map(&:id)}]).uniq
 
     # only activities for tags that user have
     # ActivityItem.active.ordered.joins(:tags).
