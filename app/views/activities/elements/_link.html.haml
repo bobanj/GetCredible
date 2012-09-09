@@ -5,6 +5,6 @@
     %h2= activity_description(activity_item)
 
     .activity_details
-      = render 'links/link', link: activity_item.item
+      = render 'links/link', link: activity_item.item, tags: activity_item.tags
 
     %time= activity_item.created_at.strftime("%d. %b %Y")
