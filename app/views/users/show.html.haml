@@ -15,10 +15,6 @@
   - if @user.avatar
     %meta{:content => url_for(@user.avatar_url(:thumb)), :itemprop => "image"}/
 
-- unless Rails.env.test? # stop warnings when running specs
-  - content_for :javascripts do
-    = render 'shared/social_networks_scripts'
-
 #login_dialog{style: "display: none", title: ""}
   %p.note Almost there! Sign up to join GiveBrand or login to your account.
   = render 'shared/sign_in'
@@ -31,23 +27,6 @@
   = render 'shared/profile'
   = render 'shared/tag_cloud', can_delete: false
   = render 'endorsements/endorsements'
-
-  %ul.social_fixed
-    %li
-      - if user_signed_in? && current_user == @user
-        - twitter_msg = "I'm building my brand on @GiveBrand. Help me boost my credibility... create your own profile and tag me!"
-      - else
-        - twitter_msg = "Help me boost #{twitter_name(@user)} credibility... create your own profile and tag back!"
-      %a.twitter-share-button{'data-count' => "vertical", "data-related" => "givebrand", "data-text" => twitter_msg, "data-url" => user_path(@user), :href => "https://twitter.com/share"} Tweet
-    %li
-      .fb-like{"data-href" => user_path(@user), "data-layout" => "box_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "56"}
-    %li
-      %script{"data-counter" => "top", "data-url" => user_path(@user), :type => "IN/Share"}
-    %li
-      %g:plusone{:href => user_path(@user), :size => "tall"}
-    -# %li
-    -#   %a.pin-it-button{"count-layout" => "vertical", :href => "http://pinterest.com/pin/create/button/?url=#{u(user_path(@user))}&media=#{request.protocol}#{request.host_with_port}#{asset_path("logo.png")}&description=Description"}
-    -#     %img{:border => "0", :src => "//assets.pinterest.com/images/PinExt.png", :title => "Pin It"}/
 
 %aside
   = render 'shared/friend_nav', user: @user
