@@ -397,8 +397,11 @@ $.giveBrand.renderTagCloud = function (data, tagCloudCallback){
             position:{
               target:'event', // Use the triggering element as the positioning target
               effect:false, // Disable default 'slide' positioning animation
-              my:'bottom center',
-              at:'top center'
+              my:'bottom left',
+              at:'top right',
+              adjust: {
+                x: -5
+              }
             },
             show:{
               target:words
