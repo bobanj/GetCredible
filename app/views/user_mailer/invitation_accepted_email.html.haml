@@ -17,9 +17,9 @@
           %td
             %h1{:style => "color:#444444;margin:10px 0 5px;font-size:16px;font-weight:normal;"} You're so popular, #{@receiver.name}.
             %h2{:style => "font-size:22px;font-weight:normal;line-height:1.4;color:#444;margin:0 0 15px;"}
-              Great news! #{link_to @user.name, user_path(@user), :style => "color: #{@link_color};"} has just accepted your invitation to join GiveBrand!
+              Great news! #{link_to @user.name, user_url(@user), :style => "color: #{@link_color};"} has just accepted your invitation to join GiveBrand!
               %br
-              Why don't you head over #{link_to @user.name, user_path(@user), :style => "color: #{@link_color};"} and help nudge them along with a tag, vouch or endorsement?
+              Why don't you head over #{link_to @user.name, user_url(@user), :style => "color: #{@link_color};"} and help nudge them along with a tag, vouch or endorsement?
 
         %tr
           %td{:colspan => "100"}

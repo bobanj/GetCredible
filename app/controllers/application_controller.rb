@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
       show_guide = current_user.sign_in_count == 1 ? true : nil
 
       if show_guide || !current_user.user_tags.exists?
-        user_path(current_user, :show_guide => show_guide)
+        user_url(current_user, :show_guide => show_guide)
       else
         activity_path('all')
       end

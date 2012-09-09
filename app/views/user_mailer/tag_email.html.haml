@@ -17,7 +17,7 @@
           %td
             %h1{:style => "color:#444444;margin:10px 0 5px;font-size:16px;font-weight:normal;"} Hey, #{@receiver.name}.
             %h2{:style => "font-size:22px;font-weight:normal;line-height:1.4;color:#444;margin:0 0 15px;"}
-              Great news: #{link_to @tagger.name, user_path(@tagger), :style => "color: #{@link_color};"} has just tagged you with #{@tag_names.map{|t| "\"#{t}\""}.join(', ')}.
+              Great news: #{link_to @tagger.name, user_url(@tagger), :style => "color: #{@link_color};"} has just tagged you with #{@tag_names.map{|t| "\"#{t}\""}.join(', ')}.
 
         %tr
           %td{:colspan => "100"}
@@ -27,7 +27,7 @@
             %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
               Love it? Rock on!
               %br
-              Not so much? Head to your #{link_to 'profile', user_path(@receiver), :style => "color: #{@link_color};"} and click the X to get rid of it.
+              Not so much? Head to your #{link_to 'profile', user_url(@receiver), :style => "color: #{@link_color};"} and click the X to get rid of it.
         %tr
           %td
             %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
