@@ -49,7 +49,7 @@ module ActivitiesHelper
 
     case activity_item.item_type
     when 'Vote'
-      "#{subject_link} vouched for #{object_link}'s"
+      "#{subject_link} vouched for #{object_link}"
     when 'UserTag'
       if user == activity_item.target
         "#{user_link(user)} tagged themself"
