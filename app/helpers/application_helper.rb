@@ -48,7 +48,7 @@ module ApplicationHelper
     if params[:page] == '1' || params[:page].blank?
       nil
     else
-      "(#{params[:page]}/#{@users.total_pages})"
+      "(#{params[:page]}/#{collection.total_pages})"
     end
   end
 
