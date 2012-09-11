@@ -4,7 +4,7 @@ class LinksController < ApplicationController
   def index
     @user = User.find_by_username!(params[:user_id])
     @links = @user.links.includes(:tags).ordered.
-        paginate :per_page => 3, :page => params[:page]
+        paginate :per_page => 10, :page => params[:page]
 
     render layout: (request.xhr? ? false : true)
   end
