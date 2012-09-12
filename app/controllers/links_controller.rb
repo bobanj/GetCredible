@@ -26,6 +26,6 @@ class LinksController < ApplicationController
     @link.destroy
     flash[:notice] = "Link was successfully deleted"
 
-    redirect_to user_links_path(current_user)
+    redirect_to :back
   end
 end
