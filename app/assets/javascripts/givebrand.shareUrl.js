@@ -37,14 +37,13 @@ $.giveBrand.shareUrlInit = function(){
   $('#link_url').focus();
   $('#link_url').keyup(function(){
     clearTimeout(typingTimer);
-    if ($('#link_url').val) {
+    if ($('#link_url').val()) {
       typingTimer = setTimeout(getUrlInfo, doneTypingInterval);
     }
   });
 
   function getUrlInfo () {
     var url = $.trim($('#link_url').val());
-
     if (url.length === 0) {
       return;
     }
@@ -55,7 +54,7 @@ $.giveBrand.shareUrlInit = function(){
 
     $.embedly(url, { key: EMBEDLY_KEY }, function (oembed, dict) {
       $('.js_url_share_fields').removeClass('hidden');
-      $('#link_url').val(oembed.url);
+      if(oembed.url){$('#link_url').val(oembed.url)};
       $('#link_title').val(oembed.title);
       $('#link_description').val(oembed.description);
       $('#link_thumbnail_url').val(oembed.thumbnail_url);
@@ -80,7 +79,7 @@ $.giveBrand.shareUrl = function(){
 
   $('#js_share_btn').click(function () {
 
-    $.giveBrand.resetShareForm()
+    $.giveBrand.resetShareForm();
 
     $.giveBrand.shareQtipApi.set('content.text', $('#share_link'));
     $.giveBrand.shareQtipApi.show();
