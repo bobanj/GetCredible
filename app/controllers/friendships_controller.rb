@@ -3,7 +3,7 @@ class FriendshipsController < ApplicationController
   before_filter :load_user
 
   def create
-    @friendship = current_user.follow(@user)
+    @friendship = current_user.follow(@user, true)
     render nothing: true
   end
 
