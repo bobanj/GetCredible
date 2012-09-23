@@ -13,7 +13,7 @@ class LinksController < ApplicationController
     @link = current_user.links.new(params[:link])
 
     if @link.save
-      ActivityItem.create(user: current_user, item: @link,
+      @activity_item = ActivityItem.create(user: current_user, item: @link,
                           target: current_user, tags: @link.tags)
       render :create_success
     else

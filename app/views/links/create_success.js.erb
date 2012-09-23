@@ -1,3 +1,10 @@
 $.giveBrand.displayNotification('success', 'Successfully shared');
 $('#js-share-link-form').replaceWith('<%= j render("form", link: Link.new) %>');
+var activityTab = $(".tabs .active");
+if(activityTab){
+  activityTab = $.trim(activityTab.text());
+  if(activityTab == 'All' || activityTab == 'My Activity'){
+    $('.feed .list-view li:first').before('<%= j render "activities/elements/link", activity_item: @activity_item %>')
+  }
+}
 $.giveBrand.shareQtipApi.hide();

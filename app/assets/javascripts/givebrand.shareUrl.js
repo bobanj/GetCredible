@@ -42,6 +42,8 @@ $.giveBrand.shareUrlInit = function(){
     }
   });
 
+  $.giveBrand.initTokenInput($("#link_tag_names"));
+
   function getUrlInfo () {
     var url = $.trim($('#link_url').val());
     if (url.length === 0) {
@@ -75,14 +77,12 @@ $.giveBrand.resetShareForm = function(){
 };
 
 $.giveBrand.shareUrl = function(){
-  $.giveBrand.initTokenInput($("#link_tag_names"));
-
   $('#js_share_btn').click(function () {
 
     $.giveBrand.resetShareForm();
 
     $.giveBrand.shareQtipApi.set('content.text', $('#share_link'));
     $.giveBrand.shareQtipApi.show();
-    $.giveBrand.shareUrlInit()
+    $.giveBrand.shareUrlInit();
   });
 }
