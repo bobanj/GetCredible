@@ -100,6 +100,7 @@ $.giveBrand.init = function (){
         $("#tag_names_after_login").val($("#tag_names").val());
         $.giveBrand.loginQtipApi.set('content.text', $('#login_dialog'));
         $.giveBrand.loginQtipApi.show();
+        form.removeClass('disabled');
       }
     } else {
       form.removeClass('disabled');
