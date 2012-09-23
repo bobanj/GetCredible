@@ -4,7 +4,7 @@ describe 'User', type: :request do
 
   it "can follow other users", js: true do
     follower = FactoryGirl.create(:user, full_name: "Pink Panther")
-    user = FactoryGirl.create(:user)
+    user = FactoryGirl.create(:user, email: 'naruto@example.com', full_name: "Uzumaki Naruto")
     sign_in_user(follower)
 
     visit user_path(user)
@@ -17,8 +17,13 @@ describe 'User', type: :request do
       click_button("Follow")
     end
 
+    visit user_path(user)
     page.should have_content("0 Following")
     page.should have_content("1 Followers")
+
+    open_email(user.email)
+    current_email.should have_subject("Somebody's following you on GiveBrand!")
+    current_email.body.should have_content("Don't worry! The more people who see your skills and personality, the closer you are to landing that dream gig.")
 
     # unfollow
     within("#profile") do

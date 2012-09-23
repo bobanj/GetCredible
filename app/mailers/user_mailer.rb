@@ -33,4 +33,10 @@ class UserMailer < ActionMailer::Base
     @endorser    = endorsement.endorser
     mail(to: @receiver.email, subject: "You've received an endorsement!")
   end
+
+  def new_follower_email(follower, user)
+    @receiver = user
+    @follower = follower
+    mail(to: @receiver.email, subject: "Somebody's following you on GiveBrand!")
+  end
 end

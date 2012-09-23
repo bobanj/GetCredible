@@ -3,5 +3,6 @@
   %button{class: "js-friendship-action btn primary friendship #{is_following ? 'following' : 'follow'}",
   :'data-following' => is_following.to_s,
   :'data-follow-path' => user_friendships_path(user.username),
+  :'data-unfollow-path' => user_friendship_path(user, :current),
   :'data-own-profile' => own_profile.to_s}
     %span= is_following ? 'Following' : 'Follow'

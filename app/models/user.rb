@@ -140,7 +140,10 @@ class User < ActiveRecord::Base
   end
 
   def follow(user)
-    followings << user unless following?(user)
+    unless following?(user)
+      followings << user
+      UserMailer.new_follower_email(self, user).deliver
+    end
   end
 
   def unfollow(user)
@@ -190,10 +193,15 @@ class User < ActiveRecord::Base
   def all_activities
     users_ids = (followings + [self]).map(&:id)
     ActivityItem.active.ordered.joins(:tags).
-      where(["(item_type != 'Link' AND user_id IN (:user_ids)) OR
-              (item_type = 'Link' AND user_id = :user_id) OR
-              (item_type = 'Link' AND user_id IN (:user_ids) AND tags.id IN (:tags))",
-              {user_id: id, user_ids: users_ids, tags: tags.map(&:id)}]).uniq
+      where(["(item_type != 'Link' AND user_id IN (:user_ids) AND tags.id IN (:tags)) OR
+        (item_type = 'Link' AND user_id = :user_id AND tags.id IN (:tags)) OR
+        (item_type = 'Link' AND user_id IN (:user_ids) AND tags.id IN (:tags))",
+             {user_id: id, user_ids: users_ids, tags: tags.map(&:id)}]).uniq
+
+    #where(["(item_type != 'Link' AND user_id IN (:user_ids)) OR
+    #        (item_type = 'Link' AND user_id = :user_id) OR
+    #        (item_type = 'Link' AND user_id IN (:user_ids) AND tags.id IN (:tags))",
+    #        {user_id: id, user_ids: users_ids, tags: tags.map(&:id)}]).uniq
 
     # only activities for tags that user have
     # ActivityItem.active.ordered.joins(:tags).

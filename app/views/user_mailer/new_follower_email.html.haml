@@ -1,0 +1,35 @@
+- @link_color = "#137AC2"
+
+!!!
+%html
+  %head
+    %meta{ 'content' => "text/html; charset=UTF-8", 'http-equiv' => "Content-Type" }
+
+  %body{:style => "background:url(http://givebrand.com/assets/bg2.png) #f6f6f6;font-size:12px;font-family:Helvetica,Arial,sans-serif;margin:0;padding:15px 0 0;line-height:1.4;"}
+    %table{:style => "margin: 0 auto;width:600px;"}
+      %tbody
+        = render 'user_mailer/header'
+
+    %table{:style => "background:#fff;margin: 0 auto;padding:20px;text-align:left;width:600px;"}
+      %tbody
+
+        %tr
+          %td
+            %h1{:style => "color:#444444;margin:10px 0 5px;font-size:16px;font-weight:normal;"} Hi there #{@receiver.name}.
+            %h2{:style => "font-size:16px;font-weight:normal;line-height:1.4;color:#444;margin:0 0 15px;"}
+              Not to alarm you…but #{link_to @follower.name, user_url(@follower), :style => "color: #{@link_color};"} has started following your
+              #{link_to 'GiveBrand profile', user_url(@receiver), :style => "color: #{@link_color};"}.
+              Don't worry! The more people who see your skills and personality, the closer you are to landing that dream gig.
+
+        %tr
+          %td{:colspan => "100"}
+            %hr{:style => "background:none;border:none;border-top:1px solid #eee;"}
+        %tr
+          %td
+            %p{:style => "font-size:12px;line-height:1.4;color:#444;margin:0 0 15px;"}
+              Follow #{link_to @follower.name, user_url(@follower), :style => "color: #{@link_color};"} back, or maybe even tag them while you're at it!
+        %tr
+          %td{:colspan => "100"}
+            %hr{:style => "background:none;border:none;border-top:1px solid #eee;"}
+
+    = render 'user_mailer/footer'
