@@ -5,7 +5,7 @@ $(".js-import-connections").html('<%= j render 'import_providers' %>');
     $.giveBrand.importingCheck();
   }, 4000);
 <% else %>
-  $("#js-twitter-contacts-list").html('<%=j render 'contacts' %>');
+  $("#js_collection_list").html('<%=j render 'contacts' %>');
   $("#js-search-contacts").show();
   if($("#user_avatar_main").length > 0){
     $("#user_avatar_main").html('<%= image_tag(current_user.avatar_url(:thumb)) %>');
