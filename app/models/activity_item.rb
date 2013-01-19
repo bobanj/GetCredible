@@ -10,6 +10,6 @@ class ActivityItem < ActiveRecord::Base
   validates_presence_of :item_id, :item_type, :user_id, :tags
 
   scope :active, joins(:target).where('users.invitation_token IS NULL')
-  scope :ordered, order('activity_items.created_at DESC')
+  scope :ordered, order('activity_items.id DESC')
   scope :other_users, where('activity_items.user_id != activity_items.target_id')
 end

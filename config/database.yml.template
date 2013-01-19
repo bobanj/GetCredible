@@ -12,7 +12,7 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: GetCredible_development
+  database: givebrand_development
   pool: 5
   username: root
   password: pass
@@ -25,7 +25,7 @@ test:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: GetCredible_test
+  database: givebrand_test
   pool: 5
   username: root
   password: pass
@@ -35,7 +35,7 @@ production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: GetCredible_production
+  database: givebrand_production
   pool: 5
   username: root
   password: pass

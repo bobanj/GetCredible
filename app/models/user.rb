@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   has_many :activity_items, order: 'created_at desc', dependent: :destroy
   has_many :incoming_activities, :foreign_key => :target_id,
                                  :class_name => 'ActivityItem',
-                                 :order => 'created_at DESC'
+                                 :order => 'id DESC'
   has_many :votes, :foreign_key => :voter_id, :dependent => :destroy
   has_many :voted_users, :through => :votes, :uniq => true # Users who you voted for
   has_many :voters, :through => :user_tags, :uniq => true # Users who voted for you
