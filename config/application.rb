@@ -70,3 +70,6 @@ module GetCredible
     config.assets.precompile << ['application.css', 'ie/application.css', 'application.js']
   end
 end
+
+# load .env variables
+Dotenv.load

@@ -41,6 +41,7 @@ gem 'exception_notification'
 gem 'rinku', :require => 'rails_rinku'
 gem 'resque'
 gem 'foreman'
+gem 'dotenv'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.2'

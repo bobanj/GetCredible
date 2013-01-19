@@ -37,3 +37,4 @@ config/environments/*.local.yml
 public/uploads*
 public/uploads/*
 *.rdb
+.env
