@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.11'
 gem 'unicorn', '4.2.0'
 
-gem 'pg'
 gem 'mysql2'
 gem 'devise', '>= 2.0.0'
 gem 'devise_invitable', '= 1.0.1'
