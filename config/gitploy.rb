@@ -33,11 +33,14 @@ deploy do
   push!
   remote do
     run "cd #{config.path}"
-    run "git reset --hard"
+    run "source ~/.bash_login"
+    run "source ~/.rvmrc"
+    run "rvm 1.9.3-p194@getcredible"
     run "ruby -v"
-    run "bundle install"
-    # run "bundle exec rake db:migrate RAILS_ENV=production"
-    # run "bundle exec rake assets:precompile"
-    # run "touch tmp/restart.txt"
+    run "git reset --hard"
+    run "bundle install --without=development:test"
+    run "bundle exec rake db:migrate RAILS_ENV=production"
+    run "bundle exec rake assets:precompile RAILS_ENV=production"
+    run "touch tmp/restart.txt"
   end
 end
